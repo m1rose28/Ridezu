@@ -1,0 +1,167 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Ridezu Map Prototype</title>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0-alpha.1/jquery.mobile-1.2.0-alpha.1.min.css" />
+	  	<link rel="stylesheet" href="themes/ridezu.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0-alpha.1/jquery.mobile-1.2.0-alpha.1.min.js"></script>	</head>
+
+    	<!-- Google Api V3 Declaration -->    
+    	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    	<!-- End of Google Api V3 Declaration -->  
+</head>
+<body>
+<div data-role="page" id="map_result">
+
+    <div data-role="header">
+		<a href="index.php" data-transition="slide" data-direction="reverse" data-icon="home" data-iconpos="notext">Home</a>
+        <h1>Where do you live?</h1>
+        </div>
+        <div data-role="content" style="padding:0px;margin:0px;">
+        <fieldset style="text-align:center;padding:0px;margin:0px;">
+<div id="map_canvas" style="width:100%; height:500px;"></div>
+            </fieldset>
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true"></script>
+<script src="http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true"></script>
+ 
+<script>
+      var map;
+      var geocoder;
+      var infowindow = new google.maps.InfoWindow();
+      var myhouse = new google.maps.LatLng(37.238167, -121.921297);
+
+      function HomeControl(controlDiv, map) {
+
+        // Set CSS styles for the DIV containing the control
+        // Setting padding to 5 px will offset the control
+        // from the edge of the map
+        controlDiv.style.padding = '5px';
+
+        // Set CSS for the control border
+        var controlUI = document.createElement('div');
+        controlUI.style.backgroundColor = 'white';
+        controlUI.style.borderStyle = 'solid';
+        controlUI.style.borderWidth = '2px';
+        controlUI.style.cursor = 'pointer';
+        controlUI.style.textAlign = 'center';
+        controlUI.title = 'Click to set the map to Home';
+        controlDiv.appendChild(controlUI);
+
+        // Set CSS for the control interior
+        var controlText = document.createElement('div');
+        controlText.style.fontFamily = 'Arial,sans-serif';
+        controlText.style.fontSize = '12px';
+        controlText.style.paddingLeft = '4px';
+        controlText.style.paddingRight = '4px';
+        controlText.innerHTML = '<b>Home</b>';
+        controlUI.appendChild(controlText);
+
+        // Setup the click event listeners: simply set the map to
+        // myhouse
+        google.maps.event.addDomListener(controlUI, 'click', function() {
+          map.setCenter(myhouse)
+        });
+
+      }
+
+	  function Target(targetDiv,map){
+		var controlText = document.createElement('div');
+        controlText.innerHTML = '<b>Home</b>';
+        controlUI.appendChild(controlText);
+	  }
+
+
+	function loadMap(){
+
+          
+        geocoder = new google.maps.Geocoder();
+        var mapOptions = {
+          center: myhouse,
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          panControl: false,
+  		  zoomControl: false,
+  		  mapTypeControl: false,
+		  scaleControl: false,
+		  streetViewControl: false,
+		  overviewMapControl: false
+        };
+
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+        // Create the DIV to hold the control and
+        // call the HomeControl() constructor passing
+        // in this DIV.
+        var homeControlDiv = document.createElement('div');
+        var targetDiv = document.createElement('div');
+        
+                targetDiv.innerHTML = '<img style="margin-top:-30px;" src="images/circle.png"/>';
+				targetDiv.style.postion = 'absolute';
+				targetDiv.style.left = '50%';
+				targetDiv.style.top = '50%';
+				targetDiv.style.height = '50px';
+
+        google.maps.event.addDomListener(targetDiv, 'click', function() {
+          a=map.getCenter();
+          codeLatLng();
+          marker = new google.maps.Marker({
+                  position: a,
+                  map: map,
+                  icon:image
+                  });
+          });
+   
+        
+        var homeControl = new HomeControl(homeControlDiv, map);
+
+        homeControlDiv.index = 1;
+        targetDiv.index = 1;
+        
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(targetDiv);
+     
+    	var image = 'images/marker.png';
+    	
+    	// this function turns late long into a real address
+
+	  	function codeLatLng() {
+            var ctr = map.getCenter();
+			var lat = ctr.lat();
+			var lng = ctr.lng();
+    		var latlng = new google.maps.LatLng(lat, lng);
+    		geocoder.geocode({'latLng': latlng}, function(results, status) {
+      		if (status == google.maps.GeocoderStatus.OK) {
+        		if (results[1]) {
+    	      	infowindow.setContent(results[0].formatted_address);
+        	  	infowindow.open(map, marker);
+        		}
+      		} else {
+        		alert("Geocoder failed due to: " + status);
+      		}
+    		});
+  		}
+            
+	}
+
+    // This function calls jquery to load the map page
+    $.mobile.ajaxEnabled = false;
+	$('#map_result').live('pageshow',function(event){
+	loadMap();
+	});	
+
+</script>
+
+
+        </div>
+      <div data-role="footer">
+        	<h1>Footer</h1>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Service test</title>
+		<link rel="stylesheet" href="themes/ridezu.min.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile.structure-1.1.1.min.css" />
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+	</head>
+	<body>
+		<div data-role="page" data-theme="a">
+			<div data-role="header" data-position="inline">
+				<h1>Ridezu Service Test Page</h1>
+			</div>
+			<div data-role="content" data-theme="a">
+
+<script>
+
+// below are the facebook functions.  they are optimized purely for the enrollment flow to get data from the user.  they are loaded from calling facebook();
+
+function facebook(){
+  document.getElementById('login').style.display="block";
+  document.getElementById('logout').style.display="block";
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '443508415694320', // App ID
+      channelUrl : 'ec2-50-18-0-33.us-west-1.compute.amazonaws.com/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+
+    FB.Event.subscribe('auth.statusChange', handleStatusChange);
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+
+  function handleStatusChange(response) {
+      document.body.className = response.authResponse ? 'connected' : 'not_connected';
+      if (response.authResponse) {
+        console.log(response);
+
+        updateUserInfo(response);
+      }
+    }
+  function updateUserInfo(response) {
+     FB.api('/me', function(response) {
+       document.getElementById('user-info').innerHTML = '<br/<br/>ps.  I got all your data. <br/<br/><img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+	   localStorage.first_name=response.first_name;
+	   localStorage.last_name=response.last_name;
+	   localStorage.image="https://graph.facebook.com/" + response.id + "/picture";
+	   localStorage.fbid=response.id;
+	   localStorage.email=response.email;
+	   //at this point you should link to next page .. yippee!
+     });
+   }
+}
+
+function loginUser() {    
+     FB.login(function(response) { }, {scope:'email'});     
+     }
+
+function logoutUser() {    
+     FB.logout();
+     alert("Logged-out");
+     document.getElementById('user-info').innerHTML="";
+     }
+
+ </script>
+ 
+ 	<div id="fbp" style="display:block;padding:10px;">
+
+		<style>
+  			body.connected #login { display: none; }
+  			body.connected #logout { display: block; }
+  			body.not_connected #login { display: block; }
+  			body.not_connected #logout { display: none; }
+		</style>
+
+		<div id="fb-root"></div>
+ 	
+		<br/><br/>Please login with Facebook.  
+		<br/><br/>
+		We're a green company focused on social good.  We'll never spam you or abuse your trust.
+		<br/><br/>
+		<center>
+		<img src="images/fb_icon.gif"/>
+		
+		<div id="login" onclick="loginUser();" data-role="button" data-icon="arrow-r" data-iconpos="right">Login with Facebook</div>
+	    <br><br><div id="logout"><a onClick="logoutUser()" >Logout (testing)</a></div>
+
+		<a onclick="facebook();">load fb</a>
+		<div id="user-info"></div>
+		</center>
+
+	</div>
+
+ 
+	
+			</div>
+		</div>
+	</body>
+</html>

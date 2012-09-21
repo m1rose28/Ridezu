@@ -1,0 +1,47 @@
+
+//Get API list - use default X-Signature i.e. md5(xyx.xyx)
+curl -i -X GET -H 'X-Signature:f8435e6f1d1d15f617c6412620362c21' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/
+
+/********* USER APISs *****************/
+
+//Get all undeleted users - use default X-Signature i.e md5(xyx.xyx)
+curl -i -X GET -H 'X-Signature:f8435e6f1d1d15f617c6412620362c21' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users
+
+//Add user - use default X-Signature i.e. md5(xyx.xyx). Creates new secretKey which is hash of xyx.$fbid.xyx
+curl -i -X POST -H 'Content-Type: application/json' -H 'X-Signature: f8435e6f1d1d15f617c6412620362c21' -d '{"fbid": "test6@test6.com", "fname": "test6" , "lname": "test6", "add1": "test6", "add2": "test6", "city": "test6" , "state": "CA" , "zip": "94536"}' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users
+curl -i -X POST -H 'Content-Type: application/json' -H 'X-Signature: f8435e6f1d1d15f617c6412620362c21' -d '{"fbid": "test15@tesst15.com"}' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users
+
+
+//Get user - use md5 (xyx.$fbid.xyx)
+curl -i -X GET -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users/2
+
+//Search for user by name
+curl -i -X GET -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users/search/fname/PC
+
+//Search for user by facebook id
+curl -i -X GET -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users/search/fbid/test@test.com
+
+ 
+//Update the user
+curl -i -X PUT -H 'Content-Type: application/json' -H 'X-Signature: 5f058776ed7361b23b997434d051b064' -d '{"id": "2", "fname": "PC" ,"lname": "test2", "add1": "test2", "add2": "test2", "city": "test2" , "state": "CA" , "zip": "94536"}' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users/2
+
+ 
+//Soft delete the user
+curl -i -X DELETE -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users/2
+ 
+/******** RIDE APIs - Security feature is OFF for now *****************/
+
+//Find driver by event time
+curl -i -X GET -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/rides/search/eventtime/'2012-09-21 08:00:00'/driver
+
+//Find riders by event time 
+curl -i -X GET -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/rides/search/eventtime/'2012-09-21 08:00:00'/rider
+
+//Find all rides
+curl -i -X GET -H 'X-Signature:f8435e6f1d1d15f617c6412620362c21' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/rides
+
+//Find a particular ride
+curl -i -X GET -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/rides/3
+
+//Find a ride by FB id
+curl -i -X GET -H 'X-Signature: 5f058776ed7361b23b997434d051b064' http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/rides/search/fbid/test@test.com
