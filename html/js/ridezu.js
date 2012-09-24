@@ -1,21 +1,7 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>ridezu</title>
-	  	<link rel="stylesheet" href="themes/ridezu.min.css" />
-  		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile.structure-1.1.1.min.css" /> 
-  		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
-  		<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script> 
-		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true"></script>
-  		<script>
-  		
   		// these are all custom functions used by ridezu.  these are here temporarily and should all be moved to ridezu.js (they should also be minified)
   		
   		//declare initial variables
-  		var p="startp"; 
+  		var p="mainp"; 
   		var map;  
 	    var geocoder;
 	    var myspot;
@@ -24,8 +10,12 @@
   		//page titles are the pageid's coupled with what shows up in the header
   		
   		var pageTitles = { 
+  			"riderequestp":"Request a Ride" ,
+  			"selectdriverp":"Request a Ride" ,
+   			"noroutep":"Stay tuned!" ,
+   			"rideconfirmp":"Ride confirmed!",
   			"startp":"Welcome to Ridezu" ,
-  			"enroll":"Where do you live?" ,
+  			"enrollp":"Where do you live?" ,
   			"fbp":"Login with Facebook" ,
 			"congratp":"Congratulations!",
   			"mainp":"Ridezu" ,
@@ -113,31 +103,32 @@
 		
 		//this is the navigation system. which shows (to) and hides (from) pages as well as invokes specific
 		//javascript for individual pages to load 
-		
-		function nav(from,to){		
+					
+		function nav(from, to){
+			$.ajax({
+  			url: "pages/"+ to + ".html",
+  			cache: true
+			}).done(function( html ) {
+  				document.getElementById(to).innerHTML=html;
+  				nav2(from,to);
+				});
+		}
+			
+		function nav2(from,to){
 			document.getElementById('pTitle').innerHTML=pageTitles[to];
-			document.getElementById("footer").style.display="none";
 			document.getElementById(p).style.display="none";		
 			scrollTo(0,0);
 			document.getElementById(to).style.display="block";
 			p=to;
-			
-			if(to=="termsp"){
-				loadterms();
-				}
 
-			if(to=="whereworkp"){
-				loadMap();
-				}
-
-			if(to=="enroll"){
+			if(to=="enrollp"){
 			  	copy="First, type in or select your home address.<br><br>This address never be shared.";
 			  	showpopup(copy);
 			  	getLocation();
 				}
 
-          	if(to=="mainp"){
-				document.getElementById("footer").style.display="block";
+			if(from=="nav"){
+				closeme();
 				}
 				
 			if(to=="transactionp"){
@@ -164,12 +155,12 @@
 		
 		//this is a function to load html via ajax (need to generalize for all pages loaded via ajax)
 		
-		function loadterms(){
+		function loadpage(page){
 			$.ajax({
-  			url: "terms.html",
+  			url: "pages/"+ page + ".html",
   			cache: true
 			}).done(function( html ) {
-  				document.getElementById('termsp').innerHTML=html;
+  				document.getElementById(page).innerHTML=html;
 				});
 		}
 		
@@ -398,173 +389,3 @@
             xhr.setRequestHeader("Content-Type", "application/json");
   	      }
         
-			
-		</script>
- 		<!-- these are custom styles used by ridezu (in addition to jquery mobile styles).   these are here temporarily and should all be moved to ridezu.css -->
-		<style>
-		 .popup{
-		 position: absolute; 
-		 top:25%; 
-		 left:10%; 
-		 width:80%; 
-		 z-index: 150; 
-		 background-color: #FAFA93;
-		 border:1px solid #FA820A;
-		 -moz-border-radius: 15px;
-		 border-radius: 15px;
-		 padding:10px;
-		 margin:0px;
-		 }
-		 .footerlink{
-		 padding:10px;
-		 font-size:12px;
-		 color:white;
-		 text-decoration:none;
-		 display:inline;
-		 }
-		 .footerbar{
-		 padding:10px;
-		 font-size:12px;
-		 color:white;
-		 width:100%;
-		 text-align:center;
-		 }
-		 table {
-   		 background:#cccccc;
-   		 width:100%;
-		 border-spacing:0;
-  		 border-collapse:collapse;
-  		 }
-  		 td {
-  		 padding:5px;
-  		 }
-  		 .pageTitle{
-  		 font-weight:bold;
-  		 color:#fffff;
-  		 width:80%;
-  		 padding:10px;
-  		 text-align:center;
-  		 }
-  		 #location{
-  		 position: absolute;
-  		 top:40px;
-  		 left:10%;
-  		 width:80%;
-  		 z-index:100;
-  		 }
-  		 .mapselect{
-  		 position: absolute;
-  		 top:80%;
-  		 left:10%;
-  		 width:80%;
-  		 z-index:100;
-  		 }
-
-		.dim {
-		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
-		height: 500px;
-		left: 0;
-		position: absolute;
-		top: 0;
-		width: 100%;
-		z-index: 125;
-		}
-		 </style>	
-
-	</head>
-<body>
- 
- <!-- Start of app + header -->
- <div data-role="page" id="home1" data-theme="a" style="width:100%;">		
-	<div data-role="header" data-position="inline" style="display:block;width:100%;">
-				<a id="homeicon" onclick="nav('','mainp');" data-icon="home" data-iconpos="notext">Home</a>
-				<div class="pageTitle" id="pTitle">Ridezu</div>
-			</div>
-	<div data-role="content" data-theme="a" style="padding:0px;margin:0px;width:100%;">
-	<div id="rpopup" style="display:none;" onclick="rempopup();" class="popup"></div>
-	<div id="darkpage" class="dim" style="display:none;"></div>
-
- <!-- Start of main page: #mainp -->
-	<div id="mainp" style="display:none;padding:10px;"></div>
- <!-- end of main page: #mainp -->
-
- 
- <!-- Start of start page: #startp -->
-	<div id="startp" style="display:block;padding:10px;">
-			<br/><br/>
-			Welcome to Ridezu - a revolutionary way to carpool.
-			<br/><br/>
-			<center>
-			<img src="http://i.imgur.com/bvTCX.jpg"/>
-			</center>
-			<br/><br/>					
-			<div onclick="nav('mainp','enroll');" data-role="button" data-icon="arrow-r" data-iconpos="right">Start</div>
-			<br/><br/><br/><br/><br/>
-		</div>
-<!-- end of start page: #startp -->
-			
-			
-<!-- Start of enroll div -->
-	<div id="enroll" style="display:none;">
-    	<fieldset style="text-align:center;padding:0px;margin:0px;">
-		<input type="text" id="location" value=""/>
-		<input type="text" id="lat" value="" style="display:none;"/>
-		<input type="text" id="lng" value="" style="display:none;"/>
-		<div id="mapselecthome" class="mapselect" onclick="enrollhome();" data-role="button" data-icon="arrow-r" data-iconpos="right">Next</div>
-		<div id="mapselectwork" class="mapselect" onclick="enrollwork();" data-role="button" data-icon="arrow-r" data-iconpos="right" style="display:none;">Next</div>
-		<div id="map_canvas" style="width:100%; height:400px;"></div>
-    	</fieldset> 
-	</div>
-<!-- end of enroll div  -->
-
-<!-- Start of fb div -->
- 	<div id="fbp" style="display:none;padding:10px;">
-		<style>
-  			body.connected #login { display: none; }
-  			body.connected #logout { display: block; }
-  			body.not_connected #login { display: block; }
-  			body.not_connected #logout { display: none; }
-		</style>
-
-		<div id="fb-root"></div>
- 	
-		<br/><br/>Please login with Facebook.  
-		<br/><br/>
-		We're a green company focused on social good.  We'll never spam you or abuse your trust.
-		<br/><br/>
-		<center>
-		<img src="images/fb_icon.gif"/>
-		
-		<div id="login" onclick="loginUser();" data-role="button" data-icon="arrow-r" data-iconpos="right">Login with Facebook</div>
-	    <br><br><div id="logout"><a onClick="logoutUser()" >Logout (testing)</a></div>
-
-		<div id="user-info"></div>
-		</center>
-	</div>
-<!-- end of fb div  -->
-
-<!-- Start of congrat div -->
-	<div id="congratp" style="display:none;padding:10px;">
-		<br/><b>Congratulations <span id="fname"></span>, you're now signed up for Ridezu.</b>
-		<br/><br/>
-		We're putting together routes in your area and will let you know when you can start.
-		<br/><br/>
-		Until then, why don't you take the tour on how it works and complete your profile.
-		<br/><br/>
-		<div onclick="nav('congratp','mainp');" data-role="button" data-icon="arrow-r" data-iconpos="right">Next</div>
-	</div>
-<!-- end of congrat div  -->
-
-	</div>
-
-	<div id="footer" data-role="footer">
-		<div class="footerbar"> 
-		<div class="footerlink" href="" onclick="nav('mainp','termsp');">Terms</div> | 
-		<div class="footerlink" href="" onclick="nav('mainp','termsp');">Privacy</div>
-		&copy; 2012
-		</div>
-	</div>
-			 			 						
-</div>
-</body>
-</html>

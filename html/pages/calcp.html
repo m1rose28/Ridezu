@@ -1,0 +1,34 @@
+			<div style="padding:10px;"">
+						
+			<ul data-role="listview">
+			<li>
+				<style>
+					.containing-element .ui-slider-switch { width: 9em } 
+				</style>
+				<div class="containing-element">
+					<label for="flip-min">Are you a rider or a driver?</label>
+					<select name="flip-min" id="flip-min" data-role="slider">
+					<option value="driver">Driver</option>
+					<option value="rider">Rider</option>
+					</select>
+				</div>
+			</li>	
+			<li>
+				<label for="slider1">How many miles do you drive to work?</label>
+				<input type="range" name="slider1" id="slider1" value="25" min="2" max="100" data-theme="a" />
+			</li>	
+			<li>	
+				<label for="slider2">How much do you pay for gas?</label>
+				<input type="range" name="slider2" id="slider2" step=".01" value="3.85" min="3" max="6" data-theme="a" />
+			</li>	
+			<li>	
+				<label for="slider3">What's your car's gas mileage?</label>
+				<input type="range" name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-theme="a" />
+			</li>	
+			</ul>	
+ 			
+			<br><br><div id="calcv1" onclick="calcv();" data-role="button" data-icon="grid">Calculate</div>
+	
+			<div id="result" style="display:none;" onclick="rempopup();" class="popup"></div>
+		
+			</div>

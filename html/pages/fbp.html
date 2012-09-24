@@ -1,0 +1,23 @@
+ 	<div style="padding:10px;">
+		<style>
+  			body.connected #login { display: none; }
+  			body.connected #logout { display: block; }
+  			body.not_connected #login { display: block; }
+  			body.not_connected #logout { display: none; }
+		</style>
+
+		<div id="fb-root"></div>
+ 	
+		<br/><br/>Please login with Facebook.  
+		<br/><br/>
+		We're a green company focused on social good.  We'll never spam you or abuse your trust.
+		<br/><br/>
+		<center>
+		<img src="images/fb_icon.gif"/>
+		
+		<div id="login" onclick="loginUser();" data-role="button" data-icon="arrow-r" data-iconpos="right">Login with Facebook</div>
+	    <br><br><div id="logout"><a onClick="logoutUser()" >Logout (testing)</a></div>
+
+		<div id="user-info"></div>
+		</center>
+	</div>
