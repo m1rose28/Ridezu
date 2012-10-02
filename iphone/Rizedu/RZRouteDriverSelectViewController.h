@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RZRouteDriverSelectViewController : UIViewController
+- (id)initWithAvailableDrivers:(NSArray *)drivers;
 
 @end

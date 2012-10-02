@@ -67,7 +67,7 @@
 }
 
 - (void)nextButtonPressed {
-    RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithNibName:@"RZRouteDriverSelectViewController" bundle:nil];
+    RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithAvailableDrivers:@[@"Don Alex", @"Jeff Smith", @"Nikko Alexander"]];
     [self.navigationController pushViewController:driverViewController animated:YES];
 
 }

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 Netspectrum Inc,. All rights reserved.
 //
 
-#import "DriverTableViewCell.h"
+#import "HistoryTableViewCell.h"
 
-@implementation DriverTableViewCell
-@synthesize imageView, nameLabel;
+@implementation HistoryTableViewCell
+@synthesize imageView, nameLabel, priceLabel, descriptionTextView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DriverTableViewCell : UITableViewCell
+@interface HistoryTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
+@property (strong, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end
