@@ -1,33 +1,57 @@
+<script>
+function slide1(){
+		x=document.getElementById('slider1').value;
+		document.getElementById('slider1a').innerHTML=x;
+		}
+function slide2(){
+		x=document.getElementById('slider2').value;
+		document.getElementById('slider2a').innerHTML=x;
+		}
+function slide3(){
+		x=document.getElementById('slider3').value;
+		document.getElementById('slider3a').innerHTML=x;
+		}
+</script>
+
+<style>
+input[type='range'] {  
+-webkit-appearance: none;
+padding:0px;
+margin:10px;
+-webkit-border-radius: 5px; 
+width:60%;
+height:25px; 
+background-image: -webkit-linear-gradient(top, #000000, #009600, #000000);
+}  
+</style>	
 			<div style="padding:10px;"">
 						
 			<ul data-role="listview">
 			<li>
-				<style>
-					.containing-element .ui-slider-switch { width: 9em } 
-				</style>
-				<div class="containing-element">
 					<label for="flip-min">Are you a rider or a driver?</label>
 					<select name="flip-min" id="flip-min" data-role="slider">
 					<option value="driver">Driver</option>
 					<option value="rider">Rider</option>
 					</select>
-				</div>
 			</li>	
 			<li>
 				<label for="slider1">How many miles do you drive to work?</label>
-				<input type="range" name="slider1" id="slider1" value="25" min="2" max="100" data-theme="a" />
+				2<input type="range" onchange="slide1();" name="slider1" id="slider1" value="25" min="2" max="100" data-theme="a" />100
+				<div id="slider1a"></div>
 			</li>	
 			<li>	
 				<label for="slider2">How much do you pay for gas?</label>
-				<input type="range" name="slider2" id="slider2" step=".01" value="3.85" min="3" max="6" data-theme="a" />
+				$3.00<input type="range" onchange="slide2();"name="slider2" id="slider2" step=".01" value="3.85" min="3" max="6" data-theme="a" />$6.00
+				<div id="slider2a"></div>
 			</li>	
 			<li>	
 				<label for="slider3">What's your car's gas mileage?</label>
-				<input type="range" name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-theme="a" />
+				10<input type="range" onchange="slide3();"name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-theme="a" />60
+				<div id="slider3a"></div>
 			</li>	
 			</ul>	
  			
-			<br><br><div id="calcv1" onclick="calcv();" data-role="button" data-icon="grid">Calculate</div>
+			<br><br><div id="calcv1" onclick="calcv();" class="button">Calculate</div>
 	
 			<div id="result" style="display:none;" onclick="rempopup();" class="popup"></div>
 		

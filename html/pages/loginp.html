@@ -1,0 +1,72 @@
+<script>
+
+var userdata="";
+ 	
+// this populates the section with data
+
+function getuserlist(){
+  $.ajax({
+  url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users",
+  cache: false,
+  dataType: "json"
+  }).done(function(data) {
+	userdata=data;
+	paintuserlist();	
+	  });
+}
+
+function paintuserlist(){
+  
+  var userlist="<ul class='appNav'>";
+  var r=0;
+  
+  $.each(userdata.users, function(key, value) { 
+	userlist=userlist+"<li><div class=\"rarrow\" onclick=\"selectuser('"+r+"');\">";
+	r++;
+	userlist=userlist+"<span style='padding-left:10px'>"+value.fname+" "+value.lname+": "+value.fbid+"</span>";  
+	var timeslot=value;
+	userlist=userlist+"</div></li>";
+  });
+  
+	userlist=userlist+"</ul>";
+  
+	document.getElementById('userlist1').innerHTML=userlist;
+  
+  }
+
+function selectuser(id){
+	localStorage.seckey=userdata.users[id].seckey;
+	localStorage.fbid=userdata.users[id].fbid;
+	localStorage.first_name=userdata.users[id].fname;
+	localStorage.last_name=userdata.users[id].lname;
+	localStorage.hadd1=userdata.users[id].add1;
+	localStorage.hcity=userdata.users[id].city;
+	localStorage.hstate=userdata.users[id].state;	
+	localStorage.hzip=userdata.users[id].zip;
+	localStorage.wadd1=userdata.users[id].workadd1;
+	localStorage.wcity=userdata.users[id].workcity;
+	localStorage.wstate=userdata.users[id].workstate;	
+	localStorage.wzip=userdata.users[id].workzip;
+	localStorage.email=userdata.users[id].email;
+	localStorage.originlatlong=userdata.users[id].originlatlong;
+	localStorage.destlatlong=userdata.users[id].destlatlong;
+	localStorage.homelatlong=userdata.users[id].homelatlong;
+	localStorage.worklatlong=userdata.users[id].worklatlong;
+	nav('loginp','mainp');
+}
+
+$(document).ready(function() {
+  getuserlist();
+});
+
+
+</script>
+
+	<div style="padding:10px;">
+				<div id="r1" style="display:block;">
+					Please login as:
+					<div id="userlist1"></div>
+    			</div>
+			
+	</div>
+		

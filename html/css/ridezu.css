@@ -1,0 +1,67 @@
+		 .popup{
+		 position: absolute; 
+		 top:25%; 
+		 left:10%; 
+		 width:80%; 
+		 z-index: 150; 
+		 background-color: #FAFA93;
+		 border:1px solid #FA820A;
+		 -moz-border-radius: 15px;
+		 border-radius: 15px;
+		 padding:10px;
+		 margin:0px;
+		 }
+		 .footerlink{
+		 padding:10px;
+		 font-size:12px;
+		 color:white;
+		 text-decoration:none;
+		 display:inline;
+		 }
+		 .footerbar{
+		 padding:10px;
+		 font-size:12px;
+		 color:white;
+		 width:100%;
+		 text-align:center;
+		 }
+		 table {
+   		 background:#cccccc;
+   		 width:100%;
+		 border-spacing:0;
+  		 border-collapse:collapse;
+  		 }
+  		 td {
+  		 padding:5px;
+  		 }
+  		 .pageTitle{
+  		 font-weight:bold;
+  		 color:#fffff;
+  		 width:80%;
+  		 padding:10px;
+  		 text-align:center;
+  		 }
+  		 #location{
+  		 position: absolute;
+  		 top:40px;
+  		 left:10%;
+  		 width:80%;
+  		 z-index:100;
+  		 }
+  		 .mapselect{
+  		 position: absolute;
+  		 top:80%;
+  		 left:10%;
+  		 width:80%;
+  		 z-index:100;
+  		 }
+
+		.dim {
+		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
+		height: 500px;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 125;
+		}
