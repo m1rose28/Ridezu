@@ -1,0 +1,786 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B0FA161AB0810069B46B /* TimeTableViewCell.m */; };
+		D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */; };
+		D320B102161AB9BE0069B46B /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B100161AB9BE0069B46B /* HistoryTableViewCell.m */; };
+		D320B103161AB9BE0069B46B /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B101161AB9BE0069B46B /* HistoryTableViewCell.xib */; };
+		D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */; };
+		D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */; };
+		D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */; };
+		D37253B91615570500E6244E /* RZRouteDriverSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */; };
+		D3AA1F26160E574E00B51488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F25160E574E00B51488 /* UIKit.framework */; };
+		D3AA1F28160E574E00B51488 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F27160E574E00B51488 /* Foundation.framework */; };
+		D3AA1F2A160E574E00B51488 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F29160E574E00B51488 /* CoreGraphics.framework */; };
+		D3AA1F30160E574E00B51488 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F2E160E574E00B51488 /* InfoPlist.strings */; };
+		D3AA1F32160E574E00B51488 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F31160E574E00B51488 /* main.m */; };
+		D3AA1F36160E574E00B51488 /* RZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F35160E574E00B51488 /* RZAppDelegate.m */; };
+		D3AA1F3C160E574E00B51488 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */; };
+		D3AA1F3F160E574E00B51488 /* RZMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */; };
+		D3AA1F42160E574E00B51488 /* RZDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F41160E574E00B51488 /* RZDetailViewController.m */; };
+		D3AA1F45160E574E00B51488 /* RZMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F43160E574E00B51488 /* RZMasterViewController.xib */; };
+		D3AA1F48160E574E00B51488 /* RZDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F46160E574E00B51488 /* RZDetailViewController.xib */; };
+		D3AA1F50160E574E00B51488 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F4F160E574E00B51488 /* SenTestingKit.framework */; };
+		D3AA1F51160E574E00B51488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F25160E574E00B51488 /* UIKit.framework */; };
+		D3AA1F52160E574E00B51488 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F27160E574E00B51488 /* Foundation.framework */; };
+		D3AA1F5A160E574F00B51488 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F58160E574F00B51488 /* InfoPlist.strings */; };
+		D3AA1F5D160E574F00B51488 /* RizeduTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F5C160E574F00B51488 /* RizeduTests.m */; };
+		D3AA1F70160E578900B51488 /* GHRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F6C160E578900B51488 /* GHRevealViewController.m */; };
+		D3AA1F71160E578900B51488 /* GHSidebarSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F6E160E578900B51488 /* GHSidebarSearchViewController.m */; };
+		D3AA1F77160E57B600B51488 /* GHMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F74160E57B600B51488 /* GHMenuCell.m */; };
+		D3AA1F78160E57B600B51488 /* GHMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F76160E57B600B51488 /* GHMenuViewController.m */; };
+		D3AA1F7A160E597F00B51488 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F79160E597F00B51488 /* QuartzCore.framework */; };
+		D3E3E67E16115E4B00E3DC78 /* RZEnrollCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */; };
+		D3E3E67F16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */; };
+		D3F1F1C2160E63610016F6BD /* searchBarBG.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1BD160E63610016F6BD /* searchBarBG.png */; };
+		D3F1F1C3160E63610016F6BD /* searchBarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1BE160E63610016F6BD /* searchBarIcon.png */; };
+		D3F1F1C4160E63610016F6BD /* searchBarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1BF160E63610016F6BD /* searchBarIcon@2x.png */; };
+		D3F1F1C5160E63610016F6BD /* searchTextBG.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1C0160E63610016F6BD /* searchTextBG.png */; };
+		D3F1F1C6160E63610016F6BD /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1C1160E63610016F6BD /* user.png */; };
+		D3F1F1FF160E6B550016F6BD /* NSAlert+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1EC160E6B550016F6BD /* NSAlert+MKNetworkKitAdditions.m */; };
+		D3F1F200160E6B550016F6BD /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1EE160E6B550016F6BD /* NSData+Base64.m */; };
+		D3F1F201160E6B550016F6BD /* NSDate+RFC1123.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1F0160E6B550016F6BD /* NSDate+RFC1123.m */; };
+		D3F1F202160E6B550016F6BD /* NSDictionary+RequestEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1F2160E6B550016F6BD /* NSDictionary+RequestEncoding.m */; };
+		D3F1F203160E6B550016F6BD /* NSString+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1F4160E6B550016F6BD /* NSString+MKNetworkKitAdditions.m */; };
+		D3F1F204160E6B550016F6BD /* UIAlertView+MKNetworkKitAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1F6160E6B550016F6BD /* UIAlertView+MKNetworkKitAdditions.m */; };
+		D3F1F205160E6B550016F6BD /* MKNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1F8160E6B550016F6BD /* MKNetworkEngine.m */; };
+		D3F1F206160E6B550016F6BD /* MKNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1FB160E6B550016F6BD /* MKNetworkOperation.m */; };
+		D3F1F207160E6B550016F6BD /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F1FE160E6B550016F6BD /* Reachability.m */; };
+		D3F1F209160E6B710016F6BD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F208160E6B700016F6BD /* CFNetwork.framework */; };
+		D3F1F20B160E6B770016F6BD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F20A160E6B770016F6BD /* SystemConfiguration.framework */; };
+		D3F1F20D160E6B7F0016F6BD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F20C160E6B7F0016F6BD /* Security.framework */; };
+		D3F1F20F160E6CA50016F6BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F20E160E6CA50016F6BD /* CoreLocation.framework */; };
+		D3F1F213160E6D0C0016F6BD /* RZLocationPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */; };
+		D3F1F214160E6D0C0016F6BD /* RZLocationPickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */; };
+		D3F1F218160E6DF30016F6BD /* RZFBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F216160E6DF30016F6BD /* RZFBLoginViewController.m */; };
+		D3F1F219160E6DF30016F6BD /* RZFBLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F217160E6DF30016F6BD /* RZFBLoginViewController.xib */; };
+		D3F1F21B160E72E40016F6BD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F21A160E72E40016F6BD /* MapKit.framework */; };
+		D3F1F22A160E78CD0016F6BD /* LocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F229160E78CD0016F6BD /* LocationHelper.m */; };
+		D3F1F230160E84F20016F6BD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D3F1F231160E84F20016F6BD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D3F1F232160E84F20016F6BD /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */; };
+		D3F1F24E160EC76E0016F6BD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24A160EC76D0016F6BD /* Icon.png */; };
+		D3F1F24F160EC76E0016F6BD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24B160EC76E0016F6BD /* Icon@2x.png */; };
+		D3F1F250160EC76E0016F6BD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24C160EC76E0016F6BD /* Default.png */; };
+		D3F1F251160EC76E0016F6BD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24D160EC76E0016F6BD /* Default@2x.png */; };
+		D3F1F259160ED0D00016F6BD /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */; };
+		D3F1F25B160ED10A0016F6BD /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D3AA1F53160E574E00B51488 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D3AA1F18160E574E00B51488 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D3AA1F20160E574E00B51488;
+			remoteInfo = Rizedu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D320B0F9161AB0810069B46B /* TimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTableViewCell.h; sourceTree = "<group>"; };
+		D320B0FA161AB0810069B46B /* TimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewCell.m; sourceTree = "<group>"; };
+		D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeTableViewCell.xib; sourceTree = "<group>"; };
+		D320B0FF161AB9BE0069B46B /* HistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewCell.h; sourceTree = "<group>"; };
+		D320B100161AB9BE0069B46B /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
+		D320B101161AB9BE0069B46B /* HistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableViewCell.xib; sourceTree = "<group>"; };
+		D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteTimeSelectViewController.h; sourceTree = "<group>"; };
+		D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteTimeSelectViewController.m; sourceTree = "<group>"; };
+		D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteTimeSelectViewController.xib; sourceTree = "<group>"; };
+		D37253B51615570500E6244E /* RZRouteDriverSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteDriverSelectViewController.h; sourceTree = "<group>"; };
+		D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteDriverSelectViewController.m; sourceTree = "<group>"; };
+		D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteDriverSelectViewController.xib; sourceTree = "<group>"; };
+		D3AA1F21160E574E00B51488 /* Rizedu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rizedu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3AA1F25160E574E00B51488 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D3AA1F27160E574E00B51488 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D3AA1F29160E574E00B51488 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D3AA1F2D160E574E00B51488 /* Rizedu-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rizedu-Info.plist"; sourceTree = "<group>"; };
+		D3AA1F2F160E574E00B51488 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D3AA1F31160E574E00B51488 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D3AA1F33160E574E00B51488 /* Rizedu-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rizedu-Prefix.pch"; sourceTree = "<group>"; };
+		D3AA1F34160E574E00B51488 /* RZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZAppDelegate.h; sourceTree = "<group>"; };
+		D3AA1F35160E574E00B51488 /* RZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZAppDelegate.m; sourceTree = "<group>"; };
+		D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D3AA1F3D160E574E00B51488 /* RZMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZMasterViewController.h; sourceTree = "<group>"; };
+		D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZMasterViewController.m; sourceTree = "<group>"; };
+		D3AA1F40160E574E00B51488 /* RZDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZDetailViewController.h; sourceTree = "<group>"; };
+		D3AA1F41160E574E00B51488 /* RZDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZDetailViewController.m; sourceTree = "<group>"; };
+		D3AA1F44160E574E00B51488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RZMasterViewController.xib; sourceTree = "<group>"; };
+		D3AA1F47160E574E00B51488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RZDetailViewController.xib; sourceTree = "<group>"; };
+		D3AA1F4E160E574E00B51488 /* RizeduTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RizeduTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3AA1F4F160E574E00B51488 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		D3AA1F57160E574F00B51488 /* RizeduTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RizeduTests-Info.plist"; sourceTree = "<group>"; };
+		D3AA1F59160E574F00B51488 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D3AA1F5B160E574F00B51488 /* RizeduTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RizeduTests.h; sourceTree = "<group>"; };
+		D3AA1F5C160E574F00B51488 /* RizeduTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RizeduTests.m; sourceTree = "<group>"; };
+		D3AA1F6A160E578900B51488 /* NSObject+Subscripts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Subscripts.h"; sourceTree = "<group>"; };
+		D3AA1F6B160E578900B51488 /* GHRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRevealViewController.h; sourceTree = "<group>"; };
+		D3AA1F6C160E578900B51488 /* GHRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRevealViewController.m; sourceTree = "<group>"; };
+		D3AA1F6D160E578900B51488 /* GHSidebarSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSidebarSearchViewController.h; sourceTree = "<group>"; };
+		D3AA1F6E160E578900B51488 /* GHSidebarSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSidebarSearchViewController.m; sourceTree = "<group>"; };
+		D3AA1F6F160E578900B51488 /* GHSidebarSearchViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSidebarSearchViewControllerDelegate.h; sourceTree = "<group>"; };
+		D3AA1F73160E57B600B51488 /* GHMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMenuCell.h; sourceTree = "<group>"; };
+		D3AA1F74160E57B600B51488 /* GHMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHMenuCell.m; sourceTree = "<group>"; };
+		D3AA1F75160E57B600B51488 /* GHMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMenuViewController.h; sourceTree = "<group>"; };
+		D3AA1F76160E57B600B51488 /* GHMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHMenuViewController.m; sourceTree = "<group>"; };
+		D3AA1F79160E597F00B51488 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZEnrollCompleteViewController.h; sourceTree = "<group>"; };
+		D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZEnrollCompleteViewController.m; sourceTree = "<group>"; };
+		D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZEnrollCompleteViewController.xib; sourceTree = "<group>"; };
+		D3F1F1BD160E63610016F6BD /* searchBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchBarBG.png; sourceTree = "<group>"; };
+		D3F1F1BE160E63610016F6BD /* searchBarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchBarIcon.png; sourceTree = "<group>"; };
+		D3F1F1BF160E63610016F6BD /* searchBarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchBarIcon@2x.png"; sourceTree = "<group>"; };
+		D3F1F1C0160E63610016F6BD /* searchTextBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchTextBG.png; sourceTree = "<group>"; };
+		D3F1F1C1160E63610016F6BD /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		D3F1F1EC160E6B550016F6BD /* NSAlert+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		D3F1F1ED160E6B550016F6BD /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		D3F1F1EE160E6B550016F6BD /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		D3F1F1EF160E6B550016F6BD /* NSDate+RFC1123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+RFC1123.h"; sourceTree = "<group>"; };
+		D3F1F1F0160E6B550016F6BD /* NSDate+RFC1123.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+RFC1123.m"; sourceTree = "<group>"; };
+		D3F1F1F1160E6B550016F6BD /* NSDictionary+RequestEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+RequestEncoding.h"; sourceTree = "<group>"; };
+		D3F1F1F2160E6B550016F6BD /* NSDictionary+RequestEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+RequestEncoding.m"; sourceTree = "<group>"; };
+		D3F1F1F3160E6B550016F6BD /* NSString+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		D3F1F1F4160E6B550016F6BD /* NSString+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		D3F1F1F5160E6B550016F6BD /* UIAlertView+MKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+MKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		D3F1F1F6160E6B550016F6BD /* UIAlertView+MKNetworkKitAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+MKNetworkKitAdditions.m"; sourceTree = "<group>"; };
+		D3F1F1F7160E6B550016F6BD /* MKNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkEngine.h; sourceTree = "<group>"; };
+		D3F1F1F8160E6B550016F6BD /* MKNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkEngine.m; sourceTree = "<group>"; };
+		D3F1F1F9160E6B550016F6BD /* MKNetworkKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkKit.h; sourceTree = "<group>"; };
+		D3F1F1FA160E6B550016F6BD /* MKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNetworkOperation.h; sourceTree = "<group>"; };
+		D3F1F1FB160E6B550016F6BD /* MKNetworkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNetworkOperation.m; sourceTree = "<group>"; };
+		D3F1F1FD160E6B550016F6BD /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		D3F1F1FE160E6B550016F6BD /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		D3F1F208160E6B700016F6BD /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D3F1F20A160E6B770016F6BD /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D3F1F20C160E6B7F0016F6BD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D3F1F20E160E6CA50016F6BD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D3F1F210160E6D0C0016F6BD /* RZLocationPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZLocationPickViewController.h; sourceTree = "<group>"; };
+		D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZLocationPickViewController.m; sourceTree = "<group>"; };
+		D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZLocationPickViewController.xib; sourceTree = "<group>"; };
+		D3F1F215160E6DF20016F6BD /* RZFBLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZFBLoginViewController.h; sourceTree = "<group>"; };
+		D3F1F216160E6DF30016F6BD /* RZFBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZFBLoginViewController.m; sourceTree = "<group>"; };
+		D3F1F217160E6DF30016F6BD /* RZFBLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZFBLoginViewController.xib; sourceTree = "<group>"; };
+		D3F1F21A160E72E40016F6BD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D3F1F228160E78CD0016F6BD /* LocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationHelper.h; sourceTree = "<group>"; };
+		D3F1F229160E78CD0016F6BD /* LocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationHelper.m; sourceTree = "<group>"; };
+		D3F1F22B160E84F20016F6BD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		D3F1F24A160EC76D0016F6BD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		D3F1F24B160EC76E0016F6BD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		D3F1F24C160EC76E0016F6BD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		D3F1F24D160EC76E0016F6BD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3AA1F1E160E574E00B51488 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3F1F21B160E72E40016F6BD /* MapKit.framework in Frameworks */,
+				D3F1F20F160E6CA50016F6BD /* CoreLocation.framework in Frameworks */,
+				D3F1F20D160E6B7F0016F6BD /* Security.framework in Frameworks */,
+				D3F1F20B160E6B770016F6BD /* SystemConfiguration.framework in Frameworks */,
+				D3F1F209160E6B710016F6BD /* CFNetwork.framework in Frameworks */,
+				D3AA1F7A160E597F00B51488 /* QuartzCore.framework in Frameworks */,
+				D3AA1F26160E574E00B51488 /* UIKit.framework in Frameworks */,
+				D3AA1F28160E574E00B51488 /* Foundation.framework in Frameworks */,
+				D3AA1F2A160E574E00B51488 /* CoreGraphics.framework in Frameworks */,
+				D3F1F259160ED0D00016F6BD /* FacebookSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3AA1F4A160E574E00B51488 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3AA1F50160E574E00B51488 /* SenTestingKit.framework in Frameworks */,
+				D3AA1F51160E574E00B51488 /* UIKit.framework in Frameworks */,
+				D3AA1F52160E574E00B51488 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D3AA1F16160E574E00B51488 = {
+			isa = PBXGroup;
+			children = (
+				D3F1F227160E78BB0016F6BD /* Utils */,
+				D3F1F21A160E72E40016F6BD /* MapKit.framework */,
+				D3F1F1E9160E6B550016F6BD /* MKNetworkKit */,
+				D3F1F1BB160E634E0016F6BD /* Resources */,
+				D3AA1F72160E579200B51488 /* GHSidebarNav */,
+				D3AA1F2B160E574E00B51488 /* Rizedu */,
+				D3AA1F55160E574E00B51488 /* RizeduTests */,
+				D3AA1F24160E574E00B51488 /* Frameworks */,
+				D3AA1F22160E574E00B51488 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D3AA1F22160E574E00B51488 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3AA1F21160E574E00B51488 /* Rizedu.app */,
+				D3AA1F4E160E574E00B51488 /* RizeduTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3AA1F24160E574E00B51488 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */,
+				D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */,
+				D3F1F20E160E6CA50016F6BD /* CoreLocation.framework */,
+				D3F1F20C160E6B7F0016F6BD /* Security.framework */,
+				D3F1F20A160E6B770016F6BD /* SystemConfiguration.framework */,
+				D3F1F208160E6B700016F6BD /* CFNetwork.framework */,
+				D3AA1F79160E597F00B51488 /* QuartzCore.framework */,
+				D3AA1F25160E574E00B51488 /* UIKit.framework */,
+				D3AA1F27160E574E00B51488 /* Foundation.framework */,
+				D3AA1F29160E574E00B51488 /* CoreGraphics.framework */,
+				D3AA1F4F160E574E00B51488 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3AA1F2B160E574E00B51488 /* Rizedu */ = {
+			isa = PBXGroup;
+			children = (
+				D320B0F9161AB0810069B46B /* TimeTableViewCell.h */,
+				D320B0FA161AB0810069B46B /* TimeTableViewCell.m */,
+				D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */,
+				D320B0FF161AB9BE0069B46B /* HistoryTableViewCell.h */,
+				D320B100161AB9BE0069B46B /* HistoryTableViewCell.m */,
+				D320B101161AB9BE0069B46B /* HistoryTableViewCell.xib */,
+				D3AA1F34160E574E00B51488 /* RZAppDelegate.h */,
+				D3AA1F35160E574E00B51488 /* RZAppDelegate.m */,
+				D3AA1F3D160E574E00B51488 /* RZMasterViewController.h */,
+				D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */,
+				D3AA1F40160E574E00B51488 /* RZDetailViewController.h */,
+				D3AA1F41160E574E00B51488 /* RZDetailViewController.m */,
+				D3AA1F43160E574E00B51488 /* RZMasterViewController.xib */,
+				D3AA1F46160E574E00B51488 /* RZDetailViewController.xib */,
+				D3F1F210160E6D0C0016F6BD /* RZLocationPickViewController.h */,
+				D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */,
+				D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */,
+				D3F1F215160E6DF20016F6BD /* RZFBLoginViewController.h */,
+				D3F1F216160E6DF30016F6BD /* RZFBLoginViewController.m */,
+				D3F1F217160E6DF30016F6BD /* RZFBLoginViewController.xib */,
+				D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */,
+				D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */,
+				D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */,
+				D37253B51615570500E6244E /* RZRouteDriverSelectViewController.h */,
+				D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */,
+				D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */,
+				D3AA1F2C160E574E00B51488 /* Supporting Files */,
+				D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */,
+				D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */,
+				D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */,
+			);
+			path = Rizedu;
+			sourceTree = "<group>";
+		};
+		D3AA1F2C160E574E00B51488 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3AA1F2D160E574E00B51488 /* Rizedu-Info.plist */,
+				D3AA1F2E160E574E00B51488 /* InfoPlist.strings */,
+				D3AA1F31160E574E00B51488 /* main.m */,
+				D3F1F24A160EC76D0016F6BD /* Icon.png */,
+				D3F1F24B160EC76E0016F6BD /* Icon@2x.png */,
+				D3F1F24C160EC76E0016F6BD /* Default.png */,
+				D3F1F24D160EC76E0016F6BD /* Default@2x.png */,
+				D3AA1F33160E574E00B51488 /* Rizedu-Prefix.pch */,
+				D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3AA1F55160E574E00B51488 /* RizeduTests */ = {
+			isa = PBXGroup;
+			children = (
+				D3AA1F5B160E574F00B51488 /* RizeduTests.h */,
+				D3AA1F5C160E574F00B51488 /* RizeduTests.m */,
+				D3AA1F56160E574F00B51488 /* Supporting Files */,
+			);
+			path = RizeduTests;
+			sourceTree = "<group>";
+		};
+		D3AA1F56160E574F00B51488 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D3AA1F57160E574F00B51488 /* RizeduTests-Info.plist */,
+				D3AA1F58160E574F00B51488 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D3AA1F72160E579200B51488 /* GHSidebarNav */ = {
+			isa = PBXGroup;
+			children = (
+				D3AA1F73160E57B600B51488 /* GHMenuCell.h */,
+				D3AA1F74160E57B600B51488 /* GHMenuCell.m */,
+				D3AA1F75160E57B600B51488 /* GHMenuViewController.h */,
+				D3AA1F76160E57B600B51488 /* GHMenuViewController.m */,
+				D3AA1F6B160E578900B51488 /* GHRevealViewController.h */,
+				D3AA1F6C160E578900B51488 /* GHRevealViewController.m */,
+				D3AA1F6D160E578900B51488 /* GHSidebarSearchViewController.h */,
+				D3AA1F6E160E578900B51488 /* GHSidebarSearchViewController.m */,
+				D3AA1F6F160E578900B51488 /* GHSidebarSearchViewControllerDelegate.h */,
+			);
+			name = GHSidebarNav;
+			sourceTree = "<group>";
+		};
+		D3F1F1BB160E634E0016F6BD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D3F1F1BD160E63610016F6BD /* searchBarBG.png */,
+				D3F1F1BE160E63610016F6BD /* searchBarIcon.png */,
+				D3F1F1BF160E63610016F6BD /* searchBarIcon@2x.png */,
+				D3F1F1C0160E63610016F6BD /* searchTextBG.png */,
+				D3F1F1C1160E63610016F6BD /* user.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D3F1F1E9160E6B550016F6BD /* MKNetworkKit */ = {
+			isa = PBXGroup;
+			children = (
+				D3F1F1EA160E6B550016F6BD /* Categories */,
+				D3F1F1F7160E6B550016F6BD /* MKNetworkEngine.h */,
+				D3F1F1F8160E6B550016F6BD /* MKNetworkEngine.m */,
+				D3F1F1F9160E6B550016F6BD /* MKNetworkKit.h */,
+				D3F1F1FA160E6B550016F6BD /* MKNetworkOperation.h */,
+				D3F1F1FB160E6B550016F6BD /* MKNetworkOperation.m */,
+				D3F1F1FC160E6B550016F6BD /* Reachability */,
+			);
+			path = MKNetworkKit;
+			sourceTree = "<group>";
+		};
+		D3F1F1EA160E6B550016F6BD /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D3F1F1EC160E6B550016F6BD /* NSAlert+MKNetworkKitAdditions.m */,
+				D3F1F1ED160E6B550016F6BD /* NSData+Base64.h */,
+				D3F1F1EE160E6B550016F6BD /* NSData+Base64.m */,
+				D3F1F1EF160E6B550016F6BD /* NSDate+RFC1123.h */,
+				D3F1F1F0160E6B550016F6BD /* NSDate+RFC1123.m */,
+				D3F1F1F1160E6B550016F6BD /* NSDictionary+RequestEncoding.h */,
+				D3F1F1F2160E6B550016F6BD /* NSDictionary+RequestEncoding.m */,
+				D3F1F1F3160E6B550016F6BD /* NSString+MKNetworkKitAdditions.h */,
+				D3F1F1F4160E6B550016F6BD /* NSString+MKNetworkKitAdditions.m */,
+				D3F1F1F5160E6B550016F6BD /* UIAlertView+MKNetworkKitAdditions.h */,
+				D3F1F1F6160E6B550016F6BD /* UIAlertView+MKNetworkKitAdditions.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		D3F1F1FC160E6B550016F6BD /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				D3F1F1FD160E6B550016F6BD /* Reachability.h */,
+				D3F1F1FE160E6B550016F6BD /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+		D3F1F227160E78BB0016F6BD /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D3F1F22B160E84F20016F6BD /* MBProgressHUD.h */,
+				D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */,
+				D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */,
+				D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */,
+				D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */,
+				D3AA1F6A160E578900B51488 /* NSObject+Subscripts.h */,
+				D3F1F228160E78CD0016F6BD /* LocationHelper.h */,
+				D3F1F229160E78CD0016F6BD /* LocationHelper.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D3AA1F20160E574E00B51488 /* Rizedu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3AA1F60160E574F00B51488 /* Build configuration list for PBXNativeTarget "Rizedu" */;
+			buildPhases = (
+				D3AA1F1D160E574E00B51488 /* Sources */,
+				D3AA1F1E160E574E00B51488 /* Frameworks */,
+				D3AA1F1F160E574E00B51488 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Rizedu;
+			productName = Rizedu;
+			productReference = D3AA1F21160E574E00B51488 /* Rizedu.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D3AA1F4D160E574E00B51488 /* RizeduTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3AA1F63160E574F00B51488 /* Build configuration list for PBXNativeTarget "RizeduTests" */;
+			buildPhases = (
+				D3AA1F49160E574E00B51488 /* Sources */,
+				D3AA1F4A160E574E00B51488 /* Frameworks */,
+				D3AA1F4B160E574E00B51488 /* Resources */,
+				D3AA1F4C160E574E00B51488 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D3AA1F54160E574E00B51488 /* PBXTargetDependency */,
+			);
+			name = RizeduTests;
+			productName = RizeduTests;
+			productReference = D3AA1F4E160E574E00B51488 /* RizeduTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3AA1F18160E574E00B51488 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RZ;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Tao Xie";
+			};
+			buildConfigurationList = D3AA1F1B160E574E00B51488 /* Build configuration list for PBXProject "Rizedu" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D3AA1F16160E574E00B51488;
+			productRefGroup = D3AA1F22160E574E00B51488 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D3AA1F20160E574E00B51488 /* Rizedu */,
+				D3AA1F4D160E574E00B51488 /* RizeduTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3AA1F1F160E574E00B51488 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3AA1F30160E574E00B51488 /* InfoPlist.strings in Resources */,
+				D3AA1F3C160E574E00B51488 /* Default-568h@2x.png in Resources */,
+				D3AA1F45160E574E00B51488 /* RZMasterViewController.xib in Resources */,
+				D3AA1F48160E574E00B51488 /* RZDetailViewController.xib in Resources */,
+				D3F1F1C2160E63610016F6BD /* searchBarBG.png in Resources */,
+				D3F1F1C3160E63610016F6BD /* searchBarIcon.png in Resources */,
+				D3F1F1C4160E63610016F6BD /* searchBarIcon@2x.png in Resources */,
+				D3F1F1C5160E63610016F6BD /* searchTextBG.png in Resources */,
+				D3F1F1C6160E63610016F6BD /* user.png in Resources */,
+				D3F1F214160E6D0C0016F6BD /* RZLocationPickViewController.xib in Resources */,
+				D3F1F219160E6DF30016F6BD /* RZFBLoginViewController.xib in Resources */,
+				D3F1F232160E84F20016F6BD /* SVProgressHUD.bundle in Resources */,
+				D3F1F24E160EC76E0016F6BD /* Icon.png in Resources */,
+				D3F1F24F160EC76E0016F6BD /* Icon@2x.png in Resources */,
+				D3F1F250160EC76E0016F6BD /* Default.png in Resources */,
+				D3F1F251160EC76E0016F6BD /* Default@2x.png in Resources */,
+				D3F1F25B160ED10A0016F6BD /* FacebookSDKResources.bundle in Resources */,
+				D3E3E67F16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib in Resources */,
+				D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */,
+				D37253B91615570500E6244E /* RZRouteDriverSelectViewController.xib in Resources */,
+				D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */,
+				D320B103161AB9BE0069B46B /* HistoryTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3AA1F4B160E574E00B51488 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3AA1F5A160E574F00B51488 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D3AA1F4C160E574E00B51488 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3AA1F1D160E574E00B51488 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3AA1F32160E574E00B51488 /* main.m in Sources */,
+				D3AA1F36160E574E00B51488 /* RZAppDelegate.m in Sources */,
+				D3AA1F3F160E574E00B51488 /* RZMasterViewController.m in Sources */,
+				D3AA1F42160E574E00B51488 /* RZDetailViewController.m in Sources */,
+				D3AA1F70160E578900B51488 /* GHRevealViewController.m in Sources */,
+				D3AA1F71160E578900B51488 /* GHSidebarSearchViewController.m in Sources */,
+				D3AA1F77160E57B600B51488 /* GHMenuCell.m in Sources */,
+				D3AA1F78160E57B600B51488 /* GHMenuViewController.m in Sources */,
+				D3F1F1FF160E6B550016F6BD /* NSAlert+MKNetworkKitAdditions.m in Sources */,
+				D3F1F200160E6B550016F6BD /* NSData+Base64.m in Sources */,
+				D3F1F201160E6B550016F6BD /* NSDate+RFC1123.m in Sources */,
+				D3F1F202160E6B550016F6BD /* NSDictionary+RequestEncoding.m in Sources */,
+				D3F1F203160E6B550016F6BD /* NSString+MKNetworkKitAdditions.m in Sources */,
+				D3F1F204160E6B550016F6BD /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
+				D3F1F205160E6B550016F6BD /* MKNetworkEngine.m in Sources */,
+				D3F1F206160E6B550016F6BD /* MKNetworkOperation.m in Sources */,
+				D3F1F207160E6B550016F6BD /* Reachability.m in Sources */,
+				D3F1F213160E6D0C0016F6BD /* RZLocationPickViewController.m in Sources */,
+				D3F1F218160E6DF30016F6BD /* RZFBLoginViewController.m in Sources */,
+				D3F1F22A160E78CD0016F6BD /* LocationHelper.m in Sources */,
+				D3F1F230160E84F20016F6BD /* MBProgressHUD.m in Sources */,
+				D3F1F231160E84F20016F6BD /* SVProgressHUD.m in Sources */,
+				D3E3E67E16115E4B00E3DC78 /* RZEnrollCompleteViewController.m in Sources */,
+				D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */,
+				D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */,
+				D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */,
+				D320B102161AB9BE0069B46B /* HistoryTableViewCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3AA1F49160E574E00B51488 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3AA1F5D160E574F00B51488 /* RizeduTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D3AA1F54160E574E00B51488 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D3AA1F20160E574E00B51488 /* Rizedu */;
+			targetProxy = D3AA1F53160E574E00B51488 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D3AA1F2E160E574E00B51488 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3AA1F2F160E574E00B51488 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D3AA1F43160E574E00B51488 /* RZMasterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3AA1F44160E574E00B51488 /* en */,
+			);
+			name = RZMasterViewController.xib;
+			sourceTree = "<group>";
+		};
+		D3AA1F46160E574E00B51488 /* RZDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3AA1F47160E574E00B51488 /* en */,
+			);
+			name = RZDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+		D3AA1F58160E574F00B51488 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D3AA1F59160E574F00B51488 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D3AA1F5E160E574F00B51488 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mark Rose (93MXG7LWEC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Rose (93MXG7LWEC)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PROVISIONING_PROFILE = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D3AA1F5F160E574F00B51488 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Mark Rose";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mark Rose";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "0A64E19D-A31E-4CD3-851E-2C440FC25EB5";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D3AA1F61160E574F00B51488 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = armv7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../FacebookSDK\"",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rizedu/Rizedu-Prefix.pch";
+				INFOPLIST_FILE = "Rizedu/Rizedu-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-lsqlite3.0";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D3AA1F62160E574F00B51488 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = armv7;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../FacebookSDK\"",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rizedu/Rizedu-Prefix.pch";
+				INFOPLIST_FILE = "Rizedu/Rizedu-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-lsqlite3.0";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D3AA1F64160E574F00B51488 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Rizedu.app/Rizedu";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rizedu/Rizedu-Prefix.pch";
+				INFOPLIST_FILE = "RizeduTests/RizeduTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		D3AA1F65160E574F00B51488 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Rizedu.app/Rizedu";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rizedu/Rizedu-Prefix.pch";
+				INFOPLIST_FILE = "RizeduTests/RizeduTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3AA1F1B160E574E00B51488 /* Build configuration list for PBXProject "Rizedu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3AA1F5E160E574F00B51488 /* Debug */,
+				D3AA1F5F160E574F00B51488 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3AA1F60160E574F00B51488 /* Build configuration list for PBXNativeTarget "Rizedu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3AA1F61160E574F00B51488 /* Debug */,
+				D3AA1F62160E574F00B51488 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3AA1F63160E574F00B51488 /* Build configuration list for PBXNativeTarget "RizeduTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3AA1F64160E574F00B51488 /* Debug */,
+				D3AA1F65160E574F00B51488 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3AA1F18160E574E00B51488 /* Project object */;
+}
