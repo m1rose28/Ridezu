@@ -8,8 +8,12 @@
 
 #import "RZRouteDriverSelectViewController.h"
 
-@interface RZRouteDriverSelectViewController ()
-
+@interface RZRouteDriverSelectViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate>{
+    
+}
+@property (nonatomic, strong) IBOutlet UILabel *costSavingAmountLabel;
+@property (nonatomic, strong) IBOutlet UILabel *gasCarbonSavingLabel;
+@property (nonatomic, strong) IBOutlet UIView *routeContainerView;
 @end
 
 @implementation RZRouteDriverSelectViewController

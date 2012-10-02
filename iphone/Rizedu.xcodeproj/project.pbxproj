@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B0FA161AB0810069B46B /* TimeTableViewCell.m */; };
 		D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */; };
-		D320B102161AB9BE0069B46B /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B100161AB9BE0069B46B /* HistoryTableViewCell.m */; };
-		D320B103161AB9BE0069B46B /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B101161AB9BE0069B46B /* HistoryTableViewCell.xib */; };
+		D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B100161AB9BE0069B46B /* DriverTableViewCell.m */; };
+		D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */; };
 		D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */; };
 		D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */; };
 		D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */; };
@@ -87,9 +87,9 @@
 		D320B0F9161AB0810069B46B /* TimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTableViewCell.h; sourceTree = "<group>"; };
 		D320B0FA161AB0810069B46B /* TimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewCell.m; sourceTree = "<group>"; };
 		D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeTableViewCell.xib; sourceTree = "<group>"; };
-		D320B0FF161AB9BE0069B46B /* HistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewCell.h; sourceTree = "<group>"; };
-		D320B100161AB9BE0069B46B /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
-		D320B101161AB9BE0069B46B /* HistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableViewCell.xib; sourceTree = "<group>"; };
+		D320B0FF161AB9BE0069B46B /* DriverTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverTableViewCell.h; sourceTree = "<group>"; };
+		D320B100161AB9BE0069B46B /* DriverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverTableViewCell.m; sourceTree = "<group>"; };
+		D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverTableViewCell.xib; sourceTree = "<group>"; };
 		D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteTimeSelectViewController.h; sourceTree = "<group>"; };
 		D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteTimeSelectViewController.m; sourceTree = "<group>"; };
 		D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteTimeSelectViewController.xib; sourceTree = "<group>"; };
@@ -261,9 +261,9 @@
 				D320B0F9161AB0810069B46B /* TimeTableViewCell.h */,
 				D320B0FA161AB0810069B46B /* TimeTableViewCell.m */,
 				D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */,
-				D320B0FF161AB9BE0069B46B /* HistoryTableViewCell.h */,
-				D320B100161AB9BE0069B46B /* HistoryTableViewCell.m */,
-				D320B101161AB9BE0069B46B /* HistoryTableViewCell.xib */,
+				D320B0FF161AB9BE0069B46B /* DriverTableViewCell.h */,
+				D320B100161AB9BE0069B46B /* DriverTableViewCell.m */,
+				D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */,
 				D3AA1F34160E574E00B51488 /* RZAppDelegate.h */,
 				D3AA1F35160E574E00B51488 /* RZAppDelegate.m */,
 				D3AA1F3D160E574E00B51488 /* RZMasterViewController.h */,
@@ -504,7 +504,7 @@
 				D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */,
 				D37253B91615570500E6244E /* RZRouteDriverSelectViewController.xib in Resources */,
 				D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */,
-				D320B103161AB9BE0069B46B /* HistoryTableViewCell.xib in Resources */,
+				D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,7 +565,7 @@
 				D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */,
 				D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */,
 				D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */,
-				D320B102161AB9BE0069B46B /* HistoryTableViewCell.m in Sources */,
+				D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +682,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../FacebookSDK\"",
@@ -693,6 +695,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -701,6 +705,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../FacebookSDK\"",
@@ -712,6 +718,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

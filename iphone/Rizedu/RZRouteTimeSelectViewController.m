@@ -7,6 +7,7 @@
 //
 
 #import "RZRouteTimeSelectViewController.h"
+#import "RZRouteDriverSelectViewController.h"
 #import "TimeTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -59,6 +60,16 @@
     _lastSelected = [NSIndexPath indexPathForRow:1 inSection:0];
     _timeTableFrame = CGRectMake(_timeTable.frame.origin.x, _timeTable.frame.origin.y,
                                  _timeTable.frame.size.width, _timeTable.frame.size.height);
+    
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Next"
+                                                                    style:UIBarButtonSystemItemDone target:self action:@selector(nextButtonPressed)];
+    self.navigationItem.rightBarButtonItem = rightButton;
+}
+
+- (void)nextButtonPressed {
+    RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithNibName:@"RZRouteDriverSelectViewController" bundle:nil];
+    [self.navigationController pushViewController:driverViewController animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning
