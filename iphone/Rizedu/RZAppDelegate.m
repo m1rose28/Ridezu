@@ -20,7 +20,7 @@
 #import "RZRouteTimeSelectViewController.h"
 
 #import <FacebookSDK/FacebookSDK.h>
-
+#import <Parse/Parse.h>
 
 #pragma mark -
 #pragma mark Private Interface
@@ -58,6 +58,9 @@ extern CFAbsoluteTime StartTime;
     dispatch_async(dispatch_get_main_queue(), ^{
         DLog(@"Launched in %f sec", CFAbsoluteTimeGetCurrent() - StartTime);
     });
+    
+    [Parse setApplicationId:@"kVziVVZMyX1fYktgCUZ7QXJ5zPkpUpFYXs1BWyuh"
+                  clientKey:@"R4wRIvvyaNNQFNSKJzUIzPThSCaDSRtpJ2DbtIAo"];
     
     [self customizeAppearance];
     

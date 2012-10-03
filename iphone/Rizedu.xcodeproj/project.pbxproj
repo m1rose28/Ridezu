@@ -40,6 +40,7 @@
 		D3BB250E161BAD5B008CC2D7 /* RZRouteSucessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */; };
 		D3E3E67E16115E4B00E3DC78 /* RZEnrollCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */; };
 		D3E3E67F16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */; };
+		D3EA200A161CDD610056259F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EA2009161CDD610056259F /* Parse.framework */; };
 		D3F1F1C2160E63610016F6BD /* searchBarBG.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1BD160E63610016F6BD /* searchBarBG.png */; };
 		D3F1F1C3160E63610016F6BD /* searchBarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1BE160E63610016F6BD /* searchBarIcon.png */; };
 		D3F1F1C4160E63610016F6BD /* searchBarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F1BF160E63610016F6BD /* searchBarIcon@2x.png */; };
@@ -138,6 +139,7 @@
 		D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZEnrollCompleteViewController.h; sourceTree = "<group>"; };
 		D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZEnrollCompleteViewController.m; sourceTree = "<group>"; };
 		D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZEnrollCompleteViewController.xib; sourceTree = "<group>"; };
+		D3EA2009161CDD610056259F /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		D3F1F1BD160E63610016F6BD /* searchBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchBarBG.png; sourceTree = "<group>"; };
 		D3F1F1BE160E63610016F6BD /* searchBarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = searchBarIcon.png; sourceTree = "<group>"; };
 		D3F1F1BF160E63610016F6BD /* searchBarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "searchBarIcon@2x.png"; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				D3AA1F28160E574E00B51488 /* Foundation.framework in Frameworks */,
 				D3AA1F2A160E574E00B51488 /* CoreGraphics.framework in Frameworks */,
 				D3F1F259160ED0D00016F6BD /* FacebookSDK.framework in Frameworks */,
+				D3EA200A161CDD610056259F /* Parse.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +248,7 @@
 		D3AA1F24160E574E00B51488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3EA2009161CDD610056259F /* Parse.framework */,
 				D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */,
 				D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */,
 				D3F1F20E160E6CA50016F6BD /* CoreLocation.framework */,
