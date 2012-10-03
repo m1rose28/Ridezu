@@ -3,7 +3,7 @@
 //  RouteFlow
 //
 //  Created by Tao Xie on 9/27/12.
-//  Copyright (c) 2012 Tao Xie. All rights reserved.
+//  Copyright (c) 2012 Ridezu Inc. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

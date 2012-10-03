@@ -3,7 +3,7 @@
 //  Flash2Pay
 //
 //  Created by Tao Xie on 5/13/12.
-//  Copyright (c) 2012 Netspectrum Inc,. All rights reserved.
+//  Copyright (c) 2012 Ridezu Inc. All rights reserved.
 //
 
 #import "DriverTableViewCell.h"

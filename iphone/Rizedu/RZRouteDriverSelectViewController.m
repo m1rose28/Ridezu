@@ -3,12 +3,13 @@
 //  RouteFlow
 //
 //  Created by Tao Xie on 9/27/12.
-//  Copyright (c) 2012 Tao Xie. All rights reserved.
+//  Copyright (c) 2012 Ridezu Inc. All rights reserved.
 //
 
 #import "RZRouteDriverSelectViewController.h"
 #import "DriverTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "RZRouteSucessViewController.h"
 
 @interface RZRouteDriverSelectViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate>{
     
@@ -54,6 +55,12 @@
     
     _driversTableView.delegate = self;
     _driversTableView.dataSource = self;
+    
+     // customize back buttonItem
+     
+    UIImage *backButtonImage = [UIImage imageNamed:@"arrow_left.png"];
+    UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    [self.navigationItem setLeftBarButtonItem: customItem];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,6 +106,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    RZRouteSucessViewController *routeSuccessViewController = [[RZRouteSucessViewController alloc] initWithNibName:@"RZRouteSucessViewController" bundle:nil];
+    [self.navigationController pushViewController:routeSuccessViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

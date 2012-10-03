@@ -3,7 +3,7 @@
 //  Rizedu
 //
 //  Created by Tao Xie on 9/22/12.
-//  Copyright (c) 2012 Tao Xie. All rights reserved.
+//  Copyright (c) 2012 Ridezu Inc. All rights reserved.
 //
 
 #import "RZAppDelegate.h"
@@ -59,6 +59,8 @@ extern CFAbsoluteTime StartTime;
         DLog(@"Launched in %f sec", CFAbsoluteTimeGetCurrent() - StartTime);
     });
     
+    [self customizeAppearance];
+    
     UIColor *bgColor = [UIColor colorWithRed:(50.0f/255.0f) green:(57.0f/255.0f) blue:(74.0f/255.0f) alpha:1.0f];
 	self.revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
 	self.revealController.view.backgroundColor = bgColor;
@@ -74,11 +76,11 @@ extern CFAbsoluteTime StartTime;
            initWithRootViewController:[[RZMasterViewController alloc] initWithTitle:@"Profile" withRevealBlock:revealBlock]]],
         @[
             [[UINavigationController alloc] initWithRootViewController:
+             [[RZRouteTimeSelectViewController alloc] initWithAvailableRoutes:@[@"0", @"3", @"2", @"1", @""]]],
+            [[UINavigationController alloc] initWithRootViewController:
              [[RZLocationPickViewController alloc] initWithType:@"home"]],
             [[UINavigationController alloc] initWithRootViewController:
              [[RZFBLoginViewController alloc] initWithNibName:@"RZFBLoginViewController" bundle:nil]],
-            [[UINavigationController alloc] initWithRootViewController:
-             [[RZRouteTimeSelectViewController alloc] initWithAvailableRoutes:@[@"0", @"3", @"2", @"1", @""]]],
             [[UINavigationController alloc] initWithRootViewController:
              [[RZMasterViewController alloc] initWithTitle:@"Events" withRevealBlock:revealBlock]],
             [[UINavigationController alloc] initWithRootViewController:
@@ -152,6 +154,20 @@ extern CFAbsoluteTime StartTime;
     [self.window makeKeyAndVisible];
     return YES;
      */
+}
+
+- (void)customizeAppearance {
+    // this is to unset the background image by other themes
+    [[UINavigationBar appearance] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [[UIToolbar appearance] setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    UIColor *navyBlue = [UIColor colorWithRed:0x00/255.f green:0x22/255.f blue:0x66/255.f alpha:1];
+    UIColor *bBlue = [UIColor colorWithRed:0x27/255.f green:0x40/255.f blue:0x8b/255.f alpha:1];
+    
+    [[UINavigationBar appearance] setTintColor:navyBlue];
+    [[UIToolbar appearance] setTintColor:navyBlue];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:bBlue];
+    [[UISegmentedControl appearance] setTintColor:bBlue];
 }
 
 #pragma mark GHSidebarSearchViewControllerDelegate
