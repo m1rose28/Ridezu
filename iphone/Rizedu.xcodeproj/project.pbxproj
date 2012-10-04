@@ -38,6 +38,14 @@
 		D3AA1F7A160E597F00B51488 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F79160E597F00B51488 /* QuartzCore.framework */; };
 		D3BB250D161BAD5B008CC2D7 /* RZRouteSucessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */; };
 		D3BB250E161BAD5B008CC2D7 /* RZRouteSucessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */; };
+		D3BCCA08161D31B200987648 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA07161D31B200987648 /* AudioToolbox.framework */; };
+		D3BCCA0B161D31B900987648 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA0A161D31B900987648 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D3BCCA0D161D31C100987648 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA0C161D31C100987648 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D3BCCA0F161D31D300987648 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA0E161D31D300987648 /* libsqlite3.dylib */; };
+		D3BCCA11161D31DC00987648 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA10161D31DC00987648 /* libz.1.1.3.dylib */; };
+		D3BCCA13161D31EA00987648 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA12161D31EA00987648 /* MobileCoreServices.framework */; };
+		D3BCCA15161D31F900987648 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA14161D31F900987648 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D3BCCA17161D320F00987648 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA16161D320F00987648 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D3E3E67E16115E4B00E3DC78 /* RZEnrollCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */; };
 		D3E3E67F16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */; };
 		D3EA200A161CDD610056259F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EA2009161CDD610056259F /* Parse.framework */; };
@@ -136,6 +144,14 @@
 		D3BB250A161BAD5B008CC2D7 /* RZRouteSucessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteSucessViewController.h; sourceTree = "<group>"; };
 		D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteSucessViewController.m; sourceTree = "<group>"; };
 		D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteSucessViewController.xib; sourceTree = "<group>"; };
+		D3BCCA07161D31B200987648 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D3BCCA0A161D31B900987648 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		D3BCCA0C161D31C100987648 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		D3BCCA0E161D31D300987648 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		D3BCCA10161D31DC00987648 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		D3BCCA12161D31EA00987648 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		D3BCCA14161D31F900987648 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		D3BCCA16161D320F00987648 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZEnrollCompleteViewController.h; sourceTree = "<group>"; };
 		D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZEnrollCompleteViewController.m; sourceTree = "<group>"; };
 		D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZEnrollCompleteViewController.xib; sourceTree = "<group>"; };
@@ -194,6 +210,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3BCCA17161D320F00987648 /* StoreKit.framework in Frameworks */,
+				D3BCCA15161D31F900987648 /* Social.framework in Frameworks */,
+				D3BCCA13161D31EA00987648 /* MobileCoreServices.framework in Frameworks */,
+				D3BCCA11161D31DC00987648 /* libz.1.1.3.dylib in Frameworks */,
+				D3BCCA0F161D31D300987648 /* libsqlite3.dylib in Frameworks */,
+				D3BCCA0D161D31C100987648 /* AdSupport.framework in Frameworks */,
+				D3BCCA0B161D31B900987648 /* Accounts.framework in Frameworks */,
+				D3BCCA08161D31B200987648 /* AudioToolbox.framework in Frameworks */,
 				D3F1F21B160E72E40016F6BD /* MapKit.framework in Frameworks */,
 				D3F1F20F160E6CA50016F6BD /* CoreLocation.framework in Frameworks */,
 				D3F1F20D160E6B7F0016F6BD /* Security.framework in Frameworks */,
@@ -224,6 +248,14 @@
 		D3AA1F16160E574E00B51488 = {
 			isa = PBXGroup;
 			children = (
+				D3BCCA16161D320F00987648 /* StoreKit.framework */,
+				D3BCCA14161D31F900987648 /* Social.framework */,
+				D3BCCA12161D31EA00987648 /* MobileCoreServices.framework */,
+				D3BCCA10161D31DC00987648 /* libz.1.1.3.dylib */,
+				D3BCCA0E161D31D300987648 /* libsqlite3.dylib */,
+				D3BCCA0C161D31C100987648 /* AdSupport.framework */,
+				D3BCCA0A161D31B900987648 /* Accounts.framework */,
+				D3BCCA07161D31B200987648 /* AudioToolbox.framework */,
 				D3F1F227160E78BB0016F6BD /* Utils */,
 				D3F1F21A160E72E40016F6BD /* MapKit.framework */,
 				D3F1F1E9160E6B550016F6BD /* MKNetworkKit */,
@@ -696,8 +728,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mark Rose (93MXG7LWEC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Rose (93MXG7LWEC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../FacebookSDK\"",
@@ -709,8 +741,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "00E7F923-3C15-4AAE-811E-7EBBF987E882";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -719,8 +751,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Steven Fransen (7S2SY4ZDJA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mark Rose (93MXG7LWEC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mark Rose (93MXG7LWEC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../FacebookSDK\"",
@@ -732,8 +764,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

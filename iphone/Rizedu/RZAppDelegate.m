@@ -142,6 +142,12 @@ extern CFAbsoluteTime StartTime;
 	
     [FBProfilePictureView class];
 
+    // Just for Parse.com testing
+    
+    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+    [testObject setObject:@"bar" forKey:@"foo"];
+    [testObject save];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = self.revealController;
     [self.window makeKeyAndVisible];
