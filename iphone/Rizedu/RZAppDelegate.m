@@ -85,9 +85,9 @@ extern CFAbsoluteTime StartTime;
             [[UINavigationController alloc] initWithRootViewController:
              [[RZFBLoginViewController alloc] initWithNibName:@"RZFBLoginViewController" bundle:nil]],
             [[UINavigationController alloc] initWithRootViewController:
-             [[RZMasterViewController alloc] initWithTitle:@"Events" withRevealBlock:revealBlock]],
+             [[RZMasterViewController alloc] initWithTitle:@"My Profile" withRevealBlock:revealBlock]],
             [[UINavigationController alloc] initWithRootViewController:
-             [[RZMasterViewController alloc] initWithTitle:@"Friends" withRevealBlock:revealBlock]]
+             [[RZMasterViewController alloc] initWithTitle:@"How it works" withRevealBlock:revealBlock]]
         ]
 	];
     
@@ -148,6 +148,10 @@ extern CFAbsoluteTime StartTime;
     [testObject setObject:@"bar" forKey:@"foo"];
     [testObject save];
     
+    [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+     UIRemoteNotificationTypeAlert|
+     UIRemoteNotificationTypeSound];
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = self.revealController;
     [self.window makeKeyAndVisible];
@@ -163,6 +167,17 @@ extern CFAbsoluteTime StartTime;
     [self.window makeKeyAndVisible];
     return YES;
      */
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
+    // Tell Parse about the device token.
+    [PFPush storeDeviceToken:newDeviceToken];
+    // Subscribe to the global broadcast channel.
+    [PFPush subscribeToChannelInBackground:@""];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    [PFPush handlePush:userInfo];
 }
 
 - (void)customizeAppearance {

@@ -54,10 +54,13 @@
 	// Do any additional setup after loading the view, typically from a nib.
     // self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    self.navigationItem.leftBarButtonItem =
-    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-                                                  target:self
-                                                  action:@selector(revealSidebar)];
+    UIImage *slideImage = [UIImage imageNamed:@"lines.png"];
+    UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+
+    self.navigationItem.leftBarButtonItem = slideButtonItem;
+//    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+//                                                  target:self
+//                                                  action:@selector(revealSidebar)];
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;

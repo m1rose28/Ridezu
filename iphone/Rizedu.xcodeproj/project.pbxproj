@@ -11,6 +11,7 @@
 		D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */; };
 		D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B100161AB9BE0069B46B /* DriverTableViewCell.m */; };
 		D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */; };
+		D3655D52161E3ED300862024 /* lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3655D51161E3ED300862024 /* lines@2x.png */; };
 		D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */; };
 		D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */; };
 		D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */; };
@@ -101,6 +102,7 @@
 		D320B0FF161AB9BE0069B46B /* DriverTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverTableViewCell.h; sourceTree = "<group>"; };
 		D320B100161AB9BE0069B46B /* DriverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverTableViewCell.m; sourceTree = "<group>"; };
 		D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverTableViewCell.xib; sourceTree = "<group>"; };
+		D3655D51161E3ED300862024 /* lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lines@2x.png"; sourceTree = "<group>"; };
 		D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteTimeSelectViewController.h; sourceTree = "<group>"; };
 		D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteTimeSelectViewController.m; sourceTree = "<group>"; };
 		D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteTimeSelectViewController.xib; sourceTree = "<group>"; };
@@ -248,16 +250,7 @@
 		D3AA1F16160E574E00B51488 = {
 			isa = PBXGroup;
 			children = (
-				D3BCCA16161D320F00987648 /* StoreKit.framework */,
-				D3BCCA14161D31F900987648 /* Social.framework */,
-				D3BCCA12161D31EA00987648 /* MobileCoreServices.framework */,
-				D3BCCA10161D31DC00987648 /* libz.1.1.3.dylib */,
-				D3BCCA0E161D31D300987648 /* libsqlite3.dylib */,
-				D3BCCA0C161D31C100987648 /* AdSupport.framework */,
-				D3BCCA0A161D31B900987648 /* Accounts.framework */,
-				D3BCCA07161D31B200987648 /* AudioToolbox.framework */,
 				D3F1F227160E78BB0016F6BD /* Utils */,
-				D3F1F21A160E72E40016F6BD /* MapKit.framework */,
 				D3F1F1E9160E6B550016F6BD /* MKNetworkKit */,
 				D3F1F1BB160E634E0016F6BD /* Resources */,
 				D3AA1F72160E579200B51488 /* GHSidebarNav */,
@@ -280,6 +273,15 @@
 		D3AA1F24160E574E00B51488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3F1F21A160E72E40016F6BD /* MapKit.framework */,
+				D3BCCA16161D320F00987648 /* StoreKit.framework */,
+				D3BCCA14161D31F900987648 /* Social.framework */,
+				D3BCCA12161D31EA00987648 /* MobileCoreServices.framework */,
+				D3BCCA10161D31DC00987648 /* libz.1.1.3.dylib */,
+				D3BCCA0E161D31D300987648 /* libsqlite3.dylib */,
+				D3BCCA0C161D31C100987648 /* AdSupport.framework */,
+				D3BCCA0A161D31B900987648 /* Accounts.framework */,
+				D3BCCA07161D31B200987648 /* AudioToolbox.framework */,
 				D3EA2009161CDD610056259F /* Parse.framework */,
 				D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */,
 				D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */,
@@ -390,6 +392,7 @@
 		D3F1F1BB160E634E0016F6BD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D3655D51161E3ED300862024 /* lines@2x.png */,
 				D3F1F1BD160E63610016F6BD /* searchBarBG.png */,
 				D3F1F1BE160E63610016F6BD /* searchBarIcon.png */,
 				D3F1F1BF160E63610016F6BD /* searchBarIcon@2x.png */,
@@ -550,6 +553,7 @@
 				D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */,
 				D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */,
 				D3BB250E161BAD5B008CC2D7 /* RZRouteSucessViewController.xib in Resources */,
+				D3655D52161E3ED300862024 /* lines@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,8 +745,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "00E7F923-3C15-4AAE-811E-7EBBF987E882";
+				PROVISIONING_PROFILE = "B30E8EC0-B531-4F99-9E0B-91417CA98146";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B30E8EC0-B531-4F99-9E0B-91417CA98146";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -764,7 +768,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-lsqlite3.0";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
+				PROVISIONING_PROFILE = "B30E8EC0-B531-4F99-9E0B-91417CA98146";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B9EBECAE-1D4A-4C14-9069-90195E5F96C3";
 				WRAPPER_EXTENSION = app;
 			};
