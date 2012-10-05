@@ -143,10 +143,9 @@ extern CFAbsoluteTime StartTime;
     [FBProfilePictureView class];
 
     // Just for Parse.com testing
-    
-    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-    [testObject setObject:@"bar" forKey:@"foo"];
-    [testObject save];
+//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+//    [testObject setObject:@"bar" forKey:@"foo"];
+//    [testObject save];
     
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
      UIRemoteNotificationTypeAlert|
@@ -157,23 +156,13 @@ extern CFAbsoluteTime StartTime;
     [self.window makeKeyAndVisible];
     return YES;
 
-    /*
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-
-    RZMasterViewController *masterViewController = [[RZMasterViewController alloc] initWithNibName:@"RZMasterViewController" bundle:nil];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-    self.window.rootViewController = self.navigationController;
-    [self.window makeKeyAndVisible];
-    return YES;
-     */
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {
     // Tell Parse about the device token.
     [PFPush storeDeviceToken:newDeviceToken];
     // Subscribe to the global broadcast channel.
-    [PFPush subscribeToChannelInBackground:@""];
+    [PFPush subscribeToChannelInBackground:@"ridezu-pub"];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
