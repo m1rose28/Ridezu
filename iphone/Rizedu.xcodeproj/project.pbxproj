@@ -12,6 +12,7 @@
 		D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B100161AB9BE0069B46B /* DriverTableViewCell.m */; };
 		D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */; };
 		D3655D52161E3ED300862024 /* lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3655D51161E3ED300862024 /* lines@2x.png */; };
+		D3655D59161F7BCA00862024 /* NSDictionary+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = D3655D58161F7BCA00862024 /* NSDictionary+JSONCategories.m */; };
 		D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */; };
 		D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */; };
 		D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */; };
@@ -104,6 +105,8 @@
 		D320B100161AB9BE0069B46B /* DriverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverTableViewCell.m; sourceTree = "<group>"; };
 		D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverTableViewCell.xib; sourceTree = "<group>"; };
 		D3655D51161E3ED300862024 /* lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lines@2x.png"; sourceTree = "<group>"; };
+		D3655D57161F7BCA00862024 /* NSDictionary+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONCategories.h"; sourceTree = SOURCE_ROOT; };
+		D3655D58161F7BCA00862024 /* NSDictionary+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONCategories.m"; sourceTree = SOURCE_ROOT; };
 		D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteTimeSelectViewController.h; sourceTree = "<group>"; };
 		D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteTimeSelectViewController.m; sourceTree = "<group>"; };
 		D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteTimeSelectViewController.xib; sourceTree = "<group>"; };
@@ -449,6 +452,8 @@
 		D3F1F227160E78BB0016F6BD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D3655D57161F7BCA00862024 /* NSDictionary+JSONCategories.h */,
+				D3655D58161F7BCA00862024 /* NSDictionary+JSONCategories.m */,
 				D3F1F22B160E84F20016F6BD /* MBProgressHUD.h */,
 				D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */,
 				D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */,
@@ -620,6 +625,7 @@
 				D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */,
 				D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */,
 				D3BB250D161BAD5B008CC2D7 /* RZRouteSucessViewController.m in Sources */,
+				D3655D59161F7BCA00862024 /* NSDictionary+JSONCategories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
