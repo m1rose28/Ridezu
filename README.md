@@ -1,11 +1,15 @@
 ridezu README
 =============
+
 Folders:
 
     iphone/	ridezu iPhone app
     html/	web front
     playground/	test apps.
 
+***
+Git Commands
+------------
 
 git config --global user.name "txie"
 git config --global user.email "txie2004@gmail.com"
