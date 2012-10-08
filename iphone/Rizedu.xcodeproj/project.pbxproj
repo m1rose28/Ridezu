@@ -19,6 +19,7 @@
 		D390B74616227D5400FD4540 /* RZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B74516227D5300FD4540 /* RZUser.m */; };
 		D390B75716227F2500FD4540 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75416227F2500FD4540 /* Utils.m */; };
 		D390B75816227F2500FD4540 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75616227F2500FD4540 /* Constants.m */; };
+		D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */; };
 		D3AA1F26160E574E00B51488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F25160E574E00B51488 /* UIKit.framework */; };
 		D3AA1F28160E574E00B51488 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F27160E574E00B51488 /* Foundation.framework */; };
 		D3AA1F2A160E574E00B51488 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F29160E574E00B51488 /* CoreGraphics.framework */; };
@@ -123,6 +124,8 @@
 		D390B75416227F2500FD4540 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		D390B75516227F2500FD4540 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D390B75616227F2500FD4540 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		D390B7641622937100FD4540 /* NSDictionary+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONCategories.h"; sourceTree = "<group>"; };
+		D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONCategories.m"; sourceTree = "<group>"; };
 		D3AA1F21160E574E00B51488 /* Rizedu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rizedu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AA1F25160E574E00B51488 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D3AA1F27160E574E00B51488 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -476,6 +479,8 @@
 		D3F1F227160E78BB0016F6BD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D390B7641622937100FD4540 /* NSDictionary+JSONCategories.h */,
+				D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */,
 				D390B75316227F2500FD4540 /* Utils.h */,
 				D390B75416227F2500FD4540 /* Utils.m */,
 				D390B75516227F2500FD4540 /* Constants.h */,
@@ -658,6 +663,7 @@
 				D390B74616227D5400FD4540 /* RZUser.m in Sources */,
 				D390B75716227F2500FD4540 /* Utils.m in Sources */,
 				D390B75816227F2500FD4540 /* Constants.m in Sources */,
+				D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
