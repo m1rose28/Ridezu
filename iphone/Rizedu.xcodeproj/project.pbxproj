@@ -16,6 +16,9 @@
 		D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */; };
 		D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */; };
 		D37253B91615570500E6244E /* RZRouteDriverSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */; };
+		D390B74616227D5400FD4540 /* RZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B74516227D5300FD4540 /* RZUser.m */; };
+		D390B75716227F2500FD4540 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75416227F2500FD4540 /* Utils.m */; };
+		D390B75816227F2500FD4540 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75616227F2500FD4540 /* Constants.m */; };
 		D3AA1F26160E574E00B51488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F25160E574E00B51488 /* UIKit.framework */; };
 		D3AA1F28160E574E00B51488 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F27160E574E00B51488 /* Foundation.framework */; };
 		D3AA1F2A160E574E00B51488 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F29160E574E00B51488 /* CoreGraphics.framework */; };
@@ -48,6 +51,10 @@
 		D3BCCA15161D31F900987648 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA14161D31F900987648 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D3BCCA17161D320F00987648 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA16161D320F00987648 /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D3BCCA76161E9C7D00987648 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3BCCA75161E9C7D00987648 /* icon@2x.png */; };
+		D3BCCA7E1620866500987648 /* RZUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BCCA7C1620866500987648 /* RZUserProfileViewController.m */; };
+		D3BCCA7F1620866500987648 /* RZUserProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BCCA7D1620866500987648 /* RZUserProfileViewController.xib */; };
+		D3BCCA831621E2FC00987648 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BCCA811621E2FA00987648 /* LoginViewController.m */; };
+		D3BCCA841621E2FC00987648 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BCCA821621E2FB00987648 /* LoginViewController.xib */; };
 		D3E3E67E16115E4B00E3DC78 /* RZEnrollCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */; };
 		D3E3E67F16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */; };
 		D3EA200A161CDD610056259F /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3EA2009161CDD610056259F /* Parse.framework */; };
@@ -110,6 +117,12 @@
 		D37253B51615570500E6244E /* RZRouteDriverSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteDriverSelectViewController.h; sourceTree = "<group>"; };
 		D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteDriverSelectViewController.m; sourceTree = "<group>"; };
 		D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteDriverSelectViewController.xib; sourceTree = "<group>"; };
+		D390B74416227D5300FD4540 /* RZUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZUser.h; sourceTree = "<group>"; };
+		D390B74516227D5300FD4540 /* RZUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZUser.m; sourceTree = "<group>"; };
+		D390B75316227F2500FD4540 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		D390B75416227F2500FD4540 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		D390B75516227F2500FD4540 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D390B75616227F2500FD4540 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		D3AA1F21160E574E00B51488 /* Rizedu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rizedu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AA1F25160E574E00B51488 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D3AA1F27160E574E00B51488 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -156,6 +169,12 @@
 		D3BCCA14161D31F900987648 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D3BCCA16161D320F00987648 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D3BCCA75161E9C7D00987648 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		D3BCCA7B1620866500987648 /* RZUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZUserProfileViewController.h; sourceTree = "<group>"; };
+		D3BCCA7C1620866500987648 /* RZUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZUserProfileViewController.m; sourceTree = "<group>"; };
+		D3BCCA7D1620866500987648 /* RZUserProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZUserProfileViewController.xib; sourceTree = "<group>"; };
+		D3BCCA801621E2FA00987648 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		D3BCCA811621E2FA00987648 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		D3BCCA821621E2FB00987648 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZEnrollCompleteViewController.h; sourceTree = "<group>"; };
 		D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZEnrollCompleteViewController.m; sourceTree = "<group>"; };
 		D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZEnrollCompleteViewController.xib; sourceTree = "<group>"; };
@@ -303,6 +322,8 @@
 		D3AA1F2B160E574E00B51488 /* Rizedu */ = {
 			isa = PBXGroup;
 			children = (
+				D390B74416227D5300FD4540 /* RZUser.h */,
+				D390B74516227D5300FD4540 /* RZUser.m */,
 				D320B0F9161AB0810069B46B /* TimeTableViewCell.h */,
 				D320B0FA161AB0810069B46B /* TimeTableViewCell.m */,
 				D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */,
@@ -332,6 +353,12 @@
 				D3BB250A161BAD5B008CC2D7 /* RZRouteSucessViewController.h */,
 				D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */,
 				D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */,
+				D3BCCA7B1620866500987648 /* RZUserProfileViewController.h */,
+				D3BCCA7C1620866500987648 /* RZUserProfileViewController.m */,
+				D3BCCA7D1620866500987648 /* RZUserProfileViewController.xib */,
+				D3BCCA801621E2FA00987648 /* LoginViewController.h */,
+				D3BCCA811621E2FA00987648 /* LoginViewController.m */,
+				D3BCCA821621E2FB00987648 /* LoginViewController.xib */,
 				D3AA1F2C160E574E00B51488 /* Supporting Files */,
 				D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */,
 				D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */,
@@ -449,6 +476,10 @@
 		D3F1F227160E78BB0016F6BD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D390B75316227F2500FD4540 /* Utils.h */,
+				D390B75416227F2500FD4540 /* Utils.m */,
+				D390B75516227F2500FD4540 /* Constants.h */,
+				D390B75616227F2500FD4540 /* Constants.m */,
 				D3F1F22B160E84F20016F6BD /* MBProgressHUD.h */,
 				D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */,
 				D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */,
@@ -558,6 +589,8 @@
 				D3BB250E161BAD5B008CC2D7 /* RZRouteSucessViewController.xib in Resources */,
 				D3655D52161E3ED300862024 /* lines@2x.png in Resources */,
 				D3BCCA76161E9C7D00987648 /* icon@2x.png in Resources */,
+				D3BCCA7F1620866500987648 /* RZUserProfileViewController.xib in Resources */,
+				D3BCCA841621E2FC00987648 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +653,11 @@
 				D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */,
 				D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */,
 				D3BB250D161BAD5B008CC2D7 /* RZRouteSucessViewController.m in Sources */,
+				D3BCCA7E1620866500987648 /* RZUserProfileViewController.m in Sources */,
+				D3BCCA831621E2FC00987648 /* LoginViewController.m in Sources */,
+				D390B74616227D5400FD4540 /* RZUser.m in Sources */,
+				D390B75716227F2500FD4540 /* Utils.m in Sources */,
+				D390B75816227F2500FD4540 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

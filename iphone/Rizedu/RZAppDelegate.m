@@ -18,8 +18,11 @@
 #import "RZLocationPickViewController.h"
 #import "RZFBLoginViewController.h"
 #import "RZRouteTimeSelectViewController.h"
+#import "RZUserProfileViewController.h"
 
-#import <FacebookSDK/FacebookSDK.h>
+#import "LoginViewController.h"
+
+// #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
 
 #pragma mark -
@@ -44,13 +47,14 @@ extern CFAbsoluteTime StartTime;
 // a more detailed discussion of handleOpenURL
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     // attempt to extract a token from the url
-    return [FBSession.activeSession handleOpenURL:url];
+    // return [FBSession.activeSession handleOpenURL:url];
+    return [PFFacebookUtils handleOpenURL:url];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // FBSample logic
     // if the app is going away, we close the session object
-    [FBSession.activeSession close];
+    // [FBSession.activeSession close];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -62,6 +66,7 @@ extern CFAbsoluteTime StartTime;
     [Parse setApplicationId:@"kVziVVZMyX1fYktgCUZ7QXJ5zPkpUpFYXs1BWyuh"
                   clientKey:@"R4wRIvvyaNNQFNSKJzUIzPThSCaDSRtpJ2DbtIAo"];
     
+    [PFFacebookUtils initializeWithApplicationId:@"443508415694320"];
     [self customizeAppearance];
     
     UIColor *bgColor = [UIColor colorWithRed:(50.0f/255.0f) green:(57.0f/255.0f) blue:(74.0f/255.0f) alpha:1.0f];
@@ -85,7 +90,7 @@ extern CFAbsoluteTime StartTime;
             [[UINavigationController alloc] initWithRootViewController:
              [[RZFBLoginViewController alloc] initWithNibName:@"RZFBLoginViewController" bundle:nil]],
             [[UINavigationController alloc] initWithRootViewController:
-             [[RZMasterViewController alloc] initWithTitle:@"My Profile" withRevealBlock:revealBlock]],
+             [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil]],
             [[UINavigationController alloc] initWithRootViewController:
              [[RZMasterViewController alloc] initWithTitle:@"How it works" withRevealBlock:revealBlock]]
         ]
@@ -140,7 +145,7 @@ extern CFAbsoluteTime StartTime;
 																	  withControllers:controllers
 																		withCellInfos:cellInfos];
 	
-    [FBProfilePictureView class];
+    // [FBProfilePictureView class];
 
     // Just for Parse.com testing
 //    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
