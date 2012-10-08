@@ -20,6 +20,9 @@
 		D390B75716227F2500FD4540 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75416227F2500FD4540 /* Utils.m */; };
 		D390B75816227F2500FD4540 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75616227F2500FD4540 /* Constants.m */; };
 		D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */; };
+		D390B7A61622980100FD4540 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D390B7A51622980100FD4540 /* CoreData.framework */; };
+		D390B7AF1622992900FD4540 /* RidezuModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D390B7AD1622992900FD4540 /* RidezuModel.xcdatamodeld */; };
+		D390B7B216229E3200FD4540 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B7B116229E3200FD4540 /* Preferences.m */; };
 		D3AA1F26160E574E00B51488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F25160E574E00B51488 /* UIKit.framework */; };
 		D3AA1F28160E574E00B51488 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F27160E574E00B51488 /* Foundation.framework */; };
 		D3AA1F2A160E574E00B51488 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F29160E574E00B51488 /* CoreGraphics.framework */; };
@@ -126,6 +129,10 @@
 		D390B75616227F2500FD4540 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		D390B7641622937100FD4540 /* NSDictionary+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONCategories.h"; sourceTree = "<group>"; };
 		D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONCategories.m"; sourceTree = "<group>"; };
+		D390B7A51622980100FD4540 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D390B7AE1622992900FD4540 /* RidezuModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RidezuModel.xcdatamodel; sourceTree = "<group>"; };
+		D390B7B016229E3200FD4540 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		D390B7B116229E3200FD4540 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		D3AA1F21160E574E00B51488 /* Rizedu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rizedu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AA1F25160E574E00B51488 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D3AA1F27160E574E00B51488 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -236,6 +243,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D390B7A61622980100FD4540 /* CoreData.framework in Frameworks */,
 				D3BCCA17161D320F00987648 /* StoreKit.framework in Frameworks */,
 				D3BCCA15161D31F900987648 /* Social.framework in Frameworks */,
 				D3BCCA13161D31EA00987648 /* MobileCoreServices.framework in Frameworks */,
@@ -274,6 +282,7 @@
 		D3AA1F16160E574E00B51488 = {
 			isa = PBXGroup;
 			children = (
+				D390B7A51622980100FD4540 /* CoreData.framework */,
 				D3F1F227160E78BB0016F6BD /* Utils */,
 				D3F1F1E9160E6B550016F6BD /* MKNetworkKit */,
 				D3F1F1BB160E634E0016F6BD /* Resources */,
@@ -325,6 +334,9 @@
 		D3AA1F2B160E574E00B51488 /* Rizedu */ = {
 			isa = PBXGroup;
 			children = (
+				D390B7AD1622992900FD4540 /* RidezuModel.xcdatamodeld */,
+				D390B7B016229E3200FD4540 /* Preferences.h */,
+				D390B7B116229E3200FD4540 /* Preferences.m */,
 				D390B74416227D5300FD4540 /* RZUser.h */,
 				D390B74516227D5300FD4540 /* RZUser.m */,
 				D320B0F9161AB0810069B46B /* TimeTableViewCell.h */,
@@ -664,6 +676,8 @@
 				D390B75716227F2500FD4540 /* Utils.m in Sources */,
 				D390B75816227F2500FD4540 /* Constants.m in Sources */,
 				D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */,
+				D390B7AF1622992900FD4540 /* RidezuModel.xcdatamodeld in Sources */,
+				D390B7B216229E3200FD4540 /* Preferences.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -887,6 +901,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D390B7AD1622992900FD4540 /* RidezuModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D390B7AE1622992900FD4540 /* RidezuModel.xcdatamodel */,
+			);
+			currentVersion = D390B7AE1622992900FD4540 /* RidezuModel.xcdatamodel */;
+			name = RidezuModel.xcdatamodeld;
+			path = ../RidezuModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D3AA1F18160E574E00B51488 /* Project object */;
 }
