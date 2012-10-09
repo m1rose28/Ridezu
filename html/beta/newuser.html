@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>Ridezu create user Prototype</title>
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+ 
+</head>
+<body>
+
+<script>
+       function regnewuser(){
+            
+ 				user=document.getElementById('userid').value;
+ 					
+ 				var dataset = {
+                "fbid": user,
+                "fname": "test",
+                "lname": "user",
+                "add1": "123 somewhere",
+                "city": "san jose",
+                "state": "ca",    
+                "zip": "95124",
+                "workadd1": "2211 n first st",
+                "workcity": "san jose",
+                "workstate": "ca",    
+                "workzip": "92210",
+                "email": "test@test.com",
+                "homelatlong": "34.34343,131.23232",
+                "worklatlong": "34.34343,131.23232"
+                }
+                
+            var jsondataset = JSON.stringify(dataset);
+        
+            var request=$.ajax({
+                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users",
+                type: "POST",
+                dataType: "json",
+                data: jsondataset,
+                success: function() {alert('check the db, but not sure')},
+                error: function() { alert('already registered?'); },
+                beforeSend: setHeader
+                }); 
+                
+            request.done(function(msg) {
+                  localStorage.seckey=msg.seckey;
+                });                             
+            
+ }
+
+        function setHeader(xhr) {
+            xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            }
+ 
+</script>
+
+<input id="userid" value="1234" type="test"/>
+<a href="#" onclick="regnewuser();">create a new user</a>
+
+</body>
+</html>

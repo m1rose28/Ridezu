@@ -1,8 +1,3 @@
-<?php 
-$p="mainp";
-if(isset($_GET["p"])){$p=$_GET["p"];}
-?>
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -10,14 +5,16 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Ridezu</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link type="text/css" rel="stylesheet" href="css/style.css">
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <link rel="stylesheet" href="themes/ridezu.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/ridezu.css">
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/ridezu.js"></script>
-	<link type="text/css" rel="stylesheet" href="css/ridezu.css">
+	<link type="text/css" rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
@@ -26,7 +23,7 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 		
 		<div id="pagebody" style="left: 0px; ">
 			<header id="toolbarnav" style="left: 0px; ">
-				<a href="index.htm#navmenu" id="menu-btn"></a>
+				<a href="#" id="menu-btn"></a>
 			
 				<h1 id="pTitle">Ridezu</h1>
 			</header>
@@ -63,7 +60,7 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 				<div id="ridepostp"></div>
 				<div id="enrollp"></div>
 				<div id="loginp"></div>
-							
+				<div id="firstp"></div> 	
 			</section>
 		</div>
 		
@@ -73,15 +70,16 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 			</header>
 			
 				<ul>
-					<li><a onclick="nav('nav','loginp');" class="navlink">Login - Testing Only</a></li>
-					<li><a onclick="nav('nav','riderequestp');" class="navlink">Request a Ride</a></li>
-					<li><a onclick="nav('nav','ridepostp');" class="navlink">Post a Ride</a></li>
-					<li><a onclick="nav('nav','accountp');" class="navlink">My Account</a></li>
-					<li><a onclick="nav('nav','profilep');" class="navlink">My Profile</a></li>
-					<li><a onclick="nav('nav','howitworksp');" class="navlink">How it Works</a></li>
-					<li><a onclick="nav('nav','calcp');" class="navlink">Rizunomics</a></li>
-					<li><a onclick="nav('nav','faqp');" class="navlink">FAQ</a></li>
-					<li><a onclick="nav('nav','termsp');" class="navlink">Terms of Service</a></li>
+					<li><a onclick="nav1('loginp');" class="navlink">Login - Testing Only</a></li>
+					<li><a onclick="nav1('riderequestp');" class="navlink">Request a Ride</a></li>
+					<li><a onclick="nav1('ridepostp');" class="navlink">Post a Ride</a></li>
+					<li><a onclick="nav1('accountp');" class="navlink">My Account</a></li>
+					<li><a onclick="nav1('profilep');" class="navlink">My Profile</a></li>
+					<li><a onclick="nav1('howitworksp');" class="navlink">How it Works</a></li>
+					<li><a onclick="nav1('startp');" class="navlink">Enroll Flow - Testing</a></li>
+					<li><a onclick="nav1('calcp');" class="navlink">Rizunomics</a></li>
+					<li><a onclick="nav1('faqp');" class="navlink">FAQ</a></li>
+					<li><a onclick="nav1('termsp');" class="navlink">Terms of Service</a></li>
 				</ul>
 				Ridezu &copy; 2012
 		</div>
@@ -89,10 +87,15 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 
  <!-- this js declares a page and runs with it -->
  <script>
-  $(document).ready(function() {
-  var p="<?php echo $p;?>";
-  nav("mainp",p);
-  });
+  fbid=localStorage.fbid;
+  var p="firstp";
+	if(fbid!=undefined){
+	  nav("firstp","mainp");
+	}
+	else
+	{
+	  nav("firstp","startp");
+	}
   </script>
 
 </body></html>

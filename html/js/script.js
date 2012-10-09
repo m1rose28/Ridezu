@@ -12,29 +12,23 @@ $(document).ready(function(){
 	
 	function openme() { 
 		$(function () {
-		    topbar.animate({
-		       left: "263px"
-		    }, { duration: 300, queue: false });
 		    pagebody.animate({
 		       left: "263px"
-		    }, { duration: 300, queue: false });
+		    }, { duration: 190, queue: false });
 			themenu.animate({
 		       left: "0px"
-		    }, { duration: 260, queue: false });
+		    }, { duration: 190, queue: false });
 		});
 	}
 	
 	function closeme() {
 		var closeme = $(function() {
-	    	topbar.animate({
-	            left: "0px"
-	    	}, { duration: 180, queue: false });
 	    	pagebody.animate({
 	            left: "0px"
-	    	}, { duration: 180, queue: false });
+	    	}, { duration: 190, queue: false });
 			themenu.animate({
 		       left: "-280px"
-		    }, { duration: 220, queue: false });
+		    }, { duration: 190, queue: false });
 		});
 	}
 
@@ -67,14 +61,11 @@ $(document).ready(function(){
 	// viewport.width / viewport.height
 
 		var closeme = $(function() {
-	    	topbar.animate({
-	            left: "0px"
-	    	}, { duration: 180, queue: false });
 	    	pagebody.animate({
 	            left: "0px"
-	    	}, { duration: 180, queue: false });
+	    	}, { duration: 190, queue: false });
 			themenu.animate({
 		       left: "-280px"
-		    }, { duration: 220, queue: false });
+		    }, { duration: 190, queue: false });
 		});
 	}

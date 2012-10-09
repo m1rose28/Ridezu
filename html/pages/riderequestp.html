@@ -1,98 +1,12 @@
-<script>
-
-var requestride="";
- 	
-// this populates the section with data
-
-function getriderlist(){
-   fbid=localStorage.fbid;
- $.ajax({
-  url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/driver",
-  cache: false,
-  dataType: "json"
-  }).done(function(data) {
-	requestride=data;
-	paintlist();
-				
-	  });
-}
-
-function paintlist(){
-
-  document.getElementById('origindesc').innerHTML=requestride.origindesc;
-  document.getElementById('destdesc').innerHTML=requestride.destdesc;
-  document.getElementById('amount').innerHTML=requestride.amount;
-  document.getElementById('gassavings').innerHTML=requestride.gassavings;
-  document.getElementById('co2').innerHTML=requestride.co2;
-  
-  var ridelist="<ul class='appNav'>";
-  var r=0;
-  
-  $.each(requestride.rideList, function(key, value) { 
-	r++;
-	ridelist=ridelist+"<li><div class=\"rarrow\" onclick=\"selectperson('"+key+"');\">";
-	ridelist=ridelist+"<span style='padding-left:10px'>"+key+"</span>";  
-	var timeslot=value;
-	var x=timeslot.length;
-	if(x>0){
-	  ridelist=ridelist+"<span style='padding-left:30px'>"+x+" drivers</span>";  
-	  };
-	ridelist=ridelist+"</div></li>";
-  });
-  
-	ridelist=ridelist+"</ul>";
-  
-	document.getElementById('ridelist1').innerHTML=ridelist;
-  
-  }
-
-function selectperson(timeslot){
-
-	var x=requestride.rideList[timeslot].length>0;
-	if(x>0){
-	var personlist="<ul class='appNav'>";
-	var r=0;
-	ridegroup=requestride.rideList[timeslot];
-	$.each(ridegroup, function(key, value) { 
-			personlist=personlist+"<li><div class=\"rarrow\" onclick=\"selectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"');\">";
-			personlist=personlist+"<image src='https://graph.facebook.com/"+value.fbid+"/picture'/>"+value.name;
-			personlist=personlist+"</div></li>";
-	});
-	personlist=personlist+"</ul>";
-	document.getElementById("personlist1").innerHTML=personlist;
-	document.getElementById("r1").style.display="none";
-	document.getElementById("r2").style.display="block";
-}
-	else {selectride(timeslot,0,0,0);}
-}
-
-function selectride(timeslot,ride,fbid,pname){
-	document.getElementById("r1").style.display="none";
-	document.getElementById("r2").style.display="none";
-	document.getElementById("ridetime").innerHTML=timeslot;
-	document.getElementById("ridepickup").innerHTML=requestride.origindesc;
-	if(ride==0){
-	document.getElementById("r3").style.display="block";
-	}
-	if(ride>0){
-	document.getElementById("pname").innerHTML=pname;
-	document.getElementById("pic").innerHTML="<image src='https://graph.facebook.com/"+fbid+"/picture'/>"+pname;
-	document.getElementById("r4").style.display="block";
-	}
-	
-}
-
-$(document).ready(function() {
-  getriderlist();
-});
-
-
-</script>
 
 	<div style="padding:0px;">
 			<div id="route" style="width:100%;background-color:#aaaaaa;color:#ffffff;height:50px;padding:10px;font-size:14px;">
-				<div style="float:left;text-align:left;">
-					<b>Route</b>
+				<div style="float:left;">
+					<img src="images/reverse.png" style="width:40px;height:40px" onclick="reverseroute();"/>
+					</div>
+					
+				<div style="float:left;text-align:left;padding-left:10px;">
+					<div><b>Route</b></div>
 					<div id="origindesc"></div>
 					<div id="destdesc"></div>
 				</div>
@@ -104,26 +18,27 @@ $(document).ready(function() {
 			</div>
 			<div style="padding:10px;">
 				<div id="r1" style="display:block;">
-    				What time do you want to leave?
+    				What time do you want to <span id="gotext"></span><span id="leavetime"></span>?
+    				<ul class="appNav">
     				<div id="ridelist1"></div>
+    				<li id="showall"><div class="rarrow" onclick="paintlist('1');">Show all times</div></li>
+    				</ul>
     			</div>
 				<div id="r2" style="display:none;">
     				Please choose a driver
          			<div id="personlist1"></div>
    				</div>
 				<div id="r3" style="display:none;">
-    				Sweet!  Your request is in @ <span id="ridetime"></span> at <span id="ridepickup"></span>.
+    				Sweet!  Your request is in @ <span id="ridetimea"></span> at <span id="ridepickupa"></span>.
 					<br/><br/>We'll let you know as soon as we get a match.
          			<br/>
-         			<img src="http://maps.googleapis.com/maps/api/staticmap?center=37.557693,-121.975624&zoom=13&size=100x100&maptype=roadmap
-&markers=color:green%7C%7C37.557693,-121.975624&sensor=false"/>
+         			<img id="ridedesta" src=""/>
    				</div>
 				<div id="r4" style="display:none;">
-    				Sweet!  You're set to meet <span id="pname"></span> @ <span id="ridetime"></span> at <span id="ridepickup"></span>.
-					<br/><br/><span id="pic"></span><span id="name"></span>
+    				Sweet!  You're set to meet <span id="dnameb"></span> @ <span id="ridetimeb"></span> at <span id="ridepickupb"></span>.
+					<br/><br/><span id="dpicb"></span><span id="dnameb1"></span>
          			<br/><br/>
-         			<img src="http://maps.googleapis.com/maps/api/staticmap?center=37.557693,-121.975624&zoom=13&size=100x100&maptype=roadmap
-&markers=color:green%7C%7C37.557693,-121.975624&sensor=false"/>
+         			<img id="ridedestb" src=""/>
    				</div>
 
 			</div>			

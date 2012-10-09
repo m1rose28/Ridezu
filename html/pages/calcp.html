@@ -1,58 +1,33 @@
-<script>
-function slide1(){
-		x=document.getElementById('slider1').value;
-		document.getElementById('slider1a').innerHTML=x;
-		}
-function slide2(){
-		x=document.getElementById('slider2').value;
-		document.getElementById('slider2a').innerHTML=x;
-		}
-function slide3(){
-		x=document.getElementById('slider3').value;
-		document.getElementById('slider3a').innerHTML=x;
-		}
-</script>
-
-<style>
-input[type='range'] {  
--webkit-appearance: none;
-padding:0px;
-margin:10px;
--webkit-border-radius: 5px; 
-width:60%;
-height:25px; 
-background-image: -webkit-linear-gradient(top, #000000, #009600, #000000);
-}  
-</style>	
-			<div style="padding:10px;"">
-						
-			<ul data-role="listview">
+			<div>
+			<ul class="appNav">
 			<li>
-					<label for="flip-min">Are you a rider or a driver?</label>
-					<select name="flip-min" id="flip-min" data-role="slider">
-					<option value="driver">Driver</option>
-					<option value="rider">Rider</option>
-					</select>
+			   <div data-role="fieldcontain" style="padding:3px;left:60px;">
+				   <fieldset data-role="controlgroup" data-type="horizontal">
+		        			
+						   <input type="radio" name="usertype" id="u1" value="driver" checked="checked" />
+						   <label for="u1">Driver</label>
+			   
+						   <input type="radio" name="usertype" id="u2" value="rider"/>
+						   <label for="u2">Rider</label>
+				   </fieldset>
+			   </div>
 			</li>	
 			<li>
 				<label for="slider1">How many miles do you drive to work?</label>
-				2<input type="range" onchange="slide1();" name="slider1" id="slider1" value="25" min="2" max="100" data-theme="a" />100
-				<div id="slider1a"></div>
+				<input type="range" name="slider1" id="slider1" value="25" min="2" max="100" data-highlight="true" data-mini="true" data-theme="a" />
 			</li>	
 			<li>	
-				<label for="slider2">How much do you pay for gas?</label>
-				$3.00<input type="range" onchange="slide2();"name="slider2" id="slider2" step=".01" value="3.85" min="3" max="6" data-theme="a" />$6.00
-				<div id="slider2a"></div>
+				<label for="slider2">How much do you pay per gallon of gas?</label>
+				<input type="range" name="slider2" id="slider2" value="4.19" min="3" max="6" step=".10" data-highlight="true" data-mini="true" data-theme="a" />
 			</li>	
 			<li>	
-				<label for="slider3">What's your car's gas mileage?</label>
-				10<input type="range" onchange="slide3();"name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-theme="a" />60
-				<div id="slider3a"></div>
+				<label for="slider3">What's your car's gas mileage (mpg)?</label>
+				<input type="range" name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-highlight="true" data-mini="true" data-theme="a" />
 			</li>	
-			</ul>	
- 			
-			<br><br><div id="calcv1" onclick="calcv();" class="button">Calculate</div>
-	
+			<li>	
+				<div id="calcv1" onclick="calcv();" data-role="button" data-icon="grid">Calculate</div>
+			</li>
+			</ul>
 			<div id="result" style="display:none;" onclick="rempopup();" class="popup"></div>
 		
 			</div>

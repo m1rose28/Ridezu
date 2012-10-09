@@ -2,7 +2,6 @@
   		
 //declare initial variables
 
-  		var p="mainp"; 
   		var map;  
 	    var geocoder;
 	    var myspot;
@@ -40,6 +39,7 @@
   			"loginp":"Login - Test Page"			
 			};
 		
+
 //this function adds commas to long numbers (used in ridezunomics)
 											
 		function addCommas(str){
@@ -53,6 +53,7 @@
  		   return int.replace(/(\d)(?=(\d{3})+$)/g,"$1,") + dec;
 		}
 		 	
+
 //this is the calculator function for ridezunomics
 
 		function calcv(){
@@ -106,14 +107,25 @@
 		
 //this is the navigation system. which shows (to) and hides (from) pages as well as invokes specific
 //javascript for individual pages to load 
+
+// function to link from navigation side window (close window) and move on
+
+		function nav1(to){
+			closeme();
+			if(p!=to){
+				nav(p,to);
+				}
+			}
 					
 		function nav(from, to){
 			$.ajax({
   			url: "pages/"+ to + ".html",
-  			cache: true,
+  			cache: false,
   			dataType: "html"
 			}).done(function( html ) {
   				document.getElementById(to).innerHTML=html;
+				xx=document.getElementById(to);
+				$(xx).trigger('create');
   				nav2(from,to);  				
 				});
 		}
@@ -122,6 +134,7 @@
 			headerbar=pageTitles[to]+" ("+localStorage.first_name+" "+localStorage.last_name+")";
 			document.getElementById('pTitle').innerHTML=headerbar;
 			document.getElementById(p).style.display="none";		
+			document.getElementById(p).innerHTML="";		
 			scrollTo(0,0);
 			document.getElementById(to).style.display="block";
 			p=to;
@@ -133,11 +146,35 @@
 				}
 
 			if(to=="riderequestp"){
-				getdriverlist();
+				getlist("driver");
+				$('#route').bind('swipeleft', function(){
+ 					localStorage.date=rlist.date;
+ 					alert("next day...");
+ 					role=localStorate.role;
+ 					getlist(role,rlist.route,rlist.nextdate);					
+         			});
+				$('#route').bind('swiperight', function(){
+ 					alert("prior day...");
+ 					pdate=localStorage.date;
+ 					role=localStorage.role;
+ 					getlist(role,rlist.route,pdate);
+         			});
 				}
 
 			if(to=="ridepostp"){
-				getriderlist();
+				getlist("rider");
+				$('#route').bind('swipeleft', function(){
+ 					localStorage.date=rlist.date;
+ 					alert("next day...");
+ 					role=localStorage.role;
+ 					getlist(role,rlist.route,rlist.nextdate);					
+         			});
+				$('#route').bind('swiperight', function(){
+ 					alert("prior day...");
+ 					pdate=localStorage.date;
+ 					role=localStorage.role;
+ 					getlist(role,rlist.route,pdate);
+         			});
 				}
 
 			if(to=="loginp"){
@@ -418,66 +455,118 @@
 		alert("test it worked");
 		}       
 		
+// reverses the route from home to work or work to home
+		function reverseroute(){
+			if(rlist.route=="h2w"){route="w2h";}
+			if(rlist.route=="w2h"){route="h2w";}
+			role=localStorage.role;
+			document.getElementById("r2").style.display="none";
+			document.getElementById("r3").style.display="none";
+			document.getElementById("r1").style.display="block";
+			getlist(role,route,rlist.date);
+		}
  	
-// gets a list of drivers for a specific rider
+// gets a list of riders/drivers
 		
-		function getdriverlist(){
-		  fbid=localStorage.fbid;
-    	  $.ajax({
-		  url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/driver",
- 		  cache: false,
-		  dataType: "json"
-		  }).done(function(data) {
-			requestride=data;
-			paintlist();						
-			  });
+		function getlist(role,route,date){
+		  	  localStorage.role=role;
+		  	  fbid=localStorage.fbid;
+		  	  rlist="";		  
+			  if(route!=undefined){
+				url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/"+role;
+			  }
+				
+			  if(route==undefined){
+				url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/"+role;
+			  }
+			
+			  $.ajax({
+			  url: url,
+			  cache: false,
+			  dataType: "json"
+			  }).done(function(data) {
+				rlist=data;
+				paintlist();						
+				  });
 		}
 		
-// this paints the list of available times (used by riders)
+// this paints the list of available times & drivers/riders
 
-		function paintlist(){		
-		  document.getElementById('origindesc').innerHTML=requestride.origindesc;
-		  document.getElementById('destdesc').innerHTML=requestride.destdesc;
-		  document.getElementById('amount').innerHTML=requestride.amount;
-		  document.getElementById('gassavings').innerHTML=requestride.gassavings;
-		  document.getElementById('co2').innerHTML=requestride.co2;
+		function paintlist(preftime){		
+		  role=localStorage.role;
+		  if(preftime=="1"){document.getElementById('showall').style.display="none";}
+		  if(rlist.day!="Today"){
+		  		x=" on "+rlist.daydate;
+		  		}
+		  		else{
+		  		x=" today";
+		  		}
+		  document.getElementById('leavetime').innerHTML=x;
+		  route=rlist.route;
+		  z=0;
+
+		  if(rlist.route=="h2w"){
+		  		document.getElementById('origindesc').innerHTML="Home";
+				document.getElementById('destdesc').innerHTML="Work";
+				document.getElementById('gotext').innerHTML="go to work";
+		  		} 
+		  		
+		  		else {
+		  		document.getElementById('origindesc').innerHTML="Work";
+				document.getElementById('destdesc').innerHTML="Home";
+				document.getElementById('gotext').innerHTML="go home";
+		  		}
+  
+		  xstartlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size=100x100&maptype=roadmap&markers=color:green%7C%7C"+rlist.startlatlong+"&sensor=false";
+		  document.getElementById('ridedesta').src=xstartlatlong;		  		  
+		  document.getElementById('ridedestb').src=xstartlatlong;		  
+		  document.getElementById('amount').innerHTML=rlist.amount;
+		  document.getElementById('gassavings').innerHTML=rlist.gassavings;
+		  document.getElementById('co2').innerHTML=rlist.co2;
 		  
-		  var ridelist="<ul class='appNav'>";
+		  var ridelist="";
 		  var r=0;
-		  
-		  $.each(requestride.rideList, function(key, value) { 
-			r++;
-			ridelist=ridelist+"<li><div class=\"rarrow\" onclick=\"selectdriver('"+key+"');\">";
-			ridelist=ridelist+"<span style='padding-left:10px'>"+key+"</span>";  
-			timeslot=value;
-			x1=timeslot.length;
-			x2=value[0].rideid;
-			if(x1>0 && x2!=null){
-			  ridelist=ridelist+"<span style='padding-left:30px'>"+x1+" drivers</span>";  
-			  };
-			ridelist=ridelist+"</div></li>";
+
+		  $.each(rlist.rideList, function(key, value) {
+		  	if(rlist.rideList[key][0].timepreference=="Y"){z=r;}
+		  	r++;
 		  });
 		  
-			ridelist=ridelist+"</ul>";
-		  
-			document.getElementById('ridelist1').innerHTML=ridelist;
-		  
+		  r=0;
+
+		  $.each(rlist.rideList, function(key, value) { 			
+			r++;
+			if((r>z && r<(z+5)) || preftime=="1"){
+
+			   if(role=="driver"){ridelist=ridelist+"<li><div class=\"rarrow\" onclick=\"selectdriver('"+key+"');\">";}
+			   if(role=="rider"){ridelist=ridelist+"<li><div class=\"rarrow\" onclick=\"selectrider('"+key+"');\">";}
+
+			   ridelist=ridelist+"<span style='padding-left:10px'>"+key+"</span>";  
+			   timeslot=value;
+			   x1=timeslot.length;
+			   x2=value[0].rideid;
+			   if(x1>0 && x2!=null){
+				 ridelist=ridelist+"<span style='padding-left:30px'>"+x1+" drivers</span>";  
+				 };
+			   ridelist=ridelist+"</div></li>";
+			   }
+		  });
+			document.getElementById('ridelist1').innerHTML=ridelist;		  
 		  }
 		  
-// once you've selected a time slot, this paints the list of available people to ride with (used by riders)
+// once you've selected a time slot, this paints the list of available drivers to ride with (used by riders)
 		
 		function selectdriver(timeslot){
 
-			eventtime=requestride.rideList[timeslot][0].eventtime;		
-			x=requestride.rideList[timeslot][0].fbid;
-			fbid1=localStorage.fbid;
+			eventtime=rlist.rideList[timeslot][0].eventtime;		
+			x=rlist.rideList[timeslot][0].fbid;
 
 			if(x!=null){
 			var personlist="<ul class='appNav'>";
 			var r=0;
-			ridegroup=requestride.rideList[timeslot];
+			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
-					personlist=personlist+"<li><div class=\"rarrow\" onclick=\"selectride('"+timeslot+"','"+value.rideid+"','"+fbid1+"','"+value.name+"','"+x+"');\">";
+					personlist=personlist+"<li><div class=\"rarrow\" onclick=\"selectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
 					personlist=personlist+"<image src='https://graph.facebook.com/"+value.fbid+"/picture'/>"+value.name;
 					personlist=personlist+"</div></li>";
 			});
@@ -486,159 +575,177 @@
 			document.getElementById("r1").style.display="none";
 			document.getElementById("r2").style.display="block";
 		}
-			else {selectride(timeslot,0,fbid1,0,eventtime);}
+			else {selectride(timeslot,0,0,0,eventtime);}
 		}
 
 // this picks the specific ride (used by riders)
 		
-		function selectride(timeslot,rideid,fbid,pname,eventtime){
+		function selectride(timeslot,rideid,driverfbid,pname,eventtime){
 
 			document.getElementById("r1").style.display="none";
 			document.getElementById("r2").style.display="none";
-			document.getElementById("ridetime").innerHTML=timeslot;
-			document.getElementById("ridepickup").innerHTML=requestride.origindesc;
+			fbid=localStorage.fbid;
 			
 			//if picking an empty slot
 			if(rideid==0){
 
-				var dataset = {
-					"fbid":	fbid,
-					"eventtime": eventtime,
-					}				
+			   	 fbid=localStorage.fbid;
+				 
+				 url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider";
 	 
-				var jsondataset = JSON.stringify(dataset);
+				 var dataset = {
+					 "fbid":	fbid,
+					 "eventtime": eventtime,
+					 "route": rlist.route
+					 }				
 	 
-				var request=$.ajax({
-					url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider",
-					type: "POST",
-					dataType: "json",
-					data: jsondataset,
-					success: function(data) {
-						document.getElementById("r3").style.display="block";
-						},
-					error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); },
-					beforeSend: setHeader
-				});
+				 var jsondataset = JSON.stringify(dataset);
+	 
+				 var request=$.ajax({
+					 url: url,
+					 type: "POST",
+					 dataType: "json",
+					 data: jsondataset,
+					 success: function(data) {
+						 document.getElementById("ridetimea").innerHTML=timeslot;
+						 document.getElementById("ridepickupa").innerHTML=rlist.start;
+						 document.getElementById("r3").style.display="block";
+						 },
+					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); },
+					 beforeSend: setHeader
+				 });
 
 			}
+			
 			//if picking a specific ride
+			
 			if(rideid>0){
 			
-				var dataset = {
-					"fbid":	fbid,
-					}				
-				
-				var jsondataset = JSON.stringify(dataset);
-	 
-				url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.comt/ridezu/api/v/1/rides/"+rideid+"/riders";
-				var request=$.ajax({
-					url: url,
-					type: "PUT",
-					dataType: "json",
-					data: jsondataset,
-					success: function(data) {
-						document.getElementById("pname").innerHTML=pname;
-						document.getElementById("pic").innerHTML="<image src='https://graph.facebook.com/"+fbid+"/picture'/>"+pname;
-						document.getElementById("r4").style.display="block";										
-						},
-					error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); },
-					beforeSend: setHeader
-				});
+			   fbid=localStorage.fbid;
+			   
+			   var dataset = {
+				   "fbid":	fbid,
+				   }				
+			   
+			   var jsondataset = JSON.stringify(dataset);
+   
+			   url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/rider";
+			   var request=$.ajax({
+				   url: url,
+				   type: "PUT",
+				   dataType: "json",
+				   data: jsondataset,
+				   success: function(data) {
+						document.getElementById("ridetimeb").innerHTML=timeslot;
+						document.getElementById("ridepickupb").innerHTML=rlist.start;
+						document.getElementById("dnameb").innerHTML=pname;
+						document.getElementById("dnameb1").innerHTML=pname;
+						document.getElementById("dpicb").innerHTML="<image src='https://graph.facebook.com/"+driverfbid+"/picture'/>";
+				   		document.getElementById("r4").style.display="block";
+				   		},
+				   error: function(data) {alert("boo!"+JSON.stringify(data)); },
+				   beforeSend: setHeader
+			   });
 
 			}
 			
 		}
-		
-// gets a list of riders for a specific driver
-		
-		function getriderlist(){
-		  fbid=localStorage.fbid;
-    	  $.ajax({
-		  url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/rider",
- 		  cache: false,
-		  dataType: "json"
-		  }).done(function(data) {
-			requestride=data;
-			paintriderlist();						
-			  });
-		}
-		
-// this paints the list of available times to drive (used by drivers)
-		
-		function paintriderlist(){
-		
-		  document.getElementById('dorigindesc').innerHTML=requestride.origindesc;
-		  document.getElementById('ddestdesc').innerHTML=requestride.destdesc;
-		  document.getElementById('damount').innerHTML=requestride.amount;
-		  document.getElementById('dgassavings').innerHTML=requestride.gassavings;
-		  document.getElementById('dco2').innerHTML=requestride.co2;
-		  
-		  ridelist="<ul class='appNav'>";
-		  r=0;
-		  
-		  $.each(requestride.rideList, function(key, value) { 
-			r++;
-			ridelist=ridelist+"<li><div class=\"rarrow\" onclick=\"selectrider('"+key+"');\">";
-			ridelist=ridelist+"<span style='padding-left:10px'>"+key+"</span>";  
-			timeslot=value;
-			x1=timeslot.length;
-			x2=value[0].rideid;
-			if(x1>0 && x2!=null){
-			  ridelist=ridelist+"<span style='padding-left:30px'>"+x1+" drivers</span>";  
-			  };
-			ridelist=ridelist+"</div></li>";
-		  });
-		  
-			ridelist=ridelist+"</ul>";
-		  
-			document.getElementById('rridelist1').innerHTML=ridelist;
-		  
-		  }
-		  
+ 	
 // once you've selected a time slot, this paints the list of available people who want rides (used by drivers)
 		
 		function selectrider(timeslot){
 
-			eventtime=requestride.rideList[timeslot][0].eventtime;		
-			x=requestride.rideList[timeslot][0].fbid;
+			eventtime=rlist.rideList[timeslot][0].eventtime;		
+			x=rlist.rideList[timeslot][0].fbid;
 			
 			if(x!=null){
 			personlist="<ul class='appNav'>";
 			r=0;
-			ridegroup=requestride.rideList[timeslot];
+			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
-					personlist=personlist+"<li><div class=\"rarrow\" onclick=\"selectrider1('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
+					personlist=personlist+"<li id=\"l"+value.fbid+"\"><div class=\"rarrow\" onclick=\"selectrider1('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
 					personlist=personlist+"<image src='https://graph.facebook.com/"+value.fbid+"/picture'/>"+value.name;
 					personlist=personlist+"</div></li>";
 			});
 			personlist=personlist+"</ul>";
 			document.getElementById("rpersonlist1").innerHTML=personlist;
-			document.getElementById("p1").style.display="none";
-			document.getElementById("p2").style.display="block";
+			document.getElementById("r1").style.display="none";
+			document.getElementById("r2").style.display="block";
 		}
-			else {selectrider1(timeslot,0,0,0,x);}
+			else {selectrider1(timeslot,0,0,0,eventtime);}
 		}
 
-// this picks the specific ride (used by riders)
+// this picks the specific ride (used by drivers)
 		
-		function selectrider1(timeslot,ride,fbid,pname,eventtime){
-			alert(eventtime);
-			document.getElementById("p1").style.display="none";
-			document.getElementById("p2").style.display="none";
-			document.getElementById("dridetime").innerHTML=timeslot;
-			document.getElementById("dridepickup").innerHTML=requestride.origindesc;
-			
-			//if picking an empty slot
+		function selectrider1(timeslot,ride,fbid1,pname,eventtime){			
+
+			//if picking an empty slot (for drivers)
+
 			if(ride==0){
-			document.getElementById("p3").style.display="block";
-			}
-			//if picking a specific ride
-			if(ride>0){
-			document.getElementById("dpname").innerHTML=pname;
-			document.getElementById("dpic").innerHTML="<image src='https://graph.facebook.com/"+fbid+"/picture'/>"+pname;
-			document.getElementById("p4").style.display="block";
-			}
+
+			   	 fbid=localStorage.fbid;
+				 
+				 url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider";
+	 
+				 var dataset = {
+					 "fbid":	fbid,
+					 "eventtime": eventtime,
+					 "route": rlist.route
+					 }				
+	 
+				 var jsondataset = JSON.stringify(dataset);
+	 
+				 var request=$.ajax({
+					 url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/driver",
+					 type: "POST",
+					 dataType: "json",
+					 data: jsondataset,
+					 success: function(data) {
+						 document.getElementById("posttimea").innerHTML=timeslot;
+						 document.getElementById("ridepickupa").innerHTML=rlist.start;
+						 document.getElementById("r1").style.display="none";
+						 document.getElementById("r2").style.display="none";
+						 document.getElementById("r3").style.display="block";
+					  },
+					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); },
+					 beforeSend: setHeader
+				 });
+ 
+
+				}
 			
+			//if picking a specific rider (for drivers)
+			if(ride>0){
+			
+				 var dataset = {
+						 "fbid": fbid,
+						 }				
+				 var jsondataset = JSON.stringify(dataset);
+					 url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+ride+"/driver";
+						 var request=$.ajax({
+							 url: url,
+							 type: "PUT",
+							 dataType: "json",
+							 data: jsondataset,
+							 success: function(data) {
+								x="l"+fbid1;
+								newrow="<div class='select1'><image src='https://graph.facebook.com/"+fbid1+"/picture'/>"+pname+"</div>";
+								document.getElementById(x).innerHTML=newrow;
+								document.getElementById("xbutton").style.display="none";
+								document.getElementById("nextbutton").style.display="block";
+							 	},
+							 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));},
+							 beforeSend: setHeader
+						 });			
+						}
+		}
+
+// this gives the final confirmation screen for the driver
+
+		function driverconfirm(){			
+			document.getElementById("ridepickupb").innerHTML=rlist.start;
+			document.getElementById("r2").style.display="none";
+			document.getElementById("r4").style.display="block";
 		}
 
 

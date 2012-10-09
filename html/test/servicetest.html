@@ -10,7 +10,6 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<link type="text/css" rel="stylesheet" href="../css/style.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/script.js"></script>
 	<script type="text/javascript" src="../js/ridezu.js"></script>
 	<link type="text/css" rel="stylesheet" href="../css/ridezu.css">
 </head>
@@ -73,7 +72,7 @@
 			var jsondataset = JSON.stringify(dataset);
 		
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users",
+                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users",
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
@@ -98,7 +97,7 @@
             });
         }
 
-		//get all rides
+//get all rides
 		function getallrides(){
 		    var request=$.ajax({
                 url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides",
@@ -110,7 +109,7 @@
             });
         }
 
-		//get driver by time
+//get driver by time
 		function getdriverbytime(){
         	time=document.getElementById("getdrivertime").value;
             url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/rides/v/1/search/eventtime/"+time+"/driver";
@@ -124,7 +123,7 @@
             });
         }
 
-		//get rider by time
+//get rider by time
 		function getriderbytime(){
         	time=document.getElementById("getridertime").value;
             url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/eventtime/"+time+"/rider";
@@ -139,7 +138,7 @@
         }
 
 
-		//get ride by id
+//get ride by id
 		function getridebyid(){
         	rideid=document.getElementById("rideid").value;
 		    url= "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/"+rideid;
@@ -153,7 +152,7 @@
             });
         }
 
-		//get rider avail rides by fbid
+//get rider avail rides by fbid
 		function getridebyfbid(){
         	fbid=document.getElementById("ridebyfbid").value;
 		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/driver";
@@ -167,7 +166,23 @@
             });
         }
 
-		//get driver avail rides by fbid
+//get rider avail rides by fbid,route,date
+		function getridebyfbidRtDt(){
+        	fbid=document.getElementById("ridebyfbid").value;
+			route=document.getElementById("ridebyroute").value;
+			date=document.getElementById("ridebydate").value;
+		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/driver";
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {show(data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+        }
+
+//get driver avail rides by fbid
 		function getdriverbyfbid(){
         	fbid=document.getElementById("drivebyfbid").value;
 		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/rider";
@@ -181,45 +196,42 @@
             });
         }
 
-		//findRides
-		function findrides(){
-        	fbid=document.getElementById("findridesbyfbid").value;
-            url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/v/1/search/fbid/"+fbid+"/driver";
+//get driver avail rides by fbid,route,date
+		function getdriverbyfbidRtDt(){
+        	fbid=document.getElementById("drivebyfbid").value;
+		route=document.getElementById("ridebyroute").value;
+		date=document.getElementById("ridebydate").value;
+
+		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/rider";
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
                 success: function(data) {show(data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
-                beforeSend: setHeader
+                beforeSend: setHeaderUser
             });
         }
 
-		function addrider(){
-        	fbid=document.getElementById("addriderbyfbid").value;
-            url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/v/1/2/riders";
-		    var request=$.ajax({
-                url: url,
-                type: "PUT",
-                dataType: "json",
-                success: function(data) {show(data); },
-                error: function(data) { alert("boo!"+JSON.stringify(data)); },
-                beforeSend: setHeader
-            });
-        }
 
+//this is for a rider requesting a ride in an empty spot
 		function requestnewride(){
         	fbid=document.getElementById("reqridefbid").value;
         	time=document.getElementById("reqridetime").value;
+        	route=document.getElementById("reqrideroute").value;
+        	
+            url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider";
+
 			var dataset = {
 				"fbid":	fbid,
 				"eventtime": time,
+				"route": route
 				}				
 
 			var jsondataset = JSON.stringify(dataset);
 
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider",
+                url: url,
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
@@ -229,12 +241,19 @@
             });
         }
 
+
+
+
+//this is for a driver posting a new ride 
+
 		function postnewride(){
         	fbid=document.getElementById("postridefbid").value;
         	time=document.getElementById("postridetime").value;
+			route=document.getElementById("route").value;
 			var dataset = {
 				"fbid":	fbid,
 				"eventtime": time,
+				"route": route,
 				}				
 
 			var jsondataset = JSON.stringify(dataset);
@@ -250,16 +269,40 @@
             });
         }
 
+function postnewridewithrider(){
+fbid=document.getElementById("driverfbid").value;
+rideid=document.getElementById("reqrideid").value;
+var dataset = {
+				"fbid":	fbid,
+		}				
+	var jsondataset = JSON.stringify(dataset);
+		url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/driver";
+		    var request=$.ajax({
+                url: url,
+                type: "PUT",
+                dataType: "json",
+                data: jsondataset,
+                success: function(data) {show(data); },
+                error: function(data) {alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+
+		
+}
+
+
+//this is for a rider selecting a ride with a driver (rideid is the match) 
+
 		function selectridebyrider(){
-        	fbid=document.getElementById("selectridefbid").value;
-        	rideid=document.getElementById("selectrideid").value;
-			var dataset = {
+		fbid=document.getElementById("selectridefbid").value;
+        rideid=document.getElementById("selectrideid").value;
+		var dataset = {
 				"fbid":	fbid,
 				}				
 			
 			var jsondataset = JSON.stringify(dataset);
 
-			url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.comt/ridezu/api/v/1/rides/"+rideid+"/riders";
+			url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/rider";
 		    var request=$.ajax({
                 url: url,
                 type: "PUT",
@@ -271,6 +314,7 @@
             });
         }
 
+//this is for setting headers / authentication.  temporarily turned off.  
 
 
         function setHeader(xhr) {
@@ -283,6 +327,8 @@
             xhr.setRequestHeader("Content-Type", "application/json");
         }
         
+//this shows the actual json result
+
         function show(data){
         	x=JSON.stringify(data)
         	document.getElementById("jsonresult").innerHTML=x;
@@ -309,6 +355,7 @@ margin-left:30px;
 padding:15px;
 background-color:#dddddd;
 border:1px solid #cccccc;
+overflow:auto;
 }
 .btn {
 font-size:12px;
@@ -341,21 +388,22 @@ margin-left:20px;
 			<div class="row">work lat:  <input id="regwlat" value="" type="text"/></div>
 			<div class="row">work lng:  <input id="regwlng" value="" type="text"/></div>
 			<div class="row"><a class="btn" onclick="regnewuser();">Create</a>  <a onclick="hidenewuser();">hide</a></div>
-	 </div>
+	 </div> 
 </div>
 <div class="row"><a class="btn" onclick="getusers();">Get all users</a></div>
 <div class="row"><a class="btn" onclick="getallrides();">Get all rides</a></div>
-<div class="row"><input id="getridertime" value="timestamp" type="text"/><a class="btn" onclick="getriderbytime();">Get rider by time</a></div>
-<div class="row"><input id="getdrivertime" value="timestamp" type="text"/><a class="btn" onclick="getdriverbytime();">Get driver by time</a></div>
 <div class="row"><input id="rideid" value="rideid" type="text"/><a class="btn" onclick="getridebyid();">Get a ride by id</a></div>
-<div class="row"><input id="ridebyfbid" value="fbid" type="text"/><a class="btn" onclick="getridebyfbid();">Get ride list by fbid (rider)</a></div>
-<div class="row"><input id="drivebyfbid" value="fbid" type="text"/><a class="btn" onclick="getdriverbyfbid();">Get ride list by fbid (driver)</a></div>
-<div class="row"><input id="findridesbyfbid" value="fbid" type="text"/><a class="btn" onclick="findrides();">Find Rides</a></div>
-<div class="row"><input id="addriderbyfbid" value="fbid" type="text"/><a class="btn" onclick="addrider();">Add Rider</a></div>
-<div class="row"><input id="reqridefbid" value="fbid" type="text"/><input id="reqridetime" value="2012-09-27 10:00" type="text"/><a class="btn" onclick="requestnewride();">Request a Ride</a></div>
-<div class="row"><input id="postridefbid" value="fbid" type="text"/><input id="postridetime" value="2012-09-27 10:00" type="text"/><a class="btn" onclick="postnewride();">Post a Ride</a></div>
-<div class="row"><input id="selectridefbid" value="fbid" type="text"/><input id="selectrideid" value="rideid" type="text"/><a class="btn" onclick="selectridebyrider();">Select a ride (by rider)</a></div>
+<div class="row"><input id="ridebyfbid" value="fbid" type="text"/><a class="btn" onclick="getridebyfbid();">Get list of drivers (Pass fbid of rider making the API call)</a></div>
+<div class="row"><input id="ridebyfbid" value="fbid" type="text"/><input id="ridebyroute" value="h2w" type="text"/><input id="ridebydate" value="2012-10-5" type="text"/><a class="btn" onclick="getridebyfbidRtDt();">Get list of drivers 2 (Pass fbid of rider making the API call,route, eventtime)</a></div>
 
+<div class="row"><input id="drivebyfbid" value="fbid" type="text"/><a class="btn" onclick="getdriverbyfbid();">Get list of rider requests (Pass fbid of driver making the API call)</a></div>
+<div class="row"><input id="drivebyfbid" value="fbid" type="text"/><input id="ridebyroute" value="h2w" type="text"/><input id="ridebydate" value="2012-10-5" type="text"/><a class="btn" onclick="getdriverbyfbidRtDt();">Get list of rider requests 2(Pass fbid of driver making the API call,route, eventtime )</a></div>
+
+
+<div class="row"><input id="reqridefbid" value="fbid" type="text"/><input id="reqrideroute" value="h2w" type="text"/><input id="reqridetime" value="2012-09-27 10:00" type="text"/><a class="btn" onclick="requestnewride();">Request a ride (empty)</a></div>
+<div class="row"><input id="selectridefbid" value="fbid" type="text"/><input id="selectrideid" value="rideid" type="text"/><a class="btn" onclick="selectridebyrider();">Request a ride (w/specific driver)</a></div>
+<div class="row"><input id="postridefbid" value="fbid" type="text"/><input id="route" value="h2w" type="text"/><input id="postridetime" value="2012-09-27 10:00" type="text"/><a class="btn" onclick="postnewride();">Post a Ride (empty)</a></div>
+<div class="row"><input id="driverfbid" value="driver fbid" type="text"/><input id="reqrideid" value="rideid of requestor" type="text"/><a class="btn" onclick="postnewridewithrider();">Post a Ride (match with existing request)</a></div>
 <br/>
 </div>
 
