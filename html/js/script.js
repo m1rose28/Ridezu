@@ -13,7 +13,7 @@ $(document).ready(function(){
 	function openme() { 
 		$(function () {
 		    pagebody.animate({
-		       left: "263px"
+		       left: "280px"
 		    }, { duration: 190, queue: false });
 			themenu.animate({
 		       left: "0px"

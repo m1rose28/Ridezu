@@ -1,0 +1,86 @@
+			<div id="r0" style="display:none;">
+			<section id="precontent">
+				<div id="left2">
+					<h3>Route</h3>
+					<div class="glassbg">
+						<img class="routeicon" src="../images/routeicon.png" alt="Route"/>
+						<ul>
+							<li><img src="../images/start.png" alt="Start" /><span id="origindesc"></span></li>
+							<li><img src="../images/end.png" alt="End" /><span id="destdesc"></span></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div id="right2">
+					<h3>Cost & Savings</h3>
+					<div class="glassbg">
+						<h4 class="savings">$<span id="amount"></span></h4>
+					</div>
+					<div class="glassbg">
+						
+						<ul class="darktext">
+							<li>Savings</li>
+							<li><img src="../images/gas.png" alt="Gasoline Icon" /><span id="gassavings"></span></li>
+							<li><img src="../images/co2.png" alt="CO2 Emission Icon" /><span id="co2"></span></li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			</div>
+
+			<div id="r1" style="display:none;">
+				<section id="content">
+						<h2>Your next ride is <span id="godate"></span> at <span id="leavetime"></span>. <span id="showmore"></span></h2>
+						<ul class="info">
+						<div id="ridelist1"></div>
+						</ul>
+						<img class="roundedbottom" id="ridedesta" src=""/>
+				</section>
+				<div id="myrideaction"></div>
+			</div>
+				
+				<div id="rlate" style="display:none;">
+					<section id="content">
+						<h2>How late are you running?</h2>
+						<div data-role="fieldcontain">
+				   			<fieldset data-role="controlgroup" data-type="horizontal">
+		        			
+						   <input type="radio" name="late" id="m2" value="2" checked="checked" /><label for="m2">2 minutes</label>
+						   <input type="radio" name="late" id="m5" value="5"/><label for="m2">5 minutes</label>
+						   <input type="radio" name="late" id="m10" value="10" /><label for="m2">10 minutes</label>
+			   			   <input type="radio" name="late" id="m20" value="20"/><label for="m2">20 minutes</label>
+			   			   <input type="radio" name="late" id="m30" value="30"/><label for="m2">20 minutes</label>
+
+						   </fieldset>
+					   </div>
+					   <span id="newtime">8:10pm</span>
+					</section>
+   					<input type="submit" onclick="sendupdate();" data-role="none" class="primarybutton" value="Send update"/>
+
+   				</div>
+				
+				
+				<div id="rcancel" style="display:none;">
+ 					<section id="content" class="last">
+						<h2>Are you sure you want to cancel this ride?</h2>
+						<div id="canceltext"></div>
+					</section>
+
+   					<input type="submit" onclick="cancelride();" data-role="none" class="primarybutton" value="Cancel Ride"/>
+					
+   				</div>
+   				
+				<div id="noride" style="display:none;">
+ 					<section id="content">
+						<h2 >Looks like you don't have any upcoming rides.<br><br></h2>
+					</section>
+
+   					<input type="submit" onclick="nav('myridesp','requestp');" data-role="none" class="primarybutton" value="Request a ride"/>
+   					<input type="submit" onclick="nav('myridesp','ridepostp');" data-role="none" class="primarybutton" value="Post a ride"/>
+					
+   				</div>
+   
+   				<div id="allrides" style="display:none;"></div>
+   				
+			</div>			
+					

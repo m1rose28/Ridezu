@@ -8,18 +8,12 @@
 <body>
 
 <script>
-       function regnewuser(){
+       function updateuser(){
             
  				user=document.getElementById('userid').value;
  					
  				var dataset = {
-                "fbid": user,
-                "fname": "test",
-                "lname": "user",
-                "add1": "123 somewhere",
-                "city": "san jose",
-                "state": "ca",    
-                "zip": "95124"
+                "fname": user
                 }
                 
             	var jsondataset = JSON.stringify(dataset);
@@ -27,12 +21,12 @@
  alert(jsondataset);
         
             	var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users",
-                type: "POST",
+                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users/22",
+                type: "PUT",
                 dataType: "json",
                 data: jsondataset,
                 success: function(data) {alert(data)},
-                error: function() { alert('already registered?'); },
+                error: function() { alert('uh oh'); },
                 beforeSend: setHeader
                 });                                     
 			 }
@@ -44,7 +38,7 @@
 </script>
 
 <input id="userid" value="1234" type="test"/>
-<a href="#" onclick="regnewuser();">create a new user</a>
+<a href="#" onclick="updateuser();">update first name</a>
 
 </body>
 </html>

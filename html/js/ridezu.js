@@ -1,45 +1,45 @@
 // these are all custom functions used by ridezu.  these are here temporarily and should all be moved to ridezu.js (they should also be minified)
-  		
-//declare initial variables
+  				
+// this function loads all user data in js memory (not local storage), and should be used when the user installs the app
 
-  		var map;  
-	    var geocoder;
-	    var myspot;
-	    var requestride="";
-	    var userdata="";
-  		  		
-//page titles are the pageid's coupled with what shows up in the header
-  		
-  		var pageTitles = { 
-  			"riderequestp":"Request a Ride" ,
-  			"ridepostp":"Post a Ride" ,
-   			"noroutep":"Stay tuned!" ,
-   			"rideconfirmp":"Ride confirmed!",
-  			"startp":"Welcome to Ridezu" ,
-  			"enrollp":"Where do you live?" ,
-  			"fbp":"Login with Facebook" ,
-			"congratp":"Congratulations!",
-  			"mainp":"Ridezu" ,
-			"calcp":"Ridezunomics",
-			"accountp":"My Account",
-			"transactionp":"Transaction History",	 
-  			"ridesp":"My Rides" ,
-  			"profilep":"My Profile" ,
-  			"howitworksp":"How it Works",
-  			"termsp":"Terms of Service",
-  			"faqp":"FAQ's",
-  			"rider1p":"Step 1",
-  			"rider2p":"Step 2",
-  			"rider3p":"Step 3",
-  			"ride1p":"Step 1",
-  			"ride2p":"Step 2",
-  			"ride3p":"Step 3",			
-  			"whereworkp":"Where do you work?",			
-  			"wherelivep":"Where do you live?",			
-  			"loginp":"Login - Test Page"			
-			};
+		function loaduser(fbid){
+		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users/search/fbid/"+fbid;
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+					userinfo=data;
+			    	},
+                error: function(data) { alert("Uh oh - does this user exist?"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+		}
+
+// this is an example function of updating a user field, e.g. update the user's car to a honda...
+		function updatehonda(){
+				userinfo.user.cartype="Honda";
+				updateuser();
+				}
+
+// this function updates user data with any relevant updates
+
+		function updateuser(){
+
+            	var jsondataset = JSON.stringify(userinfo);
+ 				url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users/"+userinfo.id;
+         
+            	var request=$.ajax({
+                url: url,
+                type: "PUT",
+                dataType: "json",
+                data: jsondataset,
+                success: function(data) {},
+                error: function() { alert('uh oh, I could not save this data'); },
+                beforeSend: setHeader
+                });                                     
+		}
 		
-
 //this function adds commas to long numbers (used in ridezunomics)
 											
 		function addCommas(str){
@@ -59,7 +59,7 @@
 		function calcv(){
 
 		miles=document.getElementById('slider1').value;
-		utype=document.getElementById('flip-min').value;
+		utype=$('input[name=usertype]:radio:checked').val();
 		gas=document.getElementById('slider2').value;
 		mpg=document.getElementById('slider3').value;
 				
@@ -74,7 +74,7 @@
 			ftotrev=addCommas(Math.round(totrev));
 			totcarbon=tmiles/mpg*20;
 			ftotcarbon=addCommas(Math.round(totcarbon));
-			copy="This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>Ridezu can help.<p>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!";
+			copy="<span class='popuptext'>This year you're going to drive <b>"+ftmiles+"</b> miles.<br><br>In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</span>";
 			}
 		
 		if(utype=='rider'){
@@ -95,11 +95,11 @@
 
 
 			if(savings>0){
-			copy="This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>Ridezu can help.<p>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!";
+			copy="<span class='popuptext'>This year you're going to drive <b>"+ftmiles+"</b> miles.<br><br>In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<p>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</span>";
 			}
 
 			if(savings<=0){
-			copy="This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!";
+			copy="<span class='popuptext'>This year you're going to drive <b>"+ftmiles+"</b> miles.<br><br>In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.<br><br>This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</span>";
 			}
 			}
 			showpopup(copy);
@@ -131,8 +131,10 @@
 		}
 			
 		function nav2(from,to){
-			headerbar=pageTitles[to]+" ("+localStorage.first_name+" "+localStorage.last_name+")";
-			document.getElementById('pTitle').innerHTML=headerbar;
+			testdata=localStorage.first_name+" "+localStorage.last_name+" : "+localStorage.fbid;
+			testlink="<a class='tlink' href='http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/test/servicetest.php?uid="+localStorage.fbid+"' target='ridezutest'>"+testdata+"</a>";
+			document.getElementById('pTitle').innerHTML=pageTitles[to];
+			document.getElementById('testbar').innerHTML=testlink;
 			document.getElementById(p).style.display="none";		
 			document.getElementById(p).innerHTML="";		
 			scrollTo(0,0);
@@ -177,12 +179,12 @@
          			});
 				}
 
-			if(to=="loginp"){
-				getuserlist();
+			if(to=="myridesp"){
+				myrides();
 				}
 				
-			if(from=="nav"){
-				closeme();
+			if(to=="loginp"){
+				getuserlist();
 				}
 				
 			if(to=="transactionp"){
@@ -197,13 +199,13 @@
 //this removes the popup when you click on it.   
 
 		function showpopup(content){
-			document.getElementById("darkpage").style.display="block";
+			//document.getElementById("darkpage").style.display="block";
 			document.getElementById('rpopup').innerHTML=content;
 			document.getElementById('rpopup').style.display="block";
 			}
 
 		function rempopup(){
-			document.getElementById("darkpage").style.display="none";
+			//document.getElementById("darkpage").style.display="none";
 			document.getElementById("rpopup").style.display="none";
 			}
 		
@@ -430,7 +432,7 @@
 			var jsondataset = JSON.stringify(dataset);
 		
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users",
+                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users",
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
@@ -517,7 +519,7 @@
 				document.getElementById('gotext').innerHTML="go home";
 		  		}
   
-		  xstartlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size=100x100&maptype=roadmap&markers=color:green%7C%7C"+rlist.startlatlong+"&sensor=false";
+		  xstartlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size=300x100&maptype=roadmap&markers=color:green%7C%7C"+rlist.startlatlong+"&sensor=false";
 		  document.getElementById('ridedesta').src=xstartlatlong;		  		  
 		  document.getElementById('ridedestb').src=xstartlatlong;		  
 		  document.getElementById('amount').innerHTML=rlist.amount;
@@ -538,17 +540,17 @@
 			r++;
 			if((r>z && r<(z+5)) || preftime=="1"){
 
-			   if(role=="driver"){ridelist=ridelist+"<li><div class=\"rarrow\" onclick=\"selectdriver('"+key+"');\">";}
-			   if(role=="rider"){ridelist=ridelist+"<li><div class=\"rarrow\" onclick=\"selectrider('"+key+"');\">";}
+			   if(role=="driver"){ridelist=ridelist+"<a href=\"#\" onclick=\"selectdriver('"+key+"');\"><li>";icon="car";}
+			   if(role=="rider"){ridelist=ridelist+"<a href=\"#\" onclick=\"selectrider('"+key+"');\"><li>";icon="person";}
 
-			   ridelist=ridelist+"<span style='padding-left:10px'>"+key+"</span>";  
+			   ridelist=ridelist+"<span>"+key+"</span>";  
 			   timeslot=value;
 			   x1=timeslot.length;
 			   x2=value[0].rideid;
 			   if(x1>0 && x2!=null){
-				 ridelist=ridelist+"<span style='padding-left:30px'>"+x1+" drivers</span>";  
+				 ridelist=ridelist+"<div id=\""+icon+"\">"+x1+"</div>";  
 				 };
-			   ridelist=ridelist+"</div></li>";
+			   ridelist=ridelist+"</div></li></a>";
 			   }
 		  });
 			document.getElementById('ridelist1').innerHTML=ridelist;		  
@@ -562,13 +564,13 @@
 			x=rlist.rideList[timeslot][0].fbid;
 
 			if(x!=null){
-			var personlist="<ul class='appNav'>";
+			var personlist="<ul>";
 			var r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
-					personlist=personlist+"<li><div class=\"rarrow\" onclick=\"selectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
-					personlist=personlist+"<image src='https://graph.facebook.com/"+value.fbid+"/picture'/>"+value.name;
-					personlist=personlist+"</div></li>";
+					personlist=personlist+"<a href=\"#\" onclick=\"selectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
+					personlist=personlist+"<li class='driver'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/><p>"+value.name;
+					personlist=personlist+"</p></li></a>";
 			});
 			personlist=personlist+"</ul>";
 			document.getElementById("personlist1").innerHTML=personlist;
@@ -657,15 +659,14 @@
 
 			eventtime=rlist.rideList[timeslot][0].eventtime;		
 			x=rlist.rideList[timeslot][0].fbid;
-			
 			if(x!=null){
-			personlist="<ul class='appNav'>";
+			personlist="<ul>";
 			r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
-					personlist=personlist+"<li id=\"l"+value.fbid+"\"><div class=\"rarrow\" onclick=\"selectrider1('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
-					personlist=personlist+"<image src='https://graph.facebook.com/"+value.fbid+"/picture'/>"+value.name;
-					personlist=personlist+"</div></li>";
+					personlist=personlist+"<a href=\"#\" onclick=\"selectrider1('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
+					personlist=personlist+"<li class='driver' id=\"l"+value.fbid+"\"><image src='https://graph.facebook.com/"+value.fbid+"/picture'/><p>"+value.name;
+					personlist=personlist+"</p></li></a>";
 			});
 			personlist=personlist+"</ul>";
 			document.getElementById("rpersonlist1").innerHTML=personlist;
@@ -753,7 +754,7 @@
 		
 		function getuserlist(){
 		  $.ajax({
-		  url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users",
+		  url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users",
 		  cache: false,
 		  dataType: "json"
 		  }).done(function(data) {
@@ -765,7 +766,7 @@
 		//this function paints all the users
 		function paintuserlist(){
 		  
-		  var userlist="<ul class='appNav'>";
+		  var userlist="<ul>";
 		  var r=0;
 		  
 		  $.each(userdata.users, function(key, value) { 
@@ -804,3 +805,240 @@
 			localStorage.worklatlong=userdata.users[id].worklatlong;
 			nav('loginp','mainp');
 		}
+		
+
+// this function parses an eventtime into smaller parts
+
+		function evtime(etime1){
+			t = etime1.split(" ");
+			h = t[1].split(":");
+			h1= h[0];
+			if(h1>12){
+				h1=h1-12;h3="pm";
+				}
+			else 
+				{
+				h3="am";
+				}
+			etime = h1+":"+h[1]+" "+h3;
+			return etime;
+		} 
+
+// this is the my rides page, myridesp.  lots of use cases here
+
+// gets a list of myrides
+		
+		function myrides(){
+		  	  fbid=localStorage.fbid;
+		  	  mrlist="";		  
+			  url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid;
+			
+			  $.ajax({
+			  url: url,
+			  cache: false,
+			  dataType: "json"
+			  }).done(function(data) {
+				mrlist=data;
+				paintmyrides();						
+				  });
+		}
+
+// paint a specific myride (option input = rideid).  this is fairly complex functionality which loops throough
+// all rides and decides to 1) paint a selected ride (if sent in to function) 2) paint the first ride 
+// or 3) if no rides available then show call to action for post a ride or request a ride.  
+
+		function paintmyrides(rideid){		
+		  fbid=localStorage.fbid;
+		  z=0;
+		  		  
+		  $.each(mrlist, function(key, value) {
+		  
+		  		x0=key;
+		  
+		  		$.each(mrlist[key], function(key1, value1) {
+			  		z++;
+			  		x1=key1;
+ 				  	value1=mrlist[x0][x1];
+			  		
+			  		if(value1.rideid==rideid){return false;}
+			  		if(value1.rideid===undefined){return false;}
+
+			  	});
+			
+			if(z>0){return false;}
+			  	
+	    	});
+
+			if(z>0){
+
+ 			  	value1=mrlist[x0][x1];
+				
+				if(z>1){
+					  sm="<a href='#' onclick='showallrides();'>Show all rides.</div>";
+					  document.getElementById('showmore').innerHTML=sm;
+					  }
+			  		   				
+				if(value1.day!="Today"){
+					  x=" on ";
+					  }
+					  else{
+					  x=" today";
+					  }
+				document.getElementById('godate').innerHTML=x;
+				document.getElementById('leavetime').innerHTML=evtime(value1.eventtime);
+				rideid=value1.rideid;
+								
+				x="";
+	   
+				if(value1.route=="h2w"){
+					  document.getElementById('origindesc').innerHTML="Home";
+					  document.getElementById('destdesc').innerHTML="Work";
+					  } 
+					  
+					  else {
+					  document.getElementById('origindesc').innerHTML="Work";
+					  document.getElementById('destdesc').innerHTML="Home";
+					  }
+		
+				xoriginlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+value1.originlatlong+"&zoom=13&size=300x100&maptype=roadmap&markers=color:green%7C%7C"+value1.originlatlong+"&sensor=false";
+				document.getElementById('ridedesta').src=xoriginlatlong;		  		  
+				document.getElementById('amount').innerHTML=value1.amount;
+				document.getElementById('gassavings').innerHTML=value1.gassavings;
+				document.getElementById('co2').innerHTML=value1.co2;
+								
+				if(value1.eventstate=="EMPTY" || value1.eventstate=="REQUEST"){
+					x="<li>We haven't found a match yet.</li>";
+				}
+
+				if(value1.eventstate=="ACTIVE" || value1.eventstate=="FULL"){
+					x="";
+					n=value1.reffbid.split("#");
+					
+					$.each(n, function(key2, value2) {
+							m=value2.split("|");
+							x=x+"<li class='driver'><image class='profilephoto' src='https://graph.facebook.com/"+m[0]+"/picture'/><p>"+m[1];
+							x=x+"</p></li>";
+					});
+				}
+				
+			   document.getElementById('ridelist1').innerHTML=x;		  	
+			   document.getElementById('allrides').style.display="none";
+			   document.getElementById('r0').style.display="block";
+			   document.getElementById('r1').style.display="block";	  	
+			   b="<input type=\"submit\" onclick=\"runninglate('"+rideid+"');\" class=\"primarybutton\" value=\"I'm running late!\"/>";
+			   b=b+"<input type=\"submit\" onclick=\"cancelride('"+rideid+"');\" class=\"primarybutton\" value=\"Cancel Ride\"/></div>";
+			   document.getElementById('myrideaction').innerHTML=b;
+		  	
+		  	}
+		  	
+		  	if(z==0){
+			   document.getElementById('noride').style.display="block";
+		  	}
+
+	}
+
+		function showallrides(){		
+		  fbid=localStorage.fbid;
+		  riders=0;
+		  drivers=0;
+		  if(mrlist["Driver"]){drivers=mrlist["Driver"].length;}
+		  if(mrlist["Rider"]){riders=mrlist["Rider"].length;}
+		  myrideslist="";
+
+		  if(drivers>0){
+
+	    		myrideslist=myrideslist+"<section id=\"content\"><h2>My Rides (I'm driving)</h2><ul>";
+		  
+		  		$.each(mrlist["Driver"], function(key3, value3) {
+					value3=mrlist["Driver"][key3];
+					if(value3.route=="h2w"){rte="going to work;"}
+					if(value3.route=="w2h"){rte="going home";}
+					etime=evtime(value3.eventtime);
+					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value3.rideid+"')   \"><li>"+etime+" ("+rte+")</li>";				
+			  	});
+	  
+	    		myrideslist=myrideslist+"</ul></section>";
+		  
+		  	 }
+		  	 
+		  if(riders>0){
+		  
+	    		myrideslist=myrideslist+"<section id=\"content\"><h2>My Rides (I'm riding)</h2><ul>";
+		  
+		  		$.each(mrlist["Rider"], function(key4, value4) {
+					value3=mrlist["Rider"][key4];
+					if(value4.route=="h2w"){rte="going to work;"}
+					if(value4.route=="w2h"){rte="going home";}
+					etime=evtime(value4.eventtime);
+					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value4.rideid+"')   \"><li>"+etime+" ("+rte+")</li>";				
+			  	});
+
+	    		myrideslist=myrideslist+"</ul></section>";
+
+		  	 }
+
+		  document.getElementById('r1').style.display="none";	 
+		  document.getElementById('allrides').innerHTML=myrideslist;	 
+		  document.getElementById('allrides').style.display="block";	 
+		  	 
+		  }	  
+
+// these are the functions which initialize and start the ridezu web app.  please keep everything after this line at the end of this page, and functions before this.
+
+//declare initial variables
+
+  		var map;  
+	    var geocoder;
+	    var myspot;
+	    var requestride;
+	    var userdata;
+	    var mrlist;
+	    var userinfo={};
+	    var etime;
+  		  		
+//page titles are the pageid's coupled with what shows up in the header
+  		
+  		var pageTitles = { 
+  			"riderequestp":"Request a Ride" ,
+  			"ridepostp":"Post a Ride" ,
+   			"noroutep":"Stay tuned!" ,
+   			"rideconfirmp":"Ride confirmed!",
+  			"startp":"Welcome to Ridezu" ,
+  			"enrollp":"Where do you live?" ,
+  			"fbp":"Login with Facebook" ,
+			"congratp":"Congratulations!",
+  			"mainp":"Ridezu" ,
+			"calcp":"Ridezunomics",
+			"accountp":"My Account",
+			"transactionp":"Transaction History",	 
+  			"ridesp":"My Rides" ,
+  			"profilep":"My Profile" ,
+  			"howitworksp":"How it Works",
+  			"termsp":"Terms of Service",
+  			"faqp":"FAQ's",
+  			"rider1p":"Step 1",
+  			"rider2p":"Step 2",
+  			"rider3p":"Step 3",
+  			"ride1p":"Step 1",
+  			"ride2p":"Step 2",
+  			"ride3p":"Step 3",			
+  			"whereworkp":"Where do you work?",			
+  			"wherelivep":"Where do you live?",			
+  			"myridesp":"My Rides",			
+  			"loginp":"Login - Test Page"			
+			};
+
+
+// this determines if the user is in the system, or not (by looking at local storage).  if not, send them to enroll...
+
+fbid=localStorage.fbid;
+  var p="firstp";
+	if(fbid!=undefined){
+	  nav("firstp","mainp");
+	  loaduser(fbid);
+
+	}
+	else
+	{
+	  nav("firstp","startp");
+	}

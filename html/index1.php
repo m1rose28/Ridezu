@@ -6,29 +6,35 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Ridezu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-    <link rel="stylesheet" href="themes/ridezu.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+ <link rel="stylesheet" href="themes/ridezu.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-	<link type="text/css" rel="stylesheet" href="css/ridezu.css">
+<link type="text/css" rel="stylesheet" href="css/ridezu.css"> 
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/ridezu.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/style.css">
+
+
+<!-- to get maps to work these scripts need to be included. that said - there is some bug here...
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true"></script>
+	<script src="http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true"></script>
+ -->
+ 	
 
 </head>
 
 <body>
 
-	<div id="w">
+		<div id="w">
 		
-		<div id="pagebody" style="left: 0px; ">
+		<div id="pagebody" style="left: 0px;">
 			<header id="toolbarnav" style="left: 0px; ">
-				<a href="#" id="menu-btn"></a>
+				<a href="#" id="menu-btn"><img src="../images/menu.png" alt="Menu Button" /></a>
 			
 				<h1 id="pTitle">Ridezu</h1>
 			</header>
 			
-			<section id="content">
 
 				<div id="rpopup" style="display:none;" onclick="rempopup();" class="popup"></div>
 				<div id="darkpage" class="dim" style="display:none;"></div>
@@ -60,42 +66,32 @@
 				<div id="ridepostp"></div>
 				<div id="enrollp"></div>
 				<div id="loginp"></div>
-				<div id="firstp"></div> 	
-			</section>
+				<div id="firstp"></div> 
+				<div id="myridesp"></div> 
+		<div id="testbar" style="background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
 		</div>
 		
 		<div id="navmenu">
-			<header>
-				<h1>Ridezu</h1>
-			</header>
-			
 				<ul>
-					<li><a onclick="nav1('loginp');" class="navlink">Login - Testing Only</a></li>
-					<li><a onclick="nav1('riderequestp');" class="navlink">Request a Ride</a></li>
-					<li><a onclick="nav1('ridepostp');" class="navlink">Post a Ride</a></li>
-					<li><a onclick="nav1('accountp');" class="navlink">My Account</a></li>
-					<li><a onclick="nav1('profilep');" class="navlink">My Profile</a></li>
-					<li><a onclick="nav1('howitworksp');" class="navlink">How it Works</a></li>
-					<li><a onclick="nav1('startp');" class="navlink">Enroll Flow - Testing</a></li>
-					<li><a onclick="nav1('calcp');" class="navlink">Rizunomics</a></li>
-					<li><a onclick="nav1('faqp');" class="navlink">FAQ</a></li>
-					<li><a onclick="nav1('termsp');" class="navlink">Terms of Service</a></li>
+					<li><p>RideZu Home</p></li>
+					<li><a class="navlink" onclick="nav1('loginp');" class="navlink">Login - Testing Only</a></li>
+					<li><a class="navlink" onclick="nav1('myridesp');" class="navlink">My Rides</a></li>
+					<li><a class="navlink" onclick="nav1('riderequestp');" class="navlink">Request a Ride</a></li>
+					<li><a class="navlink" onclick="nav1('ridepostp');" class="navlink">Post a Ride</a></li>
+					<li><a class="navlink" onclick="nav1('accountp');" class="navlink">My Account</a></li>
+					<li><a class="navlink" onclick="nav1('profilep');" class="navlink">My Profile</a></li>
+					<li><a class="navlink" onclick="nav1('howitworksp');" class="navlink">How it Works</a></li>
+					<li><a class="navlink" onclick="nav1('startp');" class="navlink">Enroll Flow - Testing</a></li>
+					<li><a class="navlink" onclick="nav1('calcp');" class="navlink">Ridezunomics</a></li>
+					<li><a class="navlink" onclick="nav1('faqp');" class="navlink">FAQ</a></li>
+					<li><a class="navlink" onclick="nav1('termsp');" class="navlink">Terms of Service</a></li>
+					<li>Ridezu &copy; 2012</li>
 				</ul>
-				Ridezu &copy; 2012
 		</div>
 	</div>
 
- <!-- this js declares a page and runs with it -->
- <script>
-  fbid=localStorage.fbid;
-  var p="firstp";
-	if(fbid!=undefined){
-	  nav("firstp","mainp");
-	}
-	else
-	{
-	  nav("firstp","startp");
-	}
-  </script>
-
 </body></html>
+
+
+
+
