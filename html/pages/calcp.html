@@ -1,7 +1,7 @@
-			<div>
-			<ul class="appNav">
-			<li>
-			   <div data-role="fieldcontain" style="padding:3px;left:60px;">
+			<section id="content">
+			<ul class="description"> 
+			<li class="first">
+			   <div data-role="fieldcontain" style="padding:2px;left:50px;">
 				   <fieldset data-role="controlgroup" data-type="horizontal">
 		        			
 						   <input type="radio" name="usertype" id="u1" value="driver" checked="checked" />
@@ -13,21 +13,22 @@
 			   </div>
 			</li>	
 			<li>
-				<label for="slider1">How many miles do you drive to work?</label>
+				<h5>How many miles do you drive to work?</h5>
 				<input type="range" name="slider1" id="slider1" value="25" min="2" max="100" data-highlight="true" data-mini="true" data-theme="a" />
 			</li>	
 			<li>	
-				<label for="slider2">How much do you pay per gallon of gas?</label>
+				<h5>How much do you pay per gallon of gas?</h5>
 				<input type="range" name="slider2" id="slider2" value="4.19" min="3" max="6" step=".10" data-highlight="true" data-mini="true" data-theme="a" />
 			</li>	
-			<li>	
-				<label for="slider3">What's your car's gas mileage (mpg)?</label>
+			<li class="last">	
+				<h5>What's your car's gas mileage (mpg)?</h5>
 				<input type="range" name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-highlight="true" data-mini="true" data-theme="a" />
-			</li>	
-			<li>	
-				<div id="calcv1" onclick="calcv();" data-role="button" data-icon="grid">Calculate</div>
 			</li>
 			</ul>
+
+			</section>
+
+			<input type="submit" data-role="none" onclick="calcv();" class="primarybutton" value="Calculate"/>
+
 			<div id="result" style="display:none;" onclick="rempopup();" class="popup"></div>
 		
-			</div>

@@ -4,12 +4,17 @@
 		 left:10%; 
 		 width:80%; 
 		 z-index: 150; 
-		 background-color: #FAFA93;
-		 border:1px solid #FA820A;
-		 -moz-border-radius: 15px;
-		 border-radius: 15px;
+		 background-color: #009600;
+		 -moz-border-radius: 10px;
+		 border-radius: 10px;
 		 padding:10px;
 		 margin:0px;
+		 opacity:0.9;
+		 }
+		 .popuptext{
+		 font-size:18px;
+		 color:#fff;
+		 z-index:151;
 		 }
 		 .footerlink{
 		 padding:10px;
@@ -65,3 +70,7 @@
 		width: 100%;
 		z-index: 125;
 		}
+		.tlink {
+		color:#fff;
+		}
+
