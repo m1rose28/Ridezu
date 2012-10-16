@@ -87,8 +87,10 @@ extern CFAbsoluteTime StartTime;
              [[RZRouteTimeSelectViewController alloc] initWithAvailableRoutes:@[@"0", @"3", @"2", @"1", @""]]],
             [[UINavigationController alloc] initWithRootViewController:
              [[RZLocationPickViewController alloc] initWithType:@"home"]],
+//            [[UINavigationController alloc] initWithRootViewController:
+//             [[RZFBLoginViewController alloc] initWithNibName:@"RZFBLoginViewController" bundle:nil]],
             [[UINavigationController alloc] initWithRootViewController:
-             [[RZFBLoginViewController alloc] initWithNibName:@"RZFBLoginViewController" bundle:nil]],
+             [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil]],
             [[UINavigationController alloc] initWithRootViewController:
              [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil]],
             [[UINavigationController alloc] initWithRootViewController:

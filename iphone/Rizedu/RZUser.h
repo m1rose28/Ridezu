@@ -10,6 +10,7 @@
 
 @interface RZUser : NSObject
 
+@property (nonatomic, retain) NSString *rzId;
 @property (nonatomic, retain) NSString *fbId;
 @property (nonatomic, retain) NSString *firstName;
 @property (nonatomic, retain) NSString *lastName;
@@ -28,4 +29,13 @@
 @property (nonatomic, retain) NSString *workLatitude;
 @property (nonatomic, retain) NSString *workLongitude;
 
+@property (nonatomic, retain) NSString *originLatitude;
+@property (nonatomic, retain) NSString *originLongitude;
+@property (nonatomic, retain) NSString *destLatitude;
+@property (nonatomic, retain) NSString *destLongitude;
+
+
+@property (nonatomic, retain) NSString *phoneNumber;
+
+- (NSMutableDictionary*)toRidezuDict;
 @end

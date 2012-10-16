@@ -54,7 +54,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     // self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIImage *slideImage = [UIImage imageNamed:@"lines.png"];
+    UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
     UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
 
     self.navigationItem.leftBarButtonItem = slideButtonItem;

@@ -7,10 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D306E83B162C6DBC00F394AF /* RidezuEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D306E83A162C6DBC00F394AF /* RidezuEngine.m */; };
+		D306E87F162D0B4400F394AF /* locateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87B162D0B4400F394AF /* locateButton.png */; };
+		D306E880162D0B4400F394AF /* locateButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87C162D0B4400F394AF /* locateButton@2x.png */; };
+		D306E881162D0B4400F394AF /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87D162D0B4400F394AF /* location.png */; };
+		D306E882162D0B4400F394AF /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87E162D0B4400F394AF /* location@2x.png */; };
 		D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B0FA161AB0810069B46B /* TimeTableViewCell.m */; };
 		D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */; };
 		D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B100161AB9BE0069B46B /* DriverTableViewCell.m */; };
 		D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */; };
+		D32952DB162B67690074D9EC /* co2.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952D9162B67690074D9EC /* co2.png */; };
+		D32952DC162B67690074D9EC /* co2saved.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952DA162B67690074D9EC /* co2saved.png */; };
+		D32952E0162B67810074D9EC /* end@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952DE162B67810074D9EC /* end@2x.png */; };
+		D32952E1162B67810074D9EC /* gas.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952DF162B67810074D9EC /* gas.png */; };
+		D32952E4162B67BB0074D9EC /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952E2162B67BB0074D9EC /* menu@2x.png */; };
+		D32952E5162B67BB0074D9EC /* menubtn.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952E3162B67BB0074D9EC /* menubtn.png */; };
+		D32952E7162B67CA0074D9EC /* nav@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952E6162B67CA0074D9EC /* nav@2x.png */; };
+		D32952E9162B67E30074D9EC /* start@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952E8162B67E30074D9EC /* start@2x.png */; };
+		D32952EB162B69F60074D9EC /* routeicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952EA162B69F60074D9EC /* routeicon@2x.png */; };
+		D32952ED162B6A3B0074D9EC /* routeicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952EC162B6A3B0074D9EC /* routeicon.png */; };
+		D32952F1162B71860074D9EC /* RZCustomTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32952EF162B71860074D9EC /* RZCustomTimeViewController.m */; };
+		D32952F2162B71860074D9EC /* RZCustomTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32952F0162B71860074D9EC /* RZCustomTimeViewController.xib */; };
+		D3295352162BB0CB0074D9EC /* FBConnect.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3295351162BB0CB0074D9EC /* FBConnect.bundle */; };
 		D3655D52161E3ED300862024 /* lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3655D51161E3ED300862024 /* lines@2x.png */; };
 		D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */; };
 		D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */; };
@@ -108,12 +126,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D306E839162C6DBC00F394AF /* RidezuEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RidezuEngine.h; sourceTree = "<group>"; };
+		D306E83A162C6DBC00F394AF /* RidezuEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RidezuEngine.m; sourceTree = "<group>"; };
+		D306E87B162D0B4400F394AF /* locateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locateButton.png; sourceTree = "<group>"; };
+		D306E87C162D0B4400F394AF /* locateButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locateButton@2x.png"; sourceTree = "<group>"; };
+		D306E87D162D0B4400F394AF /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
+		D306E87E162D0B4400F394AF /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
 		D320B0F9161AB0810069B46B /* TimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTableViewCell.h; sourceTree = "<group>"; };
 		D320B0FA161AB0810069B46B /* TimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewCell.m; sourceTree = "<group>"; };
 		D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeTableViewCell.xib; sourceTree = "<group>"; };
 		D320B0FF161AB9BE0069B46B /* DriverTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverTableViewCell.h; sourceTree = "<group>"; };
 		D320B100161AB9BE0069B46B /* DriverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverTableViewCell.m; sourceTree = "<group>"; };
 		D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverTableViewCell.xib; sourceTree = "<group>"; };
+		D32952D9162B67690074D9EC /* co2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = co2.png; sourceTree = "<group>"; };
+		D32952DA162B67690074D9EC /* co2saved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = co2saved.png; sourceTree = "<group>"; };
+		D32952DE162B67810074D9EC /* end@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "end@2x.png"; sourceTree = "<group>"; };
+		D32952DF162B67810074D9EC /* gas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas.png; sourceTree = "<group>"; };
+		D32952E2162B67BB0074D9EC /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
+		D32952E3162B67BB0074D9EC /* menubtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menubtn.png; sourceTree = "<group>"; };
+		D32952E6162B67CA0074D9EC /* nav@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav@2x.png"; sourceTree = "<group>"; };
+		D32952E8162B67E30074D9EC /* start@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start@2x.png"; sourceTree = "<group>"; };
+		D32952EA162B69F60074D9EC /* routeicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routeicon@2x.png"; sourceTree = "<group>"; };
+		D32952EC162B6A3B0074D9EC /* routeicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = routeicon.png; sourceTree = "<group>"; };
+		D32952EE162B71860074D9EC /* RZCustomTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZCustomTimeViewController.h; sourceTree = "<group>"; };
+		D32952EF162B71860074D9EC /* RZCustomTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZCustomTimeViewController.m; sourceTree = "<group>"; };
+		D32952F0162B71860074D9EC /* RZCustomTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZCustomTimeViewController.xib; sourceTree = "<group>"; };
+		D3295351162BB0CB0074D9EC /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBConnect.bundle; sourceTree = "<group>"; };
 		D3655D51161E3ED300862024 /* lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lines@2x.png"; sourceTree = "<group>"; };
 		D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteTimeSelectViewController.h; sourceTree = "<group>"; };
 		D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteTimeSelectViewController.m; sourceTree = "<group>"; };
@@ -143,7 +181,7 @@
 		D3AA1F33160E574E00B51488 /* Rizedu-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rizedu-Prefix.pch"; sourceTree = "<group>"; };
 		D3AA1F34160E574E00B51488 /* RZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZAppDelegate.h; sourceTree = "<group>"; };
 		D3AA1F35160E574E00B51488 /* RZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZAppDelegate.m; sourceTree = "<group>"; };
-		D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Rizedu/Default-568h@2x.png"; sourceTree = "<group>"; };
 		D3AA1F3D160E574E00B51488 /* RZMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZMasterViewController.h; sourceTree = "<group>"; };
 		D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZMasterViewController.m; sourceTree = "<group>"; };
 		D3AA1F40160E574E00B51488 /* RZDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZDetailViewController.h; sourceTree = "<group>"; };
@@ -230,10 +268,10 @@
 		D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
-		D3F1F24A160EC76D0016F6BD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		D3F1F24B160EC76E0016F6BD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		D3F1F24C160EC76E0016F6BD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		D3F1F24D160EC76E0016F6BD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		D3F1F24A160EC76D0016F6BD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Rizedu/Icon.png; sourceTree = "<group>"; };
+		D3F1F24B160EC76E0016F6BD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Rizedu/Icon@2x.png"; sourceTree = "<group>"; };
+		D3F1F24C160EC76E0016F6BD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Rizedu/Default.png; sourceTree = "<group>"; };
+		D3F1F24D160EC76E0016F6BD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Rizedu/Default@2x.png"; sourceTree = "<group>"; };
 		D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,7 +320,6 @@
 		D3AA1F16160E574E00B51488 = {
 			isa = PBXGroup;
 			children = (
-				D390B7A51622980100FD4540 /* CoreData.framework */,
 				D3F1F227160E78BB0016F6BD /* Utils */,
 				D3F1F1E9160E6B550016F6BD /* MKNetworkKit */,
 				D3F1F1BB160E634E0016F6BD /* Resources */,
@@ -306,12 +343,13 @@
 		D3AA1F24160E574E00B51488 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D3BCCA10161D31DC00987648 /* libz.1.1.3.dylib */,
+				D3BCCA0E161D31D300987648 /* libsqlite3.dylib */,
+				D390B7A51622980100FD4540 /* CoreData.framework */,
 				D3F1F21A160E72E40016F6BD /* MapKit.framework */,
 				D3BCCA16161D320F00987648 /* StoreKit.framework */,
 				D3BCCA14161D31F900987648 /* Social.framework */,
 				D3BCCA12161D31EA00987648 /* MobileCoreServices.framework */,
-				D3BCCA10161D31DC00987648 /* libz.1.1.3.dylib */,
-				D3BCCA0E161D31D300987648 /* libsqlite3.dylib */,
 				D3BCCA0C161D31C100987648 /* AdSupport.framework */,
 				D3BCCA0A161D31B900987648 /* Accounts.framework */,
 				D3BCCA07161D31B200987648 /* AudioToolbox.framework */,
@@ -334,9 +372,12 @@
 		D3AA1F2B160E574E00B51488 /* Rizedu */ = {
 			isa = PBXGroup;
 			children = (
+				D3295351162BB0CB0074D9EC /* FBConnect.bundle */,
 				D390B7AD1622992900FD4540 /* RidezuModel.xcdatamodeld */,
 				D390B7B016229E3200FD4540 /* Preferences.h */,
 				D390B7B116229E3200FD4540 /* Preferences.m */,
+				D306E839162C6DBC00F394AF /* RidezuEngine.h */,
+				D306E83A162C6DBC00F394AF /* RidezuEngine.m */,
 				D390B74416227D5300FD4540 /* RZUser.h */,
 				D390B74516227D5300FD4540 /* RZUser.m */,
 				D320B0F9161AB0810069B46B /* TimeTableViewCell.h */,
@@ -351,8 +392,17 @@
 				D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */,
 				D3AA1F40160E574E00B51488 /* RZDetailViewController.h */,
 				D3AA1F41160E574E00B51488 /* RZDetailViewController.m */,
+				D3BCCA801621E2FA00987648 /* LoginViewController.h */,
+				D3BCCA811621E2FA00987648 /* LoginViewController.m */,
+				D3BCCA821621E2FB00987648 /* LoginViewController.xib */,
 				D3AA1F43160E574E00B51488 /* RZMasterViewController.xib */,
 				D3AA1F46160E574E00B51488 /* RZDetailViewController.xib */,
+				D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */,
+				D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */,
+				D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */,
+				D32952EE162B71860074D9EC /* RZCustomTimeViewController.h */,
+				D32952EF162B71860074D9EC /* RZCustomTimeViewController.m */,
+				D32952F0162B71860074D9EC /* RZCustomTimeViewController.xib */,
 				D3F1F210160E6D0C0016F6BD /* RZLocationPickViewController.h */,
 				D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */,
 				D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */,
@@ -371,13 +421,7 @@
 				D3BCCA7B1620866500987648 /* RZUserProfileViewController.h */,
 				D3BCCA7C1620866500987648 /* RZUserProfileViewController.m */,
 				D3BCCA7D1620866500987648 /* RZUserProfileViewController.xib */,
-				D3BCCA801621E2FA00987648 /* LoginViewController.h */,
-				D3BCCA811621E2FA00987648 /* LoginViewController.m */,
-				D3BCCA821621E2FB00987648 /* LoginViewController.xib */,
 				D3AA1F2C160E574E00B51488 /* Supporting Files */,
-				D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */,
-				D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */,
-				D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */,
 			);
 			path = Rizedu;
 			sourceTree = "<group>";
@@ -388,12 +432,7 @@
 				D3AA1F2D160E574E00B51488 /* Rizedu-Info.plist */,
 				D3AA1F2E160E574E00B51488 /* InfoPlist.strings */,
 				D3AA1F31160E574E00B51488 /* main.m */,
-				D3F1F24A160EC76D0016F6BD /* Icon.png */,
-				D3F1F24B160EC76E0016F6BD /* Icon@2x.png */,
-				D3F1F24C160EC76E0016F6BD /* Default.png */,
-				D3F1F24D160EC76E0016F6BD /* Default@2x.png */,
 				D3AA1F33160E574E00B51488 /* Rizedu-Prefix.pch */,
-				D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -436,6 +475,15 @@
 		D3F1F1BB160E634E0016F6BD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D306E87B162D0B4400F394AF /* locateButton.png */,
+				D306E87C162D0B4400F394AF /* locateButton@2x.png */,
+				D306E87D162D0B4400F394AF /* location.png */,
+				D306E87E162D0B4400F394AF /* location@2x.png */,
+				D3F1F24A160EC76D0016F6BD /* Icon.png */,
+				D3F1F24B160EC76E0016F6BD /* Icon@2x.png */,
+				D3F1F24C160EC76E0016F6BD /* Default.png */,
+				D3F1F24D160EC76E0016F6BD /* Default@2x.png */,
+				D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */,
 				D3BCCA75161E9C7D00987648 /* icon@2x.png */,
 				D3655D51161E3ED300862024 /* lines@2x.png */,
 				D3F1F1BD160E63610016F6BD /* searchBarBG.png */,
@@ -443,6 +491,16 @@
 				D3F1F1BF160E63610016F6BD /* searchBarIcon@2x.png */,
 				D3F1F1C0160E63610016F6BD /* searchTextBG.png */,
 				D3F1F1C1160E63610016F6BD /* user.png */,
+				D32952D9162B67690074D9EC /* co2.png */,
+				D32952DA162B67690074D9EC /* co2saved.png */,
+				D32952E8162B67E30074D9EC /* start@2x.png */,
+				D32952DE162B67810074D9EC /* end@2x.png */,
+				D32952DF162B67810074D9EC /* gas.png */,
+				D32952EC162B6A3B0074D9EC /* routeicon.png */,
+				D32952EA162B69F60074D9EC /* routeicon@2x.png */,
+				D32952E2162B67BB0074D9EC /* menu@2x.png */,
+				D32952E3162B67BB0074D9EC /* menubtn.png */,
+				D32952E6162B67CA0074D9EC /* nav@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -608,6 +666,22 @@
 				D3BCCA76161E9C7D00987648 /* icon@2x.png in Resources */,
 				D3BCCA7F1620866500987648 /* RZUserProfileViewController.xib in Resources */,
 				D3BCCA841621E2FC00987648 /* LoginViewController.xib in Resources */,
+				D32952DB162B67690074D9EC /* co2.png in Resources */,
+				D32952DC162B67690074D9EC /* co2saved.png in Resources */,
+				D32952E0162B67810074D9EC /* end@2x.png in Resources */,
+				D32952E1162B67810074D9EC /* gas.png in Resources */,
+				D32952E4162B67BB0074D9EC /* menu@2x.png in Resources */,
+				D32952E5162B67BB0074D9EC /* menubtn.png in Resources */,
+				D32952E7162B67CA0074D9EC /* nav@2x.png in Resources */,
+				D32952E9162B67E30074D9EC /* start@2x.png in Resources */,
+				D32952EB162B69F60074D9EC /* routeicon@2x.png in Resources */,
+				D32952ED162B6A3B0074D9EC /* routeicon.png in Resources */,
+				D32952F2162B71860074D9EC /* RZCustomTimeViewController.xib in Resources */,
+				D3295352162BB0CB0074D9EC /* FBConnect.bundle in Resources */,
+				D306E87F162D0B4400F394AF /* locateButton.png in Resources */,
+				D306E880162D0B4400F394AF /* locateButton@2x.png in Resources */,
+				D306E881162D0B4400F394AF /* location.png in Resources */,
+				D306E882162D0B4400F394AF /* location@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +752,8 @@
 				D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */,
 				D390B7AF1622992900FD4540 /* RidezuModel.xcdatamodeld in Sources */,
 				D390B7B216229E3200FD4540 /* Preferences.m in Sources */,
+				D32952F1162B71860074D9EC /* RZCustomTimeViewController.m in Sources */,
+				D306E83B162C6DBC00F394AF /* RidezuEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

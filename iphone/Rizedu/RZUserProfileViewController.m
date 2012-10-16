@@ -12,23 +12,34 @@
 #import "MKNetworkKit.h"
 #import "Utils.h"
 #import "LoginViewController.h"
+#import "RZLocationPickViewController.h"
 
 @interface RZUserProfileViewController () <PF_FBRequestDelegate> {
     
 }
-@property (nonatomic, strong) IBOutlet UIImageView *avatarImageView;
-@property (nonatomic, strong) IBOutlet UILabel *nameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *workplaceLabel;
-@property (nonatomic, strong) IBOutlet UILabel *ageLabel;
-@property (nonatomic, strong) IBOutlet UILabel *bioLabel;
+@property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
+@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *workplaceLabel;
+@property (nonatomic, weak) IBOutlet UILabel *ageLabel;
+@property (nonatomic, weak) IBOutlet UITextView *bioTextView;
+@property (nonatomic, weak) IBOutlet UIButton *nextButton;
 
 @property (nonatomic, strong) IBOutlet MKMapView *homeMapView;
 @property (nonatomic, strong) IBOutlet MKMapView *officeMapView;
 
 @property (nonatomic, retain) NSString *fbId;
+@property (nonatomic, strong) RZUser *rzUser;
 @end
 
 @implementation RZUserProfileViewController
+
+
+- (void) nextButtonPressed:(id)sender {
+    NSLog(@"nextButton Pressed");
+    // RZLocationPickViewController *locationPickViewController = [[RZLocationPickViewController alloc] initWithType:@"home"];
+    RZLocationPickViewController *locationPickViewController = [[RZLocationPickViewController alloc] initWithType:@"home" andUser:_rzUser];
+    [self.navigationController pushViewController:locationPickViewController animated:YES];
+}
 
 - (id)initWithFBId:(NSString *)fbId {
     if (self = [super initWithNibName:@"RZUserProfileViewController" bundle:nil]) {
@@ -41,7 +52,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -51,8 +61,9 @@
     [super viewDidLoad];
     [self setTitle:@"Facebook Profile"];
     
+    _rzUser = [[RZUser alloc] init];
     // Create request for user's facebook data
-    NSString *requestPath = @"me/?fields=first_name,last_name,bio,work,gender,birthday,relationship_status,picture";
+    NSString *requestPath = @"me/?fields=first_name,last_name,bio,work,gender,birthday,relationship_status,picture,email";
     
     // Send request to facebook
     [[PFFacebookUtils facebook] requestWithGraphPath:requestPath andDelegate:self];
@@ -60,6 +71,7 @@
     // Check if user is cached and linked to Facebook, if so, bypass login
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         NSLog(@"here");
+        [_nextButton addTarget:self action:@selector(nextButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     else {
         LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
@@ -94,7 +106,7 @@
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
     _ageLabel.text = [NSString stringWithFormat:@"%@ %@", [Utils ageRange:birthDay], gender];
     _workplaceLabel.text = (employerName) ? employerName : @"";
-    _bioLabel.text = bio;
+    _bioTextView.text = bio;
     
     MKNetworkEngine* engine = [[MKNetworkEngine alloc] initWithHostName:@"facebook.com" customHeaderFields:nil];
     NSURL* url = [NSURL URLWithString:imageUrl];
@@ -104,6 +116,11 @@
           onCompletion:^(UIImage *fetchedImage, NSURL *url, BOOL isInCache) {
               [self performSelectorOnMainThread:@selector(updateImage:) withObject:fetchedImage waitUntilDone:YES];
           }];
+    
+    _rzUser.firstName = firstName;
+    _rzUser.lastName = lastName;
+    _rzUser.fbId = [userData objectForKey:@"id"];
+    _rzUser.email = [userData objectForKey:@"email"];
 }
 
 - (void)updateImage:(UIImage*) fetchedImage {

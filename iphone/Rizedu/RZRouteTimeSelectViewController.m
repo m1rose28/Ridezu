@@ -11,6 +11,8 @@
 #import "TimeTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
 
+#import "RZCustomTimeViewController.h"
+
 @interface RZRouteTimeSelectViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate> {
     
 }
@@ -128,16 +130,31 @@
         
         // custom item
         if (indexPath.row == ([_times count] - 1)) {
-            _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-216, 0, 0)];
-            NSLog(@"picker: (%f, %f, %f, %f)", _datePicker.frame.origin.x, _datePicker.frame.origin.y, _datePicker.frame.size.width, _datePicker.frame.size.height);
-            NSLog(@"table: (%f, %f, %f, %f)", _timeTable.frame.origin.x, _timeTable.frame.origin.y, _timeTable.frame.size.width, _timeTable.frame.size.height);
-            _datePicker.datePickerMode = UIDatePickerModeTime;
-            _datePicker.hidden = NO;
-            _datePicker.date = [NSDate date];
-            _isPickerShown = YES;
-            [_datePicker addTarget:self action:@selector(changeDateInLabel:) forControlEvents:UIControlEventValueChanged];
-            _timeTable.frame = CGRectMake(0, -44, 320.0, 427.00);
-            [self.view addSubview:_datePicker];
+//            _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-216, 0, 0)];
+//            NSLog(@"picker: (%f, %f, %f, %f)", _datePicker.frame.origin.x, _datePicker.frame.origin.y, _datePicker.frame.size.width, _datePicker.frame.size.height);
+//            NSLog(@"table: (%f, %f, %f, %f)", _timeTable.frame.origin.x, _timeTable.frame.origin.y, _timeTable.frame.size.width, _timeTable.frame.size.height);
+//            _datePicker.datePickerMode = UIDatePickerModeTime;
+//            _datePicker.hidden = NO;
+//            _datePicker.date = [NSDate date];
+//            _isPickerShown = YES;
+//            [_datePicker addTarget:self action:@selector(changeDateInLabel:) forControlEvents:UIControlEventValueChanged];
+//            _timeTable.frame = CGRectMake(0, -44, 320.0, 427.00);
+//            [self.view addSubview:_datePicker];
+            RZCustomTimeViewController *vc = [[RZCustomTimeViewController alloc] initWithNibName:@"RZCustomTimeViewController" bundle:nil];
+            // [self.navigationController pushViewController:vc animated:YES];
+            // [self presentModalViewController:vc animated:YES];
+            
+            // Animation to mimic modal view effect (bottom-top raise)
+//            CATransition *transition = [CATransition animation];
+//            transition.duration = 1.0f;
+//            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+//            transition.type = kCATransitionMoveIn;
+//            transition.subtype = kCATransitionFromTop;
+//            transition.delegate = self;
+//            [self.navigationController.view.layer addAnimation:transition forKey:nil];
+//
+//            [self.navigationController pushViewController:vc animated:YES];
+            [self presentViewController:vc animated:YES completion:nil];            
         }
         else {
             if (_isPickerShown) {

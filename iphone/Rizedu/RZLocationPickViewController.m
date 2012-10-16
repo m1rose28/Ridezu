@@ -13,6 +13,8 @@
 #import "RZLocationPickViewController.h"
 #import "RZEnrollCompleteViewController.h"
 
+#import "RidezuEngine.h"
+
 // using CAShapeLayer
 @interface DragView : UIView {
 	CGPoint startLocation;
@@ -62,6 +64,11 @@
 @property (readonly) CLLocationCoordinate2D currentUserCoordinate;
 @property (nonatomic, copy) NSString *locationType;
 
+@property (nonatomic, strong) CLPlacemark *placemark;
+@property (nonatomic, strong) RZUser *user;
+
+@property (nonatomic, strong) MKNetworkEngine *ridezuEngine;
+
 - (IBAction)currLocationButtonPressed:(id)sender;
 - (IBAction)nextButtonPressed:(id)sender;
 @end
@@ -76,6 +83,23 @@
 
 - (void)nextButtonPressed:(id)sender {
     if ([_locationType isEqualToString:@"home"]) {
+        
+        // save home coordinates
+        NSString *coordinateString = [NSString stringWithFormat:@"%.5f,%.5f",
+                                      _placemark.location.coordinate.latitude,
+                                      _placemark.location.coordinate.longitude];
+        // NSString *addressString = [self formatString:_placemark.subThoroughfare andThoroughfare:_placemark.thoroughfare Locality:_placemark.locality PostalCode:_placemark.postalCode];
+        
+        _user.homeLatitude = [NSString stringWithFormat:@"%.5f", _placemark.location.coordinate.latitude];
+        _user.homeLongitude = [NSString stringWithFormat:@"%.5f", _placemark.location.coordinate.longitude];
+        _user.originLatitude = _user.homeLatitude;
+        _user.originLongitude = _user.homeLongitude;
+        
+        _user.homeAddr = [self formatString2:_placemark.subThoroughfare andThoroughfare:_placemark.thoroughfare];
+        _user.homeCity = _placemark.locality;
+        _user.homeState = _placemark.administrativeArea;
+        _user.homeZipCode = _placemark.postalCode;
+        
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                        initWithTitle: @"Home"
                                        style: UIBarButtonItemStyleBordered
@@ -83,37 +107,72 @@
         
         [self.navigationItem setBackBarButtonItem: backButton];
         
-        RZLocationPickViewController *officeViewController = [[RZLocationPickViewController alloc] initWithType:@"office"];
+        RZLocationPickViewController *officeViewController = [[RZLocationPickViewController alloc] initWithType:@"office" andUser:_user];
         [self.navigationController pushViewController:officeViewController animated:YES];
     }
     else if ([_locationType isEqualToString:@"office"]) {
+        
+        _user.workLatitude = [NSString stringWithFormat:@"%.5f", _placemark.location.coordinate.latitude];
+        _user.workLongitude = [NSString stringWithFormat:@"%.5f", _placemark.location.coordinate.longitude];
+        _user.destLatitude = _user.workLatitude;
+        _user.destLongitude = _user.workLongitude;
+        
+        _user.workAddr = [self formatString2:_placemark.subThoroughfare andThoroughfare:_placemark.thoroughfare];
+        _user.workCity = _placemark.locality;
+        _user.workState = _placemark.administrativeArea;
+        _user.workZipCode = _placemark.postalCode;
+
+
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                        initWithTitle: @"Office"
                                        style: UIBarButtonItemStyleBordered
                                        target: nil action: nil];
         
         [self.navigationItem setBackBarButtonItem: backButton];
-
+        
+        // THIS IS THE TIME TO SEND TO SERVER
+        [self post2Server:[_user toRidezuDict]];
+        
         RZEnrollCompleteViewController *enrollCompleteViewController = [[RZEnrollCompleteViewController alloc] initWithNibName:@"RZEnrollCompleteViewController" bundle:nil];
         [self.navigationController pushViewController:enrollCompleteViewController animated:YES];
     }
 }
 
+- (void)post2Server:(NSMutableDictionary*)params {
+    MKNetworkOperation* op = [_ridezuEngine operationWithPath:@"ridezu/api/v/1/users" params:params httpMethod:@"POST" ssl:NO];
+    [op setPostDataEncoding:MKNKPostDataEncodingTypeJSON];
+    
+    [op onCompletion:^(MKNetworkOperation *completedOperation) {
+        NSDictionary *json = [op responseJSON];
+        NSLog(@"createUser response: %@", json);
+    }
+             onError:^(NSError *error) {
+                 NSLog(@"%@", error);
+             }];
+    [_ridezuEngine enqueueOperation: op];
+}
+
 - (id)initWithType:(NSString *)type {
+    return [self initWithType:type andUser:nil];
+}
+- (id)initWithType:(NSString *)type andUser:(RZUser*)user {
     if (self = [super initWithNibName:nil bundle:nil]) {
         self.locationType = type;
-        if ([type isEqualToString:@"home"]) 
+        if ([type isEqualToString:@"home"])
             self.title = @"Where do you live?";
         else if ([type isEqualToString:@"office"])
             self.title = @"Where do you work?";
 	}
-	return self;
+    _user = user;
+	return self;    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
+    _ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:@"ec2-50-18-0-33.us-west-1.compute.amazonaws.com" customHeaderFields:nil];
+    
     _locationManager = [[CLLocationManager alloc] init];
     [_locationManager setDelegate:self];
     [_locationManager startUpdatingLocation];
@@ -126,6 +185,13 @@
     
     _mapView.delegate = self;
     _addressTextField.delegate = self;
+    
+    if ([self.locationType isEqualToString:@"home"]) {
+        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
+        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+        self.navigationItem.leftBarButtonItem = slideButtonItem;
+
+    }
 }
 
 
@@ -198,14 +264,29 @@
         }
         // NSLog(@"Received placemarks: %@", placemarks);
         if (placemarks && [placemarks count] > 0) {
-            CLPlacemark *placemark = [placemarks objectAtIndex:0];
-            NSString *addressString = [self formatString:placemark.subThoroughfare andThoroughfare:placemark.thoroughfare Locality:placemark.locality PostalCode:placemark.postalCode];
-            NSLog(@"%@, %@, %@", placemark.name, placemark.subThoroughfare, placemark.thoroughfare);
+            _placemark = [placemarks objectAtIndex:0];
+            NSString *addressString = [self formatString:_placemark.subThoroughfare andThoroughfare:_placemark.thoroughfare Locality:_placemark.locality PostalCode:_placemark.postalCode];
+            NSLog(@"%@, %@, %@", _placemark.name, _placemark.subThoroughfare, _placemark.thoroughfare);
             
             [_addressTextField setText:addressString];
         }
     }];
     
+}
+- (NSString*)formatString2:(NSString*)subThoroughfare andThoroughfare:(NSString*)thoroughfare {
+    NSString *addressString;
+    if (!subThoroughfare) {
+        if (!thoroughfare) {
+            addressString = @"";
+        }
+        else {
+            addressString = thoroughfare;
+        }
+    }
+    else {
+        addressString = [NSString stringWithFormat:@"%@ %@", subThoroughfare, thoroughfare];
+    }
+    return addressString;
 }
 
 - (NSString*)formatString:(NSString*)subThoroughfare andThoroughfare:(NSString*)thoroughfare Locality:(NSString*)locality PostalCode:(NSString*)postalCode {
