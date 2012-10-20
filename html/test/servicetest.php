@@ -1,5 +1,5 @@
 <?php 
-
+$p="api";
 $d=date("Y-m-d");
 $time="9:30";
 $uid="500023557";
@@ -7,22 +7,10 @@ $uid="500023557";
 if(isset($_GET['uid'])){
 	$uid=$_GET['uid'];
 	}
-
-
+	
+include 'header.php';
 
 ?>
-
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Ridezu Test Tool</title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <h1>Ridezu Test Tool</h1>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
 
 	
 <script>
@@ -339,6 +327,20 @@ var dataset = {
             });
         }
 
+//cancel ride function 
+		function cancelride(){
+        	fbid=document.getElementById("cancelfbid").value;
+        	rideid=document.getElementById("cancelrideid").value;
+		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
+		    var request=$.ajax({
+                url: url,
+                type: "DELETE",
+                dataType: "json",
+                success: function(data) {show(data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+        }
 
 
 
@@ -379,50 +381,52 @@ var dataset = {
 
 <div style="padding-left:20px;">
 
-<p><div class="input-append"><a class="btn btn-primary" onclick="shownewuser();">Make a new user</a>
-	 <div id="makenewuser" style="display:none;background-color:#eee;padding:10px;"/>	 
-			<p><div class="input-append">fbid:  <input id="regfbid" value="504711218" type="text"/></div></p>
-			<p><div class="input-append">first name: <input id="regfname" value="Mark" type="text"/></div></p>
-			<p><div class="input-append">last name:  <input id="reglname" value="Rose" type="text"/></div></p>
-			<p><div class="input-append">email:  <input id="regemail" value="m1rose28@gmail.com" type="text"/></div></p>
-			<p><div class="input-append">home address 1:  <input id="reghadd1" value="5475 Tesoro Court" type="text"/></div></p>
-			<p><div class="input-append">home city:  <input id="reghcity" value="San Jose" type="text"/></div></p>
-			<p><div class="input-append">home state:  <input id="reghstate" value="CA" type="text"/></div></p>
-			<p><div class="input-append">home zip:  <input id="reghzip" value="95124" type="text"/></div></p>
-			<p><div class="input-append">work address 1:  <input id="regwadd1" value="500 Unviversity" type="text"/></div></p>
-			<p><div class="input-append">work city:  <input id="regwcity" value="Los Gatos" type="text"/></div></p>
-			<p><div class="input-append">work state:  <input id="regwstate" value="CA" type="text"/></div></p>
-			<p><div class="input-append">work zip:  <input id="regwzip" value="95132" type="text"/></div></p>
-			<p><div class="input-append">home lat:  <input id="reghlat" value="" type="37.2388541"/></div></p>
-			<p><div class="input-append">home lng:  <input id="reghlng" value="" type="-121.9214275"/></div></p>
-			<p><div class="input-append">work lat:  <input id="regwlat" value="" type="text"/></div></p>
-			<p><div class="input-append">work lng:  <input id="regwlng" value="" type="text"/></div></p>
-			<p><div class="input-append"><a class="btn btn-primary" onclick="regnewuser();">Create</a>  <a class="btn" onclick="hidenewuser();">hide</a></div></p>
+	<p><div class="input-append"><a class="btn btn-primary" onclick="shownewuser();">Make a new user</a>
+	<div id="makenewuser" style="display:none;background-color:#eee;padding:10px;"/>	 
+		 <p><div class="input-append">fbid:  <input id="regfbid" value="504711218" type="text"/></div></p>
+		 <p><div class="input-append">first name: <input id="regfname" value="Mark" type="text"/></div></p>
+		 <p><div class="input-append">last name:  <input id="reglname" value="Rose" type="text"/></div></p>
+		 <p><div class="input-append">email:  <input id="regemail" value="m1rose28@gmail.com" type="text"/></div></p>
+		 <p><div class="input-append">home address 1:  <input id="reghadd1" value="5475 Tesoro Court" type="text"/></div></p>
+		 <p><div class="input-append">home city:  <input id="reghcity" value="San Jose" type="text"/></div></p>
+		 <p><div class="input-append">home state:  <input id="reghstate" value="CA" type="text"/></div></p>
+		 <p><div class="input-append">home zip:  <input id="reghzip" value="95124" type="text"/></div></p>
+		 <p><div class="input-append">work address 1:  <input id="regwadd1" value="500 Unviversity" type="text"/></div></p>
+		 <p><div class="input-append">work city:  <input id="regwcity" value="Los Gatos" type="text"/></div></p>
+		 <p><div class="input-append">work state:  <input id="regwstate" value="CA" type="text"/></div></p>
+		 <p><div class="input-append">work zip:  <input id="regwzip" value="95132" type="text"/></div></p>
+		 <p><div class="input-append">home lat:  <input id="reghlat" value="" type="37.2388541"/></div></p>
+		 <p><div class="input-append">home lng:  <input id="reghlng" value="" type="-121.9214275"/></div></p>
+		 <p><div class="input-append">work lat:  <input id="regwlat" value="" type="text"/></div></p>
+		 <p><div class="input-append">work lng:  <input id="regwlng" value="" type="text"/></div></p>
+		 <p><div class="input-append"><a class="btn btn-primary" onclick="regnewuser();">Create</a>  <a class="btn" onclick="hidenewuser();">hide</a></div></p>
 	 </div> 
-</div></p>
-<p><div class="input-append"><a class="btn btn-primary" onclick="getusers();">Get all users</a></div></p>
-<p><div class="input-append"><a class="btn btn-primary" onclick="getallrides();">Get all rides</a></div></p>
-<p><div class="input-append"><input id="rideid" value="66" type="text"/><a class="btn btn-primary" onclick="getridebyid();">Get a ride by id</a></div></p>
-<p><div class="input-append"><input id="userdetails" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getuserdetails();">Get user details</a></div></p>
-<p><div class="input-append"><input id="rider1" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getridebyfbid();">Get list of rides for rider (Pass fbid of rider making the API call)</a></div></p>
-<p><div class="input-append"><input id="rider2" value="<?php echo $uid;?>" type="text"/><input id="rider2route" value="h2w" type="text"/><input id="rider2date" value="<?php echo $d;?>" type="text"/><a class="btn btn-primary" onclick="getridebyfbidRtDt();">Get list of rides for rider 2 (Pass fbid of rider making the API call,route, eventtime)</a></div></p>
-<p><div class="input-append"><input id="drivebyfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getdriverbyfbid();">Get list of rides for driver (Pass fbid of driver making the API call)</a></div></p>
-<p><div class="input-append"><input id="drivebyfbid" value="<?php echo $uid;?>" type="text"/><input id="ridebyroute" value="h2w" type="text"/><input id="ridebydate" value="<?php echo $d;?>" type="text"/><a class="btn btn-primary" onclick="getdriverbyfbidRtDt();">Get list of rides for driver 2 (Pass fbid of driver making the API call,route, eventtime)</a></div></p>
-<p><div class="input-append"><input id="reqridefbid" value="<?php echo $uid;?>" type="text"/><input id="reqrideroute" value="h2w" type="text"/><input id="reqridetime" value="<?php echo $d." ".$time;?>" type="text"/><a class="btn btn-primary" onclick="requestnewride();">Request a ride (empty)</a></div></p>
-<p><div class="input-append"><input id="selectridefbid" value="<?php echo $uid;?>" type="text"/><input id="selectrideid" value="rideid or driver" type="text"/><a class="btn btn-primary" onclick="selectridebyrider();">Request a ride (w/specific driver)</a></div></p>
-<p><div class="input-append"><input id="postridefbid" value="<?php echo $uid;?>" type="text"/><input id="route" value="h2w" type="text"/><input id="postridetime" value="<?php echo $d." ".$time;?>" type="text"/><a class="btn btn-primary" onclick="postnewride();">Post a Ride (empty)</a></div></p>
-<p><div class="input-append"><input id="driverfbid" value="<?php echo $uid;?>" type="text"/><input id="reqrideid" value="rideid of requestor" type="text"/><a class="btn btn-primary" onclick="postnewridewithrider();">Post a Ride (match with existing request)</a></div></p>
-<p><div class="input-append"><input id="myriderfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getriderride();">Get my ride details (use it to get your ride details)</a></div></p>
-
-<div class="modal" style="display:none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">JSON Results</h3>
-  </div>
-  <div class="modal-body">
-    <p><div id="jsonresult"></div></p>
-  </div>
-</div>
+	 </div></p>
+	 
+	 <p><div class="input-append"><a class="btn btn-primary" onclick="getusers();">Get all users</a></div></p>
+	 <p><div class="input-append"><a class="btn btn-primary" onclick="getallrides();">Get all rides</a></div></p>
+	 <p><div class="input-append"><input id="rideid" value="66" type="text"/><a class="btn btn-primary" onclick="getridebyid();">Get a ride by id</a></div></p>
+	 <p><div class="input-append"><input id="userdetails" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getuserdetails();">Get user details</a></div></p>
+	 <p><div class="input-append"><input id="rider1" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getridebyfbid();">Get list of rides for rider (Pass fbid of rider making the API call)</a></div></p>
+	 <p><div class="input-append"><input id="rider2" value="<?php echo $uid;?>" type="text"/><input id="rider2route" value="h2w" type="text"/><input id="rider2date" value="<?php echo $d;?>" type="text"/><a class="btn btn-primary" onclick="getridebyfbidRtDt();">Get list of rides for rider 2 (Pass fbid of rider making the API call,route, eventtime)</a></div></p>
+	 <p><div class="input-append"><input id="drivebyfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getdriverbyfbid();">Get list of rides for driver (Pass fbid of driver making the API call)</a></div></p>
+	 <p><div class="input-append"><input id="drivebyfbid" value="<?php echo $uid;?>" type="text"/><input id="ridebyroute" value="h2w" type="text"/><input id="ridebydate" value="<?php echo $d;?>" type="text"/><a class="btn btn-primary" onclick="getdriverbyfbidRtDt();">Get list of rides for driver 2 (Pass fbid of driver making the API call,route, eventtime)</a></div></p>
+	 <p><div class="input-append"><input id="reqridefbid" value="<?php echo $uid;?>" type="text"/><input id="reqrideroute" value="h2w" type="text"/><input id="reqridetime" value="<?php echo $d." ".$time;?>" type="text"/><a class="btn btn-primary" onclick="requestnewride();">Request a ride (empty)</a></div></p>
+	 <p><div class="input-append"><input id="selectridefbid" value="<?php echo $uid;?>" type="text"/><input id="selectrideid" value="rideid or driver" type="text"/><a class="btn btn-primary" onclick="selectridebyrider();">Request a ride (w/specific driver)</a></div></p>
+	 <p><div class="input-append"><input id="postridefbid" value="<?php echo $uid;?>" type="text"/><input id="route" value="h2w" type="text"/><input id="postridetime" value="<?php echo $d." ".$time;?>" type="text"/><a class="btn btn-primary" onclick="postnewride();">Post a Ride (empty)</a></div></p>
+	 <p><div class="input-append"><input id="driverfbid" value="<?php echo $uid;?>" type="text"/><input id="reqrideid" value="rideid of requestor" type="text"/><a class="btn btn-primary" onclick="postnewridewithrider();">Post a Ride (match with existing request)</a></div></p>
+	 <p><div class="input-append"><input id="myriderfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getriderride();">Get my ride details (use it to get your ride details)</a></div></p>
+	 <p><div class="input-append"><input id="cancelfbid" value="<?php echo $uid;?>" type="text"/><input id="cancelrideid" value="3" type="text"/><a class="btn btn-primary" onclick="cancelride();">Cancel ride</a></div></p>
+	 
+	 <div class="modal" style="display:none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-header">
+		 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		 <h3 id="myModalLabel">JSON Results</h3>
+	   </div>
+	   <div class="modal-body">
+		 <p><div id="jsonresult"></div></p>
+	   </div>
+	 </div>
 
 </div>
 

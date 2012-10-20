@@ -1,40 +1,48 @@
+<?php
+
+// harness function. include the query string ?p=pagename 
+// for example
+// ?p=requestp
+// will fetch
+// requestp.html in the pages directory
+
+$p="mainp";
+if(isset($_GET["p"])){$p=$_GET["p"];}
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
-
+	<script type="text/javascript">
+		var startpage="<?php echo $p?>";
+	</script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Ridezu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
- <link rel="stylesheet" href="themes/ridezu.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+ 	<link rel="stylesheet" href="themes/ridezu.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-<link type="text/css" rel="stylesheet" href="css/ridezu.css"> 
+	<link type="text/css" rel="stylesheet" href="css/ridezu.css"> 
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/ridezu.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/style.css">
-
-
-<!-- to get maps to work these scripts need to be included. that said - there is some bug here...
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true"></script>
-	<script src="http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true"></script>
- -->
- 	
-
 </head>
 
 <body>
-
-		<div id="w">
+		<div id="w" style="display:none;">
 		
 		<div id="pagebody" style="left: 0px;">
-			<header id="toolbarnav" style="left: 0px; ">
+			<div id="topbar" style="display:block;">
+			<header id="toolbarnav" style="left:0px; ">
 				<a href="#" id="menu-btn"><img src="../images/menu.png" alt="Menu Button" /></a>
 			
 				<h1 id="pTitle">Ridezu</h1>
 			</header>
-			
+			</div>
 
 				<div id="rpopup" style="display:none;" onclick="rempopup();" class="popup"></div>
 				<div id="darkpage" class="dim" style="display:none;"></div>
@@ -68,6 +76,8 @@
 				<div id="loginp"></div>
 				<div id="firstp"></div> 
 				<div id="myridesp"></div> 
+				<div id="userprofilep"></div> 
+
 		<div id="testbar" style="background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
 		</div>
 		
@@ -87,9 +97,11 @@
 					<li><a class="navlink" onclick="nav1('termsp');" class="navlink">Terms of Service</a></li>
 					<li>Ridezu &copy; 2012</li>
 				</ul>
+			</div>
 		</div>
-	</div>
 
+
+	
 </body></html>
 
 

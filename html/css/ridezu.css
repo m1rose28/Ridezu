@@ -1,3 +1,5 @@
+
+
 		 .popup{
 		 position: absolute; 
 		 top:25%; 
@@ -9,8 +11,11 @@
 		 border-radius: 10px;
 		 padding:10px;
 		 margin:0px;
-		 opacity:0.9;
+		 opacity:0.95;
+		 font-size:18px;
+		 color:#fff;
 		 }
+		 		 
 		 .popuptext{
 		 font-size:18px;
 		 color:#fff;

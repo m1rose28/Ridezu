@@ -1,6 +1,6 @@
 // these are all custom functions used by ridezu.  these are here temporarily and should all be moved to ridezu.js (they should also be minified)
   				
-// this function loads all user data in js memory (not local storage), and should be used when the user installs the app
+// this function loads all user data in a js object, this function is used when looking at another user 
 
 		function loaduser(fbid){
 		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users/search/fbid/"+fbid;
@@ -10,6 +10,7 @@
                 dataType: "json",
                 success: function(data) {
 					userinfo=data;
+					paintuserprofile(userinfo.user.id);
 			    	},
                 error: function(data) { alert("Uh oh - does this user exist?"+JSON.stringify(data)); },
                 beforeSend: setHeader
@@ -131,7 +132,7 @@
 		}
 			
 		function nav2(from,to){
-			testdata=localStorage.first_name+" "+localStorage.last_name+" : "+localStorage.fbid;
+			testdata="Logged in as: " + localStorage.first_name+" "+localStorage.last_name+" : "+localStorage.fbid;
 			testlink="<a class='tlink' href='http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/test/servicetest.php?uid="+localStorage.fbid+"' target='ridezutest'>"+testdata+"</a>";
 			document.getElementById('pTitle').innerHTML=pageTitles[to];
 			document.getElementById('testbar').innerHTML=testlink;
@@ -142,9 +143,19 @@
 			p=to;
 
 			if(to=="enrollp"){
+				document.getElementById("topbar").style.display="block";		
 			  	copy="First, type in or select your home address.<br><br>This address never be shared.";
 			  	showpopup(copy);
 			  	getLocation();
+				}
+
+			if(to=="userprofilep"){
+				if(userprofile===undefined){userprofile=localStorage.fbid;}
+				loaduser(userprofile);
+				}
+			
+			if(to=="startp" || p=="startp"){
+				document.getElementById("topbar").style.display="none";		
 				}
 
 			if(to=="riderequestp"){
@@ -385,12 +396,12 @@
 		  function updateUserInfo(response) {
 			 FB.api('/me', function(response) {
 			   document.getElementById('user-info').innerHTML = '<br/<br/>ps.  I got all your data. <br/<br/><img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+			   localStorage.response=JSON.stringify(response);
 			   localStorage.first_name=response.first_name;
 			   localStorage.last_name=response.last_name;
 			   localStorage.image="https://graph.facebook.com/" + response.id + "/picture";
 			   localStorage.fbid=response.id;
 			   localStorage.email=response.email;
-			   document.getElementById('fname').innerHTML=response.first_name
 			   // now register the new user
 			   regnewuser();
 			   //and go to the congratulations page
@@ -427,6 +438,7 @@
 				"email": localStorage.email,
 				"homelatlong": localStorage.hlat+","+localStorage.hlng,
 				"worklatlong": localStorage.wlat+","+localStorage.wlng,
+				"profileblob": localStorage.response,
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -450,7 +462,11 @@
             xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
             xhr.setRequestHeader("Content-Type", "application/json");
   	      }
-   
+
+        function setHeaderUser(xhr) {
+            xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
+            xhr.setRequestHeader("Content-Type", "application/json");
+  	      }   
 //random function to test if javascript is still working or if there is some other bug
 
 		function a(){
@@ -900,7 +916,7 @@
 					  document.getElementById('destdesc').innerHTML="Home";
 					  }
 		
-				xoriginlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+value1.originlatlong+"&zoom=13&size=300x100&maptype=roadmap&markers=color:green%7C%7C"+value1.originlatlong+"&sensor=false";
+				xoriginlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size=300x100&maptype=roadmap&markers=color:green%7C%7C"+value1.startlatlong+"&sensor=false";
 				document.getElementById('ridedesta').src=xoriginlatlong;		  		  
 				document.getElementById('amount').innerHTML=value1.amount;
 				document.getElementById('gassavings').innerHTML=value1.gassavings;
@@ -937,6 +953,8 @@
 
 	}
 
+// this function shows all rides that a user has
+
 		function showallrides(){		
 		  fbid=localStorage.fbid;
 		  riders=0;
@@ -951,10 +969,10 @@
 		  
 		  		$.each(mrlist["Driver"], function(key3, value3) {
 					value3=mrlist["Driver"][key3];
-					if(value3.route=="h2w"){rte="going to work;"}
+					if(value3.route=="h2w"){rte="going to work";}
 					if(value3.route=="w2h"){rte="going home";}
 					etime=evtime(value3.eventtime);
-					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value3.rideid+"')   \"><li>"+etime+" ("+rte+")</li>";				
+					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value3.rideid+"')   \"><li>"+value3.day+ " at "+etime+" ("+rte+")</li>";				
 			  	});
 	  
 	    		myrideslist=myrideslist+"</ul></section>";
@@ -967,10 +985,10 @@
 		  
 		  		$.each(mrlist["Rider"], function(key4, value4) {
 					value3=mrlist["Rider"][key4];
-					if(value4.route=="h2w"){rte="going to work;"}
+					if(value4.route=="h2w"){rte="going to work";}
 					if(value4.route=="w2h"){rte="going home";}
 					etime=evtime(value4.eventtime);
-					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value4.rideid+"')   \"><li>"+etime+" ("+rte+")</li>";				
+					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value4.rideid+"')   \"><li>"+value3.day+ " at "+etime+" ("+rte+")</li>";				
 			  	});
 
 	    		myrideslist=myrideslist+"</ul></section>";
@@ -982,6 +1000,243 @@
 		  document.getElementById('allrides').style.display="block";	 
 		  	 
 		  }	  
+		  
+// this function set(2) cancels a ride for a user
+
+		function cancelride(rideid){	
+			copy="<span class='popuptext'>Are you sure you want to cancel this ride?<br><br>This cannot be undone.";
+			copy=copy+"<br><br><a href=\"#\" onclick=\"cancelconfirm('"+rideid+"');\">OK</a></span>";
+			showpopup(copy);
+		}	
+
+		function cancelconfirm(rideid){	
+			fbid=localStorage.fbid;
+		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
+		    var request=$.ajax({
+                url: url,
+                type: "DELETE",
+                dataType: "json",
+                success: function(data) {rempopup();myrides();},
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+		}	
+
+// this function set populates the page for the profile page
+// step1 get the user 
+
+		function profile(userid){
+			userprofile=userid;
+			nav('',userprofilep);
+			}
+// this is some mock fb data while we work out some bugs
+
+var fbdata = {
+    "profileblob": {
+        "id": "504711218",
+        "name": "Mark Rose",
+        "first_name": "Mark",
+        "last_name": "Rose",
+        "link": "http://www.facebook.com/productguy",
+        "username": "productguy",
+        "hometown": {
+            "id": "107981152555999",
+            "name": "Pleasanton, California"
+        },
+        "location": {
+            "id": "111948542155151",
+            "name": "San Jose, California"
+        },
+        "bio": "Simplicity is the ultimate sophistication - Leonardo da Viinci\r\n\r\nI'm a product guy.",
+        "quotes": "Luck is by design. \n\nLife is too short for bad products.",
+        "work": [
+            {
+                "employer": {
+                    "id": "115847221758787",
+                    "name": "Entrepreneur"
+                },
+                "position": {
+                    "id": "104098916294662",
+                    "name": "Entrepreneur In Residence"
+                },
+                "description": "(working at home office)",
+                "start_date": "2012-09"
+            },
+            {
+                "employer": {
+                    "id": "160475137333335",
+                    "name": "Visa"
+                },
+                "position": {
+                    "id": "131526090224028",
+                    "name": "VP Product Management"
+                },
+                "start_date": "2011-03",
+                "end_date": "2012-09"
+            },
+            {
+                "employer": {
+                    "id": "105467122822370",
+                    "name": "PlaySpan"
+                },
+                "location": {
+                    "id": "105464892820215",
+                    "name": "Santa Clara, California"
+                },
+                "position": {
+                    "id": "131526090224028",
+                    "name": "VP Product Management"
+                },
+                "start_date": "2009-04",
+                "end_date": "2011-03"
+            },
+            {
+                "employer": {
+                    "id": "373168890027",
+                    "name": "Spare Change"
+                },
+                "location": {
+                    "id": "111948785483165",
+                    "name": "Cupertino, California"
+                },
+                "position": {
+                    "id": "106324149403234",
+                    "name": "Co-founder"
+                },
+                "start_date": "2008-01",
+                "end_date": "2009-01"
+            },
+            {
+                "employer": {
+                    "id": "109460705739105",
+                    "name": "Yodlee"
+                },
+                "start_date": "2003-01",
+                "end_date": "2004-01"
+            },
+            {
+                "employer": {
+                    "id": "101002089941976",
+                    "name": "E*Trade"
+                },
+                "position": {
+                    "id": "112650685413971",
+                    "name": "Product Manager"
+                },
+                "start_date": "1998-01",
+                "end_date": "2003-01"
+            },
+            {
+                "employer": {
+                    "id": "123851850960945",
+                    "name": "E-Trade Financial"
+                },
+                "start_date": "1998-01",
+                "end_date": "2003-01"
+            },
+            {
+                "employer": {
+                    "id": "105101262863595",
+                    "name": "PayPal"
+                }
+            }
+        ],
+        "sports": [
+            {
+                "id": "105788652787522",
+                "name": "Swimming"
+            },
+            {
+                "id": "111932052156866",
+                "name": "Surfing"
+            }
+        ],
+        "education": [
+            {
+                "school": {
+                    "id": "403252893075259",
+                    "name": "Broad Run High School"
+                },
+                "type": "High School"
+            },
+            {
+                "school": {
+                    "id": "110718578953431",
+                    "name": "Amador Valley High"
+                },
+                "year": {
+                    "id": "117366921644668",
+                    "name": "1988"
+                },
+                "type": "High School"
+            },
+            {
+                "school": {
+                    "id": "13917075214",
+                    "name": "UC Davis"
+                },
+                "year": {
+                    "id": "140829239279495",
+                    "name": "1992"
+                },
+                "concentration": [
+                    {
+                        "id": "109275475757504",
+                        "name": "International Relations"
+                    }
+                ],
+                "type": "College"
+            },
+            {
+                "school": {
+                    "id": "113746265302715",
+                    "name": "California State University, Fresno"
+                },
+                "degree": {
+                    "id": "196378900380313",
+                    "name": "MBA"
+                },
+                "year": {
+                    "id": "131821060195210",
+                    "name": "1997"
+                },
+                "concentration": [
+                    {
+                        "id": "177942822248328",
+                        "name": "Information Systems and Decision Sciences"
+                    }
+                ],
+                "type": "Graduate School"
+            }
+        ],
+        "gender": "male",
+        "email": "m1rose28@yahoo.com",
+        "timezone": -7,
+        "locale": "en_US",
+        "verified": true,
+        "updated_time": "2012-10-07T21:56:11+0000"
+    }
+};
+
+
+
+
+// this function paints the user profile page
+		function paintuserprofile(userid){
+			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.user.fbid+"/picture";	
+			document.getElementById('workcity').innerHTML=userinfo.user.workcity;	
+			document.getElementById('city').innerHTML=userinfo.user.city;	
+			document.getElementById('cartype').innerHTML=userinfo.user.carmaker;	
+			document.getElementById('co2').innerHTML=userinfo.user.co2balance;	
+			document.getElementById('trips').innerHTML=parseInt(userinfo.user.ridesoffered)+parseInt(userinfo.user.ridestaken);
+			document.getElementById('frontphoto').src="http://ridezu.s3.amazonaws.com/carphotos/front-"+userinfo.user.fbid+"-o.jpeg";
+			document.getElementById('leftphoto').src="http://ridezu.s3.amazonaws.com/carphotos/left-"+userinfo.user.fbid+"-o.jpeg";
+			document.getElementById('rightphoto').src="http://ridezu.s3.amazonaws.com/carphotos/right-"+userinfo.user.fbid+"-o.jpeg";
+			document.getElementById('backphoto').src="http://ridezu.s3.amazonaws.com/carphotos/back-"+userinfo.user.fbid+"-o.jpeg";
+			document.getElementById('consistency').innerHTML=userinfo.user.consistency;
+			document.getElementById('timeliness').innerHTML=userinfo.user.timeliness;
+			}
+
 
 // these are the functions which initialize and start the ridezu web app.  please keep everything after this line at the end of this page, and functions before this.
 
@@ -995,6 +1250,7 @@
 	    var mrlist;
 	    var userinfo={};
 	    var etime;
+	    var userprofile;
   		  		
 //page titles are the pageid's coupled with what shows up in the header
   		
@@ -1025,7 +1281,8 @@
   			"whereworkp":"Where do you work?",			
   			"wherelivep":"Where do you live?",			
   			"myridesp":"My Rides",			
-  			"loginp":"Login - Test Page"			
+  			"loginp":"Login - Test Page",			
+  			"userprofilep":"Profile"			
 			};
 
 
@@ -1034,11 +1291,16 @@
 fbid=localStorage.fbid;
   var p="firstp";
 	if(fbid!=undefined){
-	  nav("firstp","mainp");
-	  loaduser(fbid);
-
+	  nav("firstp",startpage);
+	  $(document).ready(function() {
+		  document.getElementById("w").style.display="block";	 
+		});
 	}
 	else
 	{
+	fbid=0;
 	  nav("firstp","startp");
+	  	  $(document).ready(function() {
+		  document.getElementById("w").style.display="block";	 
+		});
 	}
