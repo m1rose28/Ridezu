@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RZUserProfileViewController : UIViewController
-- (id)initWithFBId:(NSString *)fbId;
+//- (id)initWithFBId:(NSString *)fbId;
 @end

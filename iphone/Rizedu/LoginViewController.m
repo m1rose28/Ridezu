@@ -18,12 +18,12 @@
     
     // Check if user is cached and linked to Facebook, if so, bypass login    
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        RZUserProfileViewController *rzUserProfileViewController = [[RZUserProfileViewController alloc] initWithFBId:@"1234"];
+        RZUserProfileViewController *rzUserProfileViewController = [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil];
         [self.navigationController pushViewController:rzUserProfileViewController animated:NO];
     }
     else {
-        
-        
+        // not loged in
+        NSLog(@"not login");
     }
 }
 
@@ -51,7 +51,8 @@
             // [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
         } else {
             NSLog(@"User with facebook logged in!");
-            // [self.navigationController pushViewController:[[UserDetailsViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+            RZUserProfileViewController *profileVC = [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil];
+            [self.navigationController pushViewController:profileVC animated:YES];
         }
     }];
     

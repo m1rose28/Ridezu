@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "RZCustomTimeViewController.h"
+#import "RZRide.h"
 
 @interface RZRouteTimeSelectViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate> {
     
@@ -30,6 +31,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *gasCarbonSavingLabel;
 @property (nonatomic, strong) IBOutlet UIView *routeContainerView;
 
+@property (nonatomic, strong) NSMutableArray *driversArray;
 @end
 
 @implementation RZRouteTimeSelectViewController
@@ -58,7 +60,7 @@
     
     _timeTable.delegate = self;
     _timeTable.dataSource = self;
-    _times = @[@"6:30", @"7:00", @"7:30", @"8:00", @"Custom"];
+    _times = @[@"7:00am", @"7:30am", @"8:00am", @"8:30am", @"Custom"];
     _lastSelected = [NSIndexPath indexPathForRow:1 inSection:0];
     _timeTableFrame = CGRectMake(_timeTable.frame.origin.x, _timeTable.frame.origin.y,
                                  _timeTable.frame.size.width, _timeTable.frame.size.height);
@@ -66,6 +68,59 @@
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Next"
                                                                     style:UIBarButtonSystemItemDone target:self action:@selector(nextButtonPressed)];
     self.navigationItem.rightBarButtonItem = rightButton;
+    
+    _driversArray = [[NSMutableArray alloc] init];
+}
+
+- (void)getRidesById:(NSString*)fbId {
+    // http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/500012114/driver
+    NSString *path = [NSString stringWithFormat:@"ridezu/api/v/1/rides/search/fbid/%@/driver", fbId];
+    MKNetworkOperation* op = [[RZGlobalService singleton].ridezuEngine operationWithPath:path params:nil httpMethod:@"GET" ssl:NO];
+    
+    [op onCompletion:^(MKNetworkOperation *completedOperation) {
+        NSDictionary *json = [op responseJSON];
+        NSLog(@"response: %@", json);
+        NSDictionary *rides = [json objectForKey:@"rideList"];
+        [rides enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            NSLog(@"key = %@", key);
+            NSMutableArray *ridesPerTimeslot = [[NSMutableArray alloc] init];
+            for (NSDictionary *r in obj) {
+                NSString *rideId = [r objectForKey:@"rideid"];
+                NSLog(@"rideId = %@", rideId);
+                
+                if (rideId && rideId != nil && ![rideId isEqual:[NSNull null]]) {
+                    RZRide *rideInfo = [[RZRide alloc] initWithDict:r];
+                    [ridesPerTimeslot addObject:rideInfo];
+                    NSLog(@"%@, %@", rideInfo.eventTime, rideInfo.fullName);
+                    // [_driversArray addObject:@{key : rideInfo}];
+                }
+                else {
+                    break;
+                }
+            }
+            if ([ridesPerTimeslot count] > 0) {
+                NSDictionary *timeslotDict = @{@"time" : key, @"rides" : ridesPerTimeslot};
+                [_driversArray addObject:timeslotDict];
+            }
+            NSLog(@">>>>> %@", _driversArray);
+        }];
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rideid.length > 0"];
+//        NSArray* filtered = [rides filteredArrayUsingPredicate:predicate];
+//        NSLog(@"filtered array: %@", filtered);
+        NSLog(@"END ...");
+        [_timeTable reloadData];
+    }
+     onError:^(NSError *error) {
+         NSLog(@"%@", error);
+     }];
+    [[RZGlobalService singleton].ridezuEngine enqueueOperation: op];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSString *activeUserId = [[NSUserDefaults standardUserDefaults] stringForKey:@"UserId"];
+    NSString *activeUserName = [[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
+    NSLog(@"Acting as %@ (%@)", activeUserId, activeUserName);
+    [self getRidesById:activeUserId];
 }
 
 - (void)nextButtonPressed {
@@ -101,18 +156,28 @@
 {
     static NSString *CellIdentifier = @"timetable-Cell";
     
+    NSLog(@"----------------> (%d, %d)", indexPath.section, indexPath.row);
     TimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         NSArray* topObjects = [[NSBundle mainBundle] loadNibNamed:@"TimeTableViewCell" owner:self options:nil];
         cell = [topObjects objectAtIndex:0];
-        if (_lastSelected && indexPath.row == _lastSelected.row) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        if (_lastSelected && indexPath.row == _lastSelected.row) {
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        }
+    }
+    // NSDictionary* timeslotDict = [_driversArray objectAtIndex:indexPath.row];
+    cell.timeLabel.text = [_times objectAtIndex:indexPath.row];
+    
+    if (_driversArray != nil && [_driversArray count] > 0 && [_driversArray count] > indexPath.row) {
+        NSString *time = [[_driversArray objectAtIndex:indexPath.row] objectForKey:@"time"];
+        NSArray *rides = [[_driversArray objectAtIndex:indexPath.row] objectForKey:@"rides"];
+        // cell.timeLabel.text = time;
+        NSLog(@"label:%@, time:%@", cell.timeLabel.text, time);
+        if ([cell.timeLabel.text isEqualToString:time]) {
+            cell.detailLabel.text = [NSString stringWithFormat:@"%d drivers", [rides count]];
         }
     }
-    cell.timeLabel.text = [_times objectAtIndex:indexPath.row];
-    // cell.textLabel.text = [_times objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ driver(s) available", [_availRoutes objectAtIndex:indexPath.row]];
     return cell;
 }
 
@@ -130,30 +195,7 @@
         
         // custom item
         if (indexPath.row == ([_times count] - 1)) {
-//            _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-216, 0, 0)];
-//            NSLog(@"picker: (%f, %f, %f, %f)", _datePicker.frame.origin.x, _datePicker.frame.origin.y, _datePicker.frame.size.width, _datePicker.frame.size.height);
-//            NSLog(@"table: (%f, %f, %f, %f)", _timeTable.frame.origin.x, _timeTable.frame.origin.y, _timeTable.frame.size.width, _timeTable.frame.size.height);
-//            _datePicker.datePickerMode = UIDatePickerModeTime;
-//            _datePicker.hidden = NO;
-//            _datePicker.date = [NSDate date];
-//            _isPickerShown = YES;
-//            [_datePicker addTarget:self action:@selector(changeDateInLabel:) forControlEvents:UIControlEventValueChanged];
-//            _timeTable.frame = CGRectMake(0, -44, 320.0, 427.00);
-//            [self.view addSubview:_datePicker];
             RZCustomTimeViewController *vc = [[RZCustomTimeViewController alloc] initWithNibName:@"RZCustomTimeViewController" bundle:nil];
-            // [self.navigationController pushViewController:vc animated:YES];
-            // [self presentModalViewController:vc animated:YES];
-            
-            // Animation to mimic modal view effect (bottom-top raise)
-//            CATransition *transition = [CATransition animation];
-//            transition.duration = 1.0f;
-//            transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
-//            transition.type = kCATransitionMoveIn;
-//            transition.subtype = kCATransitionFromTop;
-//            transition.delegate = self;
-//            [self.navigationController.view.layer addAnimation:transition forKey:nil];
-//
-//            [self.navigationController pushViewController:vc animated:YES];
             [self presentViewController:vc animated:YES completion:nil];            
         }
         else {
@@ -173,6 +215,12 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    NSString *activeUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"];
+    NSString *activeUserName = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserName"];
+    return [NSString stringWithFormat:@"Acting as %@ (%@)", activeUserId, activeUserName];
 }
 
 # pragma mark UIPickerViewDelegate

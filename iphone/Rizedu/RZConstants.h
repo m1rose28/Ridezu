@@ -8,6 +8,4 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RZConstants : NSObject
-
-@end
+// extern NSMutableArray *timeTable;

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<array>
+	<string>500011910|Bob Becham</string>
+	<string>500012114|Bill Bacon</string>
+	<string>500013514|Dafne Daniels</string>
+	<string>500018112|Damien Davenport</string>
+	<string>500022263|Ron Rayburn</string>
+	<string>500023557|Rebecca Rose</string>
+	<string>504711218|Mark Rose</string>
+	<string>589387791|Tao Xie</string>
+	<string>751204807|Pawan Chawla</string>
+</array>
 </plist>

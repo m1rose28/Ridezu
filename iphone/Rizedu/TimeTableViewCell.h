@@ -11,5 +11,6 @@
 @interface TimeTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *detailLabel;
 
 @end

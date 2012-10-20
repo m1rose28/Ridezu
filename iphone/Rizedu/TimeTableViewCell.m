@@ -9,7 +9,6 @@
 #import "TimeTableViewCell.h"
 
 @implementation TimeTableViewCell
-@synthesize timeLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

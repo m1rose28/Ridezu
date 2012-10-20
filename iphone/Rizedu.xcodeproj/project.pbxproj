@@ -62,6 +62,10 @@
 		D3AA1F77160E57B600B51488 /* GHMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F74160E57B600B51488 /* GHMenuCell.m */; };
 		D3AA1F78160E57B600B51488 /* GHMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F76160E57B600B51488 /* GHMenuViewController.m */; };
 		D3AA1F7A160E597F00B51488 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F79160E597F00B51488 /* QuartzCore.framework */; };
+		D3AEA6BB162E71A5002800B9 /* RZGlobalService.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */; };
+		D3AEA6C3162E7EFA002800B9 /* RZRide.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA6C2162E7EFA002800B9 /* RZRide.m */; };
+		D3AEA6C5162F1246002800B9 /* TestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3AEA6C4162F1246002800B9 /* TestUsers.plist */; };
+		D3AEA6F6162FBA1B002800B9 /* RZConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA6F5162FBA1B002800B9 /* RZConstants.m */; };
 		D3BB250D161BAD5B008CC2D7 /* RZRouteSucessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */; };
 		D3BB250E161BAD5B008CC2D7 /* RZRouteSucessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */; };
 		D3BCCA08161D31B200987648 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA07161D31B200987648 /* AudioToolbox.framework */; };
@@ -205,6 +209,13 @@
 		D3AA1F75160E57B600B51488 /* GHMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMenuViewController.h; sourceTree = "<group>"; };
 		D3AA1F76160E57B600B51488 /* GHMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHMenuViewController.m; sourceTree = "<group>"; };
 		D3AA1F79160E597F00B51488 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D3AEA6B9162E71A5002800B9 /* RZGlobalService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZGlobalService.h; sourceTree = "<group>"; };
+		D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZGlobalService.m; sourceTree = "<group>"; };
+		D3AEA6C1162E7EFA002800B9 /* RZRide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRide.h; sourceTree = "<group>"; };
+		D3AEA6C2162E7EFA002800B9 /* RZRide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRide.m; sourceTree = "<group>"; };
+		D3AEA6C4162F1246002800B9 /* TestUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestUsers.plist; sourceTree = "<group>"; };
+		D3AEA6F4162FBA1B002800B9 /* RZConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZConstants.h; sourceTree = "<group>"; };
+		D3AEA6F5162FBA1B002800B9 /* RZConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZConstants.m; sourceTree = "<group>"; };
 		D3BB250A161BAD5B008CC2D7 /* RZRouteSucessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteSucessViewController.h; sourceTree = "<group>"; };
 		D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteSucessViewController.m; sourceTree = "<group>"; };
 		D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteSucessViewController.xib; sourceTree = "<group>"; };
@@ -380,6 +391,8 @@
 				D306E83A162C6DBC00F394AF /* RidezuEngine.m */,
 				D390B74416227D5300FD4540 /* RZUser.h */,
 				D390B74516227D5300FD4540 /* RZUser.m */,
+				D3AEA6C1162E7EFA002800B9 /* RZRide.h */,
+				D3AEA6C2162E7EFA002800B9 /* RZRide.m */,
 				D320B0F9161AB0810069B46B /* TimeTableViewCell.h */,
 				D320B0FA161AB0810069B46B /* TimeTableViewCell.m */,
 				D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */,
@@ -392,6 +405,10 @@
 				D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */,
 				D3AA1F40160E574E00B51488 /* RZDetailViewController.h */,
 				D3AA1F41160E574E00B51488 /* RZDetailViewController.m */,
+				D3AEA6F4162FBA1B002800B9 /* RZConstants.h */,
+				D3AEA6F5162FBA1B002800B9 /* RZConstants.m */,
+				D3AEA6B9162E71A5002800B9 /* RZGlobalService.h */,
+				D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */,
 				D3BCCA801621E2FA00987648 /* LoginViewController.h */,
 				D3BCCA811621E2FA00987648 /* LoginViewController.m */,
 				D3BCCA821621E2FB00987648 /* LoginViewController.xib */,
@@ -433,6 +450,7 @@
 				D3AA1F2E160E574E00B51488 /* InfoPlist.strings */,
 				D3AA1F31160E574E00B51488 /* main.m */,
 				D3AA1F33160E574E00B51488 /* Rizedu-Prefix.pch */,
+				D3AEA6C4162F1246002800B9 /* TestUsers.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -682,6 +700,7 @@
 				D306E880162D0B4400F394AF /* locateButton@2x.png in Resources */,
 				D306E881162D0B4400F394AF /* location.png in Resources */,
 				D306E882162D0B4400F394AF /* location@2x.png in Resources */,
+				D3AEA6C5162F1246002800B9 /* TestUsers.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,6 +773,9 @@
 				D390B7B216229E3200FD4540 /* Preferences.m in Sources */,
 				D32952F1162B71860074D9EC /* RZCustomTimeViewController.m in Sources */,
 				D306E83B162C6DBC00F394AF /* RidezuEngine.m in Sources */,
+				D3AEA6BB162E71A5002800B9 /* RZGlobalService.m in Sources */,
+				D3AEA6C3162E7EFA002800B9 /* RZRide.m in Sources */,
+				D3AEA6F6162FBA1B002800B9 /* RZConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,10 +8,9 @@
 
 #import "RZMasterViewController.h"
 
-#import "RZDetailViewController.h"
-
 @interface RZMasterViewController () {
     NSMutableArray *_objects;
+    NSUInteger _activeRowNum;
 }
 - (void)pushViewController;
 - (void)revealSidebar;
@@ -32,16 +31,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"Master", @"Master");
+        _activeRowNum = 0;
     }
     return self;
 }
 
 #pragma mark Private Methods
-- (void)pushViewController {
-	NSString *vcTitle = [self.title stringByAppendingString:@" - Pushed"];
-	UIViewController *vc = [[RZDetailViewController alloc] initWithNibName:@"RZDetailViewController" bundle:nil];
-	[self.navigationController pushViewController:vc animated:YES];
-}
 
 - (void)revealSidebar {
 	_revealBlock();
@@ -51,19 +46,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    // self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
     UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
-
     self.navigationItem.leftBarButtonItem = slideButtonItem;
-//    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction
-//                                                  target:self
-//                                                  action:@selector(revealSidebar)];
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    // init objects
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"TestUsers" ofType:@"plist"];    
+    _objects = [[NSMutableArray alloc] initWithContentsOfFile:path];
+    
+    [self setPreference:[_objects objectAtIndex:0]];
+}
+
+- (void)setPreference:(NSString*)des {
+    NSArray *tokens = [des componentsSeparatedByString:@"|"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[tokens objectAtIndex:0] forKey:@"UserId"];
+    [[NSUserDefaults standardUserDefaults] setObject:[tokens objectAtIndex:1] forKey:@"UserName"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,10 +104,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        if (indexPath.row == _activeRowNum) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
-
-
     NSDate *object = _objects[indexPath.row];
     cell.textLabel.text = [object description];
     return cell;
@@ -113,44 +115,23 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
-}
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.detailViewController) {
-        self.detailViewController = [[RZDetailViewController alloc] initWithNibName:@"RZDetailViewController" bundle:nil];
+    int oldRow = _activeRowNum;
+    
+    if (oldRow != indexPath.row) {
+        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
+        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:oldRow inSection:0]];
+        oldCell.accessoryType = UITableViewCellAccessoryNone;
+        _activeRowNum = indexPath.row;
+        [self setPreference:[_objects objectAtIndex:_activeRowNum]];
     }
-    NSDate *object = _objects[indexPath.row];
-    self.detailViewController.detailItem = object;
-    [self.navigationController pushViewController:self.detailViewController animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

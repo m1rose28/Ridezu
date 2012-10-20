@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RZGlobalService : NSObject
-
+@interface RZGlobalService : NSObject {
+    
+}
+@property (nonatomic, strong) MKNetworkEngine *ridezuEngine;
++ (RZGlobalService *)singleton;
++ (NSArray*)timeTable;
 @end

@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *workplaceLabel;
 @property (nonatomic, weak) IBOutlet UILabel *ageLabel;
+@property (nonatomic, weak) IBOutlet UILabel *quotesLabel;
 @property (nonatomic, weak) IBOutlet UITextView *bioTextView;
 @property (nonatomic, weak) IBOutlet UIButton *nextButton;
 
@@ -36,17 +37,16 @@
 
 - (void) nextButtonPressed:(id)sender {
     NSLog(@"nextButton Pressed");
-    // RZLocationPickViewController *locationPickViewController = [[RZLocationPickViewController alloc] initWithType:@"home"];
     RZLocationPickViewController *locationPickViewController = [[RZLocationPickViewController alloc] initWithType:@"home" andUser:_rzUser];
     [self.navigationController pushViewController:locationPickViewController animated:YES];
 }
 
-- (id)initWithFBId:(NSString *)fbId {
-    if (self = [super initWithNibName:@"RZUserProfileViewController" bundle:nil]) {
-        self.fbId = fbId;
-    }
-	return self;
-}
+//- (id)initWithFBId:(NSString *)fbId {
+//    if (self = [super initWithNibName:@"RZUserProfileViewController" bundle:nil]) {
+//        self.fbId = fbId;
+//    }
+//	return self;
+//}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,11 +59,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTitle:@"Facebook Profile"];
+    self.navigationItem.hidesBackButton = YES;
+    [self setTitle:@"Profile"];
     
     _rzUser = [[RZUser alloc] init];
     // Create request for user's facebook data
-    NSString *requestPath = @"me/?fields=first_name,last_name,bio,work,gender,birthday,relationship_status,picture,email";
+    NSString *requestPath = @"me/?fields=id,first_name,last_name,work,gender,birthday,relationship_status,bio,hometown,picture,quotes,email";
     
     // Send request to facebook
     [[PFFacebookUtils facebook] requestWithGraphPath:requestPath andDelegate:self];
@@ -101,12 +102,14 @@
     NSString *employerName = [[[[userData objectForKey:@"work"] objectAtIndex:0] objectForKey:@"employer"] objectForKey:@"name"];
     NSString *birthDay = [userData objectForKey:@"birthday"];
     NSString *gender = [userData objectForKey:@"gender"];
+    NSString *quotes = [userData objectForKey:@"quotes"];
     
     
     _nameLabel.text = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
     _ageLabel.text = [NSString stringWithFormat:@"%@ %@", [Utils ageRange:birthDay], gender];
     _workplaceLabel.text = (employerName) ? employerName : @"";
     _bioTextView.text = bio;
+    _quotesLabel.text = [NSString stringWithFormat:@"quotes:%@", quotes];
     
     MKNetworkEngine* engine = [[MKNetworkEngine alloc] initWithHostName:@"facebook.com" customHeaderFields:nil];
     NSURL* url = [NSURL URLWithString:imageUrl];
@@ -129,13 +132,22 @@
 /* Callback delegate method for an unsuccessful graph request */
 -(void)request:(PF_FBRequest *)request didFailWithError:(NSError *)error
 {
-    // Since the request failed, we can check if it was due to an invalid session
-    if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString: @"OAuthException"]) {
+    NSString *errorType = [[[[[[error userInfo] objectForKey:@"com.facebook.sdk:ParsedJSONResponseKey"] objectAtIndex:0] objectForKey:@"body"] objectForKey:@"error"] objectForKey:@"type"];
+    
+    if ([errorType isEqualToString:@"OAuthException"]) {
         NSLog(@"The facebook session was invalidated");
         [self logoutButtonTouchHandler:nil];
-    } else {
-        NSLog(@"Some other error");
     }
+    else {
+        
+    }
+//    if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString: @"OAuthException"]) {
+//        NSLog(@"The facebook session was invalidated");
+//        [self logoutButtonTouchHandler:nil];
+//    } else {
+//        // FB account cached, but user de-authorize app from web
+//        NSLog(@"Some other error");
+//    }
 }
 
 #pragma mark - Logout method

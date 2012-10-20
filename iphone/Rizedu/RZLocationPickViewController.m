@@ -85,11 +85,6 @@
     if ([_locationType isEqualToString:@"home"]) {
         
         // save home coordinates
-        NSString *coordinateString = [NSString stringWithFormat:@"%.5f,%.5f",
-                                      _placemark.location.coordinate.latitude,
-                                      _placemark.location.coordinate.longitude];
-        // NSString *addressString = [self formatString:_placemark.subThoroughfare andThoroughfare:_placemark.thoroughfare Locality:_placemark.locality PostalCode:_placemark.postalCode];
-        
         _user.homeLatitude = [NSString stringWithFormat:@"%.5f", _placemark.location.coordinate.latitude];
         _user.homeLongitude = [NSString stringWithFormat:@"%.5f", _placemark.location.coordinate.longitude];
         _user.originLatitude = _user.homeLatitude;
@@ -186,12 +181,12 @@
     _mapView.delegate = self;
     _addressTextField.delegate = self;
     
-    if ([self.locationType isEqualToString:@"home"]) {
-        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
-        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
-        self.navigationItem.leftBarButtonItem = slideButtonItem;
-
-    }
+//    if ([self.locationType isEqualToString:@"home"]) {
+//        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
+//        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+//        self.navigationItem.leftBarButtonItem = slideButtonItem;
+//
+//    }
 }
 
 
