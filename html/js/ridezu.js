@@ -10,7 +10,7 @@
                 dataType: "json",
                 success: function(data) {
 					userinfo=data;
-					paintuserprofile(userinfo.user.id);
+					paintuserprofile();
 			    	},
                 error: function(data) { alert("Uh oh - does this user exist?"+JSON.stringify(data)); },
                 beforeSend: setHeader
@@ -19,7 +19,7 @@
 
 // this is an example function of updating a user field, e.g. update the user's car to a honda...
 		function updatehonda(){
-				userinfo.user.cartype="Honda";
+				userinfo.cartype="Honda";
 				updateuser();
 				}
 
@@ -144,7 +144,7 @@
 
 			if(to=="enrollp"){
 				document.getElementById("topbar").style.display="block";		
-			  	copy="First, type in or select your home address.<br><br>This address never be shared.";
+			  	copy="First, type in or select your home address.<br><br>Your home address will never be shared.";
 			  	showpopup(copy);
 			  	getLocation();
 				}
@@ -210,13 +210,13 @@
 //this removes the popup when you click on it.   
 
 		function showpopup(content){
-			//document.getElementById("darkpage").style.display="block";
+			document.getElementById("darkpage").style.display="block";
 			document.getElementById('rpopup').innerHTML=content;
 			document.getElementById('rpopup').style.display="block";
 			}
 
 		function rempopup(){
-			//document.getElementById("darkpage").style.display="none";
+			document.getElementById("darkpage").style.display="none";
 			document.getElementById("rpopup").style.display="none";
 			}
 		
@@ -231,6 +231,20 @@
 				});
 		}
 		
+// this function takes a physical address and turns into lat long (and if it's work related it also parse the company name
+
+		function getaddr(){
+			var addr1=document.getElementById('location').value;
+			geocoder.geocode( { 'address': addr1}, function(results, status) {
+				 if (status == google.maps.GeocoderStatus.OK) {
+				   map.setCenter(results[0].geometry.location);
+				 } else {
+				   alert('Geocode was not successful for the following reason: ' + status);
+				 }
+			   });
+			}
+
+
 //this is the main map function (method is type of function, e.g. enroll, myspot is lat/long, and zoom level is obvious :-)
 
   		function loadMap(method,myspot,zoomlevel){
@@ -249,7 +263,7 @@
   		  		overviewMapControl: false
           		};
   
-	        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
   
 	        var targetDiv = document.createElement('div');
           
@@ -262,11 +276,14 @@
 	        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(targetDiv);
 
 	        google.maps.event.addListener(map, 'center_changed', function() {
-    			window.setTimeout(function() { 
-        		a=map.getCenter();
-            	codeLatLng();
-           		marker1.setPosition(a);
-           		}, 500);
+           		window.setTimeout(function() {
+        			a=map.getCenter();
+	           		marker1.setPosition(a);
+            			},1000);
+           		window.setTimeout(function() {
+           			codeLatLng();	
+            			},1000);
+
   			});
                                                
 	      	var image = 'images/marker.png';   
@@ -279,7 +296,9 @@
 			// adds the initial marker to the page
 			marker1.setMap(map);
 			codeLatLng();
-      	
+
+
+
 // this function turns lat/long into a real address 
  
   	  	function codeLatLng() {
@@ -287,16 +306,19 @@
   			var lat = ctr.lat();
   			var lng = ctr.lng();
       		var latlng = new google.maps.LatLng(lat, lng);
+  
+            window.setTimeout(function() {
+
       		geocoder.geocode({'latLng': latlng}, function(results, status) {
         		if (status == google.maps.GeocoderStatus.OK) {
           			if (results[1]) {
       	      			locationselect(results[0].formatted_address,lat,lng);
           				}
-        			} else {
-          			alert("Geocoder failed due to: " + status);
-        			}
+        			} 
       			});
-    		}             
+            },1000);
+ 		
+    		}              
   		}
   
 //this function set(2) gets your actual location (used only at enroll, the balance of the time we'll have your address)	
@@ -312,11 +334,20 @@
 			var myspot = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 			loadMap("enroll",myspot,18);
   			}
+
+
   		
 // this is a map function which places the value of the user location in the text field of location
 
 		function locationselect(location,lat,lng){
-  			document.getElementById('location').value=location;
+			str1 = location.split(',');
+			str2 = str1[2].split(" ");
+			localStorage.add1=str1[0];
+			localStorage.state=str2[1];
+			localStorage.city=str1[1];
+			localStorage.zip=str2[2];
+			localStorage.hcountry=str1[3];
+  			document.getElementById('location').value=str1[0]+", "+str1[1];
   			document.getElementById('lat').value=lat;
   			document.getElementById('lng').value=lng;
 		}
@@ -324,39 +355,34 @@
 // this function parses/stores the home address and then moves to the work address
 
 		function enrollhome(){
-			eloc=document.getElementById('location').value;
-			var str1 = eloc.split(',');
-			var str2 = str1[2].split(" ");
-			localStorage.hadd1=str1[0];
-			localStorage.hstate=str2[1];
-			localStorage.hcity=str1[1];
-			localStorage.hzip=str2[2];
-			localStorage.hcountry=str1[3];
+			localStorage.hadd1=localStorage.add1;
+			localStorage.hstate=localStorage.state;
+			localStorage.hcity=localStorage.city;
+			localStorage.hzip=localStorage.zip;
+			localStorage.hcountry=localStorage.country;
 			localStorage.hlat=document.getElementById('lat').value;
 			localStorage.hlng=document.getElementById('lng').value;
 			document.getElementById("mapselecthome").style.display="none";
 			document.getElementById("mapselectwork").style.display="block";
 			document.getElementById('pTitle').innerHTML="Where do you work?";
 		  	copy="Well done!<br><br>Next, please tell us where you work.";
+		  	 document.getElementById('location').value="Company name, city";
 		  	showpopup(copy);
 			}
 
 // this function parses/stores the home address and then moves to the work address
 
 		function enrollwork(){
-			eloc=document.getElementById('location').value;
-			var str1 = eloc.split(',');
-			var str2 = str1[2].split(" ");
-			localStorage.wadd1=str1[0];
-			localStorage.wstate=str2[1];
-			localStorage.wcity=str1[1];
-			localStorage.wzip=str2[2];
-			localStorage.wcountry=str1[3];
+			localStorage.wadd1=localStorage.add1;
+			localStorage.wstate=localStorage.state;
+			localStorage.wcity=localStorage.city;
+			localStorage.wzip=localStorage.zip;
+			localStorage.wcountry=localStorage.country;
 			localStorage.wlat=document.getElementById('lat').value;
 			localStorage.wlng=document.getElementById('lng').value;
-			//need to store here
 			nav('enroll','fbp');
 			}
+			
 
 // below are the facebook functions.  they are optimized purely for the enrollment flow to get data from the user.
 // they are loaded from calling facebook();
@@ -785,7 +811,7 @@
 		  var userlist="<ul>";
 		  var r=0;
 		  
-		  $.each(userdata.users, function(key, value) { 
+		  $.each(userdata, function(key, value) {
 			userlist=userlist+"<li><div class=\"rarrow\" onclick=\"selectuser('"+r+"');\">";
 			r++;
 			userlist=userlist+"<span style='padding-left:10px'>"+value.fname+" "+value.lname+": "+value.fbid+"</span>";  
@@ -802,23 +828,23 @@
 //once a user is selected this function loads local variables with all the correct data
 		
 		function selectuser(id){
-			localStorage.seckey=userdata.users[id].seckey;
-			localStorage.fbid=userdata.users[id].fbid;
-			localStorage.first_name=userdata.users[id].fname;
-			localStorage.last_name=userdata.users[id].lname;
-			localStorage.hadd1=userdata.users[id].add1;
-			localStorage.hcity=userdata.users[id].city;
-			localStorage.hstate=userdata.users[id].state;	
-			localStorage.hzip=userdata.users[id].zip;
-			localStorage.wadd1=userdata.users[id].workadd1;
-			localStorage.wcity=userdata.users[id].workcity;
-			localStorage.wstate=userdata.users[id].workstate;	
-			localStorage.wzip=userdata.users[id].workzip;
-			localStorage.email=userdata.users[id].email;
-			localStorage.originlatlong=userdata.users[id].originlatlong;
-			localStorage.destlatlong=userdata.users[id].destlatlong;
-			localStorage.homelatlong=userdata.users[id].homelatlong;
-			localStorage.worklatlong=userdata.users[id].worklatlong;
+			localStorage.seckey=userdata[id].seckey;
+			localStorage.fbid=userdata[id].fbid;
+			localStorage.first_name=userdata[id].fname;
+			localStorage.last_name=userdata[id].lname;
+			localStorage.hadd1=userdata[id].add1;
+			localStorage.hcity=userdata[id].city;
+			localStorage.hstate=userdata[id].state;	
+			localStorage.hzip=userdata[id].zip;
+			localStorage.wadd1=userdata[id].workadd1;
+			localStorage.wcity=userdata[id].workcity;
+			localStorage.wstate=userdata[id].workstate;	
+			localStorage.wzip=userdata[id].workzip;
+			localStorage.email=userdata[id].email;
+			localStorage.originlatlong=userdata[id].originlatlong;
+			localStorage.destlatlong=userdata[id].destlatlong;
+			localStorage.homelatlong=userdata[id].homelatlong;
+			localStorage.worklatlong=userdata[id].worklatlong;
 			nav('loginp','mainp');
 		}
 		
@@ -1222,19 +1248,19 @@ var fbdata = {
 
 
 // this function paints the user profile page
-		function paintuserprofile(userid){
-			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.user.fbid+"/picture";	
-			document.getElementById('workcity').innerHTML=userinfo.user.workcity;	
-			document.getElementById('city').innerHTML=userinfo.user.city;	
-			document.getElementById('cartype').innerHTML=userinfo.user.carmaker;	
-			document.getElementById('co2').innerHTML=userinfo.user.co2balance;	
-			document.getElementById('trips').innerHTML=parseInt(userinfo.user.ridesoffered)+parseInt(userinfo.user.ridestaken);
-			document.getElementById('frontphoto').src="http://ridezu.s3.amazonaws.com/carphotos/front-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('leftphoto').src="http://ridezu.s3.amazonaws.com/carphotos/left-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('rightphoto').src="http://ridezu.s3.amazonaws.com/carphotos/right-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('backphoto').src="http://ridezu.s3.amazonaws.com/carphotos/back-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('consistency').innerHTML=userinfo.user.consistency;
-			document.getElementById('timeliness').innerHTML=userinfo.user.timeliness;
+		function paintuserprofile(){
+			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.fbid+"/picture";	
+			document.getElementById('workcity').innerHTML=userinfo.workcity;	
+			document.getElementById('city').innerHTML=userinfo.city;	
+			document.getElementById('cartype').innerHTML=userinfo.carmaker;	
+			document.getElementById('co2').innerHTML=userinfo.co2balance;	
+			document.getElementById('trips').innerHTML=parseInt(userinfo.ridesoffered)+parseInt(userinfo.ridestaken);
+			document.getElementById('frontphoto').src="http://ridezu.s3.amazonaws.com/carphotos/front-"+userinfo.fbid+"-o.jpeg";
+			document.getElementById('leftphoto').src="http://ridezu.s3.amazonaws.com/carphotos/left-"+userinfo.fbid+"-o.jpeg";
+			document.getElementById('rightphoto').src="http://ridezu.s3.amazonaws.com/carphotos/right-"+userinfo.fbid+"-o.jpeg";
+			document.getElementById('backphoto').src="http://ridezu.s3.amazonaws.com/carphotos/back-"+userinfo.fbid+"-o.jpeg";
+			document.getElementById('consistency').innerHTML=userinfo.consistency;
+			document.getElementById('timeliness').innerHTML=userinfo.timeliness;
 			}
 
 
@@ -1282,6 +1308,14 @@ var fbdata = {
   			"wherelivep":"Where do you live?",			
   			"myridesp":"My Rides",			
   			"loginp":"Login - Test Page",			
+  			"homeprofilep":"Home Details",			
+  			"workprofilep":"Work Details",			
+  			"constactinfop":"Contact Info",			
+  			"driverp":"Driver Verification",			
+  			"ridedetailsp":"My Wheels",			
+  			"paymentinfop":"Payment Info",			
+  			"payoutninfop":"Payout Info",			
+  			"notifyp":"Notification Preferences",			
   			"userprofilep":"Profile"			
 			};
 

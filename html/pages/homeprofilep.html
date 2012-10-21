@@ -1,3 +1,27 @@
+
+
+		<div id="r1" style="display:block;">
+			<h3>Home</h3>
+				<section id="content">
+					<h2>Home Address (private)</h2>
+					<ul>
+					<div id="ridelist1"></div>
+					<a href="#" onclick="paintlist('1');"><li class="last" id="showall">Show all times</li></a>
+					</ul>
+					<img id="ridedesta" class="roundedbottom" src=""/>
+				</section>
+			<h3>Pickup</h3>
+				<section id="content">
+					<h2>Pickup location</h2>
+					<ul>
+					<div id="ridelist1"></div>
+					<a href="#" onclick="paintlist('1');"><li class="last" id="showall">Show all times</li></a>
+					</ul>
+					<img id="ridedesta" class="roundedbottom" src=""/>
+				</section>
+		</div>
+
+		<div id="r2" style="display:none;">
 			<section id="content">
  			   	<fieldset style="text-align:center;padding:0px;margin:0px;">				
 				<input type="text" class="inputaddress" id="location" onchange="getaddr();" value="Your address won't be shared" onfocus="if(this.value==this.defaultValue)this.value=' ';" onblur="if(this.value==' ')this.value=this.defaultValue;">	
@@ -13,4 +37,5 @@
 				<input type="button" id="mapselecthome" onclick="enrollhome();" data-role="none" class="primarybutton" value="Next"/>
 				<input type="button" id="mapselectwork" onclick="enrollwork();" data-role="none" class="primarybutton" style="display:none;" value="Next"/>
 				<div><img class="maparrow" src="../images/nav.png"/></div>				
-			
+		</div>
+		

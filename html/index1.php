@@ -18,7 +18,7 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 	<script type="text/javascript">
 		var startpage="<?php echo $p?>";
 	</script>
-	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Ridezu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -77,6 +77,14 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 				<div id="firstp"></div> 
 				<div id="myridesp"></div> 
 				<div id="userprofilep"></div> 
+				<div id="homeprofilep"></div> 
+				<div id="workprofilep"></div> 
+				<div id="contactinfop"></div> 
+				<div id="driverp"></div> 
+				<div id="ridedetailsp"></div> 
+				<div id="paymentinfop"></div> 
+				<div id="payoutp"></div> 
+				<div id="notifyp"></div> 
 
 		<div id="testbar" style="background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
 		</div>
