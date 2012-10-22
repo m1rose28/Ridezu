@@ -13,5 +13,6 @@
 }
 @property (nonatomic, strong) MKNetworkEngine *ridezuEngine;
 + (RZGlobalService *)singleton;
-+ (NSArray*)timeTable;
++ (NSArray*)shortTimeTable;
++ (NSArray*)fullTimeTable;
 @end
