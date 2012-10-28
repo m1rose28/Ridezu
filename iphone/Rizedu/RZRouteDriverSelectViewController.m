@@ -9,7 +9,9 @@
 #import "RZRouteDriverSelectViewController.h"
 #import "DriverTableViewCell.h"
 #import <QuartzCore/QuartzCore.h>
-#import "RZRouteSucessViewController.h"
+#import "RZRouteSuccessViewController.h"
+#import "RZRideDriver.h"
+#import "RZRideDetail.h"
 
 @interface RZRouteDriverSelectViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate>{
     
@@ -19,14 +21,16 @@
 @property (nonatomic, strong) IBOutlet UIView *routeContainerView;
 @property (nonatomic, strong) IBOutlet UITableView *driversTableView;
 @property (nonatomic, strong) NSArray *drivers;
+@property (nonatomic, strong) RZRideDetail *rideDetail;
 @end
 
 @implementation RZRouteDriverSelectViewController
 
-- (id)initWithAvailableDrivers:(NSArray *)drivers {
+- (id)initWithAvailableDrivers:(NSArray *)drivers andRideDetail:(RZRideDetail *)rideDetail {
     if ((self = [[RZRouteDriverSelectViewController alloc] initWithNibName:@"RZRouteDriverSelectViewController" bundle:nil])) {
         self.title = @"Request a Ride";
         _drivers = drivers;
+        _rideDetail = rideDetail;
         return self;
     }
     return nil;
@@ -99,14 +103,17 @@
         cell = [topObjects objectAtIndex:0];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    RZRideDriver *ride = [_drivers objectAtIndex:indexPath.row];
+    
     [cell.imageView setImage:[UIImage imageNamed:@"user"]];
-    cell.nameLabel.text = [_drivers objectAtIndex:indexPath.row];
+    cell.nameLabel.text = ride.fullName;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RZRouteSucessViewController *routeSuccessViewController = [[RZRouteSucessViewController alloc] initWithNibName:@"RZRouteSucessViewController" bundle:nil];
+    RZRideDriver *driver = [_drivers objectAtIndex:indexPath.row];
+    RZRouteSuccessViewController *routeSuccessViewController = [[RZRouteSuccessViewController alloc] initWithDriver:driver andRideDetail:_rideDetail];
     [self.navigationController pushViewController:routeSuccessViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

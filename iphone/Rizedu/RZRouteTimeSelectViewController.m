@@ -12,7 +12,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "RZCustomTimeViewController.h"
-#import "RZRide.h"
+#import "RZRideDriver.h"
+#import "RZRideDetail.h"
 
 @interface RZRouteTimeSelectViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate> {
     
@@ -32,6 +33,7 @@
 @property (nonatomic, strong) IBOutlet UIView *routeContainerView;
 
 @property (nonatomic, strong) NSMutableArray *driversArray;
+@property (nonatomic, strong) RZRideDetail *rideDetail;
 @end
 
 @implementation RZRouteTimeSelectViewController
@@ -80,6 +82,7 @@
     [op onCompletion:^(MKNetworkOperation *completedOperation) {
         NSDictionary *json = [op responseJSON];
         NSLog(@"response: %@", json);
+        _rideDetail = [[RZRideDetail alloc] initWithDict:json];
         NSDictionary *rides = [json objectForKey:@"rideList"];
         [rides enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
             NSLog(@"key = %@", key);
@@ -89,7 +92,7 @@
                 NSLog(@"rideId = %@", rideId);
                 
                 if (rideId && rideId != nil && ![rideId isEqual:[NSNull null]]) {
-                    RZRide *rideInfo = [[RZRide alloc] initWithDict:r];
+                    RZRideDriver *rideInfo = [[RZRideDriver alloc] initWithDict:r];
                     [ridesPerTimeslot addObject:rideInfo];
                     NSLog(@"%@, %@", rideInfo.eventTime, rideInfo.fullName);
                     // [_driversArray addObject:@{key : rideInfo}];
@@ -107,7 +110,7 @@
 //        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rideid.length > 0"];
 //        NSArray* filtered = [rides filteredArrayUsingPredicate:predicate];
 //        NSLog(@"filtered array: %@", filtered);
-        NSLog(@"END ...");
+        NSLog(@"END with %@", _driversArray);
         [_timeTable reloadData];
     }
      onError:^(NSError *error) {
@@ -121,11 +124,12 @@
     NSString *activeUserName = [[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
     NSLog(@"Acting as %@ (%@)", activeUserId, activeUserName);
     [self getRidesById:activeUserId];
+    [_timeTable reloadData];
 }
 
 - (void)nextButtonPressed {
-    RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithAvailableDrivers:@[@"Don Alex", @"Jeff Smith", @"Nikko Alexander"]];
-    [self.navigationController pushViewController:driverViewController animated:YES];
+//    RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithAvailableDrivers:@[@"Don Alex", @"Jeff Smith", @"Nikko Alexander"]];
+//    [self.navigationController pushViewController:driverViewController animated:YES];
 
 }
 
@@ -156,7 +160,7 @@
 {
     static NSString *CellIdentifier = @"timetable-Cell";
     
-    NSLog(@"----------------> (%d, %d)", indexPath.section, indexPath.row);
+    NSLog(@"--> (%d, %d)", indexPath.section, indexPath.row);
     TimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
@@ -167,22 +171,35 @@
 //        }
     }
     // NSDictionary* timeslotDict = [_driversArray objectAtIndex:indexPath.row];
-    cell.timeLabel.text = [_times objectAtIndex:indexPath.row];
+    // cell.timeLabel.text = [_times objectAtIndex:indexPath.row];
     
     if (_driversArray != nil && [_driversArray count] > 0 && [_driversArray count] > indexPath.row) {
         NSString *time = [[_driversArray objectAtIndex:indexPath.row] objectForKey:@"time"];
         NSArray *rides = [[_driversArray objectAtIndex:indexPath.row] objectForKey:@"rides"];
-        // cell.timeLabel.text = time;
+        cell.timeLabel.text = time;
         NSLog(@"label:%@, time:%@", cell.timeLabel.text, time);
         if ([cell.timeLabel.text isEqualToString:time]) {
             cell.detailLabel.text = [NSString stringWithFormat:@"%d drivers", [rides count]];
         }
+    }
+    else {
+        cell.timeLabel.text = [_times objectAtIndex:indexPath.row];
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    int driversCellNum = [_driversArray count];
+    
+    if (indexPath.row < driversCellNum) {
+        // account page
+        NSArray* rides = [[_driversArray objectAtIndex:indexPath.row] objectForKey:@"rides"];
+        RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithAvailableDrivers:rides andRideDetail:_rideDetail];
+        [self.navigationController pushViewController:driverViewController animated:YES];
+
+    }
+
     int oldRow = _lastSelected.row;
     int newRow = indexPath.row;
 

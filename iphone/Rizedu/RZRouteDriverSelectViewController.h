@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RZRideDriver.h"
+#import "RZRideDetail.h"
 
 @interface RZRouteDriverSelectViewController : UIViewController
-- (id)initWithAvailableDrivers:(NSArray *)drivers;
-
+- (id)initWithAvailableDrivers:(NSArray *)drivers andRideDetail:(RZRideDetail *)rideDetail;
 @end
