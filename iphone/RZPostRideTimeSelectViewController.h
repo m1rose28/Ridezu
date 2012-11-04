@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RZPostRideTimeSelectViewController : UIViewController
+@interface RZPostRideTimeSelectViewController : RZBaseViewController
 
 @end

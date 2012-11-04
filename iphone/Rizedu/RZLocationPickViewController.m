@@ -14,6 +14,7 @@
 #import "RZEnrollCompleteViewController.h"
 
 #import "RidezuEngine.h"
+#import "RZAppDelegate.h"
 
 // using CAShapeLayer
 @interface DragView : UIView {
@@ -58,7 +59,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *currLocationButton;
 @property (nonatomic, strong) IBOutlet UITextField *addressTextField;
 @property (nonatomic, strong) IBOutlet UILabel *coordinateLabel;
-@property (nonatomic, strong) IBOutlet UIButton *nextButton;
+@property (nonatomic, strong) IBOutlet UIGlossyButton *nextButton;
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 
 @property (readonly) CLLocationCoordinate2D currentUserCoordinate;
@@ -139,7 +140,7 @@
     
     [op onCompletion:^(MKNetworkOperation *completedOperation) {
         NSDictionary *json = [op responseJSON];
-        NSLog(@"createUser response: %@", json);
+        NSLog(@"post Ride response: %@", json);
     }
              onError:^(NSError *error) {
                  NSLog(@"%@", error);
@@ -165,8 +166,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    _ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:@"ec2-50-18-0-33.us-west-1.compute.amazonaws.com" customHeaderFields:nil];
+    [_nextButton setActionSheetButtonWithColor:[RZGlobalService lightGreenColor]];
+
+    _ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:RIDEZU_HOSTNAME customHeaderFields:nil];
     
     _locationManager = [[CLLocationManager alloc] init];
     [_locationManager setDelegate:self];
@@ -181,6 +183,8 @@
     _mapView.delegate = self;
     _addressTextField.delegate = self;
     
+    // [self.navigationController.navigationBar removeGestureRecognizer:panGesture];
+    
 //    if ([self.locationType isEqualToString:@"home"]) {
 //        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
 //        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
@@ -191,7 +195,8 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+   
+    [self enableSwipeToRevealGesture:NO];
     CLLocationCoordinate2D zoomLocation = [[[_mapView userLocation] location] coordinate];
     NSLog(@"Location found from Map: %f %f",zoomLocation.latitude,zoomLocation.longitude);
     

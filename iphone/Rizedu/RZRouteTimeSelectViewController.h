@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RZRouteTimeSelectViewController : UIViewController
+@interface RZRouteTimeSelectViewController : RZBaseViewController
 - (id)initWithAvailableRoutes:(NSArray *)routes;
 
 @end

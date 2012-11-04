@@ -23,6 +23,17 @@
     return self;
 }
 
+// TODO txie, let's try to disable the PanGesture
+- (void)enableSwipeToRevealGesture:(BOOL)enable {
+    NSArray* gestureRecognizers = [self.navigationController.navigationBar gestureRecognizers];
+    for (UIGestureRecognizer *gestureRecognizer in gestureRecognizers) {
+        if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+            gestureRecognizer.enabled = enable;
+            break;
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

@@ -23,7 +23,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *ageLabel;
 @property (nonatomic, weak) IBOutlet UILabel *quotesLabel;
 @property (nonatomic, weak) IBOutlet UITextView *bioTextView;
-@property (nonatomic, weak) IBOutlet UIButton *nextButton;
+@property (nonatomic, weak) IBOutlet UIGlossyButton *nextButton;
 
 @property (nonatomic, strong) IBOutlet MKMapView *homeMapView;
 @property (nonatomic, strong) IBOutlet MKMapView *officeMapView;
@@ -52,6 +52,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
+//        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
+        self.navigationItem.leftBarButtonItem = slideButtonItem;
+
     }
     return self;
 }
@@ -61,6 +66,7 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     [self setTitle:@"Profile"];
+    [_nextButton setActionSheetButtonWithColor:[RZGlobalService lightGreenColor]];
     
     _rzUser = [[RZUser alloc] init];
     // Create request for user's facebook data
@@ -78,6 +84,10 @@
         LoginViewController *loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         [self.navigationController presentModalViewController:loginViewController animated:YES];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self enableSwipeToRevealGesture:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,7 +119,7 @@
     _ageLabel.text = [NSString stringWithFormat:@"%@ %@", [Utils ageRange:birthDay], gender];
     _workplaceLabel.text = (employerName) ? employerName : @"";
     _bioTextView.text = bio;
-    _quotesLabel.text = [NSString stringWithFormat:@"quotes:%@", quotes];
+    _quotesLabel.text = [NSString stringWithFormat:@"quote: \"%@\"", quotes];
     
     MKNetworkEngine* engine = [[MKNetworkEngine alloc] initWithHostName:@"facebook.com" customHeaderFields:nil];
     NSURL* url = [NSURL URLWithString:imageUrl];

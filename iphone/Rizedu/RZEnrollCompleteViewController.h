@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RZEnrollCompleteViewController : UIViewController
+@interface RZEnrollCompleteViewController : RZBaseViewController
 
 @end

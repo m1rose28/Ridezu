@@ -40,7 +40,11 @@
 
 - (id)initWithAvailableRoutes:(NSArray *)routes {
     if ((self = [[RZRouteTimeSelectViewController alloc] initWithNibName:@"RZRouteTimeSelectViewController" bundle:nil])) {
-        self.title = @"Request a Ride";
+        self.title = @"Pick Time";
+        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
+        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+        self.navigationItem.leftBarButtonItem = slideButtonItem;
+
         _availRoutes = routes;
         return self;
     }
@@ -67,21 +71,17 @@
     _timeTableFrame = CGRectMake(_timeTable.frame.origin.x, _timeTable.frame.origin.y,
                                  _timeTable.frame.size.width, _timeTable.frame.size.height);
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Next"
-                                                                    style:UIBarButtonSystemItemDone target:self action:@selector(nextButtonPressed)];
-    self.navigationItem.rightBarButtonItem = rightButton;
-    
     _driversArray = [[NSMutableArray alloc] init];
 }
 
 - (void)getRidesById:(NSString*)fbId {
-    // http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/500012114/driver
+    // http://www.ridezu.com/ridezu/api/v/1/rides/search/fbid/500012114/driver
     NSString *path = [NSString stringWithFormat:@"ridezu/api/v/1/rides/search/fbid/%@/driver", fbId];
     MKNetworkOperation* op = [[RZGlobalService singleton].ridezuEngine operationWithPath:path params:nil httpMethod:@"GET" ssl:NO];
     
     [op onCompletion:^(MKNetworkOperation *completedOperation) {
         NSDictionary *json = [op responseJSON];
-        NSLog(@"response: %@", json);
+        NSLog(@"getRidesBy %@ response: %@", fbId, json);
         _rideDetail = [[RZRideDetail alloc] initWithDict:json];
         NSDictionary *rides = [json objectForKey:@"rideList"];
         [rides enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -107,9 +107,6 @@
             }
             NSLog(@">>>>> %@", _driversArray);
         }];
-//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"rideid.length > 0"];
-//        NSArray* filtered = [rides filteredArrayUsingPredicate:predicate];
-//        NSLog(@"filtered array: %@", filtered);
         NSLog(@"END with %@", _driversArray);
         [_timeTable reloadData];
     }
@@ -120,17 +117,14 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
+    [self enableSwipeToRevealGesture:YES];
+    
     NSString *activeUserId = [[NSUserDefaults standardUserDefaults] stringForKey:@"UserId"];
     NSString *activeUserName = [[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
     NSLog(@"Acting as %@ (%@)", activeUserId, activeUserName);
     [self getRidesById:activeUserId];
     [_timeTable reloadData];
-}
-
-- (void)nextButtonPressed {
-//    RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithAvailableDrivers:@[@"Don Alex", @"Jeff Smith", @"Nikko Alexander"]];
-//    [self.navigationController pushViewController:driverViewController animated:YES];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -221,6 +215,7 @@
                 _datePicker.frame = CGRectMake(0, -300, 0, 0);
                 _isPickerShown = NO;
             }
+            // make a request anyway
             
         }
 

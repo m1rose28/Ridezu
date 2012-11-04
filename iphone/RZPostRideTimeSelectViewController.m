@@ -8,14 +8,16 @@
 
 #import "RZPostRideTimeSelectViewController.h"
 #import "TimeTableViewCell.h"
+#import "UIAlertView+Blocks.h"
+#import "RZAppDelegate.h"
 
 @interface RZPostRideTimeSelectViewController () <UITableViewDelegate, UITableViewDataSource> {
     
 }
 @property (nonatomic, weak) IBOutlet UITableView *timeTable;
-@property (nonatomic, strong) NSIndexPath *lastSelected;
 @property (nonatomic, strong) NSArray *timeArray;
 @property (nonatomic, strong) MKNetworkEngine *ridezuEngine;
+@property (nonatomic, assign) BOOL toShowAllTime;
 @end
 
 @implementation RZPostRideTimeSelectViewController
@@ -25,6 +27,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.title = @"Set Time";
+        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
+        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+        self.navigationItem.leftBarButtonItem = slideButtonItem;
     }
     return self;
 }
@@ -34,9 +40,9 @@
     [super viewDidLoad];
     _timeTable.delegate = self;
     _timeTable.dataSource = self;
-    _lastSelected = [NSIndexPath indexPathForRow:1 inSection:0];
     _timeArray = [RZGlobalService shortTimeTable];
-    _ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:@"ec2-50-18-0-33.us-west-1.compute.amazonaws.com" customHeaderFields:nil];
+    _ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:RIDEZU_HOSTNAME customHeaderFields:nil];
+    _toShowAllTime = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +66,22 @@
     return [_timeArray count];
 }
 
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(14, 0, tableView.bounds.size.width - 10, 40)];
+    label.lineBreakMode = UILineBreakModeWordWrap;
+    label.numberOfLines = 0;
+    label.text = @"What time do you want to go to work today?";
+    label.font = [UIFont fontWithName:@"Helvetica-Bold" size:15];
+    label.textColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.75];
+    label.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label];
+    
+    return headerView;
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -71,15 +93,16 @@
     if (cell == nil) {
         NSArray* topObjects = [[NSBundle mainBundle] loadNibNamed:@"TimeTableViewCell" owner:self options:nil];
         cell = [topObjects objectAtIndex:0];
-        //        if (_lastSelected && indexPath.row == _lastSelected.row) {
-        //            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        //        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    // NSDictionary* timeslotDict = [_driversArray objectAtIndex:indexPath.row];
-    // cell.timeLabel.text = [_times objectAtIndex:indexPath.row];
     
     if (indexPath.row == ([_timeArray count] - 1)) {
-        cell.timeLabel.text = @"Show all time";
+        if (_toShowAllTime) {
+            cell.timeLabel.text = @"Show All";
+        }
+        else {
+            cell.timeLabel.text = [_timeArray objectAtIndex:indexPath.row];
+        }
     }
     else {
         cell.timeLabel.text = [_timeArray objectAtIndex:indexPath.row];
@@ -89,33 +112,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    // if (indexPath.row < driversCellNum) {
-//        // account page
-//        NSArray* rides = [[_driversArray objectAtIndex:indexPath.row] objectForKey:@"rides"];
-//        RZRouteDriverSelectViewController *driverViewController = [[RZRouteDriverSelectViewController alloc] initWithAvailableDrivers:rides andRideDetail:_rideDetail];
-        // [self.navigationController pushViewController:driverViewController animated:YES];
-        
-    // }
-    
-    int oldRow = _lastSelected.row;
-    int newRow = indexPath.row;
-    
-    if (oldRow != newRow) {
-        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
-        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:_lastSelected];
-        oldCell.accessoryType = UITableViewCellAccessoryNone;
-        
-    }
-    // {"fbid":"504711218","eventtime":"2012-10-22 9:30","route":"h2w"}
     // press "Show all time"
     if (indexPath.row == ([_timeArray count] - 1)) {
-        _timeArray = [RZGlobalService fullTimeTable];
+        if (_toShowAllTime) {
+            _timeArray = [RZGlobalService fullTimeTable];
+            _toShowAllTime = NO;
+        }
+        else {
+            _timeArray = [RZGlobalService shortTimeTable];
+            _toShowAllTime = YES;
+        }
         [_timeTable reloadData];
     }
     
-    _lastSelected = indexPath;
+    else {
+        NSString* timeStr = [_timeArray objectAtIndex:indexPath.row];
+        NSString* h2wDateTime = [RZGlobalService getDateTime:timeStr];
+        NSString* fbId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"];
+        NSDictionary *dict = @{@"fbid" : fbId, @"eventtime" : h2wDateTime, @"route" : @"h2w"};
+        // {"fbid":"504711218","eventtime":"2012-10-22 9:30","route":"h2w"}
+        [self post2Server:(NSMutableDictionary*)dict];
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -134,16 +152,35 @@
 }
 
 - (void)post2Server:(NSMutableDictionary*)params {
-    MKNetworkOperation* op = [_ridezuEngine operationWithPath:@"ridezu/api/v/1/users/driver" params:params httpMethod:@"POST" ssl:NO];
+    MKNetworkOperation* op = [_ridezuEngine operationWithPath:@"ridezu/api/v/1/rides/driver" params:params httpMethod:@"POST" ssl:NO];
     [op setPostDataEncoding:MKNKPostDataEncodingTypeJSON];
     
     [op onCompletion:^(MKNetworkOperation *completedOperation) {
         NSDictionary *json = [op responseJSON];
-        NSLog(@"createUser response: %@", json);
+        NSLog(@"postRide response: %@", json);
+        NSString *origDesc = [json objectForKey:@"origindesc"];
+        
+        RIButtonItem *cancelItem = [RIButtonItem item];
+        cancelItem.label = @"OK";
+        cancelItem.action = ^{
+            // Better redirect to somewhere else.
+        };
+        NSString *message = [NSString stringWithFormat:@"Sweet! Your ride is in %@ at %@. ",
+                             [RZGlobalService getTime:[json objectForKey:@"eventtime"]], origDesc];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Congratulations"
+                                                            message:message
+                                                   cancelButtonItem:cancelItem
+                                                   otherButtonItems:nil, nil];
+        [alertView show];
+        // TODO txie want to go back to main (now temp login page)
+        // RZAppDelegate* delegate = (RZAppDelegate*)[[UIApplication sharedApplication] delegate];
+        // [self presentViewController:delegate.testUsersNav animated:YES completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
     }
-             onError:^(NSError *error) {
-                 NSLog(@"%@", error);
-             }];
+     onError:^(NSError *error) {
+         NSLog(@"%@", error);
+     }];
     [_ridezuEngine enqueueOperation: op];
 }
 

@@ -11,7 +11,7 @@
 
 @class RZDetailViewController;
 
-@interface RZMasterViewController : UITableViewController {
+@interface RZTestUsersListViewController : UITableViewController {
 @private
 	RevealBlock _revealBlock;
 }

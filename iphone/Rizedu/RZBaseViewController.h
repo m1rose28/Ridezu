@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RZBaseViewController : UIViewController
-
+- (void)enableSwipeToRevealGesture:(BOOL)enable;
 @end

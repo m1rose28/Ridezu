@@ -8,7 +8,7 @@
 
 #import "RZAppDelegate.h"
 
-#import "RZMasterViewController.h"
+#import "RZTestUsersListViewController.h"
 #import "GHMenuCell.h"
 #import "GHMenuViewController.h"
 #import "GHRevealViewController.h"
@@ -19,6 +19,8 @@
 #import "RZFBLoginViewController.h"
 #import "RZRouteTimeSelectViewController.h"
 #import "RZUserProfileViewController.h"
+#import "RZPostRideTimeSelectViewController.h"
+#import "RZMyRidesViewController.h"
 
 #import "LoginViewController.h"
 
@@ -79,37 +81,47 @@ extern CFAbsoluteTime StartTime;
 	};
 	
 	NSArray *headers = @[[NSNull null], @"FAVORITES"];
+    
+    
+    _testUsersNav = [[UINavigationController alloc] initWithRootViewController:
+                                            [[RZTestUsersListViewController alloc] initWithTitle:@"Login - Testing Only" withRevealBlock:revealBlock]];
+    
+    UINavigationController *myRidesNav = [[UINavigationController alloc] initWithRootViewController:
+                                         [[RZMyRidesViewController alloc]
+                                          initWithNibName:@"RZMyRidesViewController" bundle:nil]];
+    
+    UINavigationController *requestRideNav = [[UINavigationController alloc] initWithRootViewController:
+                                              [[RZRouteTimeSelectViewController alloc] initWithAvailableRoutes:@[@"0", @"3", @"2", @"1", @""]]];
+    
+    UINavigationController *postRideNav = [[UINavigationController alloc] initWithRootViewController:
+                                           [[RZPostRideTimeSelectViewController alloc] initWithNibName:@"RZPostRideTimeSelectViewController" bundle:nil]];
+    
+    UINavigationController *enrollmentNav = [[UINavigationController alloc] initWithRootViewController:
+                                             [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil]];
+    
+    UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:
+                                          [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil]];
+    
+    UINavigationController *howitworksNav = [[UINavigationController alloc] initWithRootViewController:
+                                             [[RZTestUsersListViewController alloc] initWithTitle:@"How it works" withRevealBlock:revealBlock]];
+
 	NSArray *controllers = @[
-        @[[[UINavigationController alloc]
-           initWithRootViewController:[[RZMasterViewController alloc] initWithTitle:@"Profile" withRevealBlock:revealBlock]]],
-        @[
-            [[UINavigationController alloc] initWithRootViewController:
-             [[RZRouteTimeSelectViewController alloc] initWithAvailableRoutes:@[@"0", @"3", @"2", @"1", @""]]],
-            [[UINavigationController alloc] initWithRootViewController:
-             [[RZLocationPickViewController alloc] initWithType:@"home"]],
-//            [[UINavigationController alloc] initWithRootViewController:
-//             [[RZFBLoginViewController alloc] initWithNibName:@"RZFBLoginViewController" bundle:nil]],
-            [[UINavigationController alloc] initWithRootViewController:
-             [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil]],
-            [[UINavigationController alloc] initWithRootViewController:
-             [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil]],
-            [[UINavigationController alloc] initWithRootViewController:
-             [[RZMasterViewController alloc] initWithTitle:@"How it works" withRevealBlock:revealBlock]]
-        ]
+        @[_testUsersNav],
+        @[myRidesNav, requestRideNav, postRideNav, enrollmentNav, profileNav, howitworksNav]
 	];
     
 	NSArray *cellInfos = @[
         @[@{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"Login - Testing Only", @"")}
         ],
     @[
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"Request a Ride", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"Post a Ride", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"My Account", @"")},
+        @{kSidebarCellImageKey: [UIImage imageNamed:@"0019.png"], kSidebarCellTextKey: NSLocalizedString(@"My Rides", @"")},
+        @{kSidebarCellImageKey: [UIImage imageNamed:@"0019.png"], kSidebarCellTextKey: NSLocalizedString(@"Request a Ride", @"")},
+        @{kSidebarCellImageKey: [UIImage imageNamed:@"0100.png"], kSidebarCellTextKey: NSLocalizedString(@"Post a Ride", @"")},
+        @{kSidebarCellImageKey: [UIImage imageNamed:@"0006.png"], kSidebarCellTextKey: NSLocalizedString(@"Enrollment", @"")},
         @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"My Profile", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"How it works", @"")},
+        @{kSidebarCellImageKey: [UIImage imageNamed:@"0208.png"], kSidebarCellTextKey: NSLocalizedString(@"How it works", @"")},
     ]
 	];
-	
 	// Add drag feature to each root navigation controller
 	[controllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
 		[((NSArray *)obj) enumerateObjectsUsingBlock:^(id obj2, NSUInteger idx2, BOOL *stop2){
@@ -119,7 +131,21 @@ extern CFAbsoluteTime StartTime;
 			[((UINavigationController *)obj2).navigationBar addGestureRecognizer:panGesture];
 		}];
 	}];
-	
+
+    /*
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.revealController
+                                                                                 action:@selector(dragContentView:)];
+    panGesture.cancelsTouchesInView = YES;
+    
+    [testUsersNav.navigationBar addGestureRecognizer:panGesture];
+    [requestRideNav.navigationBar addGestureRecognizer:panGesture];
+    [postRideNav.navigationBar addGestureRecognizer:panGesture];
+    [enrollmentNav.navigationBar addGestureRecognizer:panGesture];
+    [profileNav.navigationBar addGestureRecognizer:panGesture];
+    [howitworksNav.navigationBar addGestureRecognizer:panGesture];
+   */
+    
+    
 	self.searchController = [[GHSidebarSearchViewController alloc] initWithSidebarViewController:self.revealController];
 	self.searchController.view.backgroundColor = [UIColor clearColor];
     self.searchController.searchDelegate = self;
@@ -181,13 +207,13 @@ extern CFAbsoluteTime StartTime;
     [[UINavigationBar appearance] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     
-    UIColor *navyBlue = [UIColor colorWithRed:0x00/255.f green:0x22/255.f blue:0x66/255.f alpha:1];
-    UIColor *bBlue = [UIColor colorWithRed:0x27/255.f green:0x40/255.f blue:0x8b/255.f alpha:1];
-    
-    [[UINavigationBar appearance] setTintColor:navyBlue];
-    [[UIToolbar appearance] setTintColor:navyBlue];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:bBlue];
-    [[UISegmentedControl appearance] setTintColor:bBlue];
+//    UIColor *navyBlue = [UIColor colorWithRed:0x00/255.f green:0x22/255.f blue:0x66/255.f alpha:1];
+//    UIColor *bBlue = [UIColor colorWithRed:0x27/255.f green:0x40/255.f blue:0x8b/255.f alpha:1];
+        
+    [[UINavigationBar appearance] setTintColor:[RZGlobalService greenColor]];
+    [[UIToolbar appearance] setTintColor:[RZGlobalService greenColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[RZGlobalService greenColor]];
+    [[UISegmentedControl appearance] setTintColor:[RZGlobalService greenColor]];
 }
 
 #pragma mark GHSidebarSearchViewControllerDelegate

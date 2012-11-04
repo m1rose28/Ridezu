@@ -14,7 +14,7 @@
     if (nil == _instance) {
         @synchronized (self) {
             _instance = [[RZGlobalService alloc] init];
-            _instance.ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:@"ec2-50-18-0-33.us-west-1.compute.amazonaws.com" customHeaderFields:nil];
+            _instance.ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:RIDEZU_HOSTNAME customHeaderFields:nil];
         }
     }
     return _instance;
@@ -44,7 +44,7 @@
     @"7:00pm", @"7:30pm",
     @"8:00pm", @"8:30pm",
     @"9:00pm", @"9:30pm",
-    @"10:00pm"
+    @"10:00pm", @"Show Less"
     ];
     return timeTable;
 }
@@ -57,4 +57,41 @@
 //    }
 //    [RZGlobalService timeTable]
 //}
+
++ (UIColor*)greenColor {
+    return [UIColor colorWithRed:69/255.f green:130/255.f blue:0/255.f alpha:1];
+}
++ (UIColor*)lightGreenColor {
+    return [UIColor colorWithRed:0/255.f green:205/255.f blue:0/255.f alpha:1];
+}
+
+// eventtime = "2012-10-23 09:30:00";
++ (NSString*)getTime:(NSString*)eventTime {
+    NSDateFormatter *inputDateFormatter = [[NSDateFormatter alloc] init];
+    [inputDateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    
+    NSDate *_eventTime = [inputDateFormatter dateFromString:eventTime];
+    
+    NSDateFormatter *outputDateFormatter = [[NSDateFormatter alloc] init];
+    [outputDateFormatter setDateFormat:@"HH:mm"];
+    return [outputDateFormatter stringFromDate:_eventTime];
+}
+
++ (NSString*)getDateTime:(NSString*)time {
+    NSDate *today = [NSDate date];
+    NSDate *tomorrow = [NSDate dateWithTimeInterval:(24*60*60) sinceDate:[NSDate date]];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSDateFormatter *_formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"yyyy-MM-dd hh:mma"];
+    NSString* tmpStr = [NSString stringWithFormat:@"%@ %@", [formatter stringFromDate:tomorrow], time];
+    NSDate *newDate = [_formatter dateFromString:tmpStr];
+    
+    NSDateFormatter *_newFormatter = [[NSDateFormatter alloc] init];
+    [_newFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+    return [_newFormatter stringFromDate:newDate];
+}
+
+
 @end

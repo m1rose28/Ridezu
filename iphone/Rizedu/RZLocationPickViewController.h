@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class RZUser;
-@interface RZLocationPickViewController : UIViewController
+@interface RZLocationPickViewController : RZBaseViewController
 
 - (id)initWithType:(NSString *)type;
 - (id)initWithType:(NSString *)type andUser:(RZUser*)user;

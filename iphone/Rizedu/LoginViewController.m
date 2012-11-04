@@ -27,7 +27,9 @@
     }
 }
 
-
+- (void)viewWillAppear:(BOOL)animated {
+    [self enableSwipeToRevealGesture:YES];
+}
 #pragma mark - Login mehtods
 
 /* Login to facebook method */

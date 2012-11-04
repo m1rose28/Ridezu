@@ -11,7 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "UIAlertView+Blocks.h"
-
+#import "RZAppDelegate.h"
+#import <MapKit/MapKit.h>
 
 @interface RZRouteSuccessViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate>{
     
@@ -27,6 +28,7 @@
 @property (nonatomic, weak) IBOutlet UIImageView *avatarImageView;
 @property (nonatomic, weak) IBOutlet UILabel *debugLabel;
 @property (nonatomic, weak) IBOutlet UIButton *submitButton;
+@property (nonatomic, weak) IBOutlet MKMapView *mapView;
 
 @property (nonatomic, strong) RZRideDriver *driver;
 @property (nonatomic, strong) RZRideDetail *rideDetail;
@@ -58,7 +60,10 @@
                                                    cancelButtonItem:cancelItem
                                                    otherButtonItems:nil, nil];
         [alertView show];
-        
+        // TODO txie want to go back to main (now temp login page)
+        // RZAppDelegate* delegate = (RZAppDelegate*)[[UIApplication sharedApplication] delegate];
+        // [self presentViewController:delegate.testUsersNav animated:YES completion:nil];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
     onError:^(NSError *error) {
                  NSLog(@"%@", error);
@@ -78,8 +83,13 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        self.title = @"Request a Ride";
+        self.title = @"Preview";
+        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
+        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
+        self.navigationItem.leftBarButtonItem = slideButtonItem;
+        
+        UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonSystemItemDone target:self action:@selector(submitRequest:)];
+        self.navigationItem.rightBarButtonItem = rightButton;
     }
     return self;
 }
@@ -108,6 +118,19 @@
     [_submitButton addTarget:self action:@selector(submitRequest:) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    CLLocationCoordinate2D loc = CLLocationCoordinate2DMake(self.rideDetail.startLatitude.doubleValue, self.rideDetail.startLongitude.doubleValue);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(loc, 1000.0f, 1000.0f);
+    _mapView.layer.masksToBounds = YES;
+    _mapView.layer.cornerRadius = 10.0;
+    [_mapView setRegion:region animated:YES];
+    
+//    MKAnnotation
+//    MKPinAnnotationView *newAnnotation = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation1"];
+//    newAnnotation.pinColor = MKPinAnnotationColorGreen;
+//    newAnnotation.animatesDrop = YES;
+    
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

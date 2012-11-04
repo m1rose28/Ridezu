@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define RIDEZU_HOSTNAME @"www.ridezu.com"
+
 @interface RZGlobalService : NSObject {
     
 }
@@ -15,4 +17,11 @@
 + (RZGlobalService *)singleton;
 + (NSArray*)shortTimeTable;
 + (NSArray*)fullTimeTable;
+
++ (UIColor*)greenColor;
++ (UIColor*)lightGreenColor;
+
++ (NSString*)getTime:(NSString*)eventTime;
+
++ (NSString*)getDateTime:(NSString*)time;
 @end

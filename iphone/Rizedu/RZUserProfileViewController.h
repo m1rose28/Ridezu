@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RZUserProfileViewController : UIViewController
+@interface RZUserProfileViewController : RZBaseViewController
 //- (id)initWithFBId:(NSString *)fbId;
 @end

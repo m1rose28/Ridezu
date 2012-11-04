@@ -28,7 +28,7 @@
 
 - (id)initWithAvailableDrivers:(NSArray *)drivers andRideDetail:(RZRideDetail *)rideDetail {
     if ((self = [[RZRouteDriverSelectViewController alloc] initWithNibName:@"RZRouteDriverSelectViewController" bundle:nil])) {
-        self.title = @"Request a Ride";
+        self.title = @"Select Driver";
         _drivers = drivers;
         _rideDetail = rideDetail;
         return self;
@@ -60,8 +60,7 @@
     _driversTableView.delegate = self;
     _driversTableView.dataSource = self;
     
-     // customize back buttonItem
-     
+     // customize back buttonItem 
     UIImage *backButtonImage = [UIImage imageNamed:@"arrow_left.png"];
     UIBarButtonItem *customItem = [[UIBarButtonItem alloc] initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
     [self.navigationItem setLeftBarButtonItem: customItem];

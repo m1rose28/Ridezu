@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Ridezu Inc. All rights reserved.
 //
 
-#import "RZMasterViewController.h"
+#import "RZTestUsersListViewController.h"
 
-@interface RZMasterViewController () {
+@interface RZTestUsersListViewController () {
     NSMutableArray *_objects;
     NSUInteger _activeRowNum;
 }
@@ -16,7 +16,7 @@
 - (void)revealSidebar;
 @end
 
-@implementation RZMasterViewController
+@implementation RZTestUsersListViewController
 
 - (id)initWithTitle:(NSString *)title withRevealBlock:(RevealBlock)revealBlock {
     if (self = [super initWithNibName:nil bundle:nil]) {
@@ -50,15 +50,35 @@
     UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
     UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
     self.navigationItem.leftBarButtonItem = slideButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
     
     // init objects
     NSString *path = [[NSBundle mainBundle] pathForResource:@"TestUsers" ofType:@"plist"];    
     _objects = [[NSMutableArray alloc] initWithContentsOfFile:path];
     
     [self setPreference:[_objects objectAtIndex:0]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    // enable pan gesture
+    NSArray* gestureRecognizers = [self.navigationController.navigationBar gestureRecognizers];
+    for (UIGestureRecognizer *gestureRecognizer in gestureRecognizers) {
+        if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+            gestureRecognizer.enabled = YES;
+            // break;
+        }
+    }
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    // enable pan gesture
+    NSArray* gestureRecognizers = [self.navigationController.navigationBar gestureRecognizers];
+    for (UIGestureRecognizer *gestureRecognizer in gestureRecognizers) {
+        if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+            gestureRecognizer.enabled = YES;
+            // break;
+        }
+    }
 }
 
 - (void)setPreference:(NSString*)des {
@@ -72,16 +92,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table View
@@ -99,17 +109,18 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"TestUsersList-Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
         if (indexPath.row == _activeRowNum) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    NSArray *tokens = [_objects[indexPath.row] componentsSeparatedByString:@"|"];
+    cell.textLabel.text = [tokens objectAtIndex:1];
+    cell.detailTextLabel.text = [tokens objectAtIndex:0];
     return cell;
 }
 
