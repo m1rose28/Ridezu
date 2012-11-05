@@ -8,7 +8,6 @@
 
 #import "RZRouteDriverSelectViewController.h"
 #import "DriverTableViewCell.h"
-#import <QuartzCore/QuartzCore.h>
 #import "RZRouteSuccessViewController.h"
 #import "RZRideDriver.h"
 #import "RZRideDetail.h"
@@ -16,9 +15,6 @@
 @interface RZRouteDriverSelectViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate>{
     
 }
-@property (nonatomic, strong) IBOutlet UILabel *costSavingAmountLabel;
-@property (nonatomic, strong) IBOutlet UILabel *gasCarbonSavingLabel;
-@property (nonatomic, strong) IBOutlet UIView *routeContainerView;
 @property (nonatomic, strong) IBOutlet UITableView *driversTableView;
 @property (nonatomic, strong) NSArray *drivers;
 @property (nonatomic, strong) RZRideDetail *rideDetail;
@@ -48,14 +44,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _routeContainerView.layer.masksToBounds = YES;
-    _routeContainerView.layer.cornerRadius = 10.0;
     
-    _gasCarbonSavingLabel.layer.masksToBounds = YES;
-    _gasCarbonSavingLabel.layer.cornerRadius = 5.0;
-    
-    _costSavingAmountLabel.layer.masksToBounds = YES;
-    _costSavingAmountLabel.layer.cornerRadius = 5.0;
+    NSArray* topObjects = [[NSBundle mainBundle] loadNibNamed:@"TopView" owner:self options:nil];
+   
+    TopView *topView = (TopView*)[topObjects objectAtIndex:0];
+    [topView customize];
+    CGRect topViewFrame = CGRectMake(10, 10, topView.bounds.size.width, topView.bounds.size.height);
+    topView.frame = topViewFrame;
+    [self.view addSubview:topView];
     
     _driversTableView.delegate = self;
     _driversTableView.dataSource = self;

@@ -55,14 +55,13 @@
 {
     [super viewDidLoad];
     
-    _routeContainerView.layer.masksToBounds = YES;
-    _routeContainerView.layer.cornerRadius = 10.0;
-
-    _gasCarbonSavingLabel.layer.masksToBounds = YES;
-    _gasCarbonSavingLabel.layer.cornerRadius = 5.0;
+    NSArray* topObjects = [[NSBundle mainBundle] loadNibNamed:@"TopView" owner:self options:nil];
+    TopView *topView = (TopView*)[topObjects objectAtIndex:0];
+    [topView customize];
     
-    _costSavingAmountLabel.layer.masksToBounds = YES;
-    _costSavingAmountLabel.layer.cornerRadius = 5.0;
+    CGRect topViewFrame = CGRectMake(10, 6, topView.bounds.size.width, topView.bounds.size.height);
+    topView.frame = topViewFrame;
+    [self.view addSubview:topView];
     
     _timeTable.delegate = self;
     _timeTable.dataSource = self;

@@ -183,14 +183,6 @@
     _mapView.delegate = self;
     _addressTextField.delegate = self;
     
-    // [self.navigationController.navigationBar removeGestureRecognizer:panGesture];
-    
-//    if ([self.locationType isEqualToString:@"home"]) {
-//        UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
-//        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
-//        self.navigationItem.leftBarButtonItem = slideButtonItem;
-//
-//    }
 }
 
 

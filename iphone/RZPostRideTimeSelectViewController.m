@@ -38,6 +38,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSArray* topObjects = [[NSBundle mainBundle] loadNibNamed:@"TopView" owner:self options:nil];
+    
+    TopView *topView = (TopView*)[topObjects objectAtIndex:0];
+    [topView customize];
+    CGRect topViewFrame = CGRectMake(10, 2, topView.bounds.size.width, topView.bounds.size.height);
+    topView.frame = topViewFrame;
+    [self.view addSubview:topView];
+
     _timeTable.delegate = self;
     _timeTable.dataSource = self;
     _timeArray = [RZGlobalService shortTimeTable];

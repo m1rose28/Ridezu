@@ -21,6 +21,7 @@
 #import "RZUserProfileViewController.h"
 #import "RZPostRideTimeSelectViewController.h"
 #import "RZMyRidesViewController.h"
+#import "RZOthersViewController.h"
 
 #import "LoginViewController.h"
 
@@ -105,9 +106,13 @@ extern CFAbsoluteTime StartTime;
     UINavigationController *howitworksNav = [[UINavigationController alloc] initWithRootViewController:
                                              [[RZTestUsersListViewController alloc] initWithTitle:@"How it works" withRevealBlock:revealBlock]];
 
+    UINavigationController *othersNav = [[UINavigationController alloc] initWithRootViewController:
+                                        [[RZOthersViewController alloc]
+                                         initWithNibName:@"RZOthersViewController" bundle:nil]];
+    
 	NSArray *controllers = @[
         @[_testUsersNav],
-        @[myRidesNav, requestRideNav, postRideNav, enrollmentNav, profileNav, howitworksNav]
+        @[myRidesNav, requestRideNav, postRideNav, enrollmentNav, profileNav, othersNav, howitworksNav]
 	];
     
 	NSArray *cellInfos = @[
@@ -119,6 +124,7 @@ extern CFAbsoluteTime StartTime;
         @{kSidebarCellImageKey: [UIImage imageNamed:@"0100.png"], kSidebarCellTextKey: NSLocalizedString(@"Post a Ride", @"")},
         @{kSidebarCellImageKey: [UIImage imageNamed:@"0006.png"], kSidebarCellTextKey: NSLocalizedString(@"Enrollment", @"")},
         @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"My Profile", @"")},
+        @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"Settings", @"")},
         @{kSidebarCellImageKey: [UIImage imageNamed:@"0208.png"], kSidebarCellTextKey: NSLocalizedString(@"How it works", @"")},
     ]
 	];
@@ -128,7 +134,9 @@ extern CFAbsoluteTime StartTime;
 			UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.revealController
 																						 action:@selector(dragContentView:)];
 			panGesture.cancelsTouchesInView = YES;
-			[((UINavigationController *)obj2).navigationBar addGestureRecognizer:panGesture];
+            if ([obj2 isKindOfClass:[UINavigationController class]]) {
+                [((UINavigationController *)obj2).navigationBar addGestureRecognizer:panGesture];
+            }
 		}];
 	}];
 
