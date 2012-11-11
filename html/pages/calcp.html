@@ -1,34 +1,147 @@
+<style>
+.question {
+	height: 50px;
+	position: relative;
+	width: 100%;
+}
+
+.question label {
+	clear: left;
+    float: left;
+    width: 100%;
+}
+
+.question .slidercontainer {
+	float: left;
+    height: 20px;
+    position: relative;
+    width: 240px;
+}
+
+.question  input {
+    width: 50px;
+}
+
+.question .slider {  
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.question .textslider {
+	float:left;
+}
+
+.question .textslider .togglespan {
+	color: #FFFFFF;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    text-transform: capitalize;
+    top: 0;
+    width: 144px;
+}
+
+.question .textslider #selectedvalue {
+	display:none;
+}
+
+.question .slider .circle,
+.question .textslider .circle {
+	background: #ccc;
+	border-radius: 50%;
+	cursor: pointer;
+	height: 20px;
+	left: 0;
+    position: absolute;
+    top: 0;
+	width: 20px;
+	z-index: 1;
+}
+
+.question .slider .bar,
+.question .textslider .bar {
+	background: #009600;
+	border-radius: 7px;
+	height: 15px;
+	left: 0;
+    position: absolute;
+    top: 2.5px;
+	width: 240px;
+}
+
+.question .textslider .bar {
+	width: 144px;
+}
+
+#calculateBtn {
+	border: 1px solid #000000;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+}
+
+#resultspopup {
+	display:none;
+}
+</style>
 			<section id="content">
 			<ul class="description"> 
-			<li class="first">
-			   <div data-role="fieldcontain" style="padding:2px;left:50px;">
-				   <fieldset data-role="controlgroup" data-type="horizontal">
-		        			
-						   <input type="radio" name="usertype" id="u1" value="driver" checked="checked" />
-						   <label for="u1">Driver</label>
-			   
-						   <input type="radio" name="usertype" id="u2" value="rider"/>
-						   <label for="u2">Rider</label>
-				   </fieldset>
-			   </div>
-			</li>	
-			<li>
-				<h5>How many miles do you drive to work?</h5>
-				<input type="range" name="slider1" id="slider1" value="25" min="2" max="100" data-highlight="true" data-mini="true" data-theme="a" />
-			</li>	
-			<li>	
-				<h5>How much do you pay per gallon of gas?</h5>
-				<input type="range" name="slider2" id="slider2" value="4.19" min="3" max="6" step=".10" data-highlight="true" data-mini="true" data-theme="a" />
-			</li>	
-			<li class="last">	
-				<h5>What's your car's gas mileage (mpg)?</h5>
-				<input type="range" name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-highlight="true" data-mini="true" data-theme="a" />
-			</li>
+
+				<li>
+				<div class="question">
+					<label>Are you a rider or a driver?</label>
+					<div class="slidercontainer">
+						<div id="textslider1" class="textslider">
+							<div class="circle"></div>
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+				</li>
+				<li>
+				<div class="question">
+					<label>How many miles do you drive to work?</label>
+					<input id="slidervalue1" type="text" value="25"/>
+					<div class="slidercontainer">
+						<div id="slider1" class="slider">
+							<div class="circle"></div>
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+				</li>
+				<li>
+				<div class="question">
+					<label>How much do you pay for gas?</label>
+					<input id="slidervalue2" type="text" value="3.85"/>
+					<div class="slidercontainer">
+						<div id="slider2" class="slider">
+							<div class="circle"></div>
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+				</li>
+				<li>
+				<div class="question">
+					<label>What's your car's gas mileage?</label>
+					<input id="slidervalue3" type="text" value="25"/>
+					<div class="slidercontainer">
+						<div id="slider3" class="slider">
+							<div class="circle"></div>
+							<div class="bar"></div>
+						</div>
+					</div>
+				</div>
+				</li>
+
+
 			</ul>
 
 			</section>
 
-			<input type="submit" data-role="none" onclick="calcv();" class="primarybutton" value="Calculate"/>
-
+			<input type="submit" data-role="none" id="calculateBtn" onclick="calcv();" class="primarybutton" value="Calculate"/>
+		
 			<div id="result" style="display:none;" onclick="rempopup();" class="popup"></div>
 		

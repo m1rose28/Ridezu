@@ -1,45 +1,37 @@
-			<section id="content">
-
-			<div id="mybalance" style="font-size:36px;text-align:right;color:#006900;">$64.39</div>
+			<section id="precontent">
+				<div class="glassbg">
+					<div id="mybalance" style="text-shadow: 2px 2px 0px #3f3e3f;font-size:28px;text-align:right;color:#FFFFFF;padding:5px;"><span id="balance"></span></div>
+				</div>
+			</section>
 			
-			<div data-role="navbar">
-				<ul>
-					<li><a href="">Week</a></li>
-					<li><a href="" class="ui-btn-active ui-state-persist">Month</a></li>
-					<li><a href="">Year</a></li>
-				</ul>
-			</div>
-
-			<div style="font-size:14px;color:#bbbbbb;text-align:center;">day 27 of 31</div>
-
-			<div class="ui-grid-a">
-				<div class="ui-block-a">
+			<section id="content">
+			
+			<div class="accountleft" style="float:left;font-size:18px;color:#000;width:50%;padding:5px;">
 					Credits
-					<br>Charges
-					<br><b>Total</b>
-					<br>
-					<br>Trips
-					<br>Miles Carpooled
-					<br>CO2 Saved
-					<br>Gas Savings
-					<br>Days Carpooled
-					<br>Passengers
-				</div>
-				<div class="ui-block-b" style="text-align:right;">
-					$67.39
-					<br>$3.00
-					<br><b>$64.39</b>
-					<br>
-					<br>8
-					<br>174
-					<br>437
-					<br>$64.39
-					<br>40%
-					<br>1.2
-				</div>
+					<br/>Charges
+					<br/><b>Total</b>
+					<br/>
+					<br/>Trips
+					<br/>Miles Carpooled
+					<br/>CO2 Saved
+					<br/>Savings
+					<br/>Passengers
+					<br/>
+
 			</div>
-			<br>
+			<div class="accountright" style="font-size:18px;color:#000;text-align:right;padding:5px;">
+					<span id="credits"></span>
+					<br/><span id="charges"></span>
+					<br/><b><span id="total"></span></b>
+					<br/>
+					<br/><span id="trips"></span>
+					<br/><span id="miles"></span>
+					<br/><span id="co2"></span>
+					<br/><span id="savings"></span>
+					<br/><span id="passengers"></span>
+					<br/>
+			</div>
 
 			</section>
 			
-			<input type="submit" data-role="none" onclick="nav('accountp','transactionp');" class="primarybutton" value="Transaction History"/>;
+			<input type="submit" data-role="none" onclick="navt('accountp','transactionp');" class="primarybutton" value="Transaction History"/>;

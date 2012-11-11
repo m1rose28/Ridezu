@@ -16,7 +16,7 @@ include 'header.php';
 <script>
 
 // this function set 2 creates a new user
-		var retval="";					
+		var retval="";
 		function regnewuser(){
 
         fbid=document.getElementById("regfbid").value;
@@ -56,12 +56,16 @@ include 'header.php';
 				
 			var jsondataset = JSON.stringify(dataset);
 		
+			url="/ridezu/api/v/1/users";
+			type="POST";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>data:"+jsondataset+"</br>";			
+			
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users",
+                url: url,
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
-                success: function(data) {show(data);},
+                success: function(data) {show(instr,data);},
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -73,11 +77,16 @@ include 'header.php';
 
 //get all rides
 		function getusers(){
+
+			url="/ridezu/api/v/1/users";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"</br>";			
+
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users",
+                url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data);},
+                success: function(data) {show(instr,data);},
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -85,11 +94,16 @@ include 'header.php';
 
 //get all rides
 		function getallrides(){
+
+			url="/ridezu/api/v/1/rides";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides",
+                url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -98,12 +112,16 @@ include 'header.php';
 //get user data
 		function getuserdetails(){
         	fbid=document.getElementById("userdetails").value;
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users/search/fbid/"+fbid;
+			url="/ridezu/api/v/1/users/search/fbid/"+fbid;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    url=url;
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -113,12 +131,15 @@ include 'header.php';
 //get driver by time
 		function getdriverbytime(){
         	time=document.getElementById("getdrivertime").value;
-            url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/eventtime/"+time+"/driver";
+            url: "/ridezu/api/v/1/rides/search/eventtime/"+time+"/driver";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -127,12 +148,15 @@ include 'header.php';
 //get rider by time
 		function getriderbytime(){
         	time=document.getElementById("getridertime").value;
-            url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/eventtime/"+time+"/rider";
+            url="/ridezu/api/v/1/rides/search/eventtime/"+time+"/rider";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data);},
+                success: function(data) {show(instr,data);},
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -142,12 +166,15 @@ include 'header.php';
 //get ride by id
 		function getridebyid(){
         	rideid=document.getElementById("rideid").value;
-		    url= "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/"+rideid;
+		    url= "/ridezu/api/v/1/rides/"+rideid;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -157,12 +184,15 @@ include 'header.php';
 //get rider avail rides by fbid
 		function getridebyfbid(){
         	fbid=document.getElementById("rider1").value;
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/driver";
+		    url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/driver";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeaderUser
             });
@@ -173,12 +203,15 @@ include 'header.php';
         	fbid=document.getElementById("rider2").value;
 			route=document.getElementById("rider2route").value;
 			date=document.getElementById("rider2date").value;
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/driver";
+		    url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/driver";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeaderUser
             });
@@ -187,12 +220,15 @@ include 'header.php';
 //get driver avail rides by fbid
 		function getdriverbyfbid(){
         	fbid=document.getElementById("drivebyfbid").value;
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/rider";
+		    url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/rider";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeaderUser
             });
@@ -201,15 +237,17 @@ include 'header.php';
 //get driver avail rides by fbid,route,date
 		function getdriverbyfbidRtDt(){
         	fbid=document.getElementById("drivebyfbid").value;
-		route=document.getElementById("ridebyroute").value;
-		date=document.getElementById("ridebydate").value;
+			route=document.getElementById("ridebyroute").value;
+			date=document.getElementById("ridebydate").value;
+		    url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/rider";
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
 
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/rider";
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeaderUser
             });
@@ -222,7 +260,7 @@ include 'header.php';
         	time=document.getElementById("reqridetime").value;
         	route=document.getElementById("reqrideroute").value;
         	
-            url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider";
+            url="/ridezu/api/v/1/rides/rider";
 
 			var dataset = {
 				"fbid":	fbid,
@@ -232,12 +270,15 @@ include 'header.php';
 
 			var jsondataset = JSON.stringify(dataset);
 
+			type="POST";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>data:"+jsondataset+"</br>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) {alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -257,34 +298,39 @@ include 'header.php';
 
 			var jsondataset = JSON.stringify(dataset);
 
+			url="/ridezu/api/v/1/rides/driver";
+			type="POST";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>data:"+jsondataset+"</br>";			
+
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/driver",
+                url: url,
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) {alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
         }
 
-function postnewridewithrider(){
-fbid=document.getElementById("driverfbid").value;
-rideid=document.getElementById("reqrideid").value;
-var dataset = {
-				"fbid":	fbid,
-		}				
-	var jsondataset = JSON.stringify(dataset);
-		url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/driver";
-		    var request=$.ajax({
-                url: url,
-                type: "PUT",
-                dataType: "json",
-                data: jsondataset,
-                success: function(data) {show(data); },
-                error: function(data) {alert("boo!"+JSON.stringify(data)); },
-                beforeSend: setHeader
-            });
+		 function postnewridewithrider(){
+			 fbid=document.getElementById("driverfbid").value;
+			 rideid=document.getElementById("reqrideid").value;
+			 var dataset = {"fbid":fbid,}				
+			 var jsondataset = JSON.stringify(dataset);
+			 url="/ridezu/api/v/1/rides/rideid/"+rideid+"/driver";
+			 type="PUT";
+			 instr="URL: "+url+"<br/>type: "+type+"<br/>data:"+jsondataset+"</br>";			
+
+					 var request=$.ajax({
+						 url: url,
+						 type: "PUT",
+						 dataType: "json",
+						 data: jsondataset,
+						 success: function(data) {show(instr,data); },
+						 error: function(data) {alert("boo!"+JSON.stringify(data)); },
+						 beforeSend: setHeader
+					 });
 
 		
 }
@@ -292,22 +338,21 @@ var dataset = {
 
 //this is for a rider selecting a ride with a driver (rideid is the match) 
 
-		function selectridebyrider(){
-		fbid=document.getElementById("selectridefbid").value;
-        rideid=document.getElementById("selectrideid").value;
-		var dataset = {
-				"fbid":	fbid,
-				}				
-			
-			var jsondataset = JSON.stringify(dataset);
+		 function selectridebyrider(){
+			 fbid=document.getElementById("selectridefbid").value;
+			 rideid=document.getElementById("selectrideid").value;
+			 var dataset = {"fbid":	fbid,}				
+			 var jsondataset = JSON.stringify(dataset);
+			 url="/ridezu/api/v/1/rides/rideid/"+rideid+"/rider";
+			 type="PUT";
+			 instr="URL: "+url+"<br/>type: "+type+"<br/>data:"+jsondataset+"</br>";			
 
-			url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/rider";
 		    var request=$.ajax({
                 url: url,
                 type: "PUT",
                 dataType: "json",
                 data: jsondataset,
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) {alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
@@ -316,12 +361,15 @@ var dataset = {
 //get my ride details 
 		function getriderride(){
         	fbid=document.getElementById("myriderfbid").value;
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid;
+		    url="/ridezu/api/v/1/rides/search/fbid/"+fbid;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeaderUser
             });
@@ -331,18 +379,77 @@ var dataset = {
 		function cancelride(){
         	fbid=document.getElementById("cancelfbid").value;
         	rideid=document.getElementById("cancelrideid").value;
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
+		    url="/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
+			type="DELETE";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
 		    var request=$.ajax({
                 url: url,
                 type: "DELETE",
                 dataType: "json",
-                success: function(data) {show(data); },
+                success: function(data) {show(instr,data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+        }
+
+//show account
+
+		function account(){
+        	fbid=document.getElementById("accountfbid").value;
+        	timeperiod=document.getElementById("timeperiod").value;
+		    url="/ridezu/api/v/1/account/summary/fbid/"+fbid+"/timeperiod/"+timeperiod;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {show(instr,data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+        }
+
+//show account detail
+
+		function accountdetail(){
+        	fbid=document.getElementById("accountdetailfbid").value;
+        	timeperiod=document.getElementById("detailtimeperiod").value;
+		    url="/ridezu/api/v/1/account/detail/fbid/"+fbid+"/timeperiod/"+timeperiod;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
                 beforeSend: setHeaderUser
             });
         }
 
 
+//get nodes
+
+		function nodes(){
+        	fbid=document.getElementById("nodefbid").value;
+        	nodetype=document.getElementById("nodetype").value;
+		    url="/ridezu/api/v/1/users/search/fbid/"+fbid+"/location/"+nodetype;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {show(instr,data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+        }
 
 //this is for setting headers / authentication.  temporarily turned off.  
 
@@ -359,9 +466,9 @@ var dataset = {
         
 //this shows the actual json result
 
-        function show(data){
+        function show(instr,data){
         	x=JSON.stringify(data, undefined, 2);
-        	document.getElementById("jsonresult").innerHTML="<pre>"+x+"</pre>";
+        	document.getElementById("jsonresult").innerHTML=instr+"<br/><pre>"+x+"</pre>";
 			document.getElementById("myModal").style.diplay="block";
 			$('#myModal').modal(show)
 			}
@@ -417,7 +524,11 @@ var dataset = {
 	 <p><div class="input-append"><input id="driverfbid" value="<?php echo $uid;?>" type="text"/><input id="reqrideid" value="rideid of requestor" type="text"/><a class="btn btn-primary" onclick="postnewridewithrider();">Post a Ride (match with existing request)</a></div></p>
 	 <p><div class="input-append"><input id="myriderfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getriderride();">Get my ride details (use it to get your ride details)</a></div></p>
 	 <p><div class="input-append"><input id="cancelfbid" value="<?php echo $uid;?>" type="text"/><input id="cancelrideid" value="3" type="text"/><a class="btn btn-primary" onclick="cancelride();">Cancel ride</a></div></p>
+	 <p><div class="input-append"><input id="accountfbid" value="<?php echo $uid;?>" type="text"/><input id="timeperiod" value="Y" type="text"/><a class="btn btn-primary" onclick="account();">Account Summary</a></div></p>
+	 <p><div class="input-append"><input id="accountdetailfbid" value="<?php echo $uid;?>" type="text"/><input id="detailtimeperiod" value="Y" type="text"/><a class="btn btn-primary" onclick="accountdetail();">Account Detail</a></div></p>
+	 <p><div class="input-append"><input id="nodefbid" value="<?php echo $uid;?>" type="text"/><input id="nodetype" value="H" type="text"/><a class="btn btn-primary" onclick="nodes();">Get Nodes</a></div></p>
 	 
+		 
 	 <div class="modal" style="display:none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	   <div class="modal-header">
 		 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

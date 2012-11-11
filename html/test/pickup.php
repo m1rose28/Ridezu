@@ -14,34 +14,36 @@ if(isset($_GET['m'])){
 	
 if(isset($_GET['m'])){
 	$m=$_GET['m'];
-	if($m=="p"){$p="pickup";}
-	if($m=="c"){$p="company";}
+	if($m=="p"){$p="pickup";$type="Park and Ride";}
+	if($m=="c"){$p="company";$type="Company";}
 	}
 	
 include 'header.php';
 
 $m="";
-$query = "SELECT id,name,city,state,latlong,spaces,lighting,bikeracks from ridenode";
+
+$query = "SELECT id,name,city,state,latlong,type,custommarker from ridenode where type='".$type."'";
 $result = mysql_query($query) or die(mysql_error());
 
 $c="<table class='table table-striped'>";
-$c=$c."<tr><td>id</td><td>name</td><td>city</td><td>state</td><td>lat / long</td><td>spaces</td><td>lighting</td><td>bikeracks</td><td></td></tr>";
+$c=$c."<tr><td>id</td><td>name</td><td>address</td><td>lat / long</td><td></td></tr>";
 
 $c=$c."<tr><td></td>
-	  <td><input id='name' type='text' value='' style='width:200px;'></td>
-	  <td><input id='city' type='text' value='' style='width:100px;'></td>
-	  <td><input id='state' type='text' value='' style='width:30px;'></td>
+	  <td></td>
+	  <td><input id='address1' type='text' value='' style='width:300px;'></td>
 	  <td><input id='latlng' type='text' value='' style='width:280px;'></td>
-	  <td><input id='spaces' type='text' value='' style='width:30px;'></td>
-	  <td><input id='lighting' type='text' value='' style='width:30px;'></td>
-	  <td><input id='bikeracks' type='text' value='' style='width:30px;'></td>
-	  <td><a class=\"btn btn-primary\" onclick=\"addlocation()\">add</a></td>
+	  <td></td>
 	  </tr>";
+$image="";
 
 while($row = mysql_fetch_array($result)){
-	$c=$c."<tr><td>$row[0]</td><td><a href=\"#\" onclick=\"centermap(new google.maps.LatLng($row[4]));\">$row[1]</a></td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td>$row[5]</td><td>$row[6]</td><td>$row[7]</td>
+	$c=$c."<tr><td>$row[0]</td><td><a href=\"#\" onclick=\"centermap(new google.maps.LatLng($row[4]));\">$row[1]</a></td><td>$row[2], $row[3]</td><td>$row[4]</td>
 	<td></tr>";
-	$m=$m."newmarker(new google.maps.LatLng($row[4]))\n";
+	if($row['type']=="Company"){$image="../images/basecmarker.png";}
+	if($row['type']=="Park and Ride"){$image="../images/basepmarker.png";}
+	if($row['custommarker']<>""){$image="../images/".$row['custommarker'].".png";}
+		
+	$m=$m."newmarker(new google.maps.LatLng($row[4]),'$image')\n";
 
 	}
 
@@ -59,7 +61,8 @@ $c=$c."</table>";
       var geocoder;
       var infowindow = new google.maps.InfoWindow();
       var myhouse = new google.maps.LatLng(37.238167, -121.921297);
-      var image = '../images/marker.png';
+      var pimage = '../images/basepmarker.png';
+      var cimage = '../images/basepmarker.png';
 
  
 	  function addlocation(){
@@ -216,6 +219,7 @@ $c=$c."</table>";
 			  geocoder.geocode({'latLng': latlng}, function(results, status) {
 			  if (status == google.maps.GeocoderStatus.OK) {
 				  if (results[1]) {
+				document.getElementById('address1').value=results[0].formatted_address;	 
 				  putcenter(ctr);
 				  }
 			  } else {
@@ -229,7 +233,7 @@ $c=$c."</table>";
     // This function calls jquery to load the map page
 	loadMap();
 
-    function newmarker(center){
+    function newmarker(center,image){
           marker = new google.maps.Marker({
                   position: center,
                   map: map,
@@ -238,7 +242,8 @@ $c=$c."</table>";
         }
 
     function centermap(center){
-          map.setCenter(center)
+          map.setCenter(center);
+          codeLatLng();
         }
 
 
@@ -255,7 +260,7 @@ $c=$c."</table>";
 <?php echo $c; ?>
 </div>
 
-<div class="input-append" style="position:absolute;top:115px;left:40px;">
+<div class="input-append" style="position:absolute;top:125px;left:40px;">
 <input style="width:300px;" id="address" type="text" value="">
 <a class="btn btn-primary" onclick="codeAddress()">Search for address</a>
 

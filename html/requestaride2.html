@@ -6,13 +6,13 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>RideZu | Request A Ride</title>
+        <title>Ridezu | Request A Ride</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
         <link rel="stylesheet" href="css/style.css">
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
 		<link rel="icon" type="image/png" href="favicon.png">
     </head>
 	
@@ -25,7 +25,7 @@
 		
 		<div id="pagebody" style="left: 0px; ">
 			<header id="toolbarnav" style="left: 0px; ">
-				<a href="#" id="back-btn"><img src="../images/back.png" alt="Back Button" /></a>
+				<a href="#" id="back-btn"><img src="css/../images/back.png" alt="Back Button" /></a>
 			
 				<h1>Request a Ride</h1>
 			</header>
@@ -34,10 +34,10 @@
 				<div id="left2">
 					<h3>Route</h3>
 					<div class="glassbg">
-						<img class="routeicon" src="../images/routeicon.png" alt="Route Icon"/>
+						<img class="routeicon" src="css/../images/routeicon.png" alt="Route Icon"/>
 						<ul>
-							<li><img src="../images/start.png" alt="Start" />Home</li>
-							<li><img src="../images/end.png" alt="End" />Work</li>
+							<li><img src="css/../images/start.png" alt="Start" />Home</li>
+							<li><img src="css/../images/end.png" alt="End" />Work</li>
 						</ul>
 					</div>
 				</div>
@@ -51,36 +51,69 @@
 						
 						<ul class="darktext">
 							<li>Savings</li>
-							<li><img src="../images/gas.png" alt="Gasoline Icon" />25%</li>
-							<li><img src="../images/co2.png" alt="CO2 Emission Icon" />38lbs</li>
+							<li><img src="css/../images/gas.png" alt="Gasoline Icon" />25%</li>
+							<li><img src="css/../images/co2.png" alt="CO2 Emission Icon" />38lbs</li>
 						</ul>
 					</div>
 				</div>
 			</section>
 			
-			<section id="content">
-				<h2>There are two drivers leaving at 6:00am.</h2>
+			<section id="content" class="lightbackground">
+				<h2>There are two drivers leaving at 6:00am. Please choose one.</h2>
 				<ul>
-					<a href="#"><li class="driver"><img src="../images/displaypicture1.jpg" alt="Nikko Alexander's Photo" class="profilephoto"/><p>Nikko Alexander</p></li></a>
-					<a href="#"><li class="driver last"><img src="../images/displaypicture2.jpg" alt="Nikko Alexander's Photo" class="profilephoto"/><p>Jeff Smith</p></li></a>
+					
+						<li class="driver">
+							<a href="#">
+							<div id="viewprofile">
+								<img src="../images/displaypicture1.jpg" alt="Nikko Alexander's Photo" class="profilephoto"/>
+								<p>View Profile</p>
+							</div>
+							</a>
+							<a href="#">
+							<div id="selectdriver">
+							<p>Nikko Alexander</p>
+							</div>
+							</a>
+						</li>
+					
+					<a href="#">
+						<li class="driver">
+							<a href="#">
+							<div id="viewprofile">
+								<img src="../images/displaypicture2.jpg" alt="Nikko Alexander's Photo" class="profilephoto"/>
+								<p>View Profile</p>
+							</div>
+							</a>
+							<a href="#">
+							<div id="selectdriver">
+							<p>Jeff Smith</p>
+							</div>
+							</a>
+						</li>
+					</a>
 				</ul>
 			</section>
 			
 		</div>
 		
 		<div id="navmenu">
-			<header>
-				<h1>Menu Links</h1>
-			</header>
-			
-				<ul>
-					<li><a href="#" class="navlink">Home</a></li>
-					<li><a href="#" class="navlink">Link 2</a></li>
-					<li><a href="#" class="navlink">Link 3</a></li>
-					<li><a href="#" class="navlink">Link 4</a></li>
-					<li><a href="#" class="navlink">Link 5</a></li>
-					<li><a href="#" class="navlink">Link 6</a></li>
-				</ul>
+			<ul>
+				<li><p>RideZu Home</p></li>
+				<li><a href="#" class="mainnavlink">My Rides<img src="css/../images/arrow.png" alt="Arrow icon" /></a></li>
+				<li><a href="#" class="navlink">My Rides</a></li>
+				<li><a href="#" class="navlink">Post a Ride</a></li>
+				<li><a href="#" class="navlink">Request a Ride</a></li>
+				<li><a href="#" class="navlink">Auto Pilot</a></li>
+				<li><a href="#" class="mainnavlink">My Account<img src="css/../images/arrow.png" alt="Arrow icon" /></a></li>
+				<li><a href="#" class="mainnavlink">My Profile<img src="css/../images/arrow.png" alt="Arrow icon" /></a></li>
+				<li><a href="#" class="mainnavlink">About RideZu<img src="css/../images/arrow.png" alt="Arrow icon" /></a></li>
+				<li><a href="#" class="navlink">How it Works</a></li>
+				<li><a href="#" class="navlink">Ridezunomics</a></li>
+				<li><a href="#" class="navlink">How it Works</a></li>
+				<li><a href="#" class="navlink">Ridezunomics</a></li>
+				<li><a href="#" class="navlink">How it Works</a></li>
+				<li><a href="#" class="navlink">Ridezunomics</a></li>
+			</ul>
 		</div>
 	</div>
 		

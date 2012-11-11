@@ -1,50 +1,6 @@
-<!DOCTYPE html> 
-<html> 
-	<head> 
-		<title>Ridezu create user Prototype</title>
-		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
- 
-</head>
-<body>
-
 <script>
-       function regnewuser(){
-            
- 				user=document.getElementById('userid').value;
- 					
- 				var dataset = {
-                "fbid": user,
-                "fname": "test",
-                "lname": "user",
-                "add1": "123 somewhere",
-                "city": "san jose",
-                "state": "ca",    
-                "zip": "95124"
-                }
-                
-            	var jsondataset = JSON.stringify(dataset);
- 
- alert(jsondataset);
-        
-            	var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users",
-                type: "POST",
-                dataType: "json",
-                data: jsondataset,
-                success: function(data) {alert(data)},
-                error: function() { alert('already registered?'); },
-                beforeSend: setHeader
-                });                                     
-			 }
-
-        function setHeader(xhr) {
-            xhr.setRequestHeader("Content-Type", "application/json");
-  	      }
-
-</script>
-
-<input id="userid" value="1234" type="test"/>
-<a href="#" onclick="regnewuser();">create a new user</a>
-
-</body>
-</html>
+success='{"type":"front","image":"front-504711218-o.png"}';
+                 var x = JSON.parse(success);
+                 alert(x.type);
+                 
+                 </script>

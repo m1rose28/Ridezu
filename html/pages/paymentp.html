@@ -1,0 +1,70 @@
+	<div id="r1" style="display:none;">
+			<section id="precontent">
+				<h3><img src="../images/lock.png" style="width:20px;">Payment Info</h3>
+			</section>
+			
+			<section id="content">
+			<h2>Please enter your credit card below.  This is a secure form.</h2>
+			
+				<ul>
+					<li>
+						<h3>Card#</h3>
+						<input type="test" class="rtext" value="" id="cardnumber"/>
+					</li>
+					<li>
+						<h3>CVV</h3>
+						<input type="test" class="rtext" value="" id="cvv"/>
+					</li>
+					<li>
+					   <h3>Month</h3>
+						  <select class="rselect" onchange="card();" id="expmonth" data-role="none">
+							<option value="Janaury">Janaury</option>
+							<option value="February">February</option>
+							<option value="March">March</option>
+							<option value="April">April</option>
+							<option value="May">May</option>
+							<option value="June">June</option>
+							<option value="July">July</option>
+							<option value="August">August</option>
+							<option value="September">September</option>
+							<option value="October">October</option>
+							<option value="November">November</option>
+							<option value="December">December</option>
+						  </select>
+					</li>
+					<li>
+						<h3>Year</h3>			
+							<select class="rselect" onchange="card();" id="expyear" name="expyear" data-role="none">
+								<option value="2012">2012</option>
+								<option value="2013">2013</option>
+								<option value="2014">2014</option>
+								<option value="2015">2015</option>
+								<option value="2016">2016</option>
+							</select>
+						</li>
+					</ul>
+					<br/><br/>
+					<a href="#" onclick="cardonfile();">Card on file</a>
+			</section>
+	</div>		
+
+	<div id="r2" style="display:block;">
+			<section id="precontent">
+				<h3><img src="../images/lock.png" style="width:20px;">Credit Card on File</h3>
+			</section>
+			
+			<div style="height:220px;background:url(../images/cc.png);background-repeat:no-repeat;margin:10px;">
+				<div class="ccnumber" style="position:relative;top:40px;left:30px;font-size:26px;color:#FFF;text-shadow: 2px 2px 0px #3f3e3f;">
+					xxxx-xxxx-xxxx-3433
+				</div>
+				<div class="ccname" style="position:relative;top:125px;left:25px;font-size:20px;color:#FFF;text-shadow: 2px 2px 0px #3f3e3f;">
+					Mark Rose
+				</div>
+				<div class="cclogo">
+					<img src="../images/visa.png" style="position:relative;top:85px;left:225px;"/>
+				</div>
+			</div>
+	
+			<input type="submit" data-role="none" class="primarybutton" value="Change Card" />
+	</div>
+	

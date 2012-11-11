@@ -1,12 +1,6 @@
 <?php
 
-// harness function. include the query string ?p=pagename 
-// for example
-// ?p=requestp
-// will fetch
-// requestp.html in the pages directory
-
-$p="mainp";
+$p="myridesp";
 if(isset($_GET["p"])){$p=$_GET["p"];}
 
 ?>
@@ -16,20 +10,19 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 <html lang="en">
 <head>
 	<script type="text/javascript">
-		var startpage="<?php echo $p?>";
+		var startpage="<?php echo $p;?>";
 	</script>
 	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Ridezu</title>
+	<link rel="icon" href="favicon.ico" type="image/x-icon"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
- 	<link rel="stylesheet" href="themes/ridezu.min.css" />
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/ridezu.css"> 
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/ridezu.js"></script>
-	<link type="text/css" rel="stylesheet" href="css/style.css">
+	<link type="text/css" rel="stylesheet" href="http://www.bellified.com/testing/ridezu/css/style.css">
+	
 </head>
 
 <body>
@@ -38,14 +31,17 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 		<div id="pagebody" style="left: 0px;">
 			<div id="topbar" style="display:block;">
 			<header id="toolbarnav" style="left:0px; ">
-				<a href="#" id="menu-btn"><img src="../images/menu.png" alt="Menu Button" /></a>
-			
+				<a href="#" id="menu-btn"><img id="menub" src="../images/menu.png"/></a>
 				<h1 id="pTitle">Ridezu</h1>
 			</header>
 			</div>
 
 				<div id="rpopup" style="display:none;" onclick="rempopup();" class="popup"></div>
 				<div id="darkpage" class="dim" style="display:none;"></div>
+				<div id="loading" style="height:450px;display:none">
+					<div style="height:20px;background-color:#ddd;width:100%">Loading...
+					</div>
+				</div>
 				<!-- list of active pages -->
 				
 				<div id="mainp"></div> 	
@@ -74,7 +70,7 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 				<div id="ridepostp"></div>
 				<div id="enrollp"></div>
 				<div id="loginp"></div>
-				<div id="firstp"></div> 
+				<div id="firstp" style="display:none;"></div> 
 				<div id="myridesp"></div> 
 				<div id="userprofilep"></div> 
 				<div id="homeprofilep"></div> 
@@ -82,16 +78,25 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 				<div id="contactinfop"></div> 
 				<div id="driverp"></div> 
 				<div id="ridedetailsp"></div> 
-				<div id="paymentinfop"></div> 
+				<div id="paymentp"></div> 
 				<div id="payoutp"></div> 
 				<div id="notifyp"></div> 
+				<div id="temp"></div> 
+				<div id="pricingp"></div> 
 
+				<div id="confirm-background">
+					<div id="confirm-box">
+						<div id="confirm-message"></div>
+						<a href="#" id="cancel-button" style="display:none;" onclick="closeconfirm('cancel');" class="cancel"></a><a href="#" id="ok-button" onclick="closeconfirm('ok');"></a>
+					</div>
+				</div>
+		
 		<div id="testbar" style="background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
-		</div>
+		</div>		
 		
 		<div id="navmenu">
 				<ul>
-					<li><p>RideZu Home</p></li>
+					<li><p class="mainnavlink">RideZu Home</p></li>
 					<li><a class="navlink" onclick="nav1('loginp');" class="navlink">Login - Testing Only</a></li>
 					<li><a class="navlink" onclick="nav1('myridesp');" class="navlink">My Rides</a></li>
 					<li><a class="navlink" onclick="nav1('riderequestp');" class="navlink">Request a Ride</a></li>
