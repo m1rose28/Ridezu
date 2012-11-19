@@ -1,3 +1,12 @@
+<style>
+
+textarea {
+	width: 265px;
+	height: 60px;
+	padding: 5px;
+	font-size:18px;
+}
+</style>
 			<div id="r0" style="display:none;">
 			<section id="precontent">
 				<div id="left2">
@@ -30,7 +39,7 @@
 
 			<div id="r1" style="display:none;">
 				<section id="content">
-						<h2>Your next ride is <span id="godate"></span> at <span id="leavetime"></span>. <span id="showmore"></span></h2>
+						<h2><span id="ridedetails"></span> <span id="godate"></span><span id="leavetime"></span>. <span id="nomatch"></span> <span id="showmore"></span></h2>
 						<ul class="info">
 						<div id="ridelist1"></div>
 						</ul>
@@ -43,13 +52,13 @@
 					<section id="content">
 						<h2>How late are you running?</h2>
 						<ul>
-						<a href="#" onclick=""><li>2 minutes</li></a>
-						<a href="#" onclick=""><li>5 minutes</li></a>
-						<a href="#" onclick=""><li>10 minutes</li></a>
-						<a href="#" onclick=""><li>15 minutes</li></a>
-						<a href="#" onclick=""><li>20 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('2 minutes');"><li>2 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('5 minutes');"><li>5 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('10 minutes');"><li>10 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('15 minutes');"><li>15 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('20 minutes');"><li>20 minutes</li></a>
 						</ul>
-
+					<input type="text" id="txtmessage" style="display:none;" value="">
 					</section>
    					<input type="submit" onclick="notlate();" data-role="none" class="primarybutton" value="< back"/>
 

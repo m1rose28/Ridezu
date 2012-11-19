@@ -133,11 +133,10 @@ function addUser()
 	
   $request = Slim::getInstance()->request();
   $user = json_decode($request->getBody());
-    $sql = "INSERT INTO userprofile (fbid, seckey, fname, lname, add1, add2, city,state,zip,workadd1, workadd2, workcity, workstate, workzip, preference, phone,email, homelatlong,worklatlong,originlatlong,destlatlong, miles, gassavings, co2, schedule, leavetime, hometime, timezone, dlverified, terms, insurance, ipaddress, verificationtime, profileblob, cartype, seats,frontphoto, backphoto, leftphoto, rightphoto, ridesoffered, ridestaken, balance, co2balance, milesoffered, milestaken, drivertardyslips, ridertardyslips, notificationmethod, ridereminders, deleted) 
-	VALUES (:fbid, :hash, :fname, :lname, :add1, :add2, :city, :state, :zip, :workadd1, :workadd2, :workcity, :workstate, :workzip, :preference, :phone, :email, :homelatlong, :worklatlong, :originlatlong, :destlatlong, :miles, :gassavings, :co2, :schedule, :leavetime,:hometime, :timezone, :dlverified, :terms, :insurance, :ipaddress, :verificationtime, :profileblob,:cartype,:seats, :frontphoto,:backphoto,:leftphoto,:rightphoto,:ridesoffered,:ridestaken,:balance,:co2balance,:milesoffered,:milestaken,:drivertardyslips,:ridertardyslips,:notificationmethod,:ridereminders,'N')";
+    $sql = "INSERT INTO userprofile (fbid, seckey, fname, lname, add1, add2, city,state,zip,workadd1, workadd2, workcity, workstate, workzip, preference, phone,email, homelatlong,worklatlong,origindesc, destdesc, originlatlong,destlatlong, miles, gassavings, co2, schedule, leavetime, hometime, timezone, dlverified, terms, insurance, ipaddress, verificationtime, profileblob, cartype, seats,frontphoto, backphoto, leftphoto, rightphoto, ridesoffered, ridestaken, balance, co2balance, milesoffered, milestaken, drivertardyslips, ridertardyslips, notificationmethod, ridereminders, deleted,carmaker,isLuxury,rating,consistency,timeliness,userphoto,paypalemail) 
+	VALUES (:fbid, :hash, :fname, :lname, :add1, :add2, :city, :state, :zip, :workadd1, :workadd2, :workcity, :workstate, :workzip, :preference, :phone, :email, :homelatlong, :worklatlong, :origindesc, :destdesc, :originlatlong, :destlatlong, :miles, :gassavings, :co2, :schedule, :leavetime,:hometime, :timezone, :dlverified, :terms, :insurance, :ipaddress, :verificationtime, :profileblob,:cartype,:seats, :frontphoto,:backphoto,:leftphoto,:rightphoto,:ridesoffered,:ridestaken,:balance,:co2balance,:milesoffered,:milestaken,:drivertardyslips,:ridertardyslips,:notificationmethod,:ridereminders,'N',:carmaker,:isLuxury,:rating,:consistency,:timeliness,:userphoto,:paypalemail)";
 	
-	//$sql = "INSERT INTO userprofile (fbid, seckey, fname, lname, add1, add2, city,state,zip,preference ) VALUES (:fbid, :hash, :fname, :lname, :add1, :add2, :city, :state, :zip, :preference)";
-    //print_r($user);
+	$userid=null;
 	try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
@@ -161,10 +160,33 @@ function addUser()
 		$stmt->bindParam("email", $user->email);
 		$stmt->bindParam("homelatlong", $user->homelatlong);
 		$stmt->bindParam("worklatlong", $user->worklatlong);
-		$originlatlong = getNearestNode($user->homelatlong,5);
-		$destlatlong = getNearestNode($user->worklatlong,5);
-		$stmt->bindParam("originlatlong", $originlatlong);
-		$stmt->bindParam("destlatlong", $destlatlong);
+		$null=NULL;
+		if ($user->homelatlong !=NULL)
+		{
+			//echo $user->homelatlong;
+			$originnode = getNearestNode($user->homelatlong,5);
+			$stmt->bindParam("originlatlong", $originnode->latlong);
+			$stmt->bindParam("origindesc", $originnode->name);
+		}
+		else 
+		{
+			
+			$stmt->bindParam("originlatlong", $null);
+			$stmt->bindParam("origindesc", $null);
+		
+		}
+		if ($user->worklatlong !=NULL)
+		{
+			$destnode = getNearestNode($user->worklatlong,5);
+			$stmt->bindParam("destlatlong",$destnode->latlong);
+			$stmt->bindParam("destdesc",$destnode->name);
+		}
+		else
+		{
+			$stmt->bindParam("destlatlong",$null);
+			$stmt->bindParam("destdesc",$null);
+		}
+		
 		$stmt->bindParam("miles", $user->miles);
 		$stmt->bindParam("gassavings", $user->gassavings);
 		$stmt->bindParam("co2", $user->co2);
@@ -194,13 +216,21 @@ function addUser()
 		$stmt->bindParam("ridertardyslips", $user->ridertardyslips);
 		$stmt->bindParam("notificationmethod", $user->notificationmethod);
 		$stmt->bindParam("ridereminders", $user->ridereminders);
+		$stmt->bindParam("carmaker", $user->carmaker);
+		$stmt->bindParam("isLuxury", $user->isLuxury);
+		$stmt->bindParam("rating", $user->rating);
+		$stmt->bindParam("consistency", $user->consistency);
+		$stmt->bindParam("timeliness", $user->timeliness);
+		$stmt->bindParam("userphoto", $user->userphoto);
+		$stmt->bindParam("paypalemail", $user->paypalemail);
 		
 		//print_r ($stmt);
 		$stmt->execute();
-        $user->id = $db->lastInsertId();
-		$user->seckey=$key;
+        $userid = $db->lastInsertId();
         $db = null;
-        echo json_encode($user);
+		//send welcome email
+		generateNotification($user->fbid,NULL,'WELCOME',NULL,NULL,'EMAIL',NULL);
+		echo getUser($userid);
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
@@ -273,46 +303,5 @@ function addUser()
  
  }
 
-  
-  function getNodes($fbid,$location){
-    setHeader();
-	
-	$colname = "homelatlong";
-	if( $location == 'W'){
-	 $colname = "worklatlong";
-	}
-  
-    $sql = "SELECT SUBSTRING($colname, 1, LOCATE(',', $colname) - 1) as lat,
-       SUBSTRING($colname, LOCATE(',', $colname) + 1) as lon from userprofile WHERE fbid='".$fbid."'";
-    try {
-    	$db = getConnection();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        
-		$count = $stmt->rowCount();
-		if($count > 0){
-		    $user = $stmt->fetchObject();
-			$nodesql = "SELECT  `latlong` , ((ACOS(SIN($user->lat * PI() / 180) * SIN(SUBSTRING_INDEX( `latlong` , ',', 1 ) * PI() / 180)
-			+ COS($user->lat * PI() / 180) * COS(SUBSTRING_INDEX( `latlong` , ',', 1 ) * PI() / 180) * COS(($user->lon - SUBSTRING_INDEX( `latlong` , ',', -1 )) * PI() / 180))
-			* 180 / PI()) * 60 * 1.1515) AS `distance` , `name`, `campus`, `type`,`custommarker` FROM `ridenode` HAVING `distance` <= 5 ORDER BY `distance` ASC";
-			$ndstmt = $db->prepare($nodesql);
-			$ndstmt->execute();
-			$ndcount = $ndstmt->rowCount();
-            if($ndcount > 0){
-				$nodes = $ndstmt->fetchAll(PDO::FETCH_ASSOC);
-				$db = null;
-				//print_r($nodes);
-				echo json_encode($nodes);
-			}else{
-			    echo '{"msg":{"text":"No Nodes found."}}';
-			}
-		}else{
-			    echo '{"msg":{"text":"No record found for the fbid."}}';
-		}		
-	} catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
-    } 
-  }
-  
  
  ?>

@@ -1,40 +1,136 @@
 // this is the main .js file for all corp site functions on Ridezu.  this is different then the mobile site js although some functions will be similar.
 
 // Avoid `console` errors in browsers that lack a console.
-	 if (!(window.console && console.log)) {
-		 (function() {
-			 var noop = function() {};
-			 var methods = ['assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error', 'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log', 'markTimeline', 'profile', 'profileEnd', 'markTimeline', 'table', 'time', 'timeEnd', 'timeStamp', 'trace', 'warn'];
-			 var length = methods.length;
-			 var console = window.console = {};
-			 while (length--) {
-				 console[methods[length]] = noop;
-			 }
-		 }());
-	 }
+if (!(window.console && console.log)) {
+    (function() {
+        var noop = function() {};
+        var methods = ['assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error', 'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log', 'markTimeline', 'profile', 'profileEnd', 'markTimeline', 'table', 'time', 'timeEnd', 'timeStamp', 'trace', 'warn'];
+        var length = methods.length;
+        var console = window.console = {};
+        while (length--) {
+            console[methods[length]] = noop;
+        }
+    }());
+}
 
 // Place any jQuery/helper plugins in here.
-	 function slideSwitch() {
-		 var $active = $('#maincontent #testimonial.active');
-	 
-		 if ( $active.length == 0 ) $active = $('#maincontent #testimonial:last');
-	 
-		 var $next =  $active.next().length ? $active.next()
-			 : $('#maincontent #testimonial:first');
-	 
-		 $active.addClass('last-active');
-			 
-		 $next.css({opacity: 0.0})
-			 .addClass('active')
-			 .animate({opacity: 1.0}, 1000, function() {
-				 $active.removeClass('active last-active');
-			 });
-	 }
+function slideSwitch() {
+    var $active = $('#maincontent #testimonial.active');
 
-//this sets the timing for the front rotating marquee
-	  $(function() {
-		  setInterval( "slideSwitch()", 4000 );
-	  });
+    if ( $active.length == 0 ) $active = $('#maincontent #testimonial:last');
+
+    var $next =  $active.next().length ? $active.next()
+        : $('#maincontent #testimonial:first');
+
+    $active.addClass('last-active');
+        
+    $next.css({opacity: 0.0})
+        .addClass('active')
+        .animate({opacity: 1.0}, 1000, function() {
+            $active.removeClass('active last-active');
+        });
+}
+
+$(function() {
+    setInterval( "slideSwitch()", 4000 );
+});
+
+
+//FAQ ACCORDION -----------------------------------------------------------------------------------
+
+$(document).ready(function()
+{
+	//Add Inactive Class To All faq Headers
+	$('.faq-header').toggleClass('inactive-header');
+	
+	//Set The faq Content Width
+	var contentwidth = $('.faq-header').width();
+	$('.faq-content').css({'width' : contentwidth });
+	
+	// The Accordion Effect
+	$('.faq-header').click(function () {
+		if($(this).is('.inactive-header')) {
+			$('.active-header').toggleClass('active-header').toggleClass('inactive-header').next().slideToggle().toggleClass('open-content');
+			$(this).toggleClass('active-header').toggleClass('inactive-header');
+			$(this).next().slideToggle().toggleClass('open-content');
+		}
+		
+		else {
+			$(this).toggleClass('active-header').toggleClass('inactive-header');
+			$(this).next().slideToggle().toggleClass('open-content');
+		}
+	});
+	
+	return false;
+});
+
+//SLIDEOUT NAVIGATION -----------------------------------------------------------------------------------
+
+$(document).ready(function(){
+	var themenu  = $("#navmenu");
+	var viewport = {
+    	width  : $(window).width(),
+    	height : $(window).height()
+	};
+	// retrieve variables as 
+	// viewport.width / viewport.height
+	
+	function openme() { 
+		$(function () {
+			themenu.animate({
+		       left: "33px"
+		    }, { duration: 180, queue: false });
+				$('#navmenu').fadeTo('180', 1, function() {
+				// Animation complete.
+				});
+		});
+	}
+	
+	function closeme() {
+		var closeme = $(function() {
+			themenu.animate({
+		       left: "280px"
+		    }, { duration: 180, queue: false });
+				$('#navmenu').fadeTo('180', 0, function() {
+				// Animation complete.
+				});
+		});
+	}
+
+	// checking whether to open or close nav menu
+	$("#menu-btn").live("click", function(e){
+		e.preventDefault();
+		var leftval = themenu.css('left');
+		
+		if(leftval == "280px") {
+			openme();
+		}
+		else { 
+			closeme(); 
+		}
+	});
+	
+});
+
+
+	function closeme() {
+	var themenu  = $("#navmenu");
+	var viewport = {
+    	width  : $(window).width(),
+    	height : $(window).height()
+	};
+	// retrieve variables as 
+	// viewport.width / viewport.height
+
+		var closeme = $(function() {
+			themenu.animate({
+		       left: "280px"
+		    }, { duration: 190, queue: false });
+				$('#navmenu').fadeTo('180', 0, function() {
+				// Animation complete.
+				});
+		});
+	}
 
 // this is the google search for address functionality
 
@@ -150,17 +246,20 @@
 // this function sets the logged in-state of the user...
 
 		function welcome(){
-				document.getElementById("lout").style.display="inline";
-				document.getElementById("lin").style.display="none";
-				if(page=="Ridezu"){
-				   document.getElementById("maincontent").style.display="none";
-				   document.getElementById("corpstart").style.display="none";		
-				   document.getElementById("corptitle").setAttribute("class", "index80");
-				   document.getElementById("corptitle").innerHTML="<h2>Welcome "+myinfo.fname+"</h2>"; 				
-				   document.getElementById("webapp").style.display="block";
-				   document.getElementById("ridezuiframe").src="/index2.php?fbid="+myinfo.fbid+"&secret="+myinfo.secret;
-					}
-		}
+		    document.getElementById("lout").style.display="inline";
+		    document.getElementById("lin").style.display="none";
+		    if(page=="Ridezu"){
+		       document.getElementById("navmenu").style.display="block";  
+		       document.getElementById("webappwrapper").style.display="block";  
+		       document.getElementById("corptitle").setAttribute("class", "index80");
+		    document.getElementById("homepageintro").setAttribute("class", "webapppage");
+		       document.getElementById("noquotes").style.display="block";  
+		       document.getElementById("corpstart").style.display="none";  
+		       document.getElementById("quotes").style.display="none";  
+		       document.getElementById("corptitle").innerHTML="<h2>Welcome "+myinfo.fname+"</h2>";     
+		       document.getElementById("ridezuiframe").src="/index2.php?fbid="+myinfo.fbid+"&secret="+myinfo.secret+"&client=widget";
+		     }
+		  }
 
 //  this is the facebook functionality
 
@@ -235,6 +334,7 @@
 				"homelatlong": myinfo.homelatlong,
 				"worklatlong": myinfo.worklatlong,
 				"profileblob": myinfo.response,
+				"timezone":"PDT",
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -269,7 +369,23 @@
             xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
             xhr.setRequestHeader("Content-Type", "application/json");
   	      }         
-						
+
+// this function setupdate the title bar on the widget
+
+		function updateTitle(to){
+		    document.getElementById("title").innerHTML=to;     
+		}	
+
+		function showarrow(){
+			document.getElementById("menub").src="../images/back.png";
+			tp=to;
+		}	
+
+		function showgrabber(){
+			document.getElementById("menub").src="../images/back.png";
+			tp="";
+		}	
+		
 // declare initial variables
 
 	    var geocoder;
@@ -279,32 +395,13 @@
 		var worklatlng;
 	    var myinfo={};
 	    var fbid;
+	    var tp;
 
 
 // this starts the docs and loads the page, off we go!
 
 	$(document).ready(function()
 	{
-		//Add Inactive Class To All faq Headers
-		$('.faq-header').toggleClass('inactive-header');
-		
-		//Set The faq Content Width
-		var contentwidth = $('.faq-header').width();
-		$('.faq-content').css({'width' : contentwidth });
-		
-		// The Accordion Effect
-		$('.faq-header').click(function () {
-			if($(this).is('.inactive-header')) {
-				$('.active-header').toggleClass('active-header').toggleClass('inactive-header').next().slideToggle().toggleClass('open-content');
-				$(this).toggleClass('active-header').toggleClass('inactive-header');
-				$(this).next().slideToggle().toggleClass('open-content');
-			}
-			
-			else {
-				$(this).toggleClass('active-header').toggleClass('inactive-header');
-				$(this).next().slideToggle().toggleClass('open-content');
-			}
-		});
 		
 		//localStorage.fbid="504711218";
 		fbid=localStorage.fbid;
@@ -317,9 +414,10 @@
 
 		{
 		   document.getElementById("lin").style.display="inline";
-		   document.getElementById("maincontent").style.display="block";
-		   document.getElementById("corpstart").style.display="block";
 		   document.getElementById("corptitle").style.display="block";
+		   document.getElementById("corpstart").style.display="block";
+		   document.getElementById("quotes").style.display="block";
+
 		}			
 	
 		return false;

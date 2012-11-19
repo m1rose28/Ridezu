@@ -217,10 +217,13 @@ section {
 section .slide {
 	z-index: 10;
 	position: relative;
+}
+
+/*
 	-moz-box-shadow: 0 0 20px -3px #000;
 	-webkit-box-shadow: 0 0 20px -3px #000;
 	box-shadow: 0 0 20px -3px #000;
-}
+*/
 
 section #corpmain {
 	min-width: 940px;
@@ -245,6 +248,10 @@ section #corptitle.homepage {
 	width: 430px;
 	height: 160px;
 	top: -290px;
+}
+
+section #corptitle.nomaxwidth {
+	max-width: auto;
 }
 
 section #corptitle h2{
@@ -317,23 +324,11 @@ section #corpstart #work {
 	background: #fff url(../images/workicon.png) no-repeat 14px 11px;
 }
 
-section #webappwrapper {
-	width: 320px;
-	height: 210px;
-	float: right;
-	position: relative; 
-	left: -100px;
-	background: transparent;
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	border-radius: 7px;
-}
-
 section #maincontent {
 	min-height: 180px;
 	width: 730px;
 	background: #fff;
-	margin: 40px 0 20px 0px;
+	margin: 20px 0 20px 0px;
 	position: relative;
 	padding: 10px;
 	overflow: hidden;
@@ -404,7 +399,32 @@ section #maincontent #testimonial.last-active {
 	z-index: 9;
 }
 
-section #corpstart #startbutton {
+section #maincontent.about img {
+	float: left;
+	margin: 0 30px 10px 0;
+}
+
+section #maincontent.about h3{
+	color: #009600;
+	margin-bottom: 0;
+}
+
+section #maincontent.about h2{
+	color: #555555;
+}
+
+section #maincontent.about h4{
+	color: #555555;
+	margin-top: 0;
+	position: relative;
+	top: -3px;
+}
+
+section #maincontent.contact p{
+	margin-bottom: 0;
+}
+
+section #startbutton {
 	height: 28px;
 	width: 200px;
 	padding: 7px 5px 5px 5px;
@@ -430,7 +450,7 @@ section #corpstart #startbutton {
 		color-stop(1, #98F59B)
 	);
 	text-align: center;
-	text-shadow: -1px -1px #2d4a24;
+	text-shadow: -1px -1px #2b6818;
 	font-family: Helvetica, Arial, Sans-serif;
 	font-size: 20px;
 	font-weight: bold;
@@ -440,7 +460,7 @@ section #corpstart #startbutton {
 	box-shadow: 0 1px 0 0 #2d4a24;
 }
 
-section #corpstart #startbutton:hover {
+section #startbutton:hover {
 	background: #12A401;
 	background-image: linear-gradient(bottom, #5BC200 0%, #12A401 100%);
 	background-image: -o-linear-gradient(bottom, #5BC200 0%, #12A401 100%);
@@ -457,6 +477,108 @@ section #corpstart #startbutton:hover {
 	);
 }
 
+section #maincontent.contact #startbutton{
+	margin: 10px 0 0 0;
+	padding: 2px 0 0 0;
+}
+
+section #safetycontent ul {
+	clear: both;
+	list-style-type: none;
+}
+
+section #safetycontent li {
+	width: 200px;
+	float: left;
+	margin: 20px 30px 0 0;
+	font-size: 16px;
+}
+
+section #safetycontent p{
+	height: 80px;
+}
+
+section #safetycontent img{
+	display: block;
+	margin: 10px auto;
+	width: 115px;
+}
+
+section #webappwrapper {
+	width: 340px;
+	float: right;
+	position: relative; 
+	left: -103px;
+	background: transparent;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	z-index: 100;
+}
+
+#ridezuiframe {
+	border: none;
+}
+
+#navmenu.desktop{
+	width: 250px;
+	font-size: 0.5em;
+	padding: 0;
+	float: left;
+	position: relative;
+	left: 280px;
+	top: -280px;
+	-webkit-border-radius: 5px;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius: 5px;
+	-moz-border-radius-topright: 0;
+	border-radius: 5px;
+	border-top-right-radius: 0;
+	overflow: hidden;
+	z-index: 98;
+	font-family: Helvetica, Arial, Sans-serif;
+	opacity: 0;
+}
+
+#navmenu.desktop ul{
+	padding: 0;
+	margin: 0;
+}
+
+#navmenu.desktop a {
+	padding: 8px 11px;
+}
+
+#navmenu.desktop li.first{
+	border-top: none;
+}
+
+#navmenu.desktop li.last{
+	border-bottom: none;
+}
+
+/* FIXES FOR MOBILE CSS */
+
+#toolbarnav {
+	position: relative;
+	width: 340px;
+	box-shadow: none;
+	font-family: Helvetica, Arial, Sans-serif;
+	font-size: 10px;
+}
+
+#toolbarnav h1{
+	padding: 8px 40px 0 0;
+	margin: 0;
+}
+
+#menu-btn img{
+	position: relative;
+	top: -5px;
+}
+
+
+
 /* CONTENT SIDEBAR */
 
 section aside {
@@ -467,7 +589,7 @@ section aside {
 section #corpapplinks {
 	height: 180px;
 	background: #d3d3d3;
-	margin: 40px 0 80px 0;
+	margin: 20px 0 80px 0;
 }
 
 section #corpapplinks h3{
@@ -593,12 +715,6 @@ footer p {
 	font-size: 12px;
 }
 
-/* FIXES FOR MOBILE CSS */
-
-#w #pagebody header#toolbarnav {
-	position: relative;
-	width: 320px;
-}
 
 /*   Media Queries */
 

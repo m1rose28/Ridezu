@@ -29,6 +29,9 @@ include "header.php";
 				</aside>
 				
 				<div id="maincontent" class="left">
+
+				<?php include "pages/benefitsp.html";?>
+
 				</div>
 			</div>
 		</section>

@@ -11,8 +11,12 @@
                 dataType: "json",
                 success: function(data) {
 					myinfo=data;
+					nav("firstp",startpage);
+				    $(document).ready(function() {
+		  				document.getElementById("w").style.display="block";
+						});
 			    	},
-                error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data)); },
+                error: function(data) {alert("Uh oh - is this a valid id?"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
 		}
@@ -37,9 +41,7 @@
 // this function updates user data with any relevant updates
 
 		function updateuser(){
-				fbid=localStorage.fbid;
 				id=myinfo.id;
-				alert(id);
 				updateuserflag=false;
             	var jsondataset = JSON.stringify(myinfo);
  				url="/ridezu/api/v/1/users/"+id;
@@ -246,13 +248,6 @@
 				}
 			};
 			
-			MobileSlider.prototype.setToggleValue = function setToggleValue() {
-				if(this.circle.style.transform === "translateX(0px)") {
-					this.selected_value_element.innerHTML = this.options.toggle_values[0];
-				} else {
-					this.selected_value_element.innerHTML = this.options.toggle_values[1];
-				}
-			};
 			
 			MobileSlider.prototype.handle = function handle(event) {
 				event.preventDefault();
@@ -295,7 +290,7 @@
 			    min: 1,
 			    max: 100,
 			    update: function(value) {
-			        document.getElementById("slidervalue1").value = value;
+			        document.getElementById("slidervaluea").innerHTML = value;
 			    }
 			});
 			
@@ -306,7 +301,7 @@
 			    min: 3.00,
 			    max: 6.00,
 			    update: function(value) {
-			        document.getElementById("slidervalue2").value = value;
+			        document.getElementById("slidervalueb").innerHTML = value;
 			    }
 			});
 			
@@ -315,30 +310,21 @@
 			    min: 10,
 			    max: 60,
 			    update: function(value) {
-			        document.getElementById("slidervalue3").value = value;
+			        document.getElementById("slidervaluec").innerHTML = value;
 			    }
 			});
 			
-			var textslider1 = new MobileSlider("textslider1", {
-			    toggle: true,
-			    toggle_values: ['driver', 'rider']
-			});
-			
-			document.getElementById("calculateBtn").addEventListener("click", function() {
-				calcv();
-			}, false);
-		
 		}
 
 // this is the calculator function for ridezunomics
 
 		function calcv(){
 
-			miles=document.getElementById('slidervalue1').value;
-			utype=document.getElementById('selectedvalue').innerHTML;
-			gas=document.getElementById('slidervalue2').value;
-			mpg=document.getElementById('slidervalue3').value;
-					
+			miles=document.getElementById('slidervaluea').innerHTML;
+			if(document.getElementById("driver").checked=="checked"){utype="driver";} else {utype="rider";}
+			gas=document.getElementById('slidervalueb').innerHTML;
+			mpg=document.getElementById('slidervaluec').innerHTML;
+								
 			if(utype=='driver'){
 				tmiles=miles*240*2;
 				ftmiles=addCommas(Math.round(tmiles));
@@ -350,7 +336,7 @@
 				ftotrev=addCommas(Math.round(totrev));
 				totcarbon=tmiles/mpg*20;
 				ftotcarbon=addCommas(Math.round(totcarbon));
-				message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>Ridezu can help.<p>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+				message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
 			}
 		
 			if(utype=='rider'){
@@ -370,11 +356,11 @@
 				ftotcarbon=addCommas(Math.round(totcarbon));
 
 				if(savings>0){
-					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>Ridezu can help.<p>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
 				}
 	
 				if(savings<=0){
-					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
 				}
 			}
 			openconfirm(); 
@@ -393,14 +379,16 @@
 			}
 					
 		function nav(from, to){
-			testdata="Logged in as: " + localStorage.first_name+" "+localStorage.last_name+" : "+localStorage.fbid;
-			testlink="<a class='tlink' href='/test/servicetest.php?uid="+localStorage.fbid+"' target='ridezutest'>"+testdata+"</a>";
 			document.getElementById('pTitle').innerHTML=pageTitles[to];
-			document.getElementById('testbar').innerHTML=testlink;
+			document.getElementById('temp').innerHTML="";
+
+			if(client=="widget"){
+				parent.updateTitle(pageTitles[to]);
+				}
 			document.getElementById(p).style.display="none";		
 			document.getElementById(p).innerHTML="";		
 			document.getElementById(to).style.display="none";
-			scrollTo(0,0);						
+			if(client=="mweb"){scrollTo(0,0);}						
 			url="pages/"+ to + ".html";
 			$.ajax({
   			url: url,
@@ -427,17 +415,21 @@
 			tp="";
   			document.getElementById("temp").innerHTML="";
   			document.getElementById('pTitle').innerHTML=pageTitles[p];
+			if(client=="widget"){
+				parent.updateTitle(pageTitles[to]);
+				parent.showarrow();
+				}
 			document.getElementById(p).style.display="block";
 			document.getElementById("menub").src="../images/menu.png";
 			}
 
 		function navt(from, to){
-			testdata="Logged in as: " + localStorage.first_name+" "+localStorage.last_name+" : "+localStorage.fbid;
-			testlink="<a class='tlink' href='/test/servicetest.php?uid="+localStorage.fbid+"' target='ridezutest'>"+testdata+"</a>";
 			document.getElementById('pTitle').innerHTML=pageTitles[to];
-			document.getElementById('testbar').innerHTML=testlink;
+			if(client=="widget"){
+				parent.updateTitle(pageTitles[to]);
+				}
 			document.getElementById(from).style.display="none";		
-			scrollTo(0,0);
+			if(client=="mweb"){scrollTo(0,0);}						
 			url="pages/"+ to + ".html";
 			tp=to;
 			document.getElementById("menub").src="../images/back.png";
@@ -456,6 +448,9 @@
 // this function initiates a page (runs initial js function so the page can operate)
 
 		function navinit(to){
+		
+		// this function pushes the page to google analytics
+		_gaq.push(['_trackEvent', 'Pageview', 'View', to ]);
 		
 			if(to=="accountp"){
 				account();
@@ -503,7 +498,11 @@
 			if(to=="payoutp"){
 				payoutinfoinit();
 				}
-											
+
+			if(to=="paymentp"){
+				paymentinfoinit();
+				}	
+														
 			if(to=="ridedetailsp"){
 				ridedetails();
 				}
@@ -511,15 +510,15 @@
 			if(to=="ridepostp"){
 				getlist("rider");
 				$('#route').bind('swipeleft', function(){
- 					localStorage.date=rlist.date;
+ 					info.date=rlist.date;
  					alert("next day...");
- 					role=localStorage.role;
+ 					role=info.role;
  					getlist(role,rlist.route,rlist.nextdate);					
          			});
 				$('#route').bind('swiperight', function(){
  					alert("prior day...");
- 					pdate=localStorage.date;
- 					role=localStorage.role;
+ 					pdate=info.date;
+ 					role=info.role;
  					getlist(role,rlist.route,pdate);
          			});
 				}
@@ -527,15 +526,15 @@
 			if(to=="riderequestp"){
 				getlist("driver");
 				$('#route').bind('swipeleft', function(){
- 					localStorage.date=rlist.date;
+ 					info.date=rlist.date;
  					alert("next day...");
- 					role=localStorate.role;
+ 					role=info.role;
  					getlist(role,rlist.route,rlist.nextdate);					
          			});
 				$('#route').bind('swiperight', function(){
  					alert("prior day...");
- 					pdate=localStorage.date;
- 					role=localStorage.role;
+ 					pdate=info.date;
+ 					role=info.role;
  					getlist(role,rlist.route,pdate);
          			});
 				}
@@ -546,12 +545,12 @@
 				}
 
 			if(to=="transactionp"){
-				$("tr:odd").css("background-color", "#ffffff");
+				accountdetail();
 				}
 
 			if(to=="userprofilep"){
-				fbid=localStorage.fbid;
-				if(userfbid==""){fbid=localStorage.fbid;}
+				fbid=myinfo.fbid;
+				if(userfbid!=undefined){fbid=userfbid;}
 				loaduser(fbid);
 				}
 			
@@ -585,7 +584,8 @@
 			document.getElementById('confirm-message').innerHTML=message;
 			document.getElementById('cancel-button').innerHTML=cancelmessage;
 			document.getElementById('ok-button').innerHTML=okmessage;
-			if(showcancel==true){document.getElementById('cancel-button').style.display="block";}
+			if(showcancel==true){document.getElementById('cancel-button').style.display="block";document.getElementById('ok-button').style.float="left"}
+			if(showcancel==false){document.getElementById('ok-button').style.float="center";}
 			$('#confirm-background').fadeIn({ duration: 100 });		
 			}
 			
@@ -701,7 +701,7 @@
 				 });
 			
 				function getnodes(nodetype){
-  			      	fbid=localStorage.fbid;
+  			      	fbid=myinfo.fbid;
 				    url="/ridezu/api/v/1/users/search/fbid/"+fbid+"/location/"+nodetype;
 					var request=$.ajax({
 						url: url,
@@ -742,13 +742,13 @@
 					google.maps.event.addListener(m[key], 'click', function() {
 						a=nodelist[key].latlong;
 						b=a.split(",");
-						localStorage.lat=b[0];
-						localStorage.lng=b[1];
+						info.lat=b[0];
+						info.lng=b[1];
 						desc=nodelist[key].name;
 						if(nodelist[key].campus!=""){
 							desc=desc+" ("+nodelist[key].campus+")";
 							}
-						localStorage.desc=desc;
+						info.desc=desc;
 						document.getElementById("location").value=desc;
 						});
 			  		});
@@ -798,16 +798,16 @@
 		function locationselect(location,lat,lng){
 			str1 = location.split(',');
 			str2 = str1[2].split(" ");
-			localStorage.add1=str1[0];
-			localStorage.state=str2[1];
-			localStorage.city=str1[1];
-			localStorage.zip=str2[2];
-			localStorage.hcountry=str1[3];
+			info.add1=str1[0];
+			info.state=str2[1];
+			info.city=str1[1];
+			info.zip=str2[2];
+			info.hcountry=str1[3];
   			document.getElementById('location').value=str1[0]+", "+str1[1];
   			document.getElementById('lat').value=lat;
   			document.getElementById('lng').value=lng;
-  			localStorage.lat=lat;
-  			localStorage.lng=lng;
+  			info.lat=lat;
+  			info.lng=lng;
 		}
 
 // this function parses/stores the home address and then moves to the work address
@@ -815,13 +815,11 @@
 		function enrollhome(){
 			document.getElementById("enrollp").style.display="block";	    
 			loadMap("pick",myspot,9,"work");
-			localStorage.hadd1=localStorage.add1;
-			localStorage.hstate=localStorage.state;
-			localStorage.hcity=localStorage.city;
-			localStorage.hzip=localStorage.zip;
-			localStorage.hcountry=localStorage.country;
-			localStorage.hlat=document.getElementById('lat').value;
-			localStorage.hlng=document.getElementById('lng').value;
+			myinfo.add1=info.add1;
+			myinfo.state=info.state;
+			myinfo.city=info.city;
+			myinfo.zip=info.zip;
+			myinfo.homelatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 			document.getElementById("mapselecthome").style.display="none";
 			document.getElementById("mapselectwork").style.display="block";
 			document.getElementById('pTitle').innerHTML="Where do you work?";
@@ -833,13 +831,11 @@
 // this function parses/stores the home address and then moves to the work address
 
 		function enrollwork(){
-			localStorage.wadd1=localStorage.add1;
-			localStorage.wstate=localStorage.state;
-			localStorage.wcity=localStorage.city;
-			localStorage.wzip=localStorage.zip;
-			localStorage.wcountry=localStorage.country;
-			localStorage.wlat=document.getElementById('lat').value;
-			localStorage.wlng=document.getElementById('lng').value;
+			myinfo.workadd1=info.add1;
+			myinfo.workstate=info.state;
+			myinfo.workcity=info.city;
+			myinfo.workzip=info.zip;
+			myinfo.worklatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 			nav('enroll','fbp');
 			}
 			
@@ -879,12 +875,12 @@
 			}
 		  function updateUserInfo(response) {
 			 FB.api('/me', function(response) {
-			   localStorage.response=JSON.stringify(response);
-			   localStorage.first_name=response.first_name;
-			   localStorage.last_name=response.last_name;
-			   localStorage.image="https://graph.facebook.com/" + response.id + "/picture";
+			   myinfo.profileblob=JSON.stringify(response);
+			   myinfo.fname=response.first_name;
+			   myinfo.lname=response.last_name;
+			   myinfo.fbid=response.id;
 			   localStorage.fbid=response.id;
-			   localStorage.email=response.email;
+			   myinfo.email=response.email;
 			   // now register the new user
 			   regnewuser();
 			   //and go to the congratulations page
@@ -906,21 +902,22 @@
 
 		function regnewuser(){
 			var dataset = {
-				"fbid":	localStorage.fbid,
-				"fname": localStorage.first_name,
-				"lname": localStorage.last_name,
-				"add1": localStorage.hadd1,
-				"city": localStorage.hcity,
-				"state": localStorage.hstate,	
-				"zip": localStorage.hzip,
-				"workadd1": localStorage.wadd1,
-				"workcity": localStorage.wcity,
-				"workstate": localStorage.wstate,	
-				"workzip": localStorage.wzip,
-				"email": localStorage.email,
-				"homelatlong": localStorage.hlat+","+localStorage.hlng,
-				"worklatlong": localStorage.wlat+","+localStorage.wlng,
-				"profileblob": localStorage.response,
+				"fbid":	myinfo.fbid,
+				"fname": myinfo.fname,
+				"lname": myinfo.lname,
+				"add1": myinfo.add1,
+				"city": myinfo.city,
+				"state": myinfo.state,	
+				"zip": myinfo.zip,
+				"workadd1": myinfo.workadd1,
+				"workcity": myinfo.workcity,
+				"workstate": myinfo.workstate,	
+				"workzip": myinfo.workzip,
+				"email": myinfo.email,
+				"homelatlong": myinfo.homelatlong,
+				"worklatlong": myinfo.worklatlong,
+				"profileblob": myinfo.profileblob,
+				"timezone": "PDT",
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -936,6 +933,7 @@
             	}); 
             	
             request.done(function(msg) {
+  				myinfo.seckey=msg.seckey;
   				localStorage.seckey=msg.seckey;
 				});                	     	
        		}
@@ -955,7 +953,7 @@
 		function reverseroute(){
 			if(rlist.route=="h2w"){route="w2h";}
 			if(rlist.route=="w2h"){route="h2w";}
-			role=localStorage.role;
+			role=info.role;
 			document.getElementById("r2").style.display="none";
 			document.getElementById("r3").style.display="none";
 			document.getElementById("r1").style.display="block";
@@ -965,8 +963,8 @@
 // gets a list of riders/drivers
 		
 		function getlist(role,route,date){
-		  	  localStorage.role=role;
-		  	  fbid=localStorage.fbid;
+		  	  info.role=role;
+		  	  fbid=myinfo.fbid;
 		  	  rlist="";		  
 			  if(route!=undefined){
 				url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/"+role;
@@ -989,7 +987,7 @@
 // this paints the list of available times & drivers/riders
 
 		function paintlist(preftime){		
-		  role=localStorage.role;
+		  role=info.role;
 		  if(preftime=="1"){document.getElementById('showall').style.display="none";}
 		  if(rlist.day!="Today"){
 		  		x=" on "+rlist.daydate;
@@ -1012,10 +1010,8 @@
 				document.getElementById('destdesc').innerHTML="Home";
 				document.getElementById('gotext').innerHTML="go home";
 		  		}
-		  mw=$(this).innerWidth()-20;
-		  mw=480;
-
-		  xstartlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=color:green%7C%7C"+rlist.startlatlong+"&sensor=false";
+		  mw=screenwidth-20;
+		  xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+rlist.startlatlong+"&sensor=false";
 		  document.getElementById('ridedesta').src=xstartlatlong;		  		  
 		  document.getElementById('ridedestb').src=xstartlatlong;		  
 		  document.getElementById('amount').innerHTML=rlist.amount;
@@ -1065,9 +1061,11 @@
 			var r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
+					personlist=personlist+"<li class='driver'><a href=\"#\" onclick=\"profile('riderequestp',"+value.fbid+");\">";
+					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
+					personlist=personlist+"<p>View Profile</p></div></a>";
 					personlist=personlist+"<a href=\"#\" onclick=\"authselectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
-					personlist=personlist+"<li class='driver'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/><p>"+value.name;
-					personlist=personlist+"</p></li></a>";
+					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
 			});
 			personlist=personlist+"</ul>";
 			document.getElementById("personlist1").innerHTML=personlist;
@@ -1080,11 +1078,11 @@
 // this auths the specific ride (used by riders)
 
 		function authselectride(timeslot,rideid,driverfbid,pname,eventtime){
-			localStorage.timeslot=timeslot;
-			localStorage.rideid=rideid;
-			localStorage.driverfbid=driverfbid;
-			localStorage.pname=pname;
-			localStorage.eventtime=eventtime;			
+			info.timeslot=timeslot;
+			info.rideid=rideid;
+			info.driverfbid=driverfbid;
+			info.pname=pname;
+			info.eventtime=eventtime;			
 			
 			message="<h2>New Ride Request</h2><p>Click OK to confirm your ride request.</p>";
 			confirmfunction="selectride";
@@ -1095,20 +1093,20 @@
 // this picks the specific ride (used by riders)
 		
 		function selectride(){
-			timeslot=localStorage.timeslot;
-			rideid=localStorage.rideid;
-			driverfbid=localStorage.driverfbid;
-			pname=localStorage.pname;
-			eventtime=localStorage.eventtime;
+			timeslot=info.timeslot;
+			rideid=info.rideid;
+			driverfbid=info.driverfbid;
+			pname=info.pname;
+			eventtime=info.eventtime;
 			
 			document.getElementById("r1").style.display="none";
 			document.getElementById("r2").style.display="none";
-			fbid=localStorage.fbid;
+			fbid=myinfo.fbid;
 			
 			//if picking an empty slot
 			if(rideid==0){
 
-			   	 fbid=localStorage.fbid;
+			   	 fbid=myinfo.fbid;
 				 
 				 url="/ridezu/api/v/1/rides/rider";
 	 
@@ -1140,7 +1138,7 @@
 			
 			if(rideid>0){
 			
-			   fbid=localStorage.fbid;
+			   fbid=myinfo.fbid;
 			   
 			   var dataset = {
 				   "fbid":	fbid,
@@ -1159,7 +1157,7 @@
 						document.getElementById("ridepickupb").innerHTML=rlist.start;
 						document.getElementById("dnameb").innerHTML=pname;
 						document.getElementById("dnameb1").innerHTML=pname;
-						document.getElementById("dpicb").innerHTML="<image src='https://graph.facebook.com/"+driverfbid+"/picture'/>";
+						document.getElementById("dpicb").src="https://graph.facebook.com/"+driverfbid+"/picture";
 				   		document.getElementById("r4").style.display="block";
 				   		},
 				   error: function(data) {alert("boo!"+JSON.stringify(data)); },
@@ -1181,9 +1179,13 @@
 			r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
+
+					personlist=personlist+"<li class=\"driver\" id=\"l"+value.fbid+"\"><a href=\"#\" onclick=\"profile('ridepostp',"+value.fbid+");\">";
+					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
+					personlist=personlist+"<p>View Profile</p></div></a>";
 					personlist=personlist+"<a href=\"#\" onclick=\"authselectrider('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
-					personlist=personlist+"<li class='driver' id=\"l"+value.fbid+"\"><image src='https://graph.facebook.com/"+value.fbid+"/picture'/><p>"+value.name;
-					personlist=personlist+"</p></li></a>";
+					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
+
 			});
 			personlist=personlist+"</ul>";
 			document.getElementById("rpersonlist1").innerHTML=personlist;
@@ -1196,11 +1198,11 @@
 // this auths the specific ride (used by drivers)
 
 		function authselectrider(timeslot,ride,fbid1,pname,eventtime){
-			localStorage.timeslot=timeslot;
-			localStorage.ride=ride;
-			localStorage.fbid1=fbid1;
-			localStorage.pname=pname;
-			localStorage.eventtime=eventtime;			
+			info.timeslot=timeslot;
+			info.ride=ride;
+			info.fbid1=fbid1;
+			info.pname=pname;
+			info.eventtime=eventtime;			
 			
 			message="<h2>New Ride</h2><p>Click OK to confirm your ride.</p>";
 			confirmfunction="selectrider1";
@@ -1211,17 +1213,17 @@
 // this picks the specific ride (used by drivers)
 		
 		function selectrider1(){			
-			timeslot=localStorage.timeslot;
-			ride=localStorage.ride;
-			fbid1=localStorage.fbid1;
-			pname=localStorage.pname;
-			eventtime=localStorage.eventtime;
+			timeslot=info.timeslot;
+			ride=info.ride;
+			fbid1=info.fbid1;
+			pname=info.pname;
+			eventtime=info.eventtime;
 			
 			//if picking an empty slot (for drivers)
 
 			if(ride==0){
 
-			   	 fbid=localStorage.fbid;
+			   	 fbid=myinfo.fbid;
 				 
 				 url="/ridezu/api/v/1/rides/rider";
 	 
@@ -1267,9 +1269,10 @@
 							 data: jsondataset,
 							 success: function(data) {
 								x="l"+fbid1;
-								newrow="<div class='select1'><image src='https://graph.facebook.com/"+fbid1+"/picture'/>"+pname+"</div>";
+								newrow="<div class='select1'><div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+fbid1+"/picture'/>";
+								newrow=newrow+"<p>View Profile</p></div>";
+								newrow=newrow+"<div id='selectdriver'><p>"+pname+"</p></div></div>";
 								document.getElementById(x).innerHTML=newrow;
-								document.getElementById("xbutton").style.display="none";
 								document.getElementById("nextbutton").style.display="block";
 							 	},
 							 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));},
@@ -1295,63 +1298,6 @@
 			document.getElementById("r1").style.display="block";
 			}
 		
-//  this is part of login functionality (for testing) which pulls up the user list
-		
-		function getuserlist(){
-		  $.ajax({
-		  url: "/ridezu/api/v/1/users",
-		  cache: false,
-		  dataType: "json"
-		  }).done(function(data) {
-			userdata=data;
-			paintuserlist();	
-			  });
-		}
-
-// this function paints all the users
-
-		function paintuserlist(){
-		  
-		  var userlist="<ul>";
-		  var r=0;
-		  
-		  $.each(userdata, function(key, value) {
-			userlist=userlist+"<li><div class=\"rarrow\" onclick=\"selectuser('"+r+"');\">";
-			r++;
-			userlist=userlist+"<span style='padding-left:10px'>"+value.fname+" "+value.lname+": "+value.fbid+"</span>";  
-			var timeslot=value;
-			userlist=userlist+"</div></li>";
-		  });
-		  
-			userlist=userlist+"</ul>";
-		  
-			document.getElementById('userlist1').innerHTML=userlist;
-			loading(p);	    
-		  }
-		
-//once a user is selected this function loads local variables with all the correct data
-		
-		function selectuser(id){
-			localStorage.seckey=userdata[id].seckey;
-			localStorage.fbid=userdata[id].fbid;
-			localStorage.first_name=userdata[id].fname;
-			localStorage.last_name=userdata[id].lname;
-			localStorage.hadd1=userdata[id].add1;
-			localStorage.hcity=userdata[id].city;
-			localStorage.hstate=userdata[id].state;	
-			localStorage.hzip=userdata[id].zip;
-			localStorage.wadd1=userdata[id].workadd1;
-			localStorage.wcity=userdata[id].workcity;
-			localStorage.wstate=userdata[id].workstate;	
-			localStorage.wzip=userdata[id].workzip;
-			localStorage.email=userdata[id].email;
-			localStorage.originlatlong=userdata[id].originlatlong;
-			localStorage.destlatlong=userdata[id].destlatlong;
-			localStorage.homelatlong=userdata[id].homelatlong;
-			localStorage.worklatlong=userdata[id].worklatlong;
-			nav('loginp','mainp');
-		}
-		
 // this function parses an eventtime into smaller parts
 
 		function evtime(etime1){
@@ -1374,7 +1320,7 @@
 // gets a list of myrides
 		
 		function myrides(){
-		  	  fbid=localStorage.fbid;
+		  	  fbid=myinfo.fbid;
 		  	  mrlist="";		  
 			  url="/ridezu/api/v/1/rides/search/fbid/"+fbid;
 			
@@ -1393,7 +1339,7 @@
 // or 3) if no rides available then show call to action for post a ride or request a ride.  
 
 		function paintmyrides(rideid){		
-		  fbid=localStorage.fbid;
+		  fbid=myinfo.fbid;
 		  z=0;
 
 		  if(mrlist["Driver"]){z=z+mrlist["Driver"].length;}
@@ -1402,15 +1348,18 @@
 		  $.each(mrlist, function(key, value) {
 		  		  
 		  		x0=key;
+		  		match=false;
 		  
 		  		$.each(mrlist[key], function(key1, value1) {
 			  		x1=key1;
  				  	value1=mrlist[x0][x1];
 			  		
-			  		if(value1.rideid==rideid){return false;}
+			  		if(value1.rideid==rideid){match=true;return false;}
 			  		if(rideid===undefined){return false;}
 
 			  	});			
+			  	
+			  	if(match==true){return false;}
 			  	
 	    	});
 
@@ -1427,8 +1376,12 @@
 					  x=" on ";
 					  }
 					  else{
-					  x=" today";
+					  x="";
 					  }
+
+				if(x0=="Rider"){document.getElementById('ridedetails').innerHTML="Ride Request: ";}
+				if(x0=="Driver"){document.getElementById('ridedetails').innerHTML="Ride Post: ";}
+				
 				document.getElementById('godate').innerHTML=x;
 				document.getElementById('leavetime').innerHTML=evtime(value1.eventtime);
 				rideid=value1.rideid;
@@ -1444,30 +1397,34 @@
 					  document.getElementById('origindesc').innerHTML="Work";
 					  document.getElementById('destdesc').innerHTML="Home";
 					  }
-		        mw=$(this).innerWidth()-20;
-		        mw=480;
-
-				xoriginlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=color:green%7C%7C"+value1.startlatlong+"&sensor=false";
+		  		mw=screenwidth-20;
+				xoriginlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+value1.startlatlong+"&sensor=false";
 				document.getElementById('ridedesta').src=xoriginlatlong;		  		  
 				document.getElementById('amount').innerHTML=value1.amount;
 				document.getElementById('gassavings').innerHTML=value1.gassavings;
 				document.getElementById('co2').innerHTML=value1.co2;
 								
 				if(value1.eventstate=="EMPTY" || value1.eventstate=="REQUEST"){
-					x="<li>We haven't found a match yet.<li>";
+					document.getElementById('nomatch').innerHTML="We haven't found a match yet.";
 				}
 
 				if(value1.eventstate=="ACTIVE" || value1.eventstate=="FULL"){
 					x="";
 					n=value1.reffbid.split("#");
-					
+					info.tofbidlist=value1.reffbid;
 					$.each(n, function(key2, value2) {
 							m=value2.split("|");
-							x=x+"<li class='driver'><image class='profilephoto' src='https://graph.facebook.com/"+m[0]+"/picture'/><p>"+m[1];
-							x=x+"</p></li>";
+
+							x=x+"<li class='driver'><a href=\"#\" onclick=\"profile('myridesp',"+m[0]+");\">";
+							x=x+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+m[0]+"/picture'/>";
+							x=x+"<p>View Profile</p></div></a>";
+							x=x+"<div id='selectdriver'><p>"+m[1]+"<br/><a class='minibutton' href='#' onclick=\"sendmessage('"+myinfo.fbid+"','"+m[0]+"','"+m[1]+"');\">Send message</a>";
+							x=x+"</p></div></li>";
+							
 					});
 				}
-				
+
+																				
 			   document.getElementById('ridelist1').innerHTML=x;		  	
 			   document.getElementById('allrides').style.display="none";
 			   document.getElementById('r0').style.display="block";
@@ -1487,7 +1444,7 @@
 // this function shows all rides that a user has
 
 		function showallrides(){		
-		  fbid=localStorage.fbid;
+		  fbid=myinfo.fbid;
 		  riders=0;
 		  drivers=0;
 		  if(mrlist["Driver"]){drivers=mrlist["Driver"].length;}
@@ -1533,7 +1490,7 @@
 
 		function cancelride(rideid){	
 			message="<h2>Cancel Ride</h2><p>Are you sure you want to cancel this ride?<br><br>This cannot be undone.</p>";
-			localStorage.rideid=rideid;
+			info.rideid=rideid;
 			confirmfunction="cancelconfirm";
 			okmessage="Cancel Ride";	
 			cancelmessage="< Back";	
@@ -1542,8 +1499,8 @@
 		}	
 
 		function cancelconfirm(rideid){	
-			fbid=localStorage.fbid;
-			rideid=localStorage.rideid;
+			fbid=myinfo.fbid;
+			rideid=info.rideid;
 		    url="/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
 		    var request=$.ajax({
                 url: url,
@@ -1560,23 +1517,42 @@
 // this function set relates to being late
 
 		function notlate(){
+			if(client=="mweb"){scrollTo(0,0);}						
 			   document.getElementById('r0').style.display="block";
 			   document.getElementById('r1').style.display="block";			
 			   document.getElementById('rlate').style.display="none";			
 		}
 
 		function runninglate(id){
+			if(client=="mweb"){scrollTo(0,0);}						
 			   document.getElementById('r0').style.display="none";
 			   document.getElementById('r1').style.display="none";			
 			   document.getElementById('rlate').style.display="block";			
 		}
 
+		function runninglatemessage(time){
+			info.fromfbid=myinfo.fbid;
+			x=info.tofbidlist;	
+			x1=x.split("#");
+				$.each(x1, function(key3, value3) {
+					x2=value3.split("|");
+					x3=x2[1].split(" ");
+					m="Hi "+x3[0]+" - I am running about "+time+" late.  Let me know if this is not ok.  Thanks! -"+myinfo.fname;
+					info.tofbid=x2[0];
+				    document.getElementById('txtmessage').value=m;
+				    sendmessage1();							
+				});
+
+			notlate();
+		}
+
+
 // this function set populates the page for the profile page
 // step1 get the user 
 
-		function profile(fbid){
+		function profile(from,fbid){
 			userfbid=fbid;
-			navt('',userprofilep);
+			navt(from,"userprofilep");
 			}
 
 // this function paints the user profile page
@@ -1587,7 +1563,11 @@
 			if(userinfo.carmaker==null){userinfo.carmaker="N/A"};
 			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.fbid+"/picture";	
 			document.getElementById('workcity').innerHTML=userinfo.workcity;	
-			document.getElementById('quote').innerHTML=userinfo.profileblob.quotes;
+			
+			if(userinfo.profileblob.quotes){
+				document.getElementById('quote').innerHTML=userinfo.profileblob.quotes;
+				}
+				
 			document.getElementById('city').innerHTML=userinfo.city;	
 			document.getElementById('cartype').innerHTML=userinfo.carmaker;	
 			document.getElementById('username').innerHTML=userinfo.fname+" "+userinfo.lname;	
@@ -1597,7 +1577,7 @@
 			document.getElementById('timeliness').innerHTML=userinfo.timeliness;
 
 			if(userinfo.frontphoto){
-				document.getElementById('frontphoto').src="http://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
+				document.getElementById('frontphoto').src="https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
 				document.getElementById('mywheels').style.display="block";			
 				}
 							
@@ -1654,16 +1634,17 @@
 				document.getElementById('education').style.display="block";
 				document.getElementById('elist').innerHTML=edulist;				
 				}
-			loading("temp");	    
+			loading("temp");
+			userfbid="";	    
 			}
 
 // this function paints the images on ride details
 
 		function ridedetails(){
-			fbid=localStorage.fbid;
+			fbid=myinfo.fbid;
 			
 			if(myinfo.frontphoto!=null){
-				front="http://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;}
+				front="https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;}
 				else {
 				front="../images/upload.png";
 				}
@@ -1713,23 +1694,23 @@
 				 x=obj.type;
 				 if(x=="front"){
 				 	myinfo.frontphoto=obj.image;
-					document.getElementById("frontview").src = "http://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
+					document.getElementById("frontview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
 					}
 				 if(x=="back"){
 				 	myinfo.backphoto=obj.image;
-					document.getElementById("backview").src = "http://ridezu.s3.amazonaws.com/"+myinfo.backphoto;
+					document.getElementById("backview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.backphoto;
 					}
 				 if(x=="right"){
 				 	myinfo.rightphoto=obj.image;
-					document.getElementById("rightview").src = "http://ridezu.s3.amazonaws.com/"+myinfo.rightphoto;
+					document.getElementById("rightview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.rightphoto;
 					}
 				 if(x=="left"){
 				 	myinfo.leftphoto=obj.image;
-					document.getElementById("leftview").src = "http://ridezu.s3.amazonaws.com/"+myinfo.leftphoto;
+					document.getElementById("leftview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.leftphoto;
 					}
 				 if(x=="user"){
 				 	myinfo.userphoto=obj.image;
-					document.getElementById("userphoto").src = "http://ridezu.s3.amazonaws.com/"+myinfo.userphoto;
+					document.getElementById("userphoto").src = "https://ridezu.s3.amazonaws.com/"+myinfo.userphoto;
 					}
 				 updateuserflag=true;
 				 }
@@ -1744,9 +1725,10 @@
 			document.getElementById('r1').style.display="block";
 			document.getElementById('add1').innerHTML=myinfo.add1;
 			document.getElementById('city').innerHTML=myinfo.city;
-		  	xstartlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+300+"x100&maptype=roadmap&markers=icon:/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
+		  	mw=screenwidth-20;
+		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
 			document.getElementById('mapa').src=xstartlatlong;
-		  	x1startlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+myinfo.originlong+"&zoom=13&size="+300+"x100&maptype=roadmap&markers=icon:/images/basepmarker.png%7C"+myinfo.originlatlong+"&sensor=false";
+		  	x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.originlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&sensor=false";
 			document.getElementById('mapb').src=x1startlatlong;
 			document.getElementById('pickupname').innerHTML=myinfo.origindesc;
 			loading("temp");	    
@@ -1758,7 +1740,7 @@
 			x = myinfo.homelatlong;
 			y = x.split(",");
 			myspot = new google.maps.LatLng(y[0],y[1]);
-			localStorage.pick="home";
+			info.pick="home";
 			loadMap("pick",myspot,18,"home");
 			}
 			
@@ -1768,24 +1750,23 @@
 			x = myinfo.homelatlong;
 			y = x.split(",");
 			myspot = new google.maps.LatLng(y[0],y[1]);
-			localStorage.pick="pickup";
+			info.pick="pickup";
 			loadMap("pickselect",myspot,12,"home");
 			}
 
 		function updatehome(){
 		
-			if(localStorage.pick=="home"){
-				 myinfo.add1=localStorage.add1;
-				 myinfo.state=localStorage.state;
-				 myinfo.city=localStorage.city;
-				 myinfo.zip=localStorage.zip;
-				 myinfo.country=localStorage.country;
-				 myinfo.homelatlong=localStorage.lat+","+localStorage.lng;
+			if(info.pick=="home"){
+				 myinfo.add1=info.add1;
+				 myinfo.state=info.state;
+				 myinfo.city=info.city;
+				 myinfo.zip=info.zip;
+				 myinfo.homelatlong=info.lat+","+info.lng;
 				 }
 			
-			if(localStorage.pick=="pickup"){
-				 myinfo.originlatlong=localStorage.lat+","+localStorage.lng;
-				 myinfo.origindesc=localStorage.desc;
+			if(info.pick=="pickup"){
+				 myinfo.originlatlong=info.lat+","+info.lng;
+				 myinfo.origindesc=info.desc;
 				 }
 					 
 			updateuserflag=true;
@@ -1800,7 +1781,8 @@
 			document.getElementById('workname').innerHTML=myinfo.destdesc;
 			document.getElementById('workadd1').innerHTML=myinfo.workadd1;
 			document.getElementById('workcity').innerHTML=myinfo.workcity;
-		  	xstartlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+myinfo.destlatlong+"&zoom=13&size="+300+"x100&maptype=roadmap&markers=icon:/images/basecmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
+			mw=screenwidth-20;
+		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.destlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
 			document.getElementById('mapa').src=xstartlatlong;
 			loading("temp");	    
 			}
@@ -1811,22 +1793,20 @@
 			x = myinfo.destlatlong;
 			y = x.split(",");
 			myspot = new google.maps.LatLng(y[0],y[1]);
-			localStorage.pick="work";
+			info.pick="work";
 			loadMap("pickselect",myspot,18,"work");		
 			}
 			
 		function updatework(){
-			myinfo.worklatlong=localStorage.lat+","+localStorage.lng;			
-			myinfo.destlatlong=localStorage.lat+","+localStorage.lng;
-			myinfo.destdesc=localStorage.desc;
+			myinfo.worklatlong=info.lat+","+info.lng;			
+			myinfo.destlatlong=info.lat+","+info.lng;
+			myinfo.destdesc=info.desc;
 			updateuserflag=true;
 			document.getElementById('r2').style.display="none";	
 			workprofileinit();
 			}			
 
 // this function is for driver verification
-
-// note: see http://www.daftlogic.com/information-programmatically-preselect-dropdown-using-javascript.htm for a clean example on how to select a checkbox.
 
 		function dverifyinit(){
 			if(myinfo.dlverified=="yes"){
@@ -1879,7 +1859,7 @@
 // this function set are the account management functions
 
 		function account(){
-        	fbid=localStorage.fbid;
+        	fbid=myinfo.fbid;
         	timeperiod="Y";
 		    url="/ridezu/api/v/1/account/summary/fbid/"+fbid+"/timeperiod/"+timeperiod;
 		    var request=$.ajax({
@@ -1915,7 +1895,7 @@
 		}
 
 		function accountdetail(){
-        	fbid=localStorage.fbid;
+        	fbid=myinfo.fbid;
         	timeperiod="Y";
 		    url="/ridezu/api/v/1/account/detail/fbid/"+fbid+"/timeperiod/"+timeperiod;
 		    var request=$.ajax({
@@ -1931,16 +1911,25 @@
 
 		function paintaccountdetail(data){
 
-			if(balance1>0){legend="driver"} else {legend="rider"}
-			balance=curr(balance1);
-			if(legend=="driver"){legendtext="Balance:  "+balance;} else {legendtext="Savings: 25%";}
-			document.getElementById('balance').innerHTML=legendtext;
+			txndetail="<table>";
+	    					
+		   $.each(data.accountdetail, function(key, value) {
+				d=value.eventtime;
+				d1=d.split(" ");
+				d2=d1[0].split("-");
+				d3=d2[1]+"/"+d2[2];				
+				if(value.credit=="0.00"){amt="-$"+value.debit;}
+				if(value.debit=="0.00"){amt="$"+value.credit;}
+				desc=value.origindesc+" > "+value.destdesc;
+				txndetail=txndetail+"<tr><td>"+d3+"</td><td>"+desc+"</td><td style='text-align:right;'>"+amt+"</td></tr>";
+			   });
 
-			
+			txndetail=txndetail+"</table>";
+			document.getElementById('txndata').innerHTML=txndetail;		
+
+			$("tr:odd").css("background-color", "#ffffff");
 
 		}
-
-
 
 // this function set updates PayPal payout information
 
@@ -1957,20 +1946,103 @@
 // this function set is for notification preferences
 	
 		function notifyinit(){
-			if(myinfo.notificationmethod=="0"){	document.getElementById("notifyemail").checked="checked";}	    
-			if(myinfo.notificationmethod=="1"){	document.getElementById("notifysms").checked="checked";	 }   
-			if(myinfo.notificationmethod=="2"){	document.getElementById("notifyios").checked="checked";	}    
+			if(myinfo.notificationmethod=="EMAIL"){	document.getElementById("notifyemail").checked="checked";}	    
+			if(myinfo.notificationmethod=="SMS"){	document.getElementById("notifysms").checked="checked";	 }   
 			if(myinfo.ridereminders=="1"){document.getElementById("ridereminder").checked="checked";}	    
 			}
 
 		function notify(){
-			if(document.getElementById("notifyemail").checked==true){myinfo.notificationmethod="0";}	
-			if(document.getElementById("notifysms").checked==true){myinfo.notificationmethod="1";}	
-			if(document.getElementById("notifyios").checked==true){myinfo.notificationmethod=2;}	
+			if(document.getElementById("notifyemail").checked==true){myinfo.notificationmethod="EMAIL";}	
+			if(document.getElementById("notifysms").checked==true){myinfo.notificationmethod="SMS";}	
 			if(document.getElementById("ridereminder").checked==true){myinfo.ridereminders="1";}	
 			if(document.getElementById("ridereminder").checked==false){myinfo.ridereminders="0";}	
 			updateuserflag=true;
 			}
+
+// this function set (2) is for sending messages from user to user
+
+		function sendmessage(fromfbid,tofbid,toname){	
+			message="<p>Send a private message to <b>"+toname+"</b><br/><br/>";
+			message=message+"<textarea id='txtmessage' rows='3' cols='30'></textarea>";
+			info.fromfbid=fromfbid;
+			info.tofbid=tofbid;
+			confirmfunction="sendmessage1";
+			okmessage="Send";	
+			cancelmessage="Cancel";	
+			showcancel=true;	
+			openconfirm();
+		}	
+
+		function sendmessage1(){	
+			 message1=document.getElementById("txtmessage").value;
+			 var dataset = {"message":	message1,}				
+			 var jsondataset = JSON.stringify(dataset);
+			 url="/ridezu/api/v/1/notification/message/fbid/"+info.tofbid+"/fromfbid/"+info.fromfbid;
+
+		    var request=$.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: jsondataset,
+                success: function(data) {
+                	message="<center><h2>Message sent!</h2></center>";
+		  			openconfirm();
+                	},
+                error: function(data) {alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+
+		}	
+
+// this function set is for credit card setup and update
+
+		function paymentinfoinit(){
+			if(myinfo.last4==null){
+				document.getElementById("r1").style.display="block";
+				x="testpayment/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&secret="+myinfo.secret+"&method=newcard";
+				document.getElementById("payifrm").src=x;
+				}		
+			if(myinfo.last4!=null){
+				document.getElementById("r1").style.display="none";
+				document.getElementById("onfile").style.display="block";
+				document.getElementById("last4oncard").innerHTML=myinfo.last4;
+				document.getElementById("cardname").innerHTML=myinfo.fname+" "+myinfo.lname;
+				x="../images/visa.png";
+				if(myinfo.cardtype=="Visa"){x="../images/visa.png";}
+				if(myinfo.cardtype=="MasterCard"){x="../images/mastercard.png";}
+				if(myinfo.cardtype=="Discover"){x="../images/discover.png";}
+				if(myinfo.cardtype=="American Express"){x="../images/amex.png";}
+				document.getElementById("cardname").innerHTML=myinfo.fname+" "+myinfo.lname;
+				document.getElementById("cardlogo").src=x;
+				}
+			}
+		
+		function addnewcard(){
+			if(myinfo.last4!=null){
+				document.getElementById("r1").style.display="block";
+				document.getElementById("onfile").style.display="none";
+				x="testpayment/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&secret="+myinfo.secret+"&method=addnewcard&oldtoken="+myinfo.token;
+				document.getElementById("payifrm").src=x;
+				}
+			}			
+		
+		function ccupdate(instrux){
+			x=JSON.parse(instrux);
+			if(x.error){
+				message=x.error;
+				openconfirm();
+				}
+			if(x.cardtype){
+				myinfo.last4=x.last4;
+				myinfo.cardtype=x.cardtype;
+				myinfo.token=x.token;
+				myinfo.expdate=x.expirationdate;
+				message="Your credit card has been entered securely. Thank you!";
+				openconfirm();
+				updateuserflag=true;
+				navt1();
+				}
+		}	
 					
 // these are the functions which initialize and start the ridezu web app.  please keep everything after this line at the end of this page, and functions before this.
 
@@ -1986,6 +2058,7 @@
 	    var nodelist;
 	    var userinfo={};
 	    var myinfo={};
+	    var info={};
 	    var etime;
 	    var userfbid;
 		var message;
@@ -1993,13 +2066,11 @@
 		var cancelmessage="Cancel";
 		var confirmfunction="";
 		var showcancel=false;
-		var screenwidth=screen.width;
-		var screenheight=screen.height;
+		var screenwidth=320;
+		var screenheight=480;
 		var updateuserflag=false;
 		var tp="";
 		var p="firstp";
-		var balance1;
-
 		  		
 // page titles are the pageid's coupled with what shows up in the header
   		
@@ -2050,8 +2121,6 @@
 			   if (orientation == 0 || orientation == 180) {
 							  screenwidth=screen.width;
 							  screenheight=screen.height;
-							  //var n=str.replace("replace*Microsoft","with*W3Schools");
-
 			   }
 			   else if (orientation == 90|| orientation == -90) {
 							  screenwidth=screen.height;
@@ -2063,15 +2132,10 @@
 
 // this determines if the user is in the system, or not (by looking at local storage).  if not, send them to enroll...  also see the very top of index1.php for first page logic
 
-
 $(document).ready(function() {
 	fbid=localStorage.fbid;
 	if(fbid!=undefined){
 	  loadmyinfo();	 
-	  nav("firstp",startpage);
-	  $(document).ready(function() {
-		  document.getElementById("w").style.display="block";
-		});
 	}
 	else
 	{

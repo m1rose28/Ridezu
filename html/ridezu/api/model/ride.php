@@ -897,7 +897,7 @@ function fillRide($driverrideid)
     
     //get rider's id
     $fbid = $body->fbid;
-    
+    //echo $fbid;
     $rider = queryByFB($fbid);
     //print_r($rider);
     $name  = strval($rider->fname) . ' ' . strval($rider->lname);
@@ -978,6 +978,11 @@ function fillRide($driverrideid)
         
         $db->commit();
         $db = null;
+		
+		//send notification to driver
+		//echo 'generate notification';
+		//function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$notifytype,$notifytime)
+		generateNotification($ride->fbid,NULL,'MATCH',$ride->rideid,NULL,NULL,NULL);
 		echo getRide($ride->rideid);
         //echo json_encode(array("status" => "success"));
     }
@@ -1131,6 +1136,7 @@ function fillRideRequest($riderrideid)
 		
 		$db->commit();
         $db = null;
+		generateNotification($riderride->fbid,NULL,'MATCH',$riderride->rideid,NULL,NULL,NULL);
 		return getRide($driverridedata->rideid);
     }
     catch (PDOException $e) {
@@ -1197,11 +1203,12 @@ function cancelRide($rideid,$fbid)
 		$stmt1->bindParam("currentdatetime", $mysqltodaydatetime);
 	    $stmt1->execute();
     
-	
+		
 
 		if (($ridedata->refrideid != null) && ($ridedata->refrideid !=''))
 		{
 			$refrideidArr= explode('#',$ridedata->refrideid);
+			$refriderfbidArr = explode('#',$ridedata->reffbid);
 			//$refrideidlist = implode(',',$refrideidArr);
 			//print_r($refrideidlist);
 			$sql2= "update transhistory set eventstate='REQUEST',refrideid=null,debit=0 where rideid in (:riderrideid) and eventtype='1' and eventtime > :currentdatetime";
@@ -1300,6 +1307,33 @@ function cancelRide($rideid,$fbid)
 	
 	$db->commit();
 	$db=null;
+	//generate notification
+	//driver cancelling - notify all riders
+	generateNotification($fbid,NULL,'CANCEL',$rideid,NULL,NULL,NULL);//notify person cancelling
+	
+	if ($ridedata->eventtype=='1') //rider cancelling - notify driver
+	{
+		$driverrideid =$ridedata->refrideid;
+		$driverfbid = $ridedata->reffbid;
+		$driverfbid = substr($driverfbid, 0, (strlen ($driverfbid)) - (strlen (strrchr($driverfbid,'|'))));
+		generateNotification($driverfbid,NULL,'CANCEL',$driverrideid,NULL,NULL,NULL);//notify person cancelling
+	}
+	else if ($ridedata->eventtype=='0') //driver cancelling - notify all riders
+	{
+		if (($ridedata->refrideid != null)&& ($ridedata->refrideid !=''))
+		{
+			$i=0;
+			foreach($refrideidArr as $refrideid) 
+			{
+				$rider = $refriderfbidArr[$i];
+				$riderfbid = substr($rider, 0, (strlen ($rider)) - (strlen (strrchr($rider,'|'))));
+				//echo $rider;
+				//echo  $riderfbid;
+				generateNotification($riderfbid,NULL,'CANCEL',$refrideid,NULL,NULL,NULL);//notiy all riders
+				$i++;
+			}	
+		}
+	}
 	
 	echo json_encode(getRideByKeyAsObj($rideid));
 	}
@@ -1310,20 +1344,38 @@ function cancelRide($rideid,$fbid)
 }
 
 
+
 function completeRide()
 {
 	$currenttime = date('Y-m-d H:i:s');
-	echo $currenttime;
+	//echo $currenttime;
+	
 	//find all rides that are ACTIVE OR FULL and event system time is more than 2 hours passed
+	$sql0 = "SELECT fbid, rideid FROM transhistory where eventstate in  ('ACTIVE','FULL') and eventgmttime < AddTime(:currentTime, '-02:00:00')";
+	
 	$sql = "UPDATE transhistory SET eventstate='COMPLETE' where eventstate in  ('ACTIVE','FULL') and eventgmttime < AddTime(:currentTime, '-02:00:00')";
 	
 	try {
         $db   = getConnection();
+		$stmt0 = $db->prepare($sql0);
+		$stmt0->bindParam(":currentTime",$currenttime);
+		$stmt0->execute();
+		$ridedata = $stmt0->fetchAll(PDO::FETCH_OBJ);
+		//print_r ($ridedata);
+		foreach ($ridedata as $obj) {
+			//print_r($obj);
+			$tofbid= $obj->fbid;
+			$rideid= $obj->rideid;
+			//function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$notifytype,$notifytime)
+			generateNotification($tofbid,NULL,'COMPLETE',$rideid,NULL,NULL,NULL);
+		}
+		
         $stmt = $db->prepare($sql);
 		$stmt->bindParam(":currentTime",$currenttime);
         $stmt->execute();
 		$rowcount = $stmt->rowCount();
 		echo '{"count":'.$rowcount.'}';
+		$db=null;
 	}
 	catch (PDOException $e) {
 	        echo '{"error":{"text":' . $e->getMessage() . '}}';

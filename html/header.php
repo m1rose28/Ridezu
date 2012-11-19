@@ -1,12 +1,23 @@
+<?php
+
+//check server names and https values and re-direct if needed
+$s=$_SERVER['SERVER_NAME'];
+$h=$_SERVER['HTTPS'];
+$u=$_SERVER['REQUEST_URI'];
+if($h==false or $s=="ridezu.com"){header('Location: https://www.ridezu.com'.$u);}
+
+?>
+
 <!DOCTYPE html>
 
     <head>
-      	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
+      	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title><?php echo $title;?></title>
+        <title>Ridezu</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/normalize.min.css">
 		<link rel="stylesheet" href="css/corpstyle.css">
       	<script>

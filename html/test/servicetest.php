@@ -451,8 +451,32 @@ include 'header.php';
             });
         }
 
-//this is for setting headers / authentication.  temporarily turned off.  
+//this is to send a message
 
+		 function sendmessage(){
+			 tofbid=document.getElementById("tofbid").value;
+			 fromfbid=document.getElementById("fromfbid").value;
+			 txtmessage=document.getElementById("txtmessage").value;
+			 var dataset = {"message":	txtmessage,}				
+			 var jsondataset = JSON.stringify(dataset);
+			 url="http://www.ridezu.com/ridezu/api/v/1/notification/message/fbid/"+tofbid+"/fromfbid/"+fromfbid;
+			 type="POST";
+			 instr="URL: "+url+"<br/>type: "+type+"<br/>data:"+jsondataset+"</br>";			
+
+		    var request=$.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: jsondataset,
+                success: function(data) {show(instr,data); },
+                error: function(data) {alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+        }
+
+
+
+//this is for setting headers / authentication.  temporarily turned off.  
 
         function setHeader(xhr) {
             xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
@@ -527,6 +551,7 @@ include 'header.php';
 	 <p><div class="input-append"><input id="accountfbid" value="<?php echo $uid;?>" type="text"/><input id="timeperiod" value="Y" type="text"/><a class="btn btn-primary" onclick="account();">Account Summary</a></div></p>
 	 <p><div class="input-append"><input id="accountdetailfbid" value="<?php echo $uid;?>" type="text"/><input id="detailtimeperiod" value="Y" type="text"/><a class="btn btn-primary" onclick="accountdetail();">Account Detail</a></div></p>
 	 <p><div class="input-append"><input id="nodefbid" value="<?php echo $uid;?>" type="text"/><input id="nodetype" value="H" type="text"/><a class="btn btn-primary" onclick="nodes();">Get Nodes</a></div></p>
+	 <p><div class="input-append"><input id="tofbid" value="<?php echo $uid;?>" type="text"/><input id="fromfbid" value="<?php echo $uid;?>" type="text"/><input id="txtmessage" value="test message" type="text"/><a class="btn btn-primary" onclick="sendmessage();">Send Message</a></div></p>
 	 
 		 
 	 <div class="modal" style="display:none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

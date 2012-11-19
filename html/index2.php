@@ -1,11 +1,17 @@
 <?php
 
+//check server names and https values and re-direct if needed
+$s=$_SERVER['SERVER_NAME'];
+$h=$_SERVER['HTTPS'];
+$u=$_SERVER['REQUEST_URI'];
+if($h==false or $s=="ridezu.com"){header('Location: https://www.ridezu.com'.$u);}
 
+$client="";$fbid="";$secret="";
 $p="myridesp";
 if(isset($_GET["p"])){$p=$_GET["p"];}
 if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["secret"])){$secret=$_GET["secret"];}
-
+if(isset($_GET["client"])){$client=$_GET["client"];}
 
 ?>
 
@@ -17,18 +23,21 @@ if(isset($_GET["secret"])){$secret=$_GET["secret"];}
 		var startpage="<?php echo $p;?>";
 		localStorage.fbid="<?php echo $fbid;?>";
 		localStorage.secret="<?php echo $secret;?>";
+	    var myinfo={};
+	    var client="<?php echo $client;?>";
+		myinfo.fbid=localStorage.fbid;
+		myinfo.secret=localStorage.secret;
 	</script>
-	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Ridezu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/ridezu.css"> 
 	<script type="text/javascript" src="js/script.js"></script>
-	<!-- 	<script type="text/javascript" src="http://www.bellified.com/testing/ridezu/js/script.js"></script>-->
 	<script type="text/javascript" src="js/ridezu.js"></script>
-	<!-- <link type="text/css" rel="stylesheet" href="css/style.css">-->	
-	<link type="text/css" rel="stylesheet" href="http://www.bellified.com/testing/ridezu/css/style.css">
+	<script type="text/javascript" src="js/ridezuadmin.js"></script>
+	<link type="text/css" rel="stylesheet" href="css/style.css">
 	
 </head>
 
@@ -36,6 +45,9 @@ if(isset($_GET["secret"])){$secret=$_GET["secret"];}
    #w #pagebody {
 	   padding-top:0px;
    		}
+
+<?php if($client!="iOS"){  ?>
+
    #w {
 	   min-height:0px;padding-bottom:5px;
 	   -webkit-border-bottom-left-radius: 7px;
@@ -45,6 +57,9 @@ if(isset($_GET["secret"])){$secret=$_GET["secret"];}
 	   border-bottom-left-radius: 7px;
 	   border-bottom-right-radius: 7px;
    		}
+
+<?php } ?>
+
 </style>
 <body>
 		<div id="w" style="display:none;">
@@ -114,10 +129,26 @@ if(isset($_GET["secret"])){$secret=$_GET["secret"];}
 				</div>
 		
 		<div id="testbar" style="display:none;background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
+		</div>
+		<div id="testios" style="display:none;background-color:#878787;color:#fff;font-size:14px;padding:5px;">
+			<a href="ridezu://showbackbutton">Show the back button</a>
+			<input type="button" value="Reload Page" onClick="document.location.reload(true)">
+		</div>
 		</div>		
-		
 
+<script type="text/javascript">
 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36391790-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 	
 </body></html>
 

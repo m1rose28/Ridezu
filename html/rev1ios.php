@@ -21,9 +21,9 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/ridezu.css"> 
-	<script type="text/javascript" src="js/script.js"></script>
 	<!-- 	<script type="text/javascript" src="http://www.bellified.com/testing/ridezu/js/script.js"></script>-->
 	<script type="text/javascript" src="js/ridezu.js"></script>
+	<script type="text/javascript" src="js/ridezuadmin.js"></script>
 	<!-- <link type="text/css" rel="stylesheet" href="css/style.css">-->	
 	<link type="text/css" rel="stylesheet" href="http://www.bellified.com/testing/ridezu/css/style.css">
 	

@@ -6,6 +6,7 @@ require 'model/user.php';
 require 'model/ride.php';
 require 'model/account.php';
 require 'model/node.php';
+require 'model/notification.php';
 require 'model/payment.php';
 require 'util.php';
 //require_once 'braintree-php-2.17.0/lib/Braintree.php';
@@ -69,6 +70,8 @@ $app->get('/v/1/account/detail/fbid/:query/timeperiod/:timeperiod','getAccountDe
 //payment APIs
 $app->get('/v/1/payment','makePayment');
 
+//notification
+$app->post('/v/1/notification/message/fbid/:fbid/fromfbid/:fromfbid','sendMessage');
 
 $app->run();
 

@@ -13,10 +13,10 @@ $(document).ready(function(){
 	function openme() { 
 		$(function () {
 		    topbar.animate({
-		       left: "280px"
+		       left: "260px"
 		    }, { duration: 120,easing: 'linear', queue: false });
 		    pagebody.animate({
-		       left: "280px"
+		       left: "260px"
 		    }, { duration: 120,easing: 'linear', queue: false });
 			themenu.animate({
 		       left: "0px"
