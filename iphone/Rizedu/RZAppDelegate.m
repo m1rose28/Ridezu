@@ -8,19 +8,12 @@
 
 #import "RZAppDelegate.h"
 
-#import "RZTestUsersListViewController.h"
 #import "GHMenuCell.h"
 #import "GHMenuViewController.h"
 #import "GHRevealViewController.h"
-#import "GHSidebarSearchViewController.h"
-#import "GHSidebarSearchViewControllerDelegate.h"
 
 #import "RZLocationPickViewController.h"
-#import "RZFBLoginViewController.h"
-#import "RZRouteTimeSelectViewController.h"
 #import "RZUserProfileViewController.h"
-#import "RZPostRideTimeSelectViewController.h"
-#import "RZMyRidesViewController.h"
 #import "RZOthersViewController.h"
 
 #import "LoginViewController.h"
@@ -29,19 +22,16 @@
 #import <Parse/Parse.h>
 #import <CoreData/CoreData.h>
 
+#define RIDEZU_FACEBOOK_APP_ID @"443508415694320"
 
 #pragma mark -
 #pragma mark Private Interface
-@interface RZAppDelegate () <GHSidebarSearchViewControllerDelegate>
-@property (nonatomic, strong) GHRevealViewController *revealController;
-@property (nonatomic, strong) GHSidebarSearchViewController *searchController;
-@property (nonatomic, strong) GHMenuViewController *menuController;
+@interface RZAppDelegate () 
 @end
-
 
 @implementation RZAppDelegate
 @synthesize window;
-@synthesize revealController, searchController, menuController;
+@synthesize revealController, menuController;
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -50,14 +40,15 @@
 extern CFAbsoluteTime StartTime;
 
 
-// FBSample logic
-// If we have a valid session at the time of openURL call, we handle Facebook transitions
-// by passing the url argument to handleOpenURL; see the "Just Login" sample application for
-// a more detailed discussion of handleOpenURL
+// custom url schema handler
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    // attempt to extract a token from the url
-    // return [FBSession.activeSession handleOpenURL:url];
-    return [PFFacebookUtils handleOpenURL:url];
+    if ([[url absoluteString] hasPrefix:@"fb"]) {
+        return [PFFacebookUtils handleOpenURL:url];
+    }
+    else {
+        NSLog(@"custom url handler %@, %@", url.scheme, url.host);
+    }
+    return NO;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -69,10 +60,10 @@ extern CFAbsoluteTime StartTime;
     [Parse setApplicationId:@"kVziVVZMyX1fYktgCUZ7QXJ5zPkpUpFYXs1BWyuh"
                   clientKey:@"R4wRIvvyaNNQFNSKJzUIzPThSCaDSRtpJ2DbtIAo"];
     
-    [PFFacebookUtils initializeWithApplicationId:@"443508415694320"];
+    [PFFacebookUtils initializeWithApplicationId:RIDEZU_FACEBOOK_APP_ID];
     [self customizeAppearance];
     
-    UIColor *bgColor = [UIColor colorWithRed:(50.0f/255.0f) green:(57.0f/255.0f) blue:(74.0f/255.0f) alpha:1.0f];
+    UIColor *bgColor = [UIColor colorWithRed:(0x3d/255.0f) green:(0x3c/255.0f) blue:(0x3d/255.0f) alpha:1.0f];
 	self.revealController = [[GHRevealViewController alloc] initWithNibName:nil bundle:nil];
 	self.revealController.view.backgroundColor = bgColor;
 	
@@ -81,52 +72,54 @@ extern CFAbsoluteTime StartTime;
 									duration:kGHRevealSidebarDefaultAnimationDuration];
 	};
 	
-	NSArray *headers = @[[NSNull null], @"FAVORITES"];
-    
-    
-    _testUsersNav = [[UINavigationController alloc] initWithRootViewController:
-                                            [[RZTestUsersListViewController alloc] initWithTitle:@"Login - Testing Only" withRevealBlock:revealBlock]];
+	NSArray *headers = @[[NSNull null], [NSNull null]];
     
     UINavigationController *myRidesNav = [[UINavigationController alloc] initWithRootViewController:
-                                         [[RZMyRidesViewController alloc]
-                                          initWithNibName:@"RZMyRidesViewController" bundle:nil]];
+                                         [[RZOthersViewController alloc] initWithPath:@"myridesp" andTitle:@"My Rides" withRevealBlock:revealBlock]];
     
     UINavigationController *requestRideNav = [[UINavigationController alloc] initWithRootViewController:
-                                              [[RZRouteTimeSelectViewController alloc] initWithAvailableRoutes:@[@"0", @"3", @"2", @"1", @""]]];
+                                              [[RZOthersViewController alloc] initWithPath:@"riderequestp" andTitle:@"Request a Ride" withRevealBlock:revealBlock]];
     
     UINavigationController *postRideNav = [[UINavigationController alloc] initWithRootViewController:
-                                           [[RZPostRideTimeSelectViewController alloc] initWithNibName:@"RZPostRideTimeSelectViewController" bundle:nil]];
+                                           [[RZOthersViewController alloc] initWithPath:@"ridepostp" andTitle:@"Post a Ride" withRevealBlock:revealBlock]];
     
     UINavigationController *enrollmentNav = [[UINavigationController alloc] initWithRootViewController:
                                              [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil]];
     
     UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:
-                                          [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil]];
+                                             [[RZOthersViewController alloc] initWithPath:@"profilep" andTitle:@"My Profile" withRevealBlock:revealBlock]];
     
     UINavigationController *howitworksNav = [[UINavigationController alloc] initWithRootViewController:
-                                             [[RZTestUsersListViewController alloc] initWithTitle:@"How it works" withRevealBlock:revealBlock]];
+                                             [[RZOthersViewController alloc] initWithPath:@"howitworksp" andTitle:@"How it Works" withRevealBlock:revealBlock]];
 
-    UINavigationController *othersNav = [[UINavigationController alloc] initWithRootViewController:
-                                        [[RZOthersViewController alloc]
-                                         initWithNibName:@"RZOthersViewController" bundle:nil]];
+    UINavigationController *ridezunomicsNav = [[UINavigationController alloc] initWithRootViewController:
+                                             [[RZOthersViewController alloc] initWithPath:@"calcp" andTitle:@"Ridezunomics" withRevealBlock:revealBlock]];
     
+    UINavigationController *faqNav = [[UINavigationController alloc] initWithRootViewController:
+                                             [[RZOthersViewController alloc] initWithPath:@"faqp" andTitle:@"FAQ" withRevealBlock:revealBlock]];
+    
+    UINavigationController *tosNav = [[UINavigationController alloc] initWithRootViewController:
+                                             [[RZOthersViewController alloc] initWithPath:@"tosp" andTitle:@"Terms of Service" withRevealBlock:revealBlock]];
+           
 	NSArray *controllers = @[
-        @[_testUsersNav],
-        @[myRidesNav, requestRideNav, postRideNav, enrollmentNav, profileNav, othersNav, howitworksNav]
+        @[myRidesNav, requestRideNav, postRideNav, enrollmentNav, profileNav],
+        @[howitworksNav, ridezunomicsNav, faqNav, tosNav]
 	];
     
 	NSArray *cellInfos = @[
-        @[@{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"Login - Testing Only", @"")}
-        ],
-    @[
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"0019.png"], kSidebarCellTextKey: NSLocalizedString(@"My Rides", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"0019.png"], kSidebarCellTextKey: NSLocalizedString(@"Request a Ride", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"0100.png"], kSidebarCellTextKey: NSLocalizedString(@"Post a Ride", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"0006.png"], kSidebarCellTextKey: NSLocalizedString(@"Enrollment", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"My Profile", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"Settings", @"")},
-        @{kSidebarCellImageKey: [UIImage imageNamed:@"0208.png"], kSidebarCellTextKey: NSLocalizedString(@"How it works", @"")},
-    ]
+        @[
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"myrides.png"], kSidebarCellTextKey: NSLocalizedString(@"My Rides", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"requestride.png"], kSidebarCellTextKey: NSLocalizedString(@"Request a Ride", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"car.png"], kSidebarCellTextKey: NSLocalizedString(@"Post a Ride", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"0006.png"], kSidebarCellTextKey: NSLocalizedString(@"Enrollment", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"profile.png"], kSidebarCellTextKey: NSLocalizedString(@"My Profile", @"")},
+        ], 
+        @[
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"howitworks.png"], kSidebarCellTextKey: NSLocalizedString(@"How it works", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"credit_card.png"], kSidebarCellTextKey: NSLocalizedString(@"Ridezenomics", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"faq.png"], kSidebarCellTextKey: NSLocalizedString(@"FAQ", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"terms.png"], kSidebarCellTextKey: NSLocalizedString(@"Terms of Service", @"")},
+        ]
 	];
 	// Add drag feature to each root navigation controller
 	[controllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
@@ -140,53 +133,17 @@ extern CFAbsoluteTime StartTime;
 		}];
 	}];
 
-    /*
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self.revealController
-                                                                                 action:@selector(dragContentView:)];
-    panGesture.cancelsTouchesInView = YES;
+    UILabel *labelView = [[UILabel alloc] initWithFrame:CGRectMake(50, 10, 320, 44)];
+    labelView.font = [UIFont fontWithName:@"Courier-Bold" size:24];
+    labelView.backgroundColor = [UIColor clearColor];
+    labelView.textColor = [UIColor whiteColor];
+    labelView.text = @"Ridezu";
     
-    [testUsersNav.navigationBar addGestureRecognizer:panGesture];
-    [requestRideNav.navigationBar addGestureRecognizer:panGesture];
-    [postRideNav.navigationBar addGestureRecognizer:panGesture];
-    [enrollmentNav.navigationBar addGestureRecognizer:panGesture];
-    [profileNav.navigationBar addGestureRecognizer:panGesture];
-    [howitworksNav.navigationBar addGestureRecognizer:panGesture];
-   */
-    
-    
-	self.searchController = [[GHSidebarSearchViewController alloc] initWithSidebarViewController:self.revealController];
-	self.searchController.view.backgroundColor = [UIColor clearColor];
-    self.searchController.searchDelegate = self;
-	self.searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	self.searchController.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-	self.searchController.searchBar.backgroundImage = [UIImage imageNamed:@"searchBarBG.png"];
-	self.searchController.searchBar.placeholder = NSLocalizedString(@"Search", @"");
-	self.searchController.searchBar.tintColor = [UIColor colorWithRed:(58.0f/255.0f) green:(67.0f/255.0f) blue:(104.0f/255.0f) alpha:1.0f];
-	for (UIView *subview in self.searchController.searchBar.subviews) {
-		if ([subview isKindOfClass:[UITextField class]]) {
-			UITextField *searchTextField = (UITextField *) subview;
-			searchTextField.textColor = [UIColor colorWithRed:(154.0f/255.0f) green:(162.0f/255.0f) blue:(176.0f/255.0f) alpha:1.0f];
-		}
-	}
-	[self.searchController.searchBar setSearchFieldBackgroundImage:[[UIImage imageNamed:@"searchTextBG.png"]
-                                                                    resizableImageWithCapInsets:UIEdgeInsetsMake(16.0f, 17.0f, 16.0f, 17.0f)]
-														  forState:UIControlStateNormal];
-	[self.searchController.searchBar setImage:[UIImage imageNamed:@"searchBarIcon.png"]
-							 forSearchBarIcon:UISearchBarIconSearch
-										state:UIControlStateNormal];
-	
 	self.menuController = [[GHMenuViewController alloc] initWithSidebarViewController:self.revealController
-																		withSearchBar:self.searchController.searchBar
+																		withSearchBar:labelView
 																		  withHeaders:headers
 																	  withControllers:controllers
 																		withCellInfos:cellInfos];
-	
-    // [FBProfilePictureView class];
-
-    // Just for Parse.com testing
-//    PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
-//    [testObject setObject:@"bar" forKey:@"foo"];
-//    [testObject save];
     
     [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
      UIRemoteNotificationTypeAlert|
@@ -212,36 +169,11 @@ extern CFAbsoluteTime StartTime;
 
 - (void)customizeAppearance {
     // this is to unset the background image by other themes
-    [[UINavigationBar appearance] setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"titlebar.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    
-//    UIColor *navyBlue = [UIColor colorWithRed:0x00/255.f green:0x22/255.f blue:0x66/255.f alpha:1];
-//    UIColor *bBlue = [UIColor colorWithRed:0x27/255.f green:0x40/255.f blue:0x8b/255.f alpha:1];
-        
-    [[UINavigationBar appearance] setTintColor:[RZGlobalService greenColor]];
     [[UIToolbar appearance] setTintColor:[RZGlobalService greenColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[RZGlobalService greenColor]];
     [[UISegmentedControl appearance] setTintColor:[RZGlobalService greenColor]];
-}
-
-#pragma mark GHSidebarSearchViewControllerDelegate
-- (void)searchResultsForText:(NSString *)text withScope:(NSString *)scope callback:(SearchResultsBlock)callback {
-	callback(@[@"Foo", @"Bar", @"Baz"]);
-}
-
-- (void)searchResult:(id)result selectedAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"Selected Search Result - result: %@ indexPath: %@", result, indexPath);
-}
-
-- (UITableViewCell *)searchResultCellForEntry:(id)entry atIndexPath:(NSIndexPath *)indexPath inTableView:(UITableView *)tableView {
-	static NSString* identifier = @"GHSearchMenuCell";
-	GHMenuCell* cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-	if (!cell) {
-		cell = [[GHMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-	}
-	cell.textLabel.text = (NSString *)entry;
-	cell.imageView.image = [UIImage imageNamed:@"user"];
-	return cell;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -267,9 +199,6 @@ extern CFAbsoluteTime StartTime;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // FBSample logic
-    // if the app is going away, we close the session object
-    // [FBSession.activeSession close];
     [self saveContext];
 }
 
@@ -279,86 +208,10 @@ extern CFAbsoluteTime StartTime;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
-}
-
-
-#pragma mark - Core Data stack
-
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
-}
-
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RidezuModel" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"RidezuModel.sqlite"];
-    
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _persistentStoreCoordinator;
 }
 
 #pragma mark - Application's Documents directory

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GHMenuViewController.h"
+#import "GHRevealViewController.h"
 
 @interface RZAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,6 +19,9 @@
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+@property (nonatomic, strong) GHRevealViewController *revealController;
+@property (nonatomic, strong) GHMenuViewController *menuController;
 
 @property (nonatomic, strong) UINavigationController *testUsersNav;
 @end
