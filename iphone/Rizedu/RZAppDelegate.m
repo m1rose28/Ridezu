@@ -18,7 +18,6 @@
 
 #import "LoginViewController.h"
 
-// #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
 #import <CoreData/CoreData.h>
 
@@ -33,12 +32,7 @@
 @synthesize window;
 @synthesize revealController, menuController;
 
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-
 extern CFAbsoluteTime StartTime;
-
 
 // custom url schema handler
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

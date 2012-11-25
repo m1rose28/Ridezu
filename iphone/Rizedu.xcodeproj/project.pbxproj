@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C039498E1661AE3500DACDDB /* RZDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949861661AE3500DACDDB /* RZDetailViewController.m */; };
 		C039498F1661AE3500DACDDB /* RZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949881661AE3500DACDDB /* RZBaseViewController.m */; };
 		C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C039498A1661AE3500DACDDB /* RZOthersViewController.m */; };
 		C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C039498B1661AE3500DACDDB /* RZOthersViewController.xib */; };
@@ -108,8 +107,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C03949851661AE3500DACDDB /* RZDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZDetailViewController.h; sourceTree = "<group>"; };
-		C03949861661AE3500DACDDB /* RZDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZDetailViewController.m; sourceTree = "<group>"; };
 		C03949871661AE3500DACDDB /* RZBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBaseViewController.h; sourceTree = "<group>"; };
 		C03949881661AE3500DACDDB /* RZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBaseViewController.m; sourceTree = "<group>"; };
 		C03949891661AE3500DACDDB /* RZOthersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZOthersViewController.h; sourceTree = "<group>"; };
@@ -349,8 +346,6 @@
 				D3AA1F35160E574E00B51488 /* RZAppDelegate.m */,
 				C03949871661AE3500DACDDB /* RZBaseViewController.h */,
 				C03949881661AE3500DACDDB /* RZBaseViewController.m */,
-				C03949851661AE3500DACDDB /* RZDetailViewController.h */,
-				C03949861661AE3500DACDDB /* RZDetailViewController.m */,
 				D3AEA6B9162E71A5002800B9 /* RZGlobalService.h */,
 				D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */,
 				C03949891661AE3500DACDDB /* RZOthersViewController.h */,
@@ -671,7 +666,6 @@
 				D390B75816227F2500FD4540 /* Constants.m in Sources */,
 				D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */,
 				D3AEA6BB162E71A5002800B9 /* RZGlobalService.m in Sources */,
-				C039498E1661AE3500DACDDB /* RZDetailViewController.m in Sources */,
 				C039498F1661AE3500DACDDB /* RZBaseViewController.m in Sources */,
 				C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */,
 				C03949921661AE3500DACDDB /* UIGlossyButton.m in Sources */,
