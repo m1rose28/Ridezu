@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 #define RIDEZU_HOSTNAME @"www.ridezu.com"
 
@@ -20,8 +21,15 @@
 
 + (UIColor*)greenColor;
 + (UIColor*)lightGreenColor;
++ (UIColor*)buttonGreenColor;
 
 + (NSString*)getTime:(NSString*)eventTime;
 
 + (NSString*)getDateTime:(NSString*)time;
+
++ (UIImage*)grabberImage;
++ (UIBarButtonItem*)grabberBarButtonItem:(id)target;
+
++ (NSString*)activeUserId;
++ (NSString*)activeUserName;
 @end

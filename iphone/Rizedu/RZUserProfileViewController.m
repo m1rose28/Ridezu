@@ -53,7 +53,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
-//        UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:@selector(popViewControllerAnimated:)];
         UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:self.navigationController action:nil];
         self.navigationItem.leftBarButtonItem = slideButtonItem;
 
@@ -66,7 +65,7 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
     [self setTitle:@"Profile"];
-    [_nextButton setActionSheetButtonWithColor:[RZGlobalService lightGreenColor]];
+    [_nextButton setActionSheetButtonWithColor:[RZGlobalService buttonGreenColor]];
     
     _rzUser = [[RZUser alloc] init];
     // Create request for user's facebook data
@@ -77,7 +76,6 @@
 
     // Check if user is cached and linked to Facebook, if so, bypass login
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
-        NSLog(@"here");
         [_nextButton addTarget:self action:@selector(nextButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     else {
@@ -119,7 +117,7 @@
     _ageLabel.text = [NSString stringWithFormat:@"%@ %@", [Utils ageRange:birthDay], gender];
     _workplaceLabel.text = (employerName) ? employerName : @"";
     _bioTextView.text = bio;
-    _quotesLabel.text = [NSString stringWithFormat:@"quote: \"%@\"", quotes];
+    _quotesLabel.text = [NSString stringWithFormat:@"\"%@\"", quotes];
     
     MKNetworkEngine* engine = [[MKNetworkEngine alloc] initWithHostName:@"facebook.com" customHeaderFields:nil];
     NSURL* url = [NSURL URLWithString:imageUrl];
@@ -134,6 +132,9 @@
     _rzUser.lastName = lastName;
     _rzUser.fbId = [userData objectForKey:@"id"];
     _rzUser.email = [userData objectForKey:@"email"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:_rzUser.fbId forKey:@"UserId"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@ %@", _rzUser.firstName, _rzUser.lastName] forKey:@"UserName"];
 }
 
 - (void)updateImage:(UIImage*) fetchedImage {

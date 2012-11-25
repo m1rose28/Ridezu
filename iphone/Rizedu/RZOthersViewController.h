@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RZOthersViewController : UIViewController
-
+@interface RZOthersViewController : UIViewController <UIWebViewDelegate>
+- (id)initWithPath:(NSString*)path andTitle:(NSString*)title withRevealBlock:(RevealBlock)revealBlock;
 @end

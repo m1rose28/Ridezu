@@ -21,7 +21,7 @@
 }
 
 + (NSArray*)shortTimeTable {
-     NSArray *timeTable = @[@"7:00am", @"7:30am", @"8:00am", @"8:30am", @"9:00am"];
+     NSArray *timeTable = @[@"6:30am", @"7:00am", @"7:30am", @"8:00am"];
     return timeTable;
 }
 
@@ -59,10 +59,14 @@
 //}
 
 + (UIColor*)greenColor {
-    return [UIColor colorWithRed:69/255.f green:130/255.f blue:0/255.f alpha:1];
+    return [UIColor colorWithRed:0x21/255.f green:0x94/255.f blue:0x0c/255.f alpha:1];
 }
 + (UIColor*)lightGreenColor {
     return [UIColor colorWithRed:0/255.f green:205/255.f blue:0/255.f alpha:1];
+}
+
++ (UIColor*)buttonGreenColor {
+    return [UIColor colorWithRed:0x1c/255.f green:0x96/255.f blue:0x0b/255.f alpha:1];
 }
 
 // eventtime = "2012-10-23 09:30:00";
@@ -93,5 +97,19 @@
     return [_newFormatter stringFromDate:newDate];
 }
 
++ (UIImage*)grabberImage {
+    return [UIImage imageNamed:@"menu.png"];
+}
++ (UIBarButtonItem*)grabberBarButtonItem:(id)target{
+    UIImage *slideImage = [UIImage imageNamed:@"menu.png"];
+    UIBarButtonItem *slideButtonItem = [[UIBarButtonItem alloc] initWithImage:slideImage style:UIBarButtonItemStylePlain target:target action:@selector(popViewControllerAnimated:)];
+    return slideButtonItem;
+}
 
++ (NSString*)activeUserId {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"UserId"];
+}
++ (NSString*)activeUserName {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:@"UserName"];
+}
 @end

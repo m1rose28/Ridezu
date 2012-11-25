@@ -13,7 +13,6 @@
 #import "RZLocationPickViewController.h"
 #import "RZEnrollCompleteViewController.h"
 
-#import "RidezuEngine.h"
 #import "RZAppDelegate.h"
 
 // using CAShapeLayer
@@ -166,7 +165,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_nextButton setActionSheetButtonWithColor:[RZGlobalService lightGreenColor]];
+    [_nextButton setActionSheetButtonWithColor:[RZGlobalService buttonGreenColor]];
 
     _ridezuEngine = [[MKNetworkEngine alloc] initWithHostName:RIDEZU_HOSTNAME customHeaderFields:nil];
     

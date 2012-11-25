@@ -14,16 +14,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTitle:@"Facebook Profile"];
+    [self setTitle:@"Login with Facebook"];
     
     // Check if user is cached and linked to Facebook, if so, bypass login    
     if ([PFUser currentUser] && [PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
         RZUserProfileViewController *rzUserProfileViewController = [[RZUserProfileViewController alloc] initWithNibName:@"RZUserProfileViewController" bundle:nil];
+
+        UIBarButtonItem *slideButtonItem = [RZGlobalService grabberBarButtonItem:self.navigationController];
+        self.navigationItem.leftBarButtonItem = slideButtonItem;
+        
         [self.navigationController pushViewController:rzUserProfileViewController animated:NO];
     }
     else {
         // not loged in
-        NSLog(@"not login");
+        NSLog(@"not FaceBook login");
     }
 }
 
@@ -36,7 +40,7 @@
 - (IBAction)loginButtonTouchHandler:(id)sender 
 {
     // Set permissions required from the facebook user account
-    NSArray *permissionsArray = [NSArray arrayWithObjects:@"user_about_me",@"user_relationships",@"user_birthday",@"user_location",@"offline_access", nil];
+    NSArray *permissionsArray = [NSArray arrayWithObjects:@"user_about_me", @"email", @"user_relationships", @"user_birthday",@"user_location", @"user_work_history", @"offline_access", nil];
     
     // Login PFUser using facebook
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {

@@ -12,6 +12,10 @@
 		C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C039498A1661AE3500DACDDB /* RZOthersViewController.m */; };
 		C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C039498B1661AE3500DACDDB /* RZOthersViewController.xib */; };
 		C03949921661AE3500DACDDB /* UIGlossyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C039498C1661AE3500DACDDB /* UIGlossyButton.m */; };
+		C03949A51661B24100DACDDB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C039499E1661B24100DACDDB /* README.md */; };
+		C03949A61661B24100DACDDB /* RIButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949A01661B24100DACDDB /* RIButtonItem.m */; };
+		C03949A71661B24100DACDDB /* UIActionSheet+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949A21661B24100DACDDB /* UIActionSheet+Blocks.m */; };
+		C03949A81661B24100DACDDB /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949A41661B24100DACDDB /* UIAlertView+Blocks.m */; };
 		D306E87F162D0B4400F394AF /* locateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87B162D0B4400F394AF /* locateButton.png */; };
 		D306E880162D0B4400F394AF /* locateButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87C162D0B4400F394AF /* locateButton@2x.png */; };
 		D306E881162D0B4400F394AF /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87D162D0B4400F394AF /* location.png */; };
@@ -89,10 +93,6 @@
 		D3F1F213160E6D0C0016F6BD /* RZLocationPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */; };
 		D3F1F214160E6D0C0016F6BD /* RZLocationPickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */; };
 		D3F1F21B160E72E40016F6BD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F21A160E72E40016F6BD /* MapKit.framework */; };
-		D3F1F22A160E78CD0016F6BD /* LocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F229160E78CD0016F6BD /* LocationHelper.m */; };
-		D3F1F230160E84F20016F6BD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D3F1F231160E84F20016F6BD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D3F1F232160E84F20016F6BD /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */; };
 		D3F1F259160ED0D00016F6BD /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */; };
 		D3F1F25B160ED10A0016F6BD /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */; };
 /* End PBXBuildFile section */
@@ -108,15 +108,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C03949851661AE3500DACDDB /* RZDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZDetailViewController.h; path = Rizedu/RZDetailViewController.h; sourceTree = "<group>"; };
-		C03949861661AE3500DACDDB /* RZDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZDetailViewController.m; path = Rizedu/RZDetailViewController.m; sourceTree = "<group>"; };
-		C03949871661AE3500DACDDB /* RZBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZBaseViewController.h; path = Rizedu/RZBaseViewController.h; sourceTree = "<group>"; };
-		C03949881661AE3500DACDDB /* RZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZBaseViewController.m; path = Rizedu/RZBaseViewController.m; sourceTree = "<group>"; };
-		C03949891661AE3500DACDDB /* RZOthersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZOthersViewController.h; path = Rizedu/RZOthersViewController.h; sourceTree = "<group>"; };
-		C039498A1661AE3500DACDDB /* RZOthersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZOthersViewController.m; path = Rizedu/RZOthersViewController.m; sourceTree = "<group>"; };
-		C039498B1661AE3500DACDDB /* RZOthersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RZOthersViewController.xib; path = Rizedu/RZOthersViewController.xib; sourceTree = "<group>"; };
+		C03949851661AE3500DACDDB /* RZDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZDetailViewController.h; sourceTree = "<group>"; };
+		C03949861661AE3500DACDDB /* RZDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZDetailViewController.m; sourceTree = "<group>"; };
+		C03949871661AE3500DACDDB /* RZBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBaseViewController.h; sourceTree = "<group>"; };
+		C03949881661AE3500DACDDB /* RZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBaseViewController.m; sourceTree = "<group>"; };
+		C03949891661AE3500DACDDB /* RZOthersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZOthersViewController.h; sourceTree = "<group>"; };
+		C039498A1661AE3500DACDDB /* RZOthersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZOthersViewController.m; sourceTree = "<group>"; };
+		C039498B1661AE3500DACDDB /* RZOthersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZOthersViewController.xib; sourceTree = "<group>"; };
 		C039498C1661AE3500DACDDB /* UIGlossyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGlossyButton.m; sourceTree = "<group>"; };
 		C039498D1661AE3500DACDDB /* UIGlossyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGlossyButton.h; sourceTree = "<group>"; };
+		C039499E1661B24100DACDDB /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		C039499F1661B24100DACDDB /* RIButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RIButtonItem.h; sourceTree = "<group>"; };
+		C03949A01661B24100DACDDB /* RIButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIButtonItem.m; sourceTree = "<group>"; };
+		C03949A11661B24100DACDDB /* UIActionSheet+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+Blocks.h"; sourceTree = "<group>"; };
+		C03949A21661B24100DACDDB /* UIActionSheet+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+Blocks.m"; sourceTree = "<group>"; };
+		C03949A31661B24100DACDDB /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		C03949A41661B24100DACDDB /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		D306E87B162D0B4400F394AF /* locateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locateButton.png; sourceTree = "<group>"; };
 		D306E87C162D0B4400F394AF /* locateButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locateButton@2x.png"; sourceTree = "<group>"; };
 		D306E87D162D0B4400F394AF /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
@@ -223,13 +230,6 @@
 		D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZLocationPickViewController.m; sourceTree = "<group>"; };
 		D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZLocationPickViewController.xib; sourceTree = "<group>"; };
 		D3F1F21A160E72E40016F6BD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		D3F1F228160E78CD0016F6BD /* LocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationHelper.h; sourceTree = "<group>"; };
-		D3F1F229160E78CD0016F6BD /* LocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationHelper.m; sourceTree = "<group>"; };
-		D3F1F22B160E84F20016F6BD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
-		D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
-		D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
 		D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -275,13 +275,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C039499D1661B24000DACDDB /* UIAlertView-Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				C039499E1661B24100DACDDB /* README.md */,
+				C039499F1661B24100DACDDB /* RIButtonItem.h */,
+				C03949A01661B24100DACDDB /* RIButtonItem.m */,
+				C03949A11661B24100DACDDB /* UIActionSheet+Blocks.h */,
+				C03949A21661B24100DACDDB /* UIActionSheet+Blocks.m */,
+				C03949A31661B24100DACDDB /* UIAlertView+Blocks.h */,
+				C03949A41661B24100DACDDB /* UIAlertView+Blocks.m */,
+			);
+			path = "UIAlertView-Blocks";
+			sourceTree = "<group>";
+		};
 		D3AA1F16160E574E00B51488 = {
 			isa = PBXGroup;
 			children = (
 				D3F1F227160E78BB0016F6BD /* Utils */,
-				D3F1F1E9160E6B550016F6BD /* MKNetworkKit */,
 				D3F1F1BB160E634E0016F6BD /* Resources */,
-				D3AA1F72160E579200B51488 /* GHSidebarNav */,
 				D3AA1F2B160E574E00B51488 /* Rizedu */,
 				D3AA1F55160E574E00B51488 /* RizeduTests */,
 				D3AA1F24160E574E00B51488 /* Frameworks */,
@@ -335,8 +347,15 @@
 				D390B74516227D5300FD4540 /* RZUser.m */,
 				D3AA1F34160E574E00B51488 /* RZAppDelegate.h */,
 				D3AA1F35160E574E00B51488 /* RZAppDelegate.m */,
+				C03949871661AE3500DACDDB /* RZBaseViewController.h */,
+				C03949881661AE3500DACDDB /* RZBaseViewController.m */,
+				C03949851661AE3500DACDDB /* RZDetailViewController.h */,
+				C03949861661AE3500DACDDB /* RZDetailViewController.m */,
 				D3AEA6B9162E71A5002800B9 /* RZGlobalService.h */,
 				D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */,
+				C03949891661AE3500DACDDB /* RZOthersViewController.h */,
+				C039498A1661AE3500DACDDB /* RZOthersViewController.m */,
+				C039498B1661AE3500DACDDB /* RZOthersViewController.xib */,
 				D3BCCA801621E2FA00987648 /* LoginViewController.h */,
 				D3BCCA811621E2FA00987648 /* LoginViewController.m */,
 				D3BCCA821621E2FB00987648 /* LoginViewController.xib */,
@@ -474,13 +493,9 @@
 		D3F1F227160E78BB0016F6BD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				C03949851661AE3500DACDDB /* RZDetailViewController.h */,
-				C03949861661AE3500DACDDB /* RZDetailViewController.m */,
-				C03949871661AE3500DACDDB /* RZBaseViewController.h */,
-				C03949881661AE3500DACDDB /* RZBaseViewController.m */,
-				C03949891661AE3500DACDDB /* RZOthersViewController.h */,
-				C039498A1661AE3500DACDDB /* RZOthersViewController.m */,
-				C039498B1661AE3500DACDDB /* RZOthersViewController.xib */,
+				D3AA1F72160E579200B51488 /* GHSidebarNav */,
+				C039499D1661B24000DACDDB /* UIAlertView-Blocks */,
+				D3F1F1E9160E6B550016F6BD /* MKNetworkKit */,
 				C039498C1661AE3500DACDDB /* UIGlossyButton.m */,
 				C039498D1661AE3500DACDDB /* UIGlossyButton.h */,
 				D390B7641622937100FD4540 /* NSDictionary+JSONCategories.h */,
@@ -489,14 +504,7 @@
 				D390B75416227F2500FD4540 /* Utils.m */,
 				D390B75516227F2500FD4540 /* Constants.h */,
 				D390B75616227F2500FD4540 /* Constants.m */,
-				D3F1F22B160E84F20016F6BD /* MBProgressHUD.h */,
-				D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */,
-				D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */,
-				D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */,
-				D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */,
 				D3AA1F6A160E578900B51488 /* NSObject+Subscripts.h */,
-				D3F1F228160E78CD0016F6BD /* LocationHelper.h */,
-				D3F1F229160E78CD0016F6BD /* LocationHelper.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -581,7 +589,6 @@
 				D3F1F1C5160E63610016F6BD /* searchTextBG.png in Resources */,
 				D3F1F1C6160E63610016F6BD /* user.png in Resources */,
 				D3F1F214160E6D0C0016F6BD /* RZLocationPickViewController.xib in Resources */,
-				D3F1F232160E84F20016F6BD /* SVProgressHUD.bundle in Resources */,
 				D3F1F25B160ED10A0016F6BD /* FacebookSDKResources.bundle in Resources */,
 				D3E3E67F16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib in Resources */,
 				D3655D52161E3ED300862024 /* lines@2x.png in Resources */,
@@ -605,6 +612,7 @@
 				D306E882162D0B4400F394AF /* location@2x.png in Resources */,
 				D3AEA6C5162F1246002800B9 /* TestUsers.plist in Resources */,
 				C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */,
+				C03949A51661B24100DACDDB /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,9 +663,6 @@
 				D3F1F206160E6B550016F6BD /* MKNetworkOperation.m in Sources */,
 				D3F1F207160E6B550016F6BD /* Reachability.m in Sources */,
 				D3F1F213160E6D0C0016F6BD /* RZLocationPickViewController.m in Sources */,
-				D3F1F22A160E78CD0016F6BD /* LocationHelper.m in Sources */,
-				D3F1F230160E84F20016F6BD /* MBProgressHUD.m in Sources */,
-				D3F1F231160E84F20016F6BD /* SVProgressHUD.m in Sources */,
 				D3E3E67E16115E4B00E3DC78 /* RZEnrollCompleteViewController.m in Sources */,
 				D3BCCA7E1620866500987648 /* RZUserProfileViewController.m in Sources */,
 				D3BCCA831621E2FC00987648 /* LoginViewController.m in Sources */,
@@ -670,6 +675,9 @@
 				C039498F1661AE3500DACDDB /* RZBaseViewController.m in Sources */,
 				C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */,
 				C03949921661AE3500DACDDB /* UIGlossyButton.m in Sources */,
+				C03949A61661B24100DACDDB /* RIButtonItem.m in Sources */,
+				C03949A71661B24100DACDDB /* UIActionSheet+Blocks.m in Sources */,
+				C03949A81661B24100DACDDB /* UIAlertView+Blocks.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
