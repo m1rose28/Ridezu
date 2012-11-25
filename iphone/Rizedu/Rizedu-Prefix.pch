@@ -16,7 +16,6 @@
     #import "RZGlobalService.h"
 #import "UIGlossyButton.h"
 #import "RZBaseViewController.h"
-#import "TopView.h"
 
 typedef void (^RevealBlock)();
 

@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D306E83B162C6DBC00F394AF /* RidezuEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D306E83A162C6DBC00F394AF /* RidezuEngine.m */; };
+		C039498E1661AE3500DACDDB /* RZDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949861661AE3500DACDDB /* RZDetailViewController.m */; };
+		C039498F1661AE3500DACDDB /* RZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949881661AE3500DACDDB /* RZBaseViewController.m */; };
+		C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C039498A1661AE3500DACDDB /* RZOthersViewController.m */; };
+		C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C039498B1661AE3500DACDDB /* RZOthersViewController.xib */; };
+		C03949921661AE3500DACDDB /* UIGlossyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C039498C1661AE3500DACDDB /* UIGlossyButton.m */; };
 		D306E87F162D0B4400F394AF /* locateButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87B162D0B4400F394AF /* locateButton.png */; };
 		D306E880162D0B4400F394AF /* locateButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87C162D0B4400F394AF /* locateButton@2x.png */; };
 		D306E881162D0B4400F394AF /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87D162D0B4400F394AF /* location.png */; };
 		D306E882162D0B4400F394AF /* location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D306E87E162D0B4400F394AF /* location@2x.png */; };
-		D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B0FA161AB0810069B46B /* TimeTableViewCell.m */; };
-		D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */; };
-		D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D320B100161AB9BE0069B46B /* DriverTableViewCell.m */; };
-		D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */; };
 		D32952DB162B67690074D9EC /* co2.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952D9162B67690074D9EC /* co2.png */; };
 		D32952DC162B67690074D9EC /* co2saved.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952DA162B67690074D9EC /* co2saved.png */; };
 		D32952E0162B67810074D9EC /* end@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952DE162B67810074D9EC /* end@2x.png */; };
@@ -26,31 +26,19 @@
 		D32952E9162B67E30074D9EC /* start@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952E8162B67E30074D9EC /* start@2x.png */; };
 		D32952EB162B69F60074D9EC /* routeicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952EA162B69F60074D9EC /* routeicon@2x.png */; };
 		D32952ED162B6A3B0074D9EC /* routeicon.png in Resources */ = {isa = PBXBuildFile; fileRef = D32952EC162B6A3B0074D9EC /* routeicon.png */; };
-		D32952F1162B71860074D9EC /* RZCustomTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D32952EF162B71860074D9EC /* RZCustomTimeViewController.m */; };
-		D32952F2162B71860074D9EC /* RZCustomTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D32952F0162B71860074D9EC /* RZCustomTimeViewController.xib */; };
 		D3295352162BB0CB0074D9EC /* FBConnect.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3295351162BB0CB0074D9EC /* FBConnect.bundle */; };
 		D3655D52161E3ED300862024 /* lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3655D51161E3ED300862024 /* lines@2x.png */; };
-		D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */; };
-		D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */; };
-		D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */; };
-		D37253B91615570500E6244E /* RZRouteDriverSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */; };
 		D390B74616227D5400FD4540 /* RZUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B74516227D5300FD4540 /* RZUser.m */; };
 		D390B75716227F2500FD4540 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75416227F2500FD4540 /* Utils.m */; };
 		D390B75816227F2500FD4540 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B75616227F2500FD4540 /* Constants.m */; };
 		D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */; };
 		D390B7A61622980100FD4540 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D390B7A51622980100FD4540 /* CoreData.framework */; };
-		D390B7AF1622992900FD4540 /* RidezuModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D390B7AD1622992900FD4540 /* RidezuModel.xcdatamodeld */; };
-		D390B7B216229E3200FD4540 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = D390B7B116229E3200FD4540 /* Preferences.m */; };
 		D3AA1F26160E574E00B51488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F25160E574E00B51488 /* UIKit.framework */; };
 		D3AA1F28160E574E00B51488 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F27160E574E00B51488 /* Foundation.framework */; };
 		D3AA1F2A160E574E00B51488 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F29160E574E00B51488 /* CoreGraphics.framework */; };
 		D3AA1F30160E574E00B51488 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F2E160E574E00B51488 /* InfoPlist.strings */; };
 		D3AA1F32160E574E00B51488 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F31160E574E00B51488 /* main.m */; };
 		D3AA1F36160E574E00B51488 /* RZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F35160E574E00B51488 /* RZAppDelegate.m */; };
-		D3AA1F3C160E574E00B51488 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */; };
-		D3AA1F3F160E574E00B51488 /* RZMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */; };
-		D3AA1F42160E574E00B51488 /* RZDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F41160E574E00B51488 /* RZDetailViewController.m */; };
-		D3AA1F45160E574E00B51488 /* RZMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F43160E574E00B51488 /* RZMasterViewController.xib */; };
 		D3AA1F48160E574E00B51488 /* RZDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3AA1F46160E574E00B51488 /* RZDetailViewController.xib */; };
 		D3AA1F50160E574E00B51488 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F4F160E574E00B51488 /* SenTestingKit.framework */; };
 		D3AA1F51160E574E00B51488 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F25160E574E00B51488 /* UIKit.framework */; };
@@ -63,11 +51,7 @@
 		D3AA1F78160E57B600B51488 /* GHMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AA1F76160E57B600B51488 /* GHMenuViewController.m */; };
 		D3AA1F7A160E597F00B51488 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3AA1F79160E597F00B51488 /* QuartzCore.framework */; };
 		D3AEA6BB162E71A5002800B9 /* RZGlobalService.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */; };
-		D3AEA6C3162E7EFA002800B9 /* RZRide.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA6C2162E7EFA002800B9 /* RZRide.m */; };
 		D3AEA6C5162F1246002800B9 /* TestUsers.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3AEA6C4162F1246002800B9 /* TestUsers.plist */; };
-		D3AEA6F6162FBA1B002800B9 /* RZConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AEA6F5162FBA1B002800B9 /* RZConstants.m */; };
-		D3BB250D161BAD5B008CC2D7 /* RZRouteSucessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */; };
-		D3BB250E161BAD5B008CC2D7 /* RZRouteSucessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */; };
 		D3BCCA08161D31B200987648 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA07161D31B200987648 /* AudioToolbox.framework */; };
 		D3BCCA0B161D31B900987648 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA0A161D31B900987648 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D3BCCA0D161D31C100987648 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3BCCA0C161D31C100987648 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -104,17 +88,11 @@
 		D3F1F20F160E6CA50016F6BD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F20E160E6CA50016F6BD /* CoreLocation.framework */; };
 		D3F1F213160E6D0C0016F6BD /* RZLocationPickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */; };
 		D3F1F214160E6D0C0016F6BD /* RZLocationPickViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */; };
-		D3F1F218160E6DF30016F6BD /* RZFBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F216160E6DF30016F6BD /* RZFBLoginViewController.m */; };
-		D3F1F219160E6DF30016F6BD /* RZFBLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F217160E6DF30016F6BD /* RZFBLoginViewController.xib */; };
 		D3F1F21B160E72E40016F6BD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F21A160E72E40016F6BD /* MapKit.framework */; };
 		D3F1F22A160E78CD0016F6BD /* LocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F229160E78CD0016F6BD /* LocationHelper.m */; };
 		D3F1F230160E84F20016F6BD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F22C160E84F20016F6BD /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D3F1F231160E84F20016F6BD /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D3F1F232160E84F20016F6BD /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */; };
-		D3F1F24E160EC76E0016F6BD /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24A160EC76D0016F6BD /* Icon.png */; };
-		D3F1F24F160EC76E0016F6BD /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24B160EC76E0016F6BD /* Icon@2x.png */; };
-		D3F1F250160EC76E0016F6BD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24C160EC76E0016F6BD /* Default.png */; };
-		D3F1F251160EC76E0016F6BD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F24D160EC76E0016F6BD /* Default@2x.png */; };
 		D3F1F259160ED0D00016F6BD /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */; };
 		D3F1F25B160ED10A0016F6BD /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */; };
 /* End PBXBuildFile section */
@@ -130,18 +108,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D306E839162C6DBC00F394AF /* RidezuEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RidezuEngine.h; sourceTree = "<group>"; };
-		D306E83A162C6DBC00F394AF /* RidezuEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RidezuEngine.m; sourceTree = "<group>"; };
+		C03949851661AE3500DACDDB /* RZDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZDetailViewController.h; path = Rizedu/RZDetailViewController.h; sourceTree = "<group>"; };
+		C03949861661AE3500DACDDB /* RZDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZDetailViewController.m; path = Rizedu/RZDetailViewController.m; sourceTree = "<group>"; };
+		C03949871661AE3500DACDDB /* RZBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZBaseViewController.h; path = Rizedu/RZBaseViewController.h; sourceTree = "<group>"; };
+		C03949881661AE3500DACDDB /* RZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZBaseViewController.m; path = Rizedu/RZBaseViewController.m; sourceTree = "<group>"; };
+		C03949891661AE3500DACDDB /* RZOthersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RZOthersViewController.h; path = Rizedu/RZOthersViewController.h; sourceTree = "<group>"; };
+		C039498A1661AE3500DACDDB /* RZOthersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RZOthersViewController.m; path = Rizedu/RZOthersViewController.m; sourceTree = "<group>"; };
+		C039498B1661AE3500DACDDB /* RZOthersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RZOthersViewController.xib; path = Rizedu/RZOthersViewController.xib; sourceTree = "<group>"; };
+		C039498C1661AE3500DACDDB /* UIGlossyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGlossyButton.m; sourceTree = "<group>"; };
+		C039498D1661AE3500DACDDB /* UIGlossyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGlossyButton.h; sourceTree = "<group>"; };
 		D306E87B162D0B4400F394AF /* locateButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locateButton.png; sourceTree = "<group>"; };
 		D306E87C162D0B4400F394AF /* locateButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locateButton@2x.png"; sourceTree = "<group>"; };
 		D306E87D162D0B4400F394AF /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
 		D306E87E162D0B4400F394AF /* location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location@2x.png"; sourceTree = "<group>"; };
-		D320B0F9161AB0810069B46B /* TimeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTableViewCell.h; sourceTree = "<group>"; };
-		D320B0FA161AB0810069B46B /* TimeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTableViewCell.m; sourceTree = "<group>"; };
-		D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeTableViewCell.xib; sourceTree = "<group>"; };
-		D320B0FF161AB9BE0069B46B /* DriverTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverTableViewCell.h; sourceTree = "<group>"; };
-		D320B100161AB9BE0069B46B /* DriverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverTableViewCell.m; sourceTree = "<group>"; };
-		D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverTableViewCell.xib; sourceTree = "<group>"; };
 		D32952D9162B67690074D9EC /* co2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = co2.png; sourceTree = "<group>"; };
 		D32952DA162B67690074D9EC /* co2saved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = co2saved.png; sourceTree = "<group>"; };
 		D32952DE162B67810074D9EC /* end@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "end@2x.png"; sourceTree = "<group>"; };
@@ -152,17 +131,8 @@
 		D32952E8162B67E30074D9EC /* start@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start@2x.png"; sourceTree = "<group>"; };
 		D32952EA162B69F60074D9EC /* routeicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "routeicon@2x.png"; sourceTree = "<group>"; };
 		D32952EC162B6A3B0074D9EC /* routeicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = routeicon.png; sourceTree = "<group>"; };
-		D32952EE162B71860074D9EC /* RZCustomTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZCustomTimeViewController.h; sourceTree = "<group>"; };
-		D32952EF162B71860074D9EC /* RZCustomTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZCustomTimeViewController.m; sourceTree = "<group>"; };
-		D32952F0162B71860074D9EC /* RZCustomTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZCustomTimeViewController.xib; sourceTree = "<group>"; };
 		D3295351162BB0CB0074D9EC /* FBConnect.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBConnect.bundle; sourceTree = "<group>"; };
 		D3655D51161E3ED300862024 /* lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lines@2x.png"; sourceTree = "<group>"; };
-		D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteTimeSelectViewController.h; sourceTree = "<group>"; };
-		D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteTimeSelectViewController.m; sourceTree = "<group>"; };
-		D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteTimeSelectViewController.xib; sourceTree = "<group>"; };
-		D37253B51615570500E6244E /* RZRouteDriverSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteDriverSelectViewController.h; sourceTree = "<group>"; };
-		D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteDriverSelectViewController.m; sourceTree = "<group>"; };
-		D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteDriverSelectViewController.xib; sourceTree = "<group>"; };
 		D390B74416227D5300FD4540 /* RZUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZUser.h; sourceTree = "<group>"; };
 		D390B74516227D5300FD4540 /* RZUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZUser.m; sourceTree = "<group>"; };
 		D390B75316227F2500FD4540 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -172,9 +142,6 @@
 		D390B7641622937100FD4540 /* NSDictionary+JSONCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSONCategories.h"; sourceTree = "<group>"; };
 		D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSONCategories.m"; sourceTree = "<group>"; };
 		D390B7A51622980100FD4540 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D390B7AE1622992900FD4540 /* RidezuModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RidezuModel.xcdatamodel; sourceTree = "<group>"; };
-		D390B7B016229E3200FD4540 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
-		D390B7B116229E3200FD4540 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		D3AA1F21160E574E00B51488 /* Rizedu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rizedu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AA1F25160E574E00B51488 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D3AA1F27160E574E00B51488 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -185,12 +152,6 @@
 		D3AA1F33160E574E00B51488 /* Rizedu-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rizedu-Prefix.pch"; sourceTree = "<group>"; };
 		D3AA1F34160E574E00B51488 /* RZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZAppDelegate.h; sourceTree = "<group>"; };
 		D3AA1F35160E574E00B51488 /* RZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZAppDelegate.m; sourceTree = "<group>"; };
-		D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Rizedu/Default-568h@2x.png"; sourceTree = "<group>"; };
-		D3AA1F3D160E574E00B51488 /* RZMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZMasterViewController.h; sourceTree = "<group>"; };
-		D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZMasterViewController.m; sourceTree = "<group>"; };
-		D3AA1F40160E574E00B51488 /* RZDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RZDetailViewController.h; sourceTree = "<group>"; };
-		D3AA1F41160E574E00B51488 /* RZDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RZDetailViewController.m; sourceTree = "<group>"; };
-		D3AA1F44160E574E00B51488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RZMasterViewController.xib; sourceTree = "<group>"; };
 		D3AA1F47160E574E00B51488 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RZDetailViewController.xib; sourceTree = "<group>"; };
 		D3AA1F4E160E574E00B51488 /* RizeduTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RizeduTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AA1F4F160E574E00B51488 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -211,14 +172,7 @@
 		D3AA1F79160E597F00B51488 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D3AEA6B9162E71A5002800B9 /* RZGlobalService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZGlobalService.h; sourceTree = "<group>"; };
 		D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZGlobalService.m; sourceTree = "<group>"; };
-		D3AEA6C1162E7EFA002800B9 /* RZRide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRide.h; sourceTree = "<group>"; };
-		D3AEA6C2162E7EFA002800B9 /* RZRide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRide.m; sourceTree = "<group>"; };
 		D3AEA6C4162F1246002800B9 /* TestUsers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TestUsers.plist; sourceTree = "<group>"; };
-		D3AEA6F4162FBA1B002800B9 /* RZConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZConstants.h; sourceTree = "<group>"; };
-		D3AEA6F5162FBA1B002800B9 /* RZConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZConstants.m; sourceTree = "<group>"; };
-		D3BB250A161BAD5B008CC2D7 /* RZRouteSucessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZRouteSucessViewController.h; sourceTree = "<group>"; };
-		D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZRouteSucessViewController.m; sourceTree = "<group>"; };
-		D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZRouteSucessViewController.xib; sourceTree = "<group>"; };
 		D3BCCA07161D31B200987648 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D3BCCA0A161D31B900987648 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D3BCCA0C161D31C100987648 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -268,9 +222,6 @@
 		D3F1F210160E6D0C0016F6BD /* RZLocationPickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZLocationPickViewController.h; sourceTree = "<group>"; };
 		D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZLocationPickViewController.m; sourceTree = "<group>"; };
 		D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZLocationPickViewController.xib; sourceTree = "<group>"; };
-		D3F1F215160E6DF20016F6BD /* RZFBLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZFBLoginViewController.h; sourceTree = "<group>"; };
-		D3F1F216160E6DF30016F6BD /* RZFBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZFBLoginViewController.m; sourceTree = "<group>"; };
-		D3F1F217160E6DF30016F6BD /* RZFBLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RZFBLoginViewController.xib; sourceTree = "<group>"; };
 		D3F1F21A160E72E40016F6BD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D3F1F228160E78CD0016F6BD /* LocationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationHelper.h; sourceTree = "<group>"; };
 		D3F1F229160E78CD0016F6BD /* LocationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationHelper.m; sourceTree = "<group>"; };
@@ -279,10 +230,6 @@
 		D3F1F22D160E84F20016F6BD /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
 		D3F1F22E160E84F20016F6BD /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		D3F1F22F160E84F20016F6BD /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
-		D3F1F24A160EC76D0016F6BD /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Rizedu/Icon.png; sourceTree = "<group>"; };
-		D3F1F24B160EC76E0016F6BD /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Rizedu/Icon@2x.png"; sourceTree = "<group>"; };
-		D3F1F24C160EC76E0016F6BD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Rizedu/Default.png; sourceTree = "<group>"; };
-		D3F1F24D160EC76E0016F6BD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Rizedu/Default@2x.png"; sourceTree = "<group>"; };
 		D3F1F258160ED0D00016F6BD /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		D3F1F25A160ED10A0016F6BD /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -384,57 +331,22 @@
 			isa = PBXGroup;
 			children = (
 				D3295351162BB0CB0074D9EC /* FBConnect.bundle */,
-				D390B7AD1622992900FD4540 /* RidezuModel.xcdatamodeld */,
-				D390B7B016229E3200FD4540 /* Preferences.h */,
-				D390B7B116229E3200FD4540 /* Preferences.m */,
-				D306E839162C6DBC00F394AF /* RidezuEngine.h */,
-				D306E83A162C6DBC00F394AF /* RidezuEngine.m */,
 				D390B74416227D5300FD4540 /* RZUser.h */,
 				D390B74516227D5300FD4540 /* RZUser.m */,
-				D3AEA6C1162E7EFA002800B9 /* RZRide.h */,
-				D3AEA6C2162E7EFA002800B9 /* RZRide.m */,
-				D320B0F9161AB0810069B46B /* TimeTableViewCell.h */,
-				D320B0FA161AB0810069B46B /* TimeTableViewCell.m */,
-				D320B0FB161AB0810069B46B /* TimeTableViewCell.xib */,
-				D320B0FF161AB9BE0069B46B /* DriverTableViewCell.h */,
-				D320B100161AB9BE0069B46B /* DriverTableViewCell.m */,
-				D320B101161AB9BE0069B46B /* DriverTableViewCell.xib */,
 				D3AA1F34160E574E00B51488 /* RZAppDelegate.h */,
 				D3AA1F35160E574E00B51488 /* RZAppDelegate.m */,
-				D3AA1F3D160E574E00B51488 /* RZMasterViewController.h */,
-				D3AA1F3E160E574E00B51488 /* RZMasterViewController.m */,
-				D3AA1F40160E574E00B51488 /* RZDetailViewController.h */,
-				D3AA1F41160E574E00B51488 /* RZDetailViewController.m */,
-				D3AEA6F4162FBA1B002800B9 /* RZConstants.h */,
-				D3AEA6F5162FBA1B002800B9 /* RZConstants.m */,
 				D3AEA6B9162E71A5002800B9 /* RZGlobalService.h */,
 				D3AEA6BA162E71A5002800B9 /* RZGlobalService.m */,
 				D3BCCA801621E2FA00987648 /* LoginViewController.h */,
 				D3BCCA811621E2FA00987648 /* LoginViewController.m */,
 				D3BCCA821621E2FB00987648 /* LoginViewController.xib */,
-				D3AA1F43160E574E00B51488 /* RZMasterViewController.xib */,
 				D3AA1F46160E574E00B51488 /* RZDetailViewController.xib */,
 				D3E3E67B16115E4B00E3DC78 /* RZEnrollCompleteViewController.h */,
 				D3E3E67C16115E4B00E3DC78 /* RZEnrollCompleteViewController.m */,
 				D3E3E67D16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib */,
-				D32952EE162B71860074D9EC /* RZCustomTimeViewController.h */,
-				D32952EF162B71860074D9EC /* RZCustomTimeViewController.m */,
-				D32952F0162B71860074D9EC /* RZCustomTimeViewController.xib */,
 				D3F1F210160E6D0C0016F6BD /* RZLocationPickViewController.h */,
 				D3F1F211160E6D0C0016F6BD /* RZLocationPickViewController.m */,
 				D3F1F212160E6D0C0016F6BD /* RZLocationPickViewController.xib */,
-				D3F1F215160E6DF20016F6BD /* RZFBLoginViewController.h */,
-				D3F1F216160E6DF30016F6BD /* RZFBLoginViewController.m */,
-				D3F1F217160E6DF30016F6BD /* RZFBLoginViewController.xib */,
-				D37253AF161556EF00E6244E /* RZRouteTimeSelectViewController.h */,
-				D37253B0161556EF00E6244E /* RZRouteTimeSelectViewController.m */,
-				D37253B1161556EF00E6244E /* RZRouteTimeSelectViewController.xib */,
-				D37253B51615570500E6244E /* RZRouteDriverSelectViewController.h */,
-				D37253B61615570500E6244E /* RZRouteDriverSelectViewController.m */,
-				D37253B71615570500E6244E /* RZRouteDriverSelectViewController.xib */,
-				D3BB250A161BAD5B008CC2D7 /* RZRouteSucessViewController.h */,
-				D3BB250B161BAD5B008CC2D7 /* RZRouteSucessViewController.m */,
-				D3BB250C161BAD5B008CC2D7 /* RZRouteSucessViewController.xib */,
 				D3BCCA7B1620866500987648 /* RZUserProfileViewController.h */,
 				D3BCCA7C1620866500987648 /* RZUserProfileViewController.m */,
 				D3BCCA7D1620866500987648 /* RZUserProfileViewController.xib */,
@@ -497,11 +409,6 @@
 				D306E87C162D0B4400F394AF /* locateButton@2x.png */,
 				D306E87D162D0B4400F394AF /* location.png */,
 				D306E87E162D0B4400F394AF /* location@2x.png */,
-				D3F1F24A160EC76D0016F6BD /* Icon.png */,
-				D3F1F24B160EC76E0016F6BD /* Icon@2x.png */,
-				D3F1F24C160EC76E0016F6BD /* Default.png */,
-				D3F1F24D160EC76E0016F6BD /* Default@2x.png */,
-				D3AA1F3B160E574E00B51488 /* Default-568h@2x.png */,
 				D3BCCA75161E9C7D00987648 /* icon@2x.png */,
 				D3655D51161E3ED300862024 /* lines@2x.png */,
 				D3F1F1BD160E63610016F6BD /* searchBarBG.png */,
@@ -567,6 +474,15 @@
 		D3F1F227160E78BB0016F6BD /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C03949851661AE3500DACDDB /* RZDetailViewController.h */,
+				C03949861661AE3500DACDDB /* RZDetailViewController.m */,
+				C03949871661AE3500DACDDB /* RZBaseViewController.h */,
+				C03949881661AE3500DACDDB /* RZBaseViewController.m */,
+				C03949891661AE3500DACDDB /* RZOthersViewController.h */,
+				C039498A1661AE3500DACDDB /* RZOthersViewController.m */,
+				C039498B1661AE3500DACDDB /* RZOthersViewController.xib */,
+				C039498C1661AE3500DACDDB /* UIGlossyButton.m */,
+				C039498D1661AE3500DACDDB /* UIGlossyButton.h */,
 				D390B7641622937100FD4540 /* NSDictionary+JSONCategories.h */,
 				D390B7651622937100FD4540 /* NSDictionary+JSONCategories.m */,
 				D390B75316227F2500FD4540 /* Utils.h */,
@@ -658,8 +574,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3AA1F30160E574E00B51488 /* InfoPlist.strings in Resources */,
-				D3AA1F3C160E574E00B51488 /* Default-568h@2x.png in Resources */,
-				D3AA1F45160E574E00B51488 /* RZMasterViewController.xib in Resources */,
 				D3AA1F48160E574E00B51488 /* RZDetailViewController.xib in Resources */,
 				D3F1F1C2160E63610016F6BD /* searchBarBG.png in Resources */,
 				D3F1F1C3160E63610016F6BD /* searchBarIcon.png in Resources */,
@@ -667,19 +581,9 @@
 				D3F1F1C5160E63610016F6BD /* searchTextBG.png in Resources */,
 				D3F1F1C6160E63610016F6BD /* user.png in Resources */,
 				D3F1F214160E6D0C0016F6BD /* RZLocationPickViewController.xib in Resources */,
-				D3F1F219160E6DF30016F6BD /* RZFBLoginViewController.xib in Resources */,
 				D3F1F232160E84F20016F6BD /* SVProgressHUD.bundle in Resources */,
-				D3F1F24E160EC76E0016F6BD /* Icon.png in Resources */,
-				D3F1F24F160EC76E0016F6BD /* Icon@2x.png in Resources */,
-				D3F1F250160EC76E0016F6BD /* Default.png in Resources */,
-				D3F1F251160EC76E0016F6BD /* Default@2x.png in Resources */,
 				D3F1F25B160ED10A0016F6BD /* FacebookSDKResources.bundle in Resources */,
 				D3E3E67F16115E4B00E3DC78 /* RZEnrollCompleteViewController.xib in Resources */,
-				D37253B3161556EF00E6244E /* RZRouteTimeSelectViewController.xib in Resources */,
-				D37253B91615570500E6244E /* RZRouteDriverSelectViewController.xib in Resources */,
-				D320B0FD161AB0810069B46B /* TimeTableViewCell.xib in Resources */,
-				D320B103161AB9BE0069B46B /* DriverTableViewCell.xib in Resources */,
-				D3BB250E161BAD5B008CC2D7 /* RZRouteSucessViewController.xib in Resources */,
 				D3655D52161E3ED300862024 /* lines@2x.png in Resources */,
 				D3BCCA76161E9C7D00987648 /* icon@2x.png in Resources */,
 				D3BCCA7F1620866500987648 /* RZUserProfileViewController.xib in Resources */,
@@ -694,13 +598,13 @@
 				D32952E9162B67E30074D9EC /* start@2x.png in Resources */,
 				D32952EB162B69F60074D9EC /* routeicon@2x.png in Resources */,
 				D32952ED162B6A3B0074D9EC /* routeicon.png in Resources */,
-				D32952F2162B71860074D9EC /* RZCustomTimeViewController.xib in Resources */,
 				D3295352162BB0CB0074D9EC /* FBConnect.bundle in Resources */,
 				D306E87F162D0B4400F394AF /* locateButton.png in Resources */,
 				D306E880162D0B4400F394AF /* locateButton@2x.png in Resources */,
 				D306E881162D0B4400F394AF /* location.png in Resources */,
 				D306E882162D0B4400F394AF /* location@2x.png in Resources */,
 				D3AEA6C5162F1246002800B9 /* TestUsers.plist in Resources */,
+				C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -737,8 +641,6 @@
 			files = (
 				D3AA1F32160E574E00B51488 /* main.m in Sources */,
 				D3AA1F36160E574E00B51488 /* RZAppDelegate.m in Sources */,
-				D3AA1F3F160E574E00B51488 /* RZMasterViewController.m in Sources */,
-				D3AA1F42160E574E00B51488 /* RZDetailViewController.m in Sources */,
 				D3AA1F70160E578900B51488 /* GHRevealViewController.m in Sources */,
 				D3AA1F71160E578900B51488 /* GHSidebarSearchViewController.m in Sources */,
 				D3AA1F77160E57B600B51488 /* GHMenuCell.m in Sources */,
@@ -753,29 +655,21 @@
 				D3F1F206160E6B550016F6BD /* MKNetworkOperation.m in Sources */,
 				D3F1F207160E6B550016F6BD /* Reachability.m in Sources */,
 				D3F1F213160E6D0C0016F6BD /* RZLocationPickViewController.m in Sources */,
-				D3F1F218160E6DF30016F6BD /* RZFBLoginViewController.m in Sources */,
 				D3F1F22A160E78CD0016F6BD /* LocationHelper.m in Sources */,
 				D3F1F230160E84F20016F6BD /* MBProgressHUD.m in Sources */,
 				D3F1F231160E84F20016F6BD /* SVProgressHUD.m in Sources */,
 				D3E3E67E16115E4B00E3DC78 /* RZEnrollCompleteViewController.m in Sources */,
-				D37253B2161556EF00E6244E /* RZRouteTimeSelectViewController.m in Sources */,
-				D37253B81615570500E6244E /* RZRouteDriverSelectViewController.m in Sources */,
-				D320B0FC161AB0810069B46B /* TimeTableViewCell.m in Sources */,
-				D320B102161AB9BE0069B46B /* DriverTableViewCell.m in Sources */,
-				D3BB250D161BAD5B008CC2D7 /* RZRouteSucessViewController.m in Sources */,
 				D3BCCA7E1620866500987648 /* RZUserProfileViewController.m in Sources */,
 				D3BCCA831621E2FC00987648 /* LoginViewController.m in Sources */,
 				D390B74616227D5400FD4540 /* RZUser.m in Sources */,
 				D390B75716227F2500FD4540 /* Utils.m in Sources */,
 				D390B75816227F2500FD4540 /* Constants.m in Sources */,
 				D390B7661622937100FD4540 /* NSDictionary+JSONCategories.m in Sources */,
-				D390B7AF1622992900FD4540 /* RidezuModel.xcdatamodeld in Sources */,
-				D390B7B216229E3200FD4540 /* Preferences.m in Sources */,
-				D32952F1162B71860074D9EC /* RZCustomTimeViewController.m in Sources */,
-				D306E83B162C6DBC00F394AF /* RidezuEngine.m in Sources */,
 				D3AEA6BB162E71A5002800B9 /* RZGlobalService.m in Sources */,
-				D3AEA6C3162E7EFA002800B9 /* RZRide.m in Sources */,
-				D3AEA6F6162FBA1B002800B9 /* RZConstants.m in Sources */,
+				C039498E1661AE3500DACDDB /* RZDetailViewController.m in Sources */,
+				C039498F1661AE3500DACDDB /* RZBaseViewController.m in Sources */,
+				C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */,
+				C03949921661AE3500DACDDB /* UIGlossyButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,14 +698,6 @@
 				D3AA1F2F160E574E00B51488 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D3AA1F43160E574E00B51488 /* RZMasterViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D3AA1F44160E574E00B51488 /* en */,
-			);
-			name = RZMasterViewController.xib;
 			sourceTree = "<group>";
 		};
 		D3AA1F46160E574E00B51488 /* RZDetailViewController.xib */ = {
@@ -999,20 +885,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D390B7AD1622992900FD4540 /* RidezuModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D390B7AE1622992900FD4540 /* RidezuModel.xcdatamodel */,
-			);
-			currentVersion = D390B7AE1622992900FD4540 /* RidezuModel.xcdatamodel */;
-			name = RidezuModel.xcdatamodeld;
-			path = ../RidezuModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D3AA1F18160E574E00B51488 /* Project object */;
 }
