@@ -1,3 +1,12 @@
+<style>
+
+textarea {
+	width: 265px;
+	height: 60px;
+	padding: 5px;
+	font-size:18px;
+}
+</style>
 			<div id="r0" style="display:none;">
 			<section id="precontent">
 				<div id="left2">
@@ -30,7 +39,7 @@
 
 			<div id="r1" style="display:none;">
 				<section id="content">
-						<h2>Your next ride is <span id="godate"></span> at <span id="leavetime"></span>. <span id="showmore"></span></h2>
+						<h2><span id="ridedetails"></span> <span id="godate"></span><span id="leavetime"></span>. <span id="nomatch"></span> <span id="showmore"></span></h2>
 						<ul class="info">
 						<div id="ridelist1"></div>
 						</ul>
@@ -42,20 +51,16 @@
 				<div id="rlate" style="display:none;">
 					<section id="content">
 						<h2>How late are you running?</h2>
-						<div data-role="fieldcontain">
-				   			<fieldset data-role="controlgroup" data-type="horizontal">
-		        			
-						   <input type="radio" name="late" id="m2" value="2" checked="checked" /><label for="m2">2 minutes</label>
-						   <input type="radio" name="late" id="m5" value="5"/><label for="m2">5 minutes</label>
-						   <input type="radio" name="late" id="m10" value="10" /><label for="m2">10 minutes</label>
-			   			   <input type="radio" name="late" id="m20" value="20"/><label for="m2">20 minutes</label>
-			   			   <input type="radio" name="late" id="m30" value="30"/><label for="m2">20 minutes</label>
-
-						   </fieldset>
-					   </div>
-					   <span id="newtime">8:10pm</span>
+						<ul>
+						<a href="#" onclick="runninglatemessage('2 minutes');"><li>2 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('5 minutes');"><li>5 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('10 minutes');"><li>10 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('15 minutes');"><li>15 minutes</li></a>
+						<a href="#" onclick="runninglatemessage('20 minutes');"><li>20 minutes</li></a>
+						</ul>
+					<input type="text" id="txtmessage" style="display:none;" value="">
 					</section>
-   					<input type="submit" onclick="sendupdate();" data-role="none" class="primarybutton" value="Send update"/>
+   					<input type="submit" onclick="notlate();" data-role="none" class="primarybutton" value="< back"/>
 
    				</div>
 				
@@ -80,7 +85,31 @@
 					
    				</div>
    
-   				<div id="allrides" style="display:none;"></div>
+   				<div id="allrides" style="display:none;">
+   					<div id="imdriving" style="display:none;">
+   						<section id="precontent">
+   							<h3>I'm Driving</h3>
+   						</section>
+   						
+   						<section id="content">
+   						<ul>
+   						<div id="imdrivingrides"></div>
+   						</ul>
+   						</section>
+   					</div>
+   					
+   					<div id="imriding" style="display:none;">
+   						<section id="precontent">
+   							<h3>I'm Riding</h3>
+   						</section>
+   						
+   						<section id="content">
+   						<ul>
+   						<div id="imridingrides"></div>
+   						</ul>
+   						</section>
+   					</div>
+   				</div>
    				
 			</div>			
 					

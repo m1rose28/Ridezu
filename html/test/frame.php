@@ -5,7 +5,7 @@ include 'header.php';
 
 <script>
 function qlink(page){
-	document.getElementById('i').src="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/index1.php?p="+page;
+	document.getElementById('i').src="http://www.ridezu.com/index1.php?p="+page;
 	}
 </script>
 
@@ -38,7 +38,7 @@ function qlink(page){
 
 		  <div><img src="../images/iphone.png" style="width:397px;height:auto;"/></div>
 			 <div style="background-color:#000;position:relative;top:-616px;left:41px;height:480px; width:320px;">
-			 <iframe id="i" src="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/index1.php" style="width:320px;height:480px;border:none;"/>
+			 <iframe id="i" scrolling="no" src="http://www.ridezu.com/index1.php" style="width:320px;height:480px;border:none;"/>
 			 </div>
 		  </div>
 

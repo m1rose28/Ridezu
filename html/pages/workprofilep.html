@@ -1,0 +1,37 @@
+
+<div id="workprofiled">
+		<div id="r1" style="display:block;">
+			<section id="precontent">
+				<h3>Work</h3>
+			</section>
+				<section id="content">
+				<a href="#" onclick="pickwork()">
+					<ul>
+						<li>
+							<div id="workname"></div>
+							<div id="workadd1"></div>
+							<div id="workcity"></div>
+						</li>
+					</ul>
+					<img id="mapa" class="roundedbottom" src=""/>
+				</a>
+				</section>
+		</div>		
+
+		<div id="r2" style="display:none;">
+			<section id="content">
+ 			   	<fieldset style="text-align:center;padding:0px;margin:0px;">				
+				<input type="text" class="inputaddress" id="location" value="">	
+				<input type="text" id="lat" value="" style="display:none;"/>
+				<input type="text" id="lng" value="" style="display:none;"/>
+				<div class="fullmap">
+					<div id="map_canvas" style="height:300px;width:100%">
+					</div>
+    			</div>
+    			</fieldset>
+								
+			</section>
+				<input type="button" id="mapselecthome" onclick="updatework();" data-role="none" class="primarybutton" value="Select"/>
+				<div><img class="maparrow" src="../images/nav.png"/></div>	
+		</div>
+</div>

@@ -2,7 +2,7 @@ $(document).ready(function(){
 	var pagebody = $("#pagebody");
 	var themenu  = $("#navmenu");
 	var topbar   = $("#toolbarnav");
-	var content  = $("#content");
+	var content  = $("#mainpage");
 	var viewport = {
     	width  : $(window).width(),
     	height : $(window).height()
@@ -12,41 +12,55 @@ $(document).ready(function(){
 	
 	function openme() { 
 		$(function () {
+		    topbar.animate({
+		       left: "260px"
+		    }, { duration: 120,easing: 'linear', queue: false });
 		    pagebody.animate({
-		       left: "280px"
-		    }, { duration: 190, queue: false });
+		       left: "260px"
+		    }, { duration: 120,easing: 'linear', queue: false });
 			themenu.animate({
 		       left: "0px"
-		    }, { duration: 190, queue: false });
+		    }, { duration: 120,easing: 'linear', queue: false });
 		});
 	}
 	
 	function closeme() {
 		var closeme = $(function() {
+	    	topbar.animate({
+	            left: "0px"
+	    	}, { duration: 120, easing: 'linear', queue: false });
 	    	pagebody.animate({
 	            left: "0px"
-	    	}, { duration: 190, queue: false });
+	    	}, { duration: 120, easing: 'linear', queue: false });
 			themenu.animate({
 		       left: "-280px"
-		    }, { duration: 190, queue: false });
+		    }, { duration: 120, easing: 'linear', queue: false });
 		});
 	}
 
 	// checking whether to open or close nav menu
 	$("#menu-btn").live("click", function(e){
 		e.preventDefault();
-		var leftval = pagebody.css('left');
 		
-		if(leftval == "0px") {
-			openme();
+		if(tp==""){
+			var leftval = pagebody.css('left');
+			
+			if(leftval == "0px") {
+				openme();
+			}
+			else { 
+				closeme(); 
+			}
 		}
-		else { 
-			closeme(); 
+		
+		if(tp!=""){
+			navt1();	
 		}
+
 	});
 	
-	
 });
+
 
 	function closeme() {
 	var pagebody = $("#pagebody");
@@ -61,11 +75,14 @@ $(document).ready(function(){
 	// viewport.width / viewport.height
 
 		var closeme = $(function() {
+	    	topbar.animate({
+	            left: "0px"
+	    	}, { duration: 120, easing: 'linear', queue: false });
 	    	pagebody.animate({
 	            left: "0px"
-	    	}, { duration: 190, queue: false });
+	    	}, { duration: 120, easing: 'linear', queue: false });
 			themenu.animate({
 		       left: "-280px"
-		    }, { duration: 190, queue: false });
+		    }, { duration: 120, easing: 'linear', queue: false });
 		});
 	}

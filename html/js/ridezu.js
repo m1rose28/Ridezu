@@ -1,35 +1,51 @@
 // these are all custom functions used by ridezu.  these are here temporarily and should all be moved to ridezu.js (they should also be minified)
+
+// this function loads the current user in a js object, this function is used for all the profile functions 
+
+		function loadmyinfo(){
+		    fbid=localStorage.fbid;
+		    url="/ridezu/api/v/1/users/search/fbid/"+fbid;
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+					myinfo=data;
+					nav("firstp",startpage);
+				    $(document).ready(function() {
+		  				document.getElementById("w").style.display="block";
+						});
+			    	},
+                error: function(data) {alert("Uh oh - is this a valid id?"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+		}
   				
 // this function loads all user data in a js object, this function is used when looking at another user 
 
 		function loaduser(fbid){
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users/search/fbid/"+fbid;
+		    url="/ridezu/api/v/1/users/search/fbid/"+fbid;
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
                 dataType: "json",
                 success: function(data) {
 					userinfo=data;
-					paintuserprofile(userinfo.user.id);
+					paintuserprofile();
 			    	},
                 error: function(data) { alert("Uh oh - does this user exist?"+JSON.stringify(data)); },
                 beforeSend: setHeader
             });
 		}
 
-// this is an example function of updating a user field, e.g. update the user's car to a honda...
-		function updatehonda(){
-				userinfo.user.cartype="Honda";
-				updateuser();
-				}
-
 // this function updates user data with any relevant updates
 
 		function updateuser(){
-
-            	var jsondataset = JSON.stringify(userinfo);
- 				url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users/"+userinfo.id;
-         
+				id=myinfo.id;
+				updateuserflag=false;
+            	var jsondataset = JSON.stringify(myinfo);
+ 				url="/ridezu/api/v/1/users/"+id;
+ 				       
             	var request=$.ajax({
                 url: url,
                 type: "PUT",
@@ -41,9 +57,26 @@
                 });                                     
 		}
 		
-//this function adds commas to long numbers (used in ridezunomics)
+// this function turns strings into currency values
+
+		function curr(amount){
+		var num;
+		num=Number(amount);
+		x = num.toFixed(2);
+		if(x<0){
+			x=x*-1;
+			x="-$"+x;
+			}
+		else {
+			x = "$"+x;
+			}
+		return x;
+		}
+
+// this function adds commas to long numbers (used in ridezunomics)
 											
 		function addCommas(str){
+ 		   if(str==null){str=0;}
  		   var arr,int,dec;
 		   str += '';
 
@@ -54,62 +87,289 @@
  		   return int.replace(/(\d)(?=(\d{3})+$)/g,"$1,") + dec;
 		}
 		 	
+// this function set initiates the calculator and slider function function (fiverr)
 
-//this is the calculator function for ridezunomics
+		function calcinit(){
+
+			function MobileSlider(container, options) {
+				this.init(container, options);
+			}
+			
+			MobileSlider.prototype.init = function init(container, options) {
+				if(typeof container === "string") {
+					this.container_element = document.getElementById(container);
+				} else {
+					this.container_element = container;
+				}
+				
+				this.events = {
+					start: ['touchstart', 'mousedown'],
+					move: ['touchmove', 'mousemove'],
+					end: ['touchend', 'touchcancel', 'mouseup']
+				};
+				
+				this.options = options;
+				
+				this.allowDecimals = this.options.decimals;
+				this.decimalPlaces = this.options.decimal_places;
+				
+				if(this.options.toggle) {
+					this.options.start = 0;
+					this.options.min = 0;
+					this.options.max = 1;
+					this.allowDecimals = true;
+					this.decimalPlaces = 2;
+					
+					var option1 = document.createElement('span');
+					option1.innerHTML = this.options.toggle_values[1];
+					option1.setAttribute("id", "option1");
+					option1.setAttribute("class", "togglespan");
+					this.container_element.appendChild(option1);
+					
+					var option0 = document.createElement('span');
+					option0.innerHTML = this.options.toggle_values[0];
+					option0.setAttribute("id", "option0");
+					option0.setAttribute("class", "togglespan");
+					this.container_element.appendChild(option0);
+					
+					var selected_value_element = document.createElement("span");
+					selected_value_element.setAttribute("id", "selectedvalue");
+					this.container_element.appendChild(selected_value_element);
+					this.selected_value_element = document.getElementById("selectedvalue");
+					
+					option1.style.left = option1.offsetWidth +"px";
+					
+				}
+			
+				this.supportsWebkit3dTransform = (
+				  'WebKitCSSMatrix' in window && 
+				  'm11' in new WebKitCSSMatrix()
+				);
+				
+				this.circle = this.container_element.getElementsByClassName('circle')[0];
+				this.bar = this.container_element.getElementsByClassName('bar')[0];
+				
+				this.start = this.start.bind(this);
+				this.move = this.move.bind(this);
+				this.end = this.end.bind(this);
+				
+				this.addEvents("start");
+				this.setValue(this.options.start);
+			};
+			
+			MobileSlider.prototype.addEvents = function addEvents(name) {
+				var list = this.events[name];
+				var handler = this[name];
+				
+				for (var next in list){
+				  this.container_element.addEventListener(list[next], handler, false);
+				}
+			};
+			
+			MobileSlider.prototype.removeEvents = function removeEvents(name){ 
+				var list = this.events[name];
+				var handler = this[name];
+				  
+				for (var next in list){
+				  this.container_element.removeEventListener(list[next], handler, false);
+				}
+			};
+			
+			MobileSlider.prototype.start = function start(event) {	
+				this.addEvents("move");
+				this.addEvents("end");
+				this.handle(event);
+			};
+			
+			MobileSlider.prototype.move = function move(event) {
+				this.handle(event);
+			};
+			
+			MobileSlider.prototype.end = function end(event) {
+				this.removeEvents("move");
+				this.removeEvents("end");
+			};
+			
+			MobileSlider.prototype.setValue = function setValue(value) {
+				if (value === undefined){ value = this.options.min; }
+				
+				value = Math.min(value, this.options.max);
+				value = Math.max(value, this.options.min);
+				
+				var circleWidth = this.circle.offsetWidth;
+				var barWidth = this.bar.offsetWidth;
+				var range = this.options.max - this.options.min;
+				var width = barWidth - circleWidth;
+				var position = Math.round((value - this.options.min) * width / range);
+			
+				this.setCirclePosition(position);
+				this.value = value;
+				this.callback(value);
+			};
+			
+			MobileSlider.prototype.setCirclePosition = function setCirclePosition(x_position) {
+				
+				if (this.supportsWebkit3dTransform) {
+					this.circle.style.webkitTransform = 'translate3d(' + x_position + 'px, 0, 0)';
+					if(this.options.toggle) {
+						var option0 = document.getElementById("option0");
+						var option1 = document.getElementById("option1");
+						
+						option0.style.webkitTransform = 'translate3d(' + ((option0.offsetLeft)-x_position) + 'px, 0, 0)';
+						option1.style.webkitTransform = 'translate3d(' + ((option0.offsetLeft - 20)-x_position) + 'px, 0, 0)';
+						
+						this.setToggleValue();
+					}
+				} else {
+					this.circle.style.webkitTransform = 
+					this.circle.style.MozTransform = 
+					this.circle.style.msTransform = 
+					this.circle.style.OTransform = 
+					this.circle.style.transform = 'translateX(' + x_position + 'px)';
+				  
+					if(this.options.toggle) {
+						var option0 = document.getElementById("option0");
+						var option1 = document.getElementById("option1");
+						
+						option0.style.webkitTransform = 
+						option0.style.MozTransform = 
+						option0.style.msTransform = 
+						option0.style.OTransform = 
+						option0.style.transform = 'translateX(' + ((option0.offsetLeft)-x_position) + 'px)';
+						
+						option1.style.webkitTransform = 
+						option1.style.MozTransform = 
+						option1.style.msTransform = 
+						option1.style.OTransform = 
+						option1.style.transform = 'translateX(' + ((option0.offsetLeft - 20)-x_position) + 'px)';
+						
+						this.setToggleValue();
+					}
+				}
+			};
+			
+			
+			MobileSlider.prototype.handle = function handle(event) {
+				event.preventDefault();
+				if (event.targetTouches){ event = event.targetTouches[0]; }
+			  
+				var position = event.pageX; 
+				var element;
+				var circleWidth = this.circle.offsetWidth;
+				var barWidth = this.bar.offsetWidth;
+				var width = barWidth - circleWidth;
+				var range = (this.options.max - this.options.min);
+				var value;
+				  
+				for (element = this.element; element; element = element.offsetParent) {
+				  position -= element.offsetLeft;
+				}
+				
+				position += circleWidth / 2;
+				position = Math.min(position, barWidth);
+				position = Math.max(position - circleWidth, 0);
+			  
+				this.setCirclePosition(position);
+					value = (this.options.min + (position * range / width)).toFixed(this.decimalPlaces);
+				if(this.allowDecimals) {
+					
+				} else {
+					value = this.options.min + Math.round(position * range / width);
+				}
+				this.setValue(value);
+			};
+			
+			MobileSlider.prototype.callback = function callback(value) { 
+				if (this.options.update){
+					this.options.update(value);
+				}
+			};
+
+			var slider1 = new MobileSlider("slider1", {
+			    start: 25,
+			    min: 1,
+			    max: 100,
+			    update: function(value) {
+			        document.getElementById("slidervaluea").innerHTML = value;
+			    }
+			});
+			
+			var slider2 = new MobileSlider("slider2", {
+				decimals: true,
+				decimal_places: 2,
+			    start: 3.85,
+			    min: 3.00,
+			    max: 6.00,
+			    update: function(value) {
+			        document.getElementById("slidervalueb").innerHTML = value;
+			    }
+			});
+			
+			var slider3 = new MobileSlider("slider3", {
+			    start: 25,
+			    min: 10,
+			    max: 60,
+			    update: function(value) {
+			        document.getElementById("slidervaluec").innerHTML = value;
+			    }
+			});
+			
+		}
+
+// this is the calculator function for ridezunomics
 
 		function calcv(){
 
-		miles=document.getElementById('slider1').value;
-		utype=$('input[name=usertype]:radio:checked').val();
-		gas=document.getElementById('slider2').value;
-		mpg=document.getElementById('slider3').value;
-				
-		if(utype=='driver'){
-			tmiles=miles*240*2;
-			ftmiles=addCommas(Math.round(tmiles));
-			cost=tmiles/mpg*gas;
-			fcost=addCommas(Math.round(cost));
-			pickup=.25;
-			revpermile=.10;
-			totrev=240*2*(pickup+(revpermile*miles));
-			ftotrev=addCommas(Math.round(totrev));
-			totcarbon=tmiles/mpg*20;
-			ftotcarbon=addCommas(Math.round(totcarbon));
-			copy="<span class='popuptext'>This year you're going to drive <b>"+ftmiles+"</b> miles.<br><br>In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</span>";
+			miles=document.getElementById('slidervaluea').innerHTML;
+			if(document.getElementById("driver").checked=="checked"){utype="driver";} else {utype="rider";}
+			gas=document.getElementById('slidervalueb').innerHTML;
+			mpg=document.getElementById('slidervaluec').innerHTML;
+								
+			if(utype=='driver'){
+				tmiles=miles*240*2;
+				ftmiles=addCommas(Math.round(tmiles));
+				cost=tmiles/mpg*gas;
+				fcost=addCommas(Math.round(cost));
+				pickup=.25;
+				revpermile=.10;
+				totrev=240*2*(pickup+(revpermile*miles));
+				ftotrev=addCommas(Math.round(totrev));
+				totcarbon=tmiles/mpg*20;
+				ftotcarbon=addCommas(Math.round(totcarbon));
+				message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
 			}
 		
-		if(utype=='rider'){
+			if(utype=='rider'){
 
-			tmiles=miles*240*2;
-			ftmiles=addCommas(tmiles);
-			cost=Math.round(tmiles/mpg*gas);
-			fcost=addCommas(Math.round(cost));
-			pickup=.25;
-			ridezufee=.25;
-			revpermile=.10;
-			totrev=240*2*(ridezufee+pickup+(revpermile*miles));
-			ftotrev=addCommas(Math.round(totrev));
-			savings=Math.round(cost-totrev);
-			fsavings=addCommas(Math.round(savings));
-			totcarbon=tmiles/mpg*20;
-			ftotcarbon=addCommas(Math.round(totcarbon));
+				tmiles=miles*240*2;
+				ftmiles=addCommas(tmiles);
+				cost=Math.round(tmiles/mpg*gas);
+				fcost=addCommas(Math.round(cost));
+				pickup=.25;
+				ridezufee=.25;
+				revpermile=.10;
+				totrev=240*2*(ridezufee+pickup+(revpermile*miles));
+				ftotrev=addCommas(Math.round(totrev));
+				savings=Math.round(cost-totrev);
+				fsavings=addCommas(Math.round(savings));
+				totcarbon=tmiles/mpg*20;
+				ftotcarbon=addCommas(Math.round(totcarbon));
 
-
-			if(savings>0){
-			copy="<span class='popuptext'>This year you're going to drive <b>"+ftmiles+"</b> miles.<br><br>In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<p>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</span>";
+				if(savings>0){
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+				}
+	
+				if(savings<=0){
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+				}
 			}
-
-			if(savings<=0){
-			copy="<span class='popuptext'>This year you're going to drive <b>"+ftmiles+"</b> miles.<br><br>In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.<br><br>This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</span>";
-			}
-			}
-			showpopup(copy);
+			openconfirm(); 
 		}
 		
-//this is the navigation system. which shows (to) and hides (from) pages as well as invokes specific
-//javascript for individual pages to load 
+// anything with a "nav" is the navigation system. which shows (to) and hides (from) pages as well as invokes specific
+// javascript for individual pages to load.   
 
-// function to link from navigation side window (close window) and move on
+// function set to link from navigation side window (close window) or from primary windows to eachother
 
 		function nav1(to){
 			closeme();
@@ -119,8 +379,19 @@
 			}
 					
 		function nav(from, to){
+			document.getElementById('pTitle').innerHTML=pageTitles[to];
+			document.getElementById('temp').innerHTML="";
+
+			if(client=="widget"){
+				parent.updateTitle(pageTitles[to]);
+				}
+			document.getElementById(p).style.display="none";		
+			document.getElementById(p).innerHTML="";		
+			document.getElementById(to).style.display="none";
+			if(client=="mweb"){scrollTo(0,0);}						
+			url="pages/"+ to + ".html";
 			$.ajax({
-  			url: "pages/"+ to + ".html",
+  			url: url,
   			cache: false,
   			dataType: "html"
 			}).done(function( html ) {
@@ -132,108 +403,219 @@
 		}
 			
 		function nav2(from,to){
-			testdata="Logged in as: " + localStorage.first_name+" "+localStorage.last_name+" : "+localStorage.fbid;
-			testlink="<a class='tlink' href='http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/test/servicetest.php?uid="+localStorage.fbid+"' target='ridezutest'>"+testdata+"</a>";
-			document.getElementById('pTitle').innerHTML=pageTitles[to];
-			document.getElementById('testbar').innerHTML=testlink;
-			document.getElementById(p).style.display="none";		
-			document.getElementById(p).innerHTML="";		
-			scrollTo(0,0);
-			document.getElementById(to).style.display="block";
 			p=to;
+			navinit(to);
+		}
+
+// function set to move from primary pages to secondary pages (the arrow button).  
+// here the original primary page dom is kept in place.  when you navigate "back" the 
+// tp dom is erased.  also whenever you use the cor nav function the tp div is erased.
+	
+		function navt1(){
+			tp="";
+  			document.getElementById("temp").innerHTML="";
+  			document.getElementById('pTitle').innerHTML=pageTitles[p];
+			if(client=="widget"){
+				parent.updateTitle(pageTitles[to]);
+				parent.showarrow();
+				}
+			document.getElementById(p).style.display="block";
+			document.getElementById("menub").src="../images/menu.png";
+			}
+
+		function navt(from, to){
+			document.getElementById('pTitle').innerHTML=pageTitles[to];
+			if(client=="widget"){
+				parent.updateTitle(pageTitles[to]);
+				}
+			document.getElementById(from).style.display="none";		
+			if(client=="mweb"){scrollTo(0,0);}						
+			url="pages/"+ to + ".html";
+			tp=to;
+			document.getElementById("menub").src="../images/back.png";
+			$.ajax({
+  			url: url,
+  			cache: false,
+  			dataType: "html"
+			}).done(function( html ) {
+  				document.getElementById("temp").innerHTML=html;
+				xx=document.getElementById("temp");
+				$(xx).trigger('create');
+  				navinit(to);  				
+				});
+		}
+		
+// this function initiates a page (runs initial js function so the page can operate)
+
+		function navinit(to){
+		
+		// this function pushes the page to google analytics
+		_gaq.push(['_trackEvent', 'Pageview', 'View', to ]);
+		
+			if(to=="accountp"){
+				account();
+				}
+
+			if(to=="calcp"){
+				calcinit();
+				}
+				
+			if(to=="contactinfop"){
+				contactinfoinit();
+				}
+
+			if(to=="driverp"){
+				dverifyinit();
+				}
 
 			if(to=="enrollp"){
 				document.getElementById("topbar").style.display="block";		
-			  	copy="First, type in or select your home address.<br><br>This address never be shared.";
-			  	showpopup(copy);
+			  	message="<p>First, type in or select your home address.<br><br>Your home address will never be shared.</p>";
+			  	openconfirm();
 			  	getLocation();
-				}
-
-			if(to=="userprofilep"){
-				if(userprofile===undefined){userprofile=localStorage.fbid;}
-				loaduser(userprofile);
-				}
-			
-			if(to=="startp" || p=="startp"){
-				document.getElementById("topbar").style.display="none";		
-				}
-
-			if(to=="riderequestp"){
-				getlist("driver");
-				$('#route').bind('swipeleft', function(){
- 					localStorage.date=rlist.date;
- 					alert("next day...");
- 					role=localStorate.role;
- 					getlist(role,rlist.route,rlist.nextdate);					
-         			});
-				$('#route').bind('swiperight', function(){
- 					alert("prior day...");
- 					pdate=localStorage.date;
- 					role=localStorage.role;
- 					getlist(role,rlist.route,pdate);
-         			});
-				}
-
-			if(to=="ridepostp"){
-				getlist("rider");
-				$('#route').bind('swipeleft', function(){
- 					localStorage.date=rlist.date;
- 					alert("next day...");
- 					role=localStorage.role;
- 					getlist(role,rlist.route,rlist.nextdate);					
-         			});
-				$('#route').bind('swiperight', function(){
- 					alert("prior day...");
- 					pdate=localStorage.date;
- 					role=localStorage.role;
- 					getlist(role,rlist.route,pdate);
-         			});
-				}
-
-			if(to=="myridesp"){
-				myrides();
-				}
-				
-			if(to=="loginp"){
-				getuserlist();
-				}
-				
-			if(to=="transactionp"){
-				$("tr:odd").css("background-color", "#ffffff");
 				}
 
 			if(to=="fbp"){
 				facebook();
 				}
+				
+			if(to=="homeprofilep"){
+				homeprofileinit();
+				}
+	
+			if(to=="loginp"){
+				getuserlist();
+				}
+
+			if(to=="myridesp"){
+				myrides();
+				}
+
+			if(to=="notifyp"){
+				notifyinit();
+				}
+
+			if(to=="payoutp"){
+				payoutinfoinit();
+				}
+
+			if(to=="paymentp"){
+				paymentinfoinit();
+				}	
+														
+			if(to=="ridedetailsp"){
+				ridedetails();
+				}
+
+			if(to=="ridepostp"){
+				getlist("rider");
+				$('#route').bind('swipeleft', function(){
+ 					info.date=rlist.date;
+ 					alert("next day...");
+ 					role=info.role;
+ 					getlist(role,rlist.route,rlist.nextdate);					
+         			});
+				$('#route').bind('swiperight', function(){
+ 					alert("prior day...");
+ 					pdate=info.date;
+ 					role=info.role;
+ 					getlist(role,rlist.route,pdate);
+         			});
+				}
+
+			if(to=="riderequestp"){
+				getlist("driver");
+				$('#route').bind('swipeleft', function(){
+ 					info.date=rlist.date;
+ 					alert("next day...");
+ 					role=info.role;
+ 					getlist(role,rlist.route,rlist.nextdate);					
+         			});
+				$('#route').bind('swiperight', function(){
+ 					alert("prior day...");
+ 					pdate=info.date;
+ 					role=info.role;
+ 					getlist(role,rlist.route,pdate);
+         			});
+				}
+
+			if(to=="startp" || p=="startp"){
+				document.getElementById("topbar").style.display="none";		
+				document.getElementById(p).style.display="block";	    
+				}
+
+			if(to=="transactionp"){
+				accountdetail();
+				}
+
+			if(to=="userprofilep"){
+				fbid=myinfo.fbid;
+				if(userfbid!=undefined){fbid=userfbid;}
+				loaduser(fbid);
+				}
+			
+			if(to=="workprofilep"){
+				workprofileinit();
+				}
+
+			if(to=="pricingp" || to=="mainp" || to=="profilep" || to=="howitworksp" || to=="termsp" || to=="faqp" || to=="calcp" || to=="fbp" || to=="enrollp" || to=="congratp"){
+				document.getElementById(p).style.display="block";	    
+				}
+
+			if(updateuserflag==true){alert("I'm updating");updateuser();}
+		}		
+
+// this function turns on a loading indicator.  only use when making a non-cached server call.
+
+		function pleasehold(){
+			document.getElementById("loading").style.display="block";
 		}
 
-//this removes the popup when you click on it.   
+// this function paints a page after it's full loaded and turns off the loading indicator
 
-		function showpopup(content){
-			//document.getElementById("darkpage").style.display="block";
-			document.getElementById('rpopup').innerHTML=content;
-			document.getElementById('rpopup').style.display="block";
-			}
-
-		function rempopup(){
-			//document.getElementById("darkpage").style.display="none";
-			document.getElementById("rpopup").style.display="none";
-			}
-		
-//this is a function to load html via ajax (need to generalize for all pages loaded via ajax)
-		
-		function loadpage(page){
-			$.ajax({
-  			url: "pages/"+ page + ".html",
-  			cache: true
-			}).done(function( html ) {
-  				document.getElementById(page).innerHTML=html;
-				});
+		function loading(p){
+			document.getElementById(p).style.display="block";
+			document.getElementById("loading").style.display="none";
 		}
-		
-//this is the main map function (method is type of function, e.g. enroll, myspot is lat/long, and zoom level is obvious :-)
+	
+// these two functions show the alert dialog (and process functions, if required)
 
-  		function loadMap(method,myspot,zoomlevel){
+		function openconfirm(){
+			document.getElementById('confirm-message').innerHTML=message;
+			document.getElementById('cancel-button').innerHTML=cancelmessage;
+			document.getElementById('ok-button').innerHTML=okmessage;
+			if(showcancel==true){document.getElementById('cancel-button').style.display="block";document.getElementById('ok-button').style.float="left"}
+			if(showcancel==false){document.getElementById('ok-button').style.float="center";}
+			$('#confirm-background').fadeIn({ duration: 100 });		
+			}
+			
+		function closeconfirm(action){
+			if(action=="ok" && confirmfunction!=""){window[confirmfunction]();}
+			document.getElementById('cancel-button').style.display="none";	
+			showcancel=false;
+			confirmfunction="";
+			okmessage="OK";
+			cancelmessage="Cancel";
+			message="";
+			$('#confirm-background').fadeOut({ duration: 100 });
+			}		
+		
+// this function takes a physical address and turns into lat long
+
+		function getaddr(){
+			var addr1=document.getElementById('location').value;
+			geocoder.geocode( { 'address': addr1}, function(results, status) {
+				 if (status == google.maps.GeocoderStatus.OK) {
+				   map.setCenter(results[0].geometry.location);
+				 } else {
+				   alert('Geocode was not successful for the following reason: ' + status);
+				 }
+			   });
+			}
+
+// this is the main map function (method is type of function, e.g. enroll, myspot is lat/long, and zoom level is obvious :-)
+
+  		function loadMap(method,myspot,zoomlevel,marker){
   	        
         	geocoder = new google.maps.Geocoder();
         
@@ -249,57 +631,155 @@
   		  		overviewMapControl: false
           		};
   
-	        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
   
-	        var targetDiv = document.createElement('div');
-          
-     	    targetDiv.innerHTML = '<img style="margin-top:-30px;" src="images/circle.png"/>';
-  			targetDiv.style.postion = 'absolute';
-  			targetDiv.style.left = '50%';
-  			targetDiv.style.top = '50%';
-  			targetDiv.style.height = '50px';
-	        targetDiv.index = 1;
-	        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(targetDiv);
+	        if(method=="pick"){
+	        
+				 var targetDiv = document.createElement('div');
+			   
+				 targetDiv.innerHTML = '<img style="margin-top:-30px;" src="images/circle.png"/>';
+				 targetDiv.style.postion = 'absolute';
+				 targetDiv.style.left = '50%';
+				 targetDiv.style.top = '50%';
+				 targetDiv.style.height = '50px';
+				 targetDiv.index = 1;
+				 map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(targetDiv);
+	 
+				 google.maps.event.addListener(map, 'center_changed', function() {
+					 window.setTimeout(function() {
+						 a=map.getCenter();
+						 marker1.setPosition(a);
+							 },1000);
+					 window.setTimeout(function() {
+						 codeLatLng();	
+							 },1000);
+	 
+				 });
+				 	 
+				 if(marker=="home"){var image = 'images/basehmarker.png';}  
+				 if(marker=="work"){var image = 'images/basecmarker.png';}  
+													
+				 var marker1 = new google.maps.Marker({
+					 position: myspot,
+					 icon:image,
+					 });
+	 
+				 // adds the initial marker to the page
+				 marker1.setMap(map);
+				 codeLatLng();
+				 
+				}
 
-	        google.maps.event.addListener(map, 'center_changed', function() {
-    			window.setTimeout(function() { 
-        		a=map.getCenter();
-            	codeLatLng();
-           		marker1.setPosition(a);
-           		}, 500);
-  			});
-                                               
-	      	var image = 'images/marker.png';   
-      	
-	      	var marker1 = new google.maps.Marker({
-    			position: myspot,
-    			icon:image,
-				});
+			if(method=="pickselect"){
 
-			// adds the initial marker to the page
-			marker1.setMap(map);
-			codeLatLng();
-      	
-// this function turns lat/long into a real address 
- 
+				 var targetDiv = document.createElement('div');
+				 
+				 if(marker=="home"){var image = 'images/basehmarker.png';nodetype="H";}  
+				 if(marker=="work"){var image = 'images/basecmarker.png';nodetype="W";}  
+				 
+				 var marker1 = new google.maps.Marker({
+					 position: myspot,
+					 icon:image,
+					 });
+	 
+				 // adds the initial marker to the page
+				 marker1.setMap(map);
+			   
+				 targetDiv.innerHTML = '<img style="margin-top:-30px;" src="images/circle.png"/>';
+				 targetDiv.style.postion = 'absolute';
+				 targetDiv.style.left = '50%';
+				 targetDiv.style.top = '50%';
+				 targetDiv.style.height = '50px';
+				 targetDiv.index = 1;
+				 map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(targetDiv);
+
+				 google.maps.event.addListener(map, 'center_changed', function() {
+					 window.setTimeout(function() {
+						 codeLatLng();	
+							 },1000);
+	 
+				 });
+			
+				function getnodes(nodetype){
+  			      	fbid=myinfo.fbid;
+				    url="/ridezu/api/v/1/users/search/fbid/"+fbid+"/location/"+nodetype;
+					var request=$.ajax({
+						url: url,
+						type: "GET",
+						dataType: "json",
+						success: function(data) {
+							nodelist=data;
+							paintnodes(data); },
+						error: function(data) { alert("boo!"+JSON.stringify(data)); },
+						beforeSend: setHeaderUser
+					});
+				}
+				
+				function paintnodes(nodelist){
+				
+					$.each(nodelist, function(key, value) {
+			  		if(value.type=="Park and Ride"){
+			  			icn="../images/basepmarker.png";
+			  			}
+			  		
+			  		if(value.type=="Company"){
+			  			icn="../images/basecmarker.png";
+			  			}
+
+			  		if(value.custommarker!=""){
+			  			icn="../images/"+value.custommarker+".png";
+			  			}
+	
+					x=value.latlong;
+					y=x.split(",");
+					c=new google.maps.LatLng(y[0],y[1]);
+					m[key]=new google.maps.Marker({
+						position:c,
+						map: map,
+						icon: icn
+						});
+					
+					google.maps.event.addListener(m[key], 'click', function() {
+						a=nodelist[key].latlong;
+						b=a.split(",");
+						info.lat=b[0];
+						info.lng=b[1];
+						desc=nodelist[key].name;
+						if(nodelist[key].campus!=""){
+							desc=desc+" ("+nodelist[key].campus+")";
+							}
+						info.desc=desc;
+						document.getElementById("location").value=desc;
+						});
+			  		});
+				}
+				getnodes(nodetype);		
+			}
+
+		// this function turns lat/long into a real address 
+
+  	  	
   	  	function codeLatLng() {
 		    var ctr = map.getCenter();
   			var lat = ctr.lat();
   			var lng = ctr.lng();
       		var latlng = new google.maps.LatLng(lat, lng);
+  
+            window.setTimeout(function() {
+
       		geocoder.geocode({'latLng': latlng}, function(results, status) {
         		if (status == google.maps.GeocoderStatus.OK) {
           			if (results[1]) {
       	      			locationselect(results[0].formatted_address,lat,lng);
           				}
-        			} else {
-          			alert("Geocoder failed due to: " + status);
-        			}
+        			} 
       			});
-    		}             
+            },1000);
+ 		
+    		}              
   		}
   
-//this function set(2) gets your actual location (used only at enroll, the balance of the time we'll have your address)	
+// this function set(2) gets your actual location (used only at enroll, the balance of the time we'll have your address)	
 
 		function getLocation(){
   			if (navigator.geolocation){
@@ -309,65 +789,65 @@
   				}
 
 		function showPosition(position){
-			var myspot = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-			loadMap("enroll",myspot,18);
+			myspot = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+			loadMap("pick",myspot,18,"home");
   			}
   		
 // this is a map function which places the value of the user location in the text field of location
 
 		function locationselect(location,lat,lng){
-  			document.getElementById('location').value=location;
+			str1 = location.split(',');
+			str2 = str1[2].split(" ");
+			info.add1=str1[0];
+			info.state=str2[1];
+			info.city=str1[1];
+			info.zip=str2[2];
+			info.hcountry=str1[3];
+  			document.getElementById('location').value=str1[0]+", "+str1[1];
   			document.getElementById('lat').value=lat;
   			document.getElementById('lng').value=lng;
+  			info.lat=lat;
+  			info.lng=lng;
 		}
 
 // this function parses/stores the home address and then moves to the work address
 
 		function enrollhome(){
-			eloc=document.getElementById('location').value;
-			var str1 = eloc.split(',');
-			var str2 = str1[2].split(" ");
-			localStorage.hadd1=str1[0];
-			localStorage.hstate=str2[1];
-			localStorage.hcity=str1[1];
-			localStorage.hzip=str2[2];
-			localStorage.hcountry=str1[3];
-			localStorage.hlat=document.getElementById('lat').value;
-			localStorage.hlng=document.getElementById('lng').value;
+			document.getElementById("enrollp").style.display="block";	    
+			loadMap("pick",myspot,9,"work");
+			myinfo.add1=info.add1;
+			myinfo.state=info.state;
+			myinfo.city=info.city;
+			myinfo.zip=info.zip;
+			myinfo.homelatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 			document.getElementById("mapselecthome").style.display="none";
 			document.getElementById("mapselectwork").style.display="block";
 			document.getElementById('pTitle').innerHTML="Where do you work?";
-		  	copy="Well done!<br><br>Next, please tell us where you work.";
-		  	showpopup(copy);
+		  	message="<p>Well done!<br><br>Next, please tell us where you work.</p>";
+		  	document.getElementById('location').value="Company name, city";
+		  	openconfirm();
 			}
 
 // this function parses/stores the home address and then moves to the work address
 
 		function enrollwork(){
-			eloc=document.getElementById('location').value;
-			var str1 = eloc.split(',');
-			var str2 = str1[2].split(" ");
-			localStorage.wadd1=str1[0];
-			localStorage.wstate=str2[1];
-			localStorage.wcity=str1[1];
-			localStorage.wzip=str2[2];
-			localStorage.wcountry=str1[3];
-			localStorage.wlat=document.getElementById('lat').value;
-			localStorage.wlng=document.getElementById('lng').value;
-			//need to store here
+			myinfo.workadd1=info.add1;
+			myinfo.workstate=info.state;
+			myinfo.workcity=info.city;
+			myinfo.workzip=info.zip;
+			myinfo.worklatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 			nav('enroll','fbp');
 			}
-
+			
 // below are the facebook functions.  they are optimized purely for the enrollment flow to get data from the user.
 // they are loaded from calling facebook();
 
 		function facebook(){
 		  document.getElementById('login').style.display="block";
-		  document.getElementById('logout').style.display="block";
 		  window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '443508415694320', // App ID
-			  channelUrl : 'ec2-50-18-0-33.us-west-1.compute.amazonaws.com/channel.html', // Channel File
+			  channelUrl : 'ridezu.com/channel.html', // Channel File
 			  status     : true, // check login status
 			  cookie     : true, // enable cookies to allow the server to access the session
 			  xfbml      : true  // parse XFBML
@@ -395,13 +875,12 @@
 			}
 		  function updateUserInfo(response) {
 			 FB.api('/me', function(response) {
-			   document.getElementById('user-info').innerHTML = '<br/<br/>ps.  I got all your data. <br/<br/><img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
-			   localStorage.response=JSON.stringify(response);
-			   localStorage.first_name=response.first_name;
-			   localStorage.last_name=response.last_name;
-			   localStorage.image="https://graph.facebook.com/" + response.id + "/picture";
+			   myinfo.profileblob=JSON.stringify(response);
+			   myinfo.fname=response.first_name;
+			   myinfo.lname=response.last_name;
+			   myinfo.fbid=response.id;
 			   localStorage.fbid=response.id;
-			   localStorage.email=response.email;
+			   myinfo.email=response.email;
 			   // now register the new user
 			   regnewuser();
 			   //and go to the congratulations page
@@ -417,34 +896,34 @@
 		function logoutUser() {    
 			 FB.logout();
 			 alert("Logged-out");
-			 document.getElementById('user-info').innerHTML="";
 			 }
 
 // this function set (2) creates a new user as part of the enroll flow
 
 		function regnewuser(){
 			var dataset = {
-				"fbid":	localStorage.fbid,
-				"fname": localStorage.first_name,
-				"lname": localStorage.last_name,
-				"add1": localStorage.hadd1,
-				"city": localStorage.hcity,
-				"state": localStorage.hstate,	
-				"zip": localStorage.hzip,
-				"workadd1": localStorage.wadd1,
-				"workcity": localStorage.wcity,
-				"workstate": localStorage.wstate,	
-				"workzip": localStorage.wzip,
-				"email": localStorage.email,
-				"homelatlong": localStorage.hlat+","+localStorage.hlng,
-				"worklatlong": localStorage.wlat+","+localStorage.wlng,
-				"profileblob": localStorage.response,
+				"fbid":	myinfo.fbid,
+				"fname": myinfo.fname,
+				"lname": myinfo.lname,
+				"add1": myinfo.add1,
+				"city": myinfo.city,
+				"state": myinfo.state,	
+				"zip": myinfo.zip,
+				"workadd1": myinfo.workadd1,
+				"workcity": myinfo.workcity,
+				"workstate": myinfo.workstate,	
+				"workzip": myinfo.workzip,
+				"email": myinfo.email,
+				"homelatlong": myinfo.homelatlong,
+				"worklatlong": myinfo.worklatlong,
+				"profileblob": myinfo.profileblob,
+				"timezone": "PDT",
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
 		
 		    var request=$.ajax({
-                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users",
+                url: "/ridezu/api/v/1/users",
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
@@ -454,6 +933,7 @@
             	}); 
             	
             request.done(function(msg) {
+  				myinfo.seckey=msg.seckey;
   				localStorage.seckey=msg.seckey;
 				});                	     	
        		}
@@ -466,18 +946,14 @@
         function setHeaderUser(xhr) {
             xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
             xhr.setRequestHeader("Content-Type", "application/json");
-  	      }   
-//random function to test if javascript is still working or if there is some other bug
-
-		function a(){
-		alert("test it worked");
-		}       
+  	      }         
 		
 // reverses the route from home to work or work to home
+
 		function reverseroute(){
 			if(rlist.route=="h2w"){route="w2h";}
 			if(rlist.route=="w2h"){route="h2w";}
-			role=localStorage.role;
+			role=info.role;
 			document.getElementById("r2").style.display="none";
 			document.getElementById("r3").style.display="none";
 			document.getElementById("r1").style.display="block";
@@ -487,15 +963,15 @@
 // gets a list of riders/drivers
 		
 		function getlist(role,route,date){
-		  	  localStorage.role=role;
-		  	  fbid=localStorage.fbid;
+		  	  info.role=role;
+		  	  fbid=myinfo.fbid;
 		  	  rlist="";		  
 			  if(route!=undefined){
-				url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/"+role;
+				url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/searchroute/"+route+"/searchdate/"+date+"/"+role;
 			  }
 				
 			  if(route==undefined){
-				url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid+"/"+role;
+				url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/"+role;
 			  }
 			
 			  $.ajax({
@@ -511,7 +987,7 @@
 // this paints the list of available times & drivers/riders
 
 		function paintlist(preftime){		
-		  role=localStorage.role;
+		  role=info.role;
 		  if(preftime=="1"){document.getElementById('showall').style.display="none";}
 		  if(rlist.day!="Today"){
 		  		x=" on "+rlist.daydate;
@@ -534,8 +1010,8 @@
 				document.getElementById('destdesc').innerHTML="Home";
 				document.getElementById('gotext').innerHTML="go home";
 		  		}
-  
-		  xstartlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size=300x100&maptype=roadmap&markers=color:green%7C%7C"+rlist.startlatlong+"&sensor=false";
+		  mw=screenwidth-20;
+		  xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+rlist.startlatlong+"&sensor=false";
 		  document.getElementById('ridedesta').src=xstartlatlong;		  		  
 		  document.getElementById('ridedestb').src=xstartlatlong;		  
 		  document.getElementById('amount').innerHTML=rlist.amount;
@@ -569,7 +1045,8 @@
 			   ridelist=ridelist+"</div></li></a>";
 			   }
 		  });
-			document.getElementById('ridelist1').innerHTML=ridelist;		  
+			document.getElementById('ridelist1').innerHTML=ridelist;
+			loading(p);	  
 		  }
 		  
 // once you've selected a time slot, this paints the list of available drivers to ride with (used by riders)
@@ -584,32 +1061,54 @@
 			var r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
-					personlist=personlist+"<a href=\"#\" onclick=\"selectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
-					personlist=personlist+"<li class='driver'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/><p>"+value.name;
-					personlist=personlist+"</p></li></a>";
+					personlist=personlist+"<li class='driver'><a href=\"#\" onclick=\"profile('riderequestp',"+value.fbid+");\">";
+					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
+					personlist=personlist+"<p>View Profile</p></div></a>";
+					personlist=personlist+"<a href=\"#\" onclick=\"authselectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
+					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
 			});
 			personlist=personlist+"</ul>";
 			document.getElementById("personlist1").innerHTML=personlist;
 			document.getElementById("r1").style.display="none";
 			document.getElementById("r2").style.display="block";
 		}
-			else {selectride(timeslot,0,0,0,eventtime);}
+			else {authselectride(timeslot,0,0,0,eventtime);}
 		}
+
+// this auths the specific ride (used by riders)
+
+		function authselectride(timeslot,rideid,driverfbid,pname,eventtime){
+			info.timeslot=timeslot;
+			info.rideid=rideid;
+			info.driverfbid=driverfbid;
+			info.pname=pname;
+			info.eventtime=eventtime;			
+			
+			message="<h2>New Ride Request</h2><p>Click OK to confirm your ride request.</p>";
+			confirmfunction="selectride";
+			showcancel=true;	
+			openconfirm();			
+			}
 
 // this picks the specific ride (used by riders)
 		
-		function selectride(timeslot,rideid,driverfbid,pname,eventtime){
-
+		function selectride(){
+			timeslot=info.timeslot;
+			rideid=info.rideid;
+			driverfbid=info.driverfbid;
+			pname=info.pname;
+			eventtime=info.eventtime;
+			
 			document.getElementById("r1").style.display="none";
 			document.getElementById("r2").style.display="none";
-			fbid=localStorage.fbid;
+			fbid=myinfo.fbid;
 			
 			//if picking an empty slot
 			if(rideid==0){
 
-			   	 fbid=localStorage.fbid;
+			   	 fbid=myinfo.fbid;
 				 
-				 url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider";
+				 url="/ridezu/api/v/1/rides/rider";
 	 
 				 var dataset = {
 					 "fbid":	fbid,
@@ -639,7 +1138,7 @@
 			
 			if(rideid>0){
 			
-			   fbid=localStorage.fbid;
+			   fbid=myinfo.fbid;
 			   
 			   var dataset = {
 				   "fbid":	fbid,
@@ -647,7 +1146,7 @@
 			   
 			   var jsondataset = JSON.stringify(dataset);
    
-			   url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/rider";
+			   url="/ridezu/api/v/1/rides/rideid/"+rideid+"/rider";
 			   var request=$.ajax({
 				   url: url,
 				   type: "PUT",
@@ -658,7 +1157,7 @@
 						document.getElementById("ridepickupb").innerHTML=rlist.start;
 						document.getElementById("dnameb").innerHTML=pname;
 						document.getElementById("dnameb1").innerHTML=pname;
-						document.getElementById("dpicb").innerHTML="<image src='https://graph.facebook.com/"+driverfbid+"/picture'/>";
+						document.getElementById("dpicb").src="https://graph.facebook.com/"+driverfbid+"/picture";
 				   		document.getElementById("r4").style.display="block";
 				   		},
 				   error: function(data) {alert("boo!"+JSON.stringify(data)); },
@@ -680,29 +1179,53 @@
 			r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
-					personlist=personlist+"<a href=\"#\" onclick=\"selectrider1('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
-					personlist=personlist+"<li class='driver' id=\"l"+value.fbid+"\"><image src='https://graph.facebook.com/"+value.fbid+"/picture'/><p>"+value.name;
-					personlist=personlist+"</p></li></a>";
+
+					personlist=personlist+"<li class=\"driver\" id=\"l"+value.fbid+"\"><a href=\"#\" onclick=\"profile('ridepostp',"+value.fbid+");\">";
+					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
+					personlist=personlist+"<p>View Profile</p></div></a>";
+					personlist=personlist+"<a href=\"#\" onclick=\"authselectrider('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
+					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
+
 			});
 			personlist=personlist+"</ul>";
 			document.getElementById("rpersonlist1").innerHTML=personlist;
 			document.getElementById("r1").style.display="none";
 			document.getElementById("r2").style.display="block";
 		}
-			else {selectrider1(timeslot,0,0,0,eventtime);}
+			else {authselectrider(timeslot,0,0,0,eventtime);}
 		}
+
+// this auths the specific ride (used by drivers)
+
+		function authselectrider(timeslot,ride,fbid1,pname,eventtime){
+			info.timeslot=timeslot;
+			info.ride=ride;
+			info.fbid1=fbid1;
+			info.pname=pname;
+			info.eventtime=eventtime;			
+			
+			message="<h2>New Ride</h2><p>Click OK to confirm your ride.</p>";
+			confirmfunction="selectrider1";
+			showcancel=true;	
+			openconfirm();
+			}
 
 // this picks the specific ride (used by drivers)
 		
-		function selectrider1(timeslot,ride,fbid1,pname,eventtime){			
-
+		function selectrider1(){			
+			timeslot=info.timeslot;
+			ride=info.ride;
+			fbid1=info.fbid1;
+			pname=info.pname;
+			eventtime=info.eventtime;
+			
 			//if picking an empty slot (for drivers)
 
 			if(ride==0){
 
-			   	 fbid=localStorage.fbid;
+			   	 fbid=myinfo.fbid;
 				 
-				 url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rider";
+				 url="/ridezu/api/v/1/rides/rider";
 	 
 				 var dataset = {
 					 "fbid":	fbid,
@@ -713,7 +1236,7 @@
 				 var jsondataset = JSON.stringify(dataset);
 	 
 				 var request=$.ajax({
-					 url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/driver",
+					 url: "/ridezu/api/v/1/rides/driver",
 					 type: "POST",
 					 dataType: "json",
 					 data: jsondataset,
@@ -738,7 +1261,7 @@
 						 "fbid": fbid,
 						 }				
 				 var jsondataset = JSON.stringify(dataset);
-					 url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+ride+"/driver";
+					 url="/ridezu/api/v/1/rides/rideid/"+ride+"/driver";
 						 var request=$.ajax({
 							 url: url,
 							 type: "PUT",
@@ -746,9 +1269,10 @@
 							 data: jsondataset,
 							 success: function(data) {
 								x="l"+fbid1;
-								newrow="<div class='select1'><image src='https://graph.facebook.com/"+fbid1+"/picture'/>"+pname+"</div>";
+								newrow="<div class='select1'><div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+fbid1+"/picture'/>";
+								newrow=newrow+"<p>View Profile</p></div>";
+								newrow=newrow+"<div id='selectdriver'><p>"+pname+"</p></div></div>";
 								document.getElementById(x).innerHTML=newrow;
-								document.getElementById("xbutton").style.display="none";
 								document.getElementById("nextbutton").style.display="block";
 							 	},
 							 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));},
@@ -765,64 +1289,15 @@
 			document.getElementById("r4").style.display="block";
 		}
 
+// reuest a new ride (from an existing ride request)
 
-//this is part of login functionality (for testing) which pulls up the user list
+		function newride(){
+			document.getElementById("r2").style.display="none";
+			document.getElementById("r3").style.display="none";
+			document.getElementById("r4").style.display="none";
+			document.getElementById("r1").style.display="block";
+			}
 		
-		function getuserlist(){
-		  $.ajax({
-		  url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/users",
-		  cache: false,
-		  dataType: "json"
-		  }).done(function(data) {
-			userdata=data;
-			paintuserlist();	
-			  });
-		}
-
-		//this function paints all the users
-		function paintuserlist(){
-		  
-		  var userlist="<ul>";
-		  var r=0;
-		  
-		  $.each(userdata.users, function(key, value) { 
-			userlist=userlist+"<li><div class=\"rarrow\" onclick=\"selectuser('"+r+"');\">";
-			r++;
-			userlist=userlist+"<span style='padding-left:10px'>"+value.fname+" "+value.lname+": "+value.fbid+"</span>";  
-			var timeslot=value;
-			userlist=userlist+"</div></li>";
-		  });
-		  
-			userlist=userlist+"</ul>";
-		  
-			document.getElementById('userlist1').innerHTML=userlist;
-		  
-		  }
-		
-//once a user is selected this function loads local variables with all the correct data
-		
-		function selectuser(id){
-			localStorage.seckey=userdata.users[id].seckey;
-			localStorage.fbid=userdata.users[id].fbid;
-			localStorage.first_name=userdata.users[id].fname;
-			localStorage.last_name=userdata.users[id].lname;
-			localStorage.hadd1=userdata.users[id].add1;
-			localStorage.hcity=userdata.users[id].city;
-			localStorage.hstate=userdata.users[id].state;	
-			localStorage.hzip=userdata.users[id].zip;
-			localStorage.wadd1=userdata.users[id].workadd1;
-			localStorage.wcity=userdata.users[id].workcity;
-			localStorage.wstate=userdata.users[id].workstate;	
-			localStorage.wzip=userdata.users[id].workzip;
-			localStorage.email=userdata.users[id].email;
-			localStorage.originlatlong=userdata.users[id].originlatlong;
-			localStorage.destlatlong=userdata.users[id].destlatlong;
-			localStorage.homelatlong=userdata.users[id].homelatlong;
-			localStorage.worklatlong=userdata.users[id].worklatlong;
-			nav('loginp','mainp');
-		}
-		
-
 // this function parses an eventtime into smaller parts
 
 		function evtime(etime1){
@@ -836,7 +1311,7 @@
 				{
 				h3="am";
 				}
-			etime = h1+":"+h[1]+" "+h3;
+			etime = h1+":"+h[1]+h3;
 			return etime;
 		} 
 
@@ -845,9 +1320,9 @@
 // gets a list of myrides
 		
 		function myrides(){
-		  	  fbid=localStorage.fbid;
+		  	  fbid=myinfo.fbid;
 		  	  mrlist="";		  
-			  url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/search/fbid/"+fbid;
+			  url="/ridezu/api/v/1/rides/search/fbid/"+fbid;
 			
 			  $.ajax({
 			  url: url,
@@ -864,24 +1339,27 @@
 // or 3) if no rides available then show call to action for post a ride or request a ride.  
 
 		function paintmyrides(rideid){		
-		  fbid=localStorage.fbid;
+		  fbid=myinfo.fbid;
 		  z=0;
+
+		  if(mrlist["Driver"]){z=z+mrlist["Driver"].length;}
+		  if(mrlist["Rider"]){z=z+mrlist["Rider"].length;}
 		  		  
 		  $.each(mrlist, function(key, value) {
-		  
+		  		  
 		  		x0=key;
+		  		match=false;
 		  
 		  		$.each(mrlist[key], function(key1, value1) {
-			  		z++;
 			  		x1=key1;
  				  	value1=mrlist[x0][x1];
 			  		
-			  		if(value1.rideid==rideid){return false;}
-			  		if(value1.rideid===undefined){return false;}
+			  		if(value1.rideid==rideid){match=true;return false;}
+			  		if(rideid===undefined){return false;}
 
-			  	});
-			
-			if(z>0){return false;}
+			  	});			
+			  	
+			  	if(match==true){return false;}
 			  	
 	    	});
 
@@ -898,8 +1376,12 @@
 					  x=" on ";
 					  }
 					  else{
-					  x=" today";
+					  x="";
 					  }
+
+				if(x0=="Rider"){document.getElementById('ridedetails').innerHTML="Ride Request: ";}
+				if(x0=="Driver"){document.getElementById('ridedetails').innerHTML="Ride Post: ";}
+				
 				document.getElementById('godate').innerHTML=x;
 				document.getElementById('leavetime').innerHTML=evtime(value1.eventtime);
 				rideid=value1.rideid;
@@ -915,28 +1397,34 @@
 					  document.getElementById('origindesc').innerHTML="Work";
 					  document.getElementById('destdesc').innerHTML="Home";
 					  }
-		
-				xoriginlatlong="http://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size=300x100&maptype=roadmap&markers=color:green%7C%7C"+value1.startlatlong+"&sensor=false";
+		  		mw=screenwidth-20;
+				xoriginlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+value1.startlatlong+"&sensor=false";
 				document.getElementById('ridedesta').src=xoriginlatlong;		  		  
 				document.getElementById('amount').innerHTML=value1.amount;
 				document.getElementById('gassavings').innerHTML=value1.gassavings;
 				document.getElementById('co2').innerHTML=value1.co2;
 								
 				if(value1.eventstate=="EMPTY" || value1.eventstate=="REQUEST"){
-					x="<li>We haven't found a match yet.</li>";
+					document.getElementById('nomatch').innerHTML="We haven't found a match yet.";
 				}
 
 				if(value1.eventstate=="ACTIVE" || value1.eventstate=="FULL"){
 					x="";
 					n=value1.reffbid.split("#");
-					
+					info.tofbidlist=value1.reffbid;
 					$.each(n, function(key2, value2) {
 							m=value2.split("|");
-							x=x+"<li class='driver'><image class='profilephoto' src='https://graph.facebook.com/"+m[0]+"/picture'/><p>"+m[1];
-							x=x+"</p></li>";
+
+							x=x+"<li class='driver'><a href=\"#\" onclick=\"profile('myridesp',"+m[0]+");\">";
+							x=x+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+m[0]+"/picture'/>";
+							x=x+"<p>View Profile</p></div></a>";
+							x=x+"<div id='selectdriver'><p>"+m[1]+"<br/><a class='minibutton' href='#' onclick=\"sendmessage('"+myinfo.fbid+"','"+m[0]+"','"+m[1]+"');\">Send message</a>";
+							x=x+"</p></div></li>";
+							
 					});
 				}
-				
+
+																				
 			   document.getElementById('ridelist1').innerHTML=x;		  	
 			   document.getElementById('allrides').style.display="none";
 			   document.getElementById('r0').style.display="block";
@@ -950,53 +1438,50 @@
 		  	if(z==0){
 			   document.getElementById('noride').style.display="block";
 		  	}
-
+		document.getElementById(p).style.display="block";	    
 	}
 
 // this function shows all rides that a user has
 
 		function showallrides(){		
-		  fbid=localStorage.fbid;
+		  fbid=myinfo.fbid;
 		  riders=0;
 		  drivers=0;
 		  if(mrlist["Driver"]){drivers=mrlist["Driver"].length;}
 		  if(mrlist["Rider"]){riders=mrlist["Rider"].length;}
-		  myrideslist="";
+		  imdrivinglist="";
+		  imridinglist="";
 
 		  if(drivers>0){
-
-	    		myrideslist=myrideslist+"<section id=\"content\"><h2>My Rides (I'm driving)</h2><ul>";
 		  
+		    	document.getElementById('imdriving').style.display="block";	 
 		  		$.each(mrlist["Driver"], function(key3, value3) {
 					value3=mrlist["Driver"][key3];
-					if(value3.route=="h2w"){rte="going to work";}
-					if(value3.route=="w2h"){rte="going home";}
+					if(value3.route=="h2w"){rte="<img style='width:12px;' src='../images/end.png' /> Work";}
+					if(value3.route=="w2h"){rte="<img style='width:12px;' src='../images/start.png' /> Home";}
 					etime=evtime(value3.eventtime);
-					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value3.rideid+"')   \"><li>"+value3.day+ " at "+etime+" ("+rte+")</li>";				
+					imdrivinglist=imdrivinglist+"<a href=\"#\" onclick=\"paintmyrides('"+value3.rideid+"')   \"><li><span class='date'>"+value3.day+"</span><span class='time'> "+etime+" <span class='dest'>"+rte+"</span></li></a>";				
 			  	});
-	  
-	    		myrideslist=myrideslist+"</ul></section>";
-		  
+	  		  
 		  	 }
 		  	 
 		  if(riders>0){
-		  
-	    		myrideslist=myrideslist+"<section id=\"content\"><h2>My Rides (I'm riding)</h2><ul>";
-		  
+		    	document.getElementById('imriding').style.display="block";	 		  		  
 		  		$.each(mrlist["Rider"], function(key4, value4) {
 					value3=mrlist["Rider"][key4];
-					if(value4.route=="h2w"){rte="going to work";}
-					if(value4.route=="w2h"){rte="going home";}
+					if(value4.route=="h2w"){rte="<img style='width:12px;' src='../images/end.png' /> Work";}
+					if(value4.route=="w2h"){rte="<img style='width:12px;' src='../images/start.png' /> Home";}
 					etime=evtime(value4.eventtime);
-					myrideslist=myrideslist+"<a href=\"#\" onclick=\"paintmyrides('"+value4.rideid+"')   \"><li>"+value3.day+ " at "+etime+" ("+rte+")</li>";				
+					imridinglist=imridinglist+"<a href=\"#\" onclick=\"paintmyrides('"+value4.rideid+"')   \"><li><span class='date'>"+value4.day+ "</span><span class='time'> "+etime+" </span><span class='dest'>"+rte+"</span></li></a>";				
 			  	});
 
-	    		myrideslist=myrideslist+"</ul></section>";
 
 		  	 }
 
+		  document.getElementById('r0').style.display="none";	 
 		  document.getElementById('r1').style.display="none";	 
-		  document.getElementById('allrides').innerHTML=myrideslist;	 
+		  document.getElementById('imdrivingrides').innerHTML=imdrivinglist;	 
+		  document.getElementById('imridingrides').innerHTML=imridinglist;	 
 		  document.getElementById('allrides').style.display="block";	 
 		  	 
 		  }	  
@@ -1004,255 +1489,590 @@
 // this function set(2) cancels a ride for a user
 
 		function cancelride(rideid){	
-			copy="<span class='popuptext'>Are you sure you want to cancel this ride?<br><br>This cannot be undone.";
-			copy=copy+"<br><br><a href=\"#\" onclick=\"cancelconfirm('"+rideid+"');\">OK</a></span>";
-			showpopup(copy);
+			message="<h2>Cancel Ride</h2><p>Are you sure you want to cancel this ride?<br><br>This cannot be undone.</p>";
+			info.rideid=rideid;
+			confirmfunction="cancelconfirm";
+			okmessage="Cancel Ride";	
+			cancelmessage="< Back";	
+			showcancel=true;	
+			openconfirm();
 		}	
 
 		function cancelconfirm(rideid){	
-			fbid=localStorage.fbid;
-		    url="http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
+			fbid=myinfo.fbid;
+			rideid=info.rideid;
+		    url="/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
 		    var request=$.ajax({
                 url: url,
                 type: "DELETE",
                 dataType: "json",
-                success: function(data) {rempopup();myrides();},
-                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                success: function(data) {
+                	p="mainp";
+                	nav(p,'myridesp');},
+                error: function(data) { alert("Rats - I could not cancel this. "+JSON.stringify(data)); },
                 beforeSend: setHeaderUser
             });
 		}	
 
+// this function set relates to being late
+
+		function notlate(){
+			if(client=="mweb"){scrollTo(0,0);}						
+			   document.getElementById('r0').style.display="block";
+			   document.getElementById('r1').style.display="block";			
+			   document.getElementById('rlate').style.display="none";			
+		}
+
+		function runninglate(id){
+			if(client=="mweb"){scrollTo(0,0);}						
+			   document.getElementById('r0').style.display="none";
+			   document.getElementById('r1').style.display="none";			
+			   document.getElementById('rlate').style.display="block";			
+		}
+
+		function runninglatemessage(time){
+			info.fromfbid=myinfo.fbid;
+			x=info.tofbidlist;	
+			x1=x.split("#");
+				$.each(x1, function(key3, value3) {
+					x2=value3.split("|");
+					x3=x2[1].split(" ");
+					m="Hi "+x3[0]+" - I am running about "+time+" late.  Let me know if this is not ok.  Thanks! -"+myinfo.fname;
+					info.tofbid=x2[0];
+				    document.getElementById('txtmessage').value=m;
+				    sendmessage1();							
+				});
+
+			notlate();
+		}
+
+
 // this function set populates the page for the profile page
 // step1 get the user 
 
-		function profile(userid){
-			userprofile=userid;
-			nav('',userprofilep);
+		function profile(from,fbid){
+			userfbid=fbid;
+			navt(from,"userprofilep");
 			}
-// this is some mock fb data while we work out some bugs
-
-var fbdata = {
-    "profileblob": {
-        "id": "504711218",
-        "name": "Mark Rose",
-        "first_name": "Mark",
-        "last_name": "Rose",
-        "link": "http://www.facebook.com/productguy",
-        "username": "productguy",
-        "hometown": {
-            "id": "107981152555999",
-            "name": "Pleasanton, California"
-        },
-        "location": {
-            "id": "111948542155151",
-            "name": "San Jose, California"
-        },
-        "bio": "Simplicity is the ultimate sophistication - Leonardo da Viinci\r\n\r\nI'm a product guy.",
-        "quotes": "Luck is by design. \n\nLife is too short for bad products.",
-        "work": [
-            {
-                "employer": {
-                    "id": "115847221758787",
-                    "name": "Entrepreneur"
-                },
-                "position": {
-                    "id": "104098916294662",
-                    "name": "Entrepreneur In Residence"
-                },
-                "description": "(working at home office)",
-                "start_date": "2012-09"
-            },
-            {
-                "employer": {
-                    "id": "160475137333335",
-                    "name": "Visa"
-                },
-                "position": {
-                    "id": "131526090224028",
-                    "name": "VP Product Management"
-                },
-                "start_date": "2011-03",
-                "end_date": "2012-09"
-            },
-            {
-                "employer": {
-                    "id": "105467122822370",
-                    "name": "PlaySpan"
-                },
-                "location": {
-                    "id": "105464892820215",
-                    "name": "Santa Clara, California"
-                },
-                "position": {
-                    "id": "131526090224028",
-                    "name": "VP Product Management"
-                },
-                "start_date": "2009-04",
-                "end_date": "2011-03"
-            },
-            {
-                "employer": {
-                    "id": "373168890027",
-                    "name": "Spare Change"
-                },
-                "location": {
-                    "id": "111948785483165",
-                    "name": "Cupertino, California"
-                },
-                "position": {
-                    "id": "106324149403234",
-                    "name": "Co-founder"
-                },
-                "start_date": "2008-01",
-                "end_date": "2009-01"
-            },
-            {
-                "employer": {
-                    "id": "109460705739105",
-                    "name": "Yodlee"
-                },
-                "start_date": "2003-01",
-                "end_date": "2004-01"
-            },
-            {
-                "employer": {
-                    "id": "101002089941976",
-                    "name": "E*Trade"
-                },
-                "position": {
-                    "id": "112650685413971",
-                    "name": "Product Manager"
-                },
-                "start_date": "1998-01",
-                "end_date": "2003-01"
-            },
-            {
-                "employer": {
-                    "id": "123851850960945",
-                    "name": "E-Trade Financial"
-                },
-                "start_date": "1998-01",
-                "end_date": "2003-01"
-            },
-            {
-                "employer": {
-                    "id": "105101262863595",
-                    "name": "PayPal"
-                }
-            }
-        ],
-        "sports": [
-            {
-                "id": "105788652787522",
-                "name": "Swimming"
-            },
-            {
-                "id": "111932052156866",
-                "name": "Surfing"
-            }
-        ],
-        "education": [
-            {
-                "school": {
-                    "id": "403252893075259",
-                    "name": "Broad Run High School"
-                },
-                "type": "High School"
-            },
-            {
-                "school": {
-                    "id": "110718578953431",
-                    "name": "Amador Valley High"
-                },
-                "year": {
-                    "id": "117366921644668",
-                    "name": "1988"
-                },
-                "type": "High School"
-            },
-            {
-                "school": {
-                    "id": "13917075214",
-                    "name": "UC Davis"
-                },
-                "year": {
-                    "id": "140829239279495",
-                    "name": "1992"
-                },
-                "concentration": [
-                    {
-                        "id": "109275475757504",
-                        "name": "International Relations"
-                    }
-                ],
-                "type": "College"
-            },
-            {
-                "school": {
-                    "id": "113746265302715",
-                    "name": "California State University, Fresno"
-                },
-                "degree": {
-                    "id": "196378900380313",
-                    "name": "MBA"
-                },
-                "year": {
-                    "id": "131821060195210",
-                    "name": "1997"
-                },
-                "concentration": [
-                    {
-                        "id": "177942822248328",
-                        "name": "Information Systems and Decision Sciences"
-                    }
-                ],
-                "type": "Graduate School"
-            }
-        ],
-        "gender": "male",
-        "email": "m1rose28@yahoo.com",
-        "timezone": -7,
-        "locale": "en_US",
-        "verified": true,
-        "updated_time": "2012-10-07T21:56:11+0000"
-    }
-};
-
-
-
 
 // this function paints the user profile page
-		function paintuserprofile(userid){
-			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.user.fbid+"/picture";	
-			document.getElementById('workcity').innerHTML=userinfo.user.workcity;	
-			document.getElementById('city').innerHTML=userinfo.user.city;	
-			document.getElementById('cartype').innerHTML=userinfo.user.carmaker;	
-			document.getElementById('co2').innerHTML=userinfo.user.co2balance;	
-			document.getElementById('trips').innerHTML=parseInt(userinfo.user.ridesoffered)+parseInt(userinfo.user.ridestaken);
-			document.getElementById('frontphoto').src="http://ridezu.s3.amazonaws.com/carphotos/front-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('leftphoto').src="http://ridezu.s3.amazonaws.com/carphotos/left-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('rightphoto').src="http://ridezu.s3.amazonaws.com/carphotos/right-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('backphoto').src="http://ridezu.s3.amazonaws.com/carphotos/back-"+userinfo.user.fbid+"-o.jpeg";
-			document.getElementById('consistency').innerHTML=userinfo.user.consistency;
-			document.getElementById('timeliness').innerHTML=userinfo.user.timeliness;
+
+		function paintuserprofile(){
+			if(userinfo.consistency==null){userinfo.consistency="Not yet rated"};
+			if(userinfo.timeliness==null){userinfo.timeliness="Not yet rated"};
+			if(userinfo.carmaker==null){userinfo.carmaker="N/A"};
+			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.fbid+"/picture";	
+			document.getElementById('workcity').innerHTML=userinfo.workcity;	
+			
+			if(userinfo.profileblob.quotes){
+				document.getElementById('quote').innerHTML=userinfo.profileblob.quotes;
+				}
+				
+			document.getElementById('city').innerHTML=userinfo.city;	
+			document.getElementById('cartype').innerHTML=userinfo.carmaker;	
+			document.getElementById('username').innerHTML=userinfo.fname+" "+userinfo.lname;	
+			document.getElementById('co2').innerHTML=userinfo.co2balance;	
+			document.getElementById('trips').innerHTML=parseInt(userinfo.ridesoffered)+parseInt(userinfo.ridestaken);
+			document.getElementById('consistency').innerHTML=userinfo.consistency;
+			document.getElementById('timeliness').innerHTML=userinfo.timeliness;
+
+			if(userinfo.frontphoto){
+				document.getElementById('frontphoto').src="https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
+				document.getElementById('mywheels').style.display="block";			
+				}
+							
+			if(userinfo.profileblob.bio){
+				document.getElementById('aboutmetext').innerHTML=userinfo.profileblob.bio;
+				document.getElementById('aboutme1').style.display="block";
+				}	
+
+			if(userinfo.profileblob.work){
+				worklist="";
+				$.each(userinfo.profileblob.work, function(key, value) {
+
+				  if(value.employer){employer=value.employer.name;}
+				  		else{employer="";}
+
+				  if(value.position){position=", "+value.position.name;}
+				  		else{position="";}
+
+				  worklist=worklist+"<div><p><strong>"+employer+"</strong>"+position+"</p></div>";				  
+				});			
+				document.getElementById('wlist').innerHTML=worklist;				
+				document.getElementById('work').style.display="block";
+				}
+
+			if(userinfo.profileblob.education){
+				edulist="";
+				x=userinfo.profileblob.education;
+				y=x.reverse();
+
+				$.each(y, function(key, value) {
+				  edulist=edulist+"<li>";
+
+				  if(value.school){
+				  		edulist=edulist+"<strong class='educationsub'>"+value.school.name+"</strong>";
+				  		}
+
+				  if(value.year){
+				  		edulist=edulist+"<p class='educationdescription'>Class of "+value.year.name;
+				  		}
+
+				  if(value.degree || value.concentration){edulist=edulist+" &#8226; ";} 
+
+				  if(value.degree){
+				  		edulist=edulist+value.degree.name;
+				  		}				  
+
+				  if(value.degree){edulist=edulist+" &#8226; ";} 
+
+				  if(value.concentration){edulist=edulist+value.concentration[0].name;
+				  		}
+				  edulist=edulist+"</li>";
+				  		  		
+				});		
+				document.getElementById('education').style.display="block";
+				document.getElementById('elist').innerHTML=edulist;				
+				}
+			loading("temp");
+			userfbid="";	    
 			}
 
+// this function paints the images on ride details
 
+		function ridedetails(){
+			fbid=myinfo.fbid;
+			
+			if(myinfo.frontphoto!=null){
+				front="https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;}
+				else {
+				front="../images/upload.png";
+				}
+				
+			document.getElementById('frontview').src=front;
+			document.getElementById('fbid').value=fbid;
+			
+			if(myinfo.isLuxury=="Y"){document.getElementById('luxurycar').checked="checked";}
+			
+			setSelectedIndex(document.getElementById('cartype'),myinfo.cartype);
+			setSelectedIndex(document.getElementById('carmaker'),myinfo.carmaker);
+			setSelectedIndex(document.getElementById('seats'),myinfo.seats);
+
+			loading("temp");	    
+			}
+		
+		function newridedetails(){
+			myinfo.cartype=document.getElementById('cartype').value;
+			myinfo.carmaker=document.getElementById('carmaker').value;
+			myinfo.isLuxury=document.getElementById('luxurycar').value;
+			myinfo.seats=document.getElementById('seats').value
+			updateuserflag=true;
+			}
+
+// this function sets a selected index on a dropdown
+
+		function setSelectedIndex(s, v) {
+			for ( var i = 0; i < s.options.length; i++ ) {
+				if ( s.options[i].text == v ) {
+				   s.options[i].selected = true;
+				   return;				   
+				}
+			}
+		}
+
+// this function set set is for image uploads (car and photo)
+
+		function startUpload(){
+			  document.getElementById('loadbutton').style.display = 'none';
+			  document.getElementById('uploadprocess').style.display = 'block';
+			  return true;
+		}
+		
+		function stopUpload(success){
+			  if(success){
+				 obj = JSON.parse(success);
+				 x=obj.type;
+				 if(x=="front"){
+				 	myinfo.frontphoto=obj.image;
+					document.getElementById("frontview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
+					}
+				 if(x=="back"){
+				 	myinfo.backphoto=obj.image;
+					document.getElementById("backview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.backphoto;
+					}
+				 if(x=="right"){
+				 	myinfo.rightphoto=obj.image;
+					document.getElementById("rightview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.rightphoto;
+					}
+				 if(x=="left"){
+				 	myinfo.leftphoto=obj.image;
+					document.getElementById("leftview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.leftphoto;
+					}
+				 if(x=="user"){
+				 	myinfo.userphoto=obj.image;
+					document.getElementById("userphoto").src = "https://ridezu.s3.amazonaws.com/"+myinfo.userphoto;
+					}
+				 updateuserflag=true;
+				 }
+			  document.getElementById('uploadprocess').style.display = 'none';
+			  document.getElementById('loadbutton').style.display = 'block';      
+			  return true;   
+		}
+
+// this function set is for the home profile page (first half = update home / second half = pick a place close to you)
+
+		function homeprofileinit(){
+			document.getElementById('r1').style.display="block";
+			document.getElementById('add1').innerHTML=myinfo.add1;
+			document.getElementById('city').innerHTML=myinfo.city;
+		  	mw=screenwidth-20;
+		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
+			document.getElementById('mapa').src=xstartlatlong;
+		  	x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.originlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&sensor=false";
+			document.getElementById('mapb').src=x1startlatlong;
+			document.getElementById('pickupname').innerHTML=myinfo.origindesc;
+			loading("temp");	    
+			}
+
+		function pickhome(){ 
+			document.getElementById('r1').style.display="none";
+			document.getElementById('r2').style.display="block";			
+			x = myinfo.homelatlong;
+			y = x.split(",");
+			myspot = new google.maps.LatLng(y[0],y[1]);
+			info.pick="home";
+			loadMap("pick",myspot,18,"home");
+			}
+			
+		function pickpickup(){
+			document.getElementById('r1').style.display="none";
+			document.getElementById('r2').style.display="block";			
+			x = myinfo.homelatlong;
+			y = x.split(",");
+			myspot = new google.maps.LatLng(y[0],y[1]);
+			info.pick="pickup";
+			loadMap("pickselect",myspot,12,"home");
+			}
+
+		function updatehome(){
+		
+			if(info.pick=="home"){
+				 myinfo.add1=info.add1;
+				 myinfo.state=info.state;
+				 myinfo.city=info.city;
+				 myinfo.zip=info.zip;
+				 myinfo.homelatlong=info.lat+","+info.lng;
+				 }
+			
+			if(info.pick=="pickup"){
+				 myinfo.originlatlong=info.lat+","+info.lng;
+				 myinfo.origindesc=info.desc;
+				 }
+					 
+			updateuserflag=true;
+			document.getElementById('r2').style.display="none";	
+			homeprofileinit();
+			}
+
+// this function set is for the work profile page
+
+		function workprofileinit(){
+			document.getElementById('r1').style.display="block";
+			document.getElementById('workname').innerHTML=myinfo.destdesc;
+			document.getElementById('workadd1').innerHTML=myinfo.workadd1;
+			document.getElementById('workcity').innerHTML=myinfo.workcity;
+			mw=screenwidth-20;
+		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.destlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
+			document.getElementById('mapa').src=xstartlatlong;
+			loading("temp");	    
+			}
+			
+		function pickwork() {
+			document.getElementById('r1').style.display="none";
+			document.getElementById('r2').style.display="block";			
+			x = myinfo.destlatlong;
+			y = x.split(",");
+			myspot = new google.maps.LatLng(y[0],y[1]);
+			info.pick="work";
+			loadMap("pickselect",myspot,18,"work");		
+			}
+			
+		function updatework(){
+			myinfo.worklatlong=info.lat+","+info.lng;			
+			myinfo.destlatlong=info.lat+","+info.lng;
+			myinfo.destdesc=info.desc;
+			updateuserflag=true;
+			document.getElementById('r2').style.display="none";	
+			workprofileinit();
+			}			
+
+// this function is for driver verification
+
+		function dverifyinit(){
+			if(myinfo.dlverified=="yes"){
+				document.getElementById('c1').checked=true;
+				document.getElementById('c2').checked=true;
+				document.getElementById('c3').checked=true;
+				document.getElementById('c4').checked=true;
+				}
+			loading("temp");	    
+		}
+
+		function dverify(){
+			cb1=$('#c1:checked').val();
+			cb2=$('#c2:checked').val();
+			cb3=$('#c3:checked').val();
+			cb4=$('#c4:checked').val();
+			if(cb1=="on" && cb2=="on" && cb3=="on" && cb4=="on"){
+				updateuserflag=true;
+				myinfo.dlverified="yes";
+				message="<p>Thanks! You're all set</p>";
+				openconfirm();
+				updateuserflag=true;
+				}
+				else
+				{
+				message="<p>Please agree to all terms.  Thanks!</p>";
+				openconfirm();
+				}
+			}
+
+// this function is for contact info
+
+		function contactinfoinit(){
+			document.getElementById('email').value=myinfo.email;
+			document.getElementById('phone').value=myinfo.phone;
+			document.getElementById('name').value=myinfo.fname+" "+myinfo.lname;			
+			loading("temp");	    
+			}
+
+		function contactinfo(){
+			myinfo.email=document.getElementById('email').value;
+			myinfo.phone=document.getElementById('phone').value;
+			name=getElementById('name').value;
+			fn=name.split(" ");
+			myinfo.fname=fn[0];
+			myinfo.lname=fn[1];
+			updateuserflag=true;
+			}
+			
+// this function set are the account management functions
+
+		function account(){
+        	fbid=myinfo.fbid;
+        	timeperiod="Y";
+		    url="/ridezu/api/v/1/account/summary/fbid/"+fbid+"/timeperiod/"+timeperiod;
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                	paintaccount(data); },
+                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+        }
+
+		function paintaccount(data){
+			document.getElementById('credits').innerHTML=curr(data.account.totalcredit);
+			document.getElementById('charges').innerHTML=curr(data.account.totaldebit);
+			balance1=+data.account.totalcredit - +data.account.totaldebit;
+
+			if(balance1>0){legend="driver"} else {legend="rider"}
+
+			balance=curr(balance1);
+
+			if(legend=="driver"){legendtext="Balance:  "+balance;} else {legendtext="Savings: 25%";}
+
+			document.getElementById('balance').innerHTML=legendtext;
+			document.getElementById('total').innerHTML=balance;				
+			document.getElementById('trips').innerHTML=addCommas(data.account.totaltrips);
+			document.getElementById('co2').innerHTML=addCommas(data.account.totalco2);
+			document.getElementById('miles').innerHTML=addCommas(data.account.totalmiles);
+			document.getElementById('savings').innerHTML=curr(data.account.totalgassavingspercent);
+			document.getElementById('passengers').innerHTML=addCommas(data.account.totalpassengers);
+			loading(p);	    		
+		}
+
+		function accountdetail(){
+        	fbid=myinfo.fbid;
+        	timeperiod="Y";
+		    url="/ridezu/api/v/1/account/detail/fbid/"+fbid+"/timeperiod/"+timeperiod;
+		    var request=$.ajax({
+                url: url,
+                type: "GET",
+                dataType: "json",
+                success: function(data) {
+                	paintaccountdetail(data); },
+                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data)); },
+                beforeSend: setHeaderUser
+            });
+        }
+
+		function paintaccountdetail(data){
+
+			txndetail="<table>";
+	    					
+		   $.each(data.accountdetail, function(key, value) {
+				d=value.eventtime;
+				d1=d.split(" ");
+				d2=d1[0].split("-");
+				d3=d2[1]+"/"+d2[2];				
+				if(value.credit=="0.00"){amt="-$"+value.debit;}
+				if(value.debit=="0.00"){amt="$"+value.credit;}
+				desc=value.origindesc+" > "+value.destdesc;
+				txndetail=txndetail+"<tr><td>"+d3+"</td><td>"+desc+"</td><td style='text-align:right;'>"+amt+"</td></tr>";
+			   });
+
+			txndetail=txndetail+"</table>";
+			document.getElementById('txndata').innerHTML=txndetail;		
+
+			$("tr:odd").css("background-color", "#ffffff");
+
+		}
+
+// this function set updates PayPal payout information
+
+		function payoutinfoinit(){
+			document.getElementById('paypalemail').value=myinfo.paypalemail;			
+			document.getElementById("temp").style.display="block";	    
+			}
+
+		function payoutinfo(){
+			myinfo.paypalemail=document.getElementById('paypalemail').value;
+			updateuserflag=true;
+			}
+
+// this function set is for notification preferences
+	
+		function notifyinit(){
+			if(myinfo.notificationmethod=="EMAIL"){	document.getElementById("notifyemail").checked="checked";}	    
+			if(myinfo.notificationmethod=="SMS"){	document.getElementById("notifysms").checked="checked";	 }   
+			if(myinfo.ridereminders=="1"){document.getElementById("ridereminder").checked="checked";}	    
+			}
+
+		function notify(){
+			if(document.getElementById("notifyemail").checked==true){myinfo.notificationmethod="EMAIL";}	
+			if(document.getElementById("notifysms").checked==true){myinfo.notificationmethod="SMS";}	
+			if(document.getElementById("ridereminder").checked==true){myinfo.ridereminders="1";}	
+			if(document.getElementById("ridereminder").checked==false){myinfo.ridereminders="0";}	
+			updateuserflag=true;
+			}
+
+// this function set (2) is for sending messages from user to user
+
+		function sendmessage(fromfbid,tofbid,toname){	
+			message="<p>Send a private message to <b>"+toname+"</b><br/><br/>";
+			message=message+"<textarea id='txtmessage' rows='3' cols='30'></textarea>";
+			info.fromfbid=fromfbid;
+			info.tofbid=tofbid;
+			confirmfunction="sendmessage1";
+			okmessage="Send";	
+			cancelmessage="Cancel";	
+			showcancel=true;	
+			openconfirm();
+		}	
+
+		function sendmessage1(){	
+			 message1=document.getElementById("txtmessage").value;
+			 var dataset = {"message":	message1,}				
+			 var jsondataset = JSON.stringify(dataset);
+			 url="/ridezu/api/v/1/notification/message/fbid/"+info.tofbid+"/fromfbid/"+info.fromfbid;
+
+		    var request=$.ajax({
+                url: url,
+                type: "POST",
+                dataType: "json",
+                data: jsondataset,
+                success: function(data) {
+                	message="<center><h2>Message sent!</h2></center>";
+		  			openconfirm();
+                	},
+                error: function(data) {alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+
+		}	
+
+// this function set is for credit card setup and update
+
+		function paymentinfoinit(){
+			if(myinfo.last4==null){
+				document.getElementById("r1").style.display="block";
+				x="testpayment/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&secret="+myinfo.secret+"&method=newcard";
+				document.getElementById("payifrm").src=x;
+				}		
+			if(myinfo.last4!=null){
+				document.getElementById("r1").style.display="none";
+				document.getElementById("onfile").style.display="block";
+				document.getElementById("last4oncard").innerHTML=myinfo.last4;
+				document.getElementById("cardname").innerHTML=myinfo.fname+" "+myinfo.lname;
+				x="../images/visa.png";
+				if(myinfo.cardtype=="Visa"){x="../images/visa.png";}
+				if(myinfo.cardtype=="MasterCard"){x="../images/mastercard.png";}
+				if(myinfo.cardtype=="Discover"){x="../images/discover.png";}
+				if(myinfo.cardtype=="American Express"){x="../images/amex.png";}
+				document.getElementById("cardname").innerHTML=myinfo.fname+" "+myinfo.lname;
+				document.getElementById("cardlogo").src=x;
+				}
+			}
+		
+		function addnewcard(){
+			if(myinfo.last4!=null){
+				document.getElementById("r1").style.display="block";
+				document.getElementById("onfile").style.display="none";
+				x="testpayment/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&secret="+myinfo.secret+"&method=addnewcard&oldtoken="+myinfo.token;
+				document.getElementById("payifrm").src=x;
+				}
+			}			
+		
+		function ccupdate(instrux){
+			x=JSON.parse(instrux);
+			if(x.error){
+				message=x.error;
+				openconfirm();
+				}
+			if(x.cardtype){
+				myinfo.last4=x.last4;
+				myinfo.cardtype=x.cardtype;
+				myinfo.token=x.token;
+				myinfo.expdate=x.expirationdate;
+				message="Your credit card has been entered securely. Thank you!";
+				openconfirm();
+				updateuserflag=true;
+				navt1();
+				}
+		}	
+					
 // these are the functions which initialize and start the ridezu web app.  please keep everything after this line at the end of this page, and functions before this.
 
-//declare initial variables
+// declare global variables. There is still some locaStorage, this should be replaced largely w/global vars.
 
-  		var map;  
+  		var map; 
+  		var m={}; 
 	    var geocoder;
 	    var myspot;
 	    var requestride;
 	    var userdata;
 	    var mrlist;
+	    var nodelist;
 	    var userinfo={};
+	    var myinfo={};
+	    var info={};
 	    var etime;
-	    var userprofile;
-  		  		
-//page titles are the pageid's coupled with what shows up in the header
+	    var userfbid;
+		var message;
+		var okmessage="OK";
+		var cancelmessage="Cancel";
+		var confirmfunction="";
+		var showcancel=false;
+		var screenwidth=320;
+		var screenheight=480;
+		var updateuserflag=false;
+		var tp="";
+		var p="firstp";
+		  		
+// page titles are the pageid's coupled with what shows up in the header
   		
   		var pageTitles = { 
   			"riderequestp":"Request a Ride" ,
@@ -1282,25 +2102,47 @@ var fbdata = {
   			"wherelivep":"Where do you live?",			
   			"myridesp":"My Rides",			
   			"loginp":"Login - Test Page",			
-  			"userprofilep":"Profile"			
+  			"homeprofilep":"Home Details",			
+  			"workprofilep":"Work Details",			
+  			"constactinfop":"Contact Info",			
+  			"driverp":"Driver Verification",			
+  			"ridedetailsp":"My Wheels",			
+  			"paymentp":"Payment Info",			
+  			"payoutp":"Payout Info",			
+  			"notifyp":"Notifications",			
+  			"userprofilep":"Profile",			
+  			"pricingp":"Pricing"			
 			};
 
+// this watches for orientation change and makes any site changes, if needed
 
-// this determines if the user is in the system, or not (by looking at local storage).  if not, send them to enroll...
+		window.addEventListener('orientationchange', handleOrientation, false);
+		   function handleOrientation() {
+			   if (orientation == 0 || orientation == 180) {
+							  screenwidth=screen.width;
+							  screenheight=screen.height;
+			   }
+			   else if (orientation == 90|| orientation == -90) {
+							  screenwidth=screen.height;
+							  screenheight=screen.width;
+			   }
+			   else {
+			   }
+			   }
 
-fbid=localStorage.fbid;
-  var p="firstp";
+// this determines if the user is in the system, or not (by looking at local storage).  if not, send them to enroll...  also see the very top of index1.php for first page logic
+
+$(document).ready(function() {
+	fbid=localStorage.fbid;
 	if(fbid!=undefined){
-	  nav("firstp",startpage);
-	  $(document).ready(function() {
-		  document.getElementById("w").style.display="block";	 
-		});
+	  loadmyinfo();	 
 	}
 	else
 	{
-	fbid=0;
 	  nav("firstp","startp");
 	  	  $(document).ready(function() {
 		  document.getElementById("w").style.display="block";	 
 		});
 	}
+	
+ });
