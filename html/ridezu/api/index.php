@@ -25,7 +25,7 @@ $app->get('/v/1/users/search/fname/:query', 'findByName');
 $app->get('/v/1/users/search/fbid/:query', 'findByFB'); //authorization enabled
 $app->get('/v/1/users/searchpublic/fbid/:query', 'findPublicDataByFB');
 $app->post('/v/1/users', 'addUser');
-$app->put('/v/1/users/:id', 'updateUser'); //authorization enabled
+$app->put('/v/1/users/:id/fbid/:fbid', 'updateUser'); //authorization enabled
 //$app->delete('/v/1/users/:id',	'deleteUser'); 
 $app->get('/v/1/users/search/fbid/:fbid/location/:location','getNodes');  //authorization enabled
 

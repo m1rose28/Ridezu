@@ -48,10 +48,9 @@
 // this function updates user data with any relevant updates
 
 		function updateuser(){
-				id=myinfo.id;
 				updateuserflag=false;
             	var jsondataset = JSON.stringify(myinfo);
- 				url="/ridezu/api/v/1/users/"+id;
+ 				url="/ridezu/api/v/1/users/"+myinfo.id+"/fbid/"+myinfo.fbid;
  				       
             	var request=$.ajax({
                 url: url,

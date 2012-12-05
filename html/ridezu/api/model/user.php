@@ -265,9 +265,9 @@ function addUser()
   
 
  
- function updateUser($id){
+ function updateUser($id,$fbid){
      
-        authorize($id);
+        authorize($fbid);
 		setHeader();
         $request = Slim::getInstance()->request();
         $body = $request->getBody();
@@ -289,9 +289,10 @@ function addUser()
         }
        
         $user['id'] = $id;
+		$user['fbid'] = $fbid;
         try {
                 $db = getConnection();
-                $sStatement = "UPDATE userprofile SET " . implode(',', $aElements)." WHERE id=:id";
+                $sStatement = "UPDATE userprofile SET " . implode(',', $aElements)." WHERE id=:id and fbid=:fbid";
                 $oPDOStatement = $db->prepare($sStatement);
                 //$oPDOStatement->bindParam(':id', $id);
 				
