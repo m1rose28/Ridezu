@@ -11,7 +11,7 @@ if($h==false or $s=="ridezu.com"){header('Location: https://www.ridezu.com'.$u);
 
 session_start();
 
-		require_once 'test/sys/fblogin.php';
+		require_once 'rtest/sys/fblogin.php';
 
 		$dbh=mysql_connect ("localhost", "ridezu", "ridezu123") or die ('I cannot connect to the database because: ' . mysql_error());
 		mysql_select_db ("ridezu");
