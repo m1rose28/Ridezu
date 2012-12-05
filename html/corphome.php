@@ -2,9 +2,6 @@
 $title="Ridezu";
 include "header.php";
 ?>
-<script>
-localStorage.fbid="500011910";
-</script>
 
 	 <section id="homepageintro" class="homepage">
 		 <div class="corpwrapper">
@@ -49,7 +46,7 @@ localStorage.fbid="500011910";
 					 <div id="toolbarnav"> 
 						 <a href="#" id="menu-btn"><img id="menub" src="images/menu.png" alt="Menu Button" /></a>
 					 
-						 <h1 id="title">Title Goes Here</h1>
+						 <h1 id="title"></h1>
 					 </div>
 					 
 					 <iframe id="ridezuiframe" src="" height="575" width="340"></iframe>
@@ -71,47 +68,147 @@ localStorage.fbid="500011910";
 			 </aside>
 			 
 			 <div id="maincontent" class="right">
-				 <div id="testimonial" class="active">
+
+				 <div id="testimonial">
 					 <div id="border">
-						 <img class="displaypicture" src="images/dp1.jpg" alt="Display Picture" />
+						 <img class="displaypicture" src="images/1.png"/>
 					 </div>
 					 
 					 <blockquote class="right">
-					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I drove today and collected $7.95 to offset my gas.<img src="images/quotedown.png" alt="Quote" /></p>
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I drove today and collected $7.95 to offset my gas.  This year that's about $1,700.<img src="images/quotedown.png" alt="Quote" /></p>
 					 </blockquote>
 					 
 					 <div id="placestravelled">
-						 <p class="place">San Jose</p><img src="images/placesep.png" alt="Place Seperator" /><p class="place">Foster City</p>
+						 <p class="place">San Jose</p><img src="images/placesep.png" /><p class="place">Foster City</p>
 					 </div>
 				 </div>
 				 
 				 <div id="testimonial">
 					 <div id="border">
-						 <img class="displaypicture" src="images/dp2.jpg" alt="Display Picture" />
+						 <img class="displaypicture" src="images/2.png" alt="Display Picture" />
 					 </div>
 					 
 					 <blockquote class="right">
-					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I drove yesterday and met some awesome people!<img src="images/quotedown.png" alt="Quote" /></p>
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Now I can check my email on the way into the office - total productivity boost!<img src="images/quotedown.png" alt="Quote" /></p>
 					 </blockquote>
 					 
 					 <div id="placestravelled">
-						 <p class="place">Blockhouse Bay</p><img src="images/placesep.png" alt="Place Seperator" /><p class="place">Devonport</p>
+						 <p class="place">Mountain View</p><img src="images/placesep.png"/><p class="place">San Francisco</p>
 					 </div>
 				 </div>
 				 
 				 <div id="testimonial">
 					 <div id="border">
-						 <img class="displaypicture" src="images/dp3.jpg" alt="Display Picture" />
+						 <img class="displaypicture" src="images/3.png" alt="Display Picture" />
 					 </div>
 					 
 					 <blockquote class="right">
-					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I've driven for 3 weeks and saved $46.75 total.<img src="images/quotedown.png" alt="Quote" /></p>
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I've driven way too many miles alone. I should save over $1,000 this year.<img src="images/quotedown.png" alt="Quote" /></p>
 					 </blockquote>
 					 
 					 <div id="placestravelled">
-						 <p class="place">Green Bay</p><img src="images/placesep.png" alt="Place Seperator" /><p class="place">Manukau</p>
+						 <p class="place">Los Gatos</p><img src="images/placesep.png" /><p class="place">Santa Clara</p>
 					 </div>
+				</div>
+			
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/4.png" alt="Display Picture" />
+					 </div>
+					 
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />The park and ride is a mile from my home so Ridezu is really convenient for me.<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">Los Gatos</p><img src="images/placesep.png" /><p class="place">Santa Clara</p>
+					 </div>
+				</div>
+	
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/5.png" alt="Display Picture" />
+					 </div>
+					 
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />A group of us at the office use Ridezu now.  It actually brings the office closer together.<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">Morgan Hill</p><img src="images/placesep.png" /><p class="place">Palo Alto</p>
+					 </div>			
 				 </div>
+
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/6.png" alt="Display Picture" />
+					 </div>
+					 
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Ridezunomics (love that name) is awesome! I had no idea how much Co2 my car was contributing.<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">San Jose</p><img src="images/placesep.png" /><p class="place">San Mateo</p>
+					 </div>
+				</div>
+	
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/7.png" alt="Display Picture" />
+					 </div>
+					 
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />The app is super easy to use and sign up only took a minute. Highly recommend trying it out.<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">Sunnyvale</p><img src="images/placesep.png" /><p class="place">San Francisco</p>
+					 </div>			
+				 </div>
+
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/8.png" alt="Display Picture" />
+					 </div>
+					 
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Ridezu really helps offset my gas costs. It is amazing how much I can save!.<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">Los Gatos</p><img src="images/placesep.png" /><p class="place">Foster City</p>
+					 </div>
+				</div>
+	
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/9.png" alt="Display Picture" />
+					 </div>
+					 
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I love how the app shows me reducing my carbon footprint. Such a simple idea.  Such a big impact.<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">San Jose</p><img src="images/placesep.png" /><p class="place">Palo Alto</p>
+					 </div>			
+				 </div>
+
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/10.png" alt="Display Picture" />
+					 </div>
+					 
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Ridezu is going to bring my stress levels way down. Not driving in traffic is awesome!<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">Campbell</p><img src="images/placesep.png" /><p class="place">Menlo Park</p>
+					 </div>			
+				 </div>
+
 			 </div>
 		 </div>
 	 </section>

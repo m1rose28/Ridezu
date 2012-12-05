@@ -1,14 +1,13 @@
-
 <section id="precontent">
 
 	<h3>Tell us about your car</h3>
 	</section>
 
-<section id="content">
+	<section id="content">
 				<ul id="ridedetailslist">
 					<li>
 					   <h3>Car type</h3>
-						  <select class="rselect" onchange="newridedetails();" id="cartype" name="cartype" data-role="none">
+						  <select class="rselect right" onchange="newridedetails();" id="cartype" name="cartype" data-role="none">
 							<option value="Sedan">Sedan</option>
 							<option value="SUV">SUV</option>
 							<option value="Minivan">Minivan</option>
@@ -18,7 +17,7 @@
 					</li>
 					<li>
 						<h3>Car maker</h3>			
-							<select class="rselect" onchange="newridedetails();" id="carmaker" name="carmaker" data-role="none">
+							<select class="rselect right" onchange="newridedetails();" id="carmaker" name="carmaker" data-role="none">
 								<option value="Acura">Acura</option>
 								<option value="Audi">Audi</option>
 								<option value="BMW">BMW</option>
@@ -59,7 +58,7 @@
 						</li>
 						<li>
 							<h3>Seats</h3>
-								<select class="rselect" onchange="newridedetails();" id="seats" name="seats" data-role="none">
+								<select class="rselect right" onchange="newridedetails();" id="seats" name="seats" data-role="none">
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -69,21 +68,23 @@
 						</li>
 						<li>
 							<h3>Luxury Car</h3>
-							<input type="checkbox" onchange="newridedetails();" id="luxurycar" class="rcheckbox" name="luxurycar" data-role="none">
+							<input type="checkbox" onchange="newridedetails();" id="luxurycar" class="rcheckbox right" name="luxurycar" data-role="none">
 						</li>
 
-                <form action="../s3/upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
-					 <li>
-						 <h3>Car Photo</h3>
-						 <img src="" id="frontview" style="width:100px;height:65px;"/>
-						 <input type="submit" id="loadbutton" name="submitBtn" data-role="none" class="primarybutton" onsubmit="startUpload();" value="Upload Photo" />
-						 <input class="minibutton" name="front" type="file" size="30" /><br/>
-					 </li>
-	 
-					<input name="fbid" id="fbid" value="" type="hidden" />
-					<center><h2 id="uploadprocess" style="display:none;"><img src="../images/loader.gif" /> &nbsp;&nbsp; Loading... </h2></center>
-					
-					<iframe id="upload_target" name="upload_target" src="../s3/upload.php" style="width:0;height:0;border:0px solid #fff;"></iframe>
-			  </form>
+					    <form action="../s3/upload.php" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();" >
+	
+						<li>
+							<h3>Car Photo</h3>
+							<img src="" width="100px" height="65px" id="frontview" style="display:none;float:right;"/>
+							<input name="front" type="file" size="30" onchange="addphoto()"/><br/>
+							<input type="submit" style="display:none;" id="loadbutton" name="submitBtn" data-role="none" class="primarybutton" onsubmit="startUpload();" value="Upload Photo" />	 
+							<input name="fbid" id="fbid" value="" type="hidden" />
+							<center><h2 id="uploadprocess" style="display:none;"><img src="../images/loader.gif" /> &nbsp;&nbsp; Loading... </h2></center>
+							<iframe id="upload_target" name="upload_target" src="../s3/upload.php" style="width:0;height:0;border:0px solid #fff;"></iframe>
+					    </li>
+					 	</form>
+			  		</ul>
 			  
 			</section>
+
+			<input type="submit" style="display:none;" id="driverflow" name="submitBtn" data-role="none" class="primarybutton" onclick="startflow();" value="Next" />	 

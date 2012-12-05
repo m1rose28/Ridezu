@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>Ridezu create user Prototype</title>
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+ 
+</head>
+<body>
+
+<script>
+       function updateuser(){
+            
+ 				user=document.getElementById('userid').value;
+ 					
+ 				var dataset = {
+                "fname": user
+                }
+                
+            	var jsondataset = JSON.stringify(dataset);
+ 
+ alert(jsondataset);
+        
+            	var request=$.ajax({
+                url: "http://ec2-50-18-0-33.us-west-1.compute.amazonaws.com/ridezu/api/users/22",
+                type: "PUT",
+                dataType: "json",
+                data: jsondataset,
+                success: function(data) {alert(data)},
+                error: function() { alert('uh oh'); },
+                beforeSend: setHeader
+                });                                     
+			 }
+
+        function setHeader(xhr) {
+            xhr.setRequestHeader("Content-Type", "application/json");
+  	      }
+
+</script>
+
+<input id="userid" value="1234" type="test"/>
+<a href="#" onclick="updateuser();">update first name</a>
+
+</body>
+</html>

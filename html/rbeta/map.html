@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
+
+    <script>
+      function initialize() {
+
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        function setupClickListener(id, types) {
+          google.maps.event.addDomListener(radioButton, 'click', function() {
+          autocomplete.setTypes(types);
+          });
+        }
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <div>
+      <input id="searchTextField" type="text" size="50">
+    </div>
+  </body>
+</html>

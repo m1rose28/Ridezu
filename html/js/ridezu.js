@@ -13,10 +13,17 @@
 					myinfo=data;
 					nav("firstp",startpage);
 				    $(document).ready(function() {
-		  				document.getElementById("w").style.display="block";
+		  				document.body.style.display="block";
 						});
 			    	},
-                error: function(data) {alert("Uh oh - is this a valid id?"+JSON.stringify(data)); },
+                error: function(data) {
+                	alert("Uh oh - is this a valid id?"+JSON.stringify(data)); 
+					reporterror(url);
+					nav("firstp",startpage);
+				    $(document).ready(function() {
+		  				document.body.style.display="block";
+						});                	
+                	},
                 beforeSend: setHeader
             });
 		}
@@ -24,7 +31,7 @@
 // this function loads all user data in a js object, this function is used when looking at another user 
 
 		function loaduser(fbid){
-		    url="/ridezu/api/v/1/users/search/fbid/"+fbid;
+		    url="/ridezu/api/v/1/users/searchpublic/fbid/"+fbid;
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
@@ -33,7 +40,7 @@
 					userinfo=data;
 					paintuserprofile();
 			    	},
-                error: function(data) { alert("Uh oh - does this user exist?"+JSON.stringify(data)); },
+                error: function(data) { alert("Uh oh - does this user exist?"+JSON.stringify(data));reporterror(url); },
                 beforeSend: setHeader
             });
 		}
@@ -52,7 +59,7 @@
                 dataType: "json",
                 data: jsondataset,
                 success: function(data) {},
-                error: function() { alert('uh oh, I could not save this data'); },
+                error: function() { alert('uh oh, I could not save this data');reporterror(url) },
                 beforeSend: setHeader
                 });                                     
 		}
@@ -179,6 +186,7 @@
 				this.addEvents("move");
 				this.addEvents("end");
 				this.handle(event);
+				this.circle.style.left = '-30px';
 			};
 			
 			MobileSlider.prototype.move = function move(event) {
@@ -196,15 +204,16 @@
 				value = Math.min(value, this.options.max);
 				value = Math.max(value, this.options.min);
 				
-				var circleWidth = this.circle.offsetWidth;
-				var barWidth = this.bar.offsetWidth;
-				var range = this.options.max - this.options.min;
-				var width = barWidth - circleWidth;
-				var position = Math.round((value - this.options.min) * width / range);
-			
-				this.setCirclePosition(position);
-				this.value = value;
-				this.callback(value);
+						
+   	 					var circleWidth = this.circle.offsetWidth;
+    						var barWidth = this.bar.offsetWidth;
+    						var range = this.options.max - this.options.min;
+    						var width = barWidth - circleWidth;
+						var position = Math.round((value - this.options.min) * width / range)
+
+    					this.setCirclePosition(position);
+    					this.value = value;
+    					this.callback(value);
 			};
 			
 			MobileSlider.prototype.setCirclePosition = function setCirclePosition(x_position) {
@@ -248,7 +257,7 @@
 				}
 			};
 			
-			
+						
 			MobileSlider.prototype.handle = function handle(event) {
 				event.preventDefault();
 				if (event.targetTouches){ event = event.targetTouches[0]; }
@@ -392,7 +401,7 @@
 			url="pages/"+ to + ".html";
 			$.ajax({
   			url: url,
-  			cache: false,
+  			cache: true,
   			dataType: "html"
 			}).done(function( html ) {
   				document.getElementById(to).innerHTML=html;
@@ -411,16 +420,19 @@
 // here the original primary page dom is kept in place.  when you navigate "back" the 
 // tp dom is erased.  also whenever you use the cor nav function the tp div is erased.
 	
-		function navt1(){
-			tp="";
-  			document.getElementById("temp").innerHTML="";
-  			document.getElementById('pTitle').innerHTML=pageTitles[p];
-			if(client=="widget"){
-				parent.updateTitle(pageTitles[to]);
-				parent.showarrow();
-				}
-			document.getElementById(p).style.display="block";
-			document.getElementById("menub").src="../images/menu.png";
+		function back(){
+			if(tp!==""){
+			   tp="";
+			   document.getElementById("temp").innerHTML="";
+			   document.getElementById('pTitle').innerHTML=pageTitles[p];
+			   if(client=="widget"){
+				   parent.updateTitle(pageTitles[to]);
+				   parent.showarrow();
+				   }
+			   document.getElementById(p).style.display="block";
+			   document.getElementById("menub").src="../images/menu.png";
+			   return false;
+			   }			
 			}
 
 		function navt(from, to){
@@ -464,19 +476,19 @@
 				contactinfoinit();
 				}
 
+			if(to=="congratp"){
+				congratinit();
+				}
+
 			if(to=="driverp"){
 				dverifyinit();
 				}
 
 			if(to=="enrollp"){
-				document.getElementById("topbar").style.display="block";		
-			  	message="<p>First, type in or select your home address.<br><br>Your home address will never be shared.</p>";
-			  	openconfirm();
 			  	getLocation();
 				}
 
 			if(to=="fbp"){
-				facebook();
 				}
 				
 			if(to=="homeprofilep"){
@@ -507,41 +519,59 @@
 				ridedetails();
 				}
 
-			if(to=="ridepostp"){
+			if(to=="ridepostp"){								
+				if(myinfo.destdesc==undefined || myinfo.origindesc==undefined){
+					nav(to,"myridesp");
+					return false;
+					}
 				getlist("rider");
-				$('#route').bind('swipeleft', function(){
- 					info.date=rlist.date;
- 					alert("next day...");
- 					role=info.role;
- 					getlist(role,rlist.route,rlist.nextdate);					
-         			});
-				$('#route').bind('swiperight', function(){
- 					alert("prior day...");
- 					pdate=info.date;
- 					role=info.role;
- 					getlist(role,rlist.route,pdate);
-         			});
-				}
+
+				$('#r1').touchwipe({
+					wipeLeft: function(){
+						info[rlist.nextdate]=rlist.date;						
+						role=info.role;
+						getlist(role,rlist.route,rlist.nextdate);					                	 
+						 },
+					wipeRight: function(){
+						if(info[rlist.date]){
+							pdate=info[rlist.date];
+							role=info.role;
+							getlist(role,rlist.route,pdate);
+							}                	
+						},
+			   })
+			 }
+
 
 			if(to=="riderequestp"){
+				if(myinfo.destdesc==undefined || myinfo.origindesc==undefined){
+					nav(to,"myridesp");
+					return false;
+					}			
+				
 				getlist("driver");
-				$('#route').bind('swipeleft', function(){
- 					info.date=rlist.date;
- 					alert("next day...");
- 					role=info.role;
- 					getlist(role,rlist.route,rlist.nextdate);					
-         			});
-				$('#route').bind('swiperight', function(){
- 					alert("prior day...");
- 					pdate=info.date;
- 					role=info.role;
- 					getlist(role,rlist.route,pdate);
-         			});
+
+				 $('#r1').touchwipe({
+					wipeLeft: function(){
+						info[rlist.nextdate]=rlist.date;						
+						role=info.role;
+						getlist(role,rlist.route,rlist.nextdate);					                	 
+						 },
+					wipeRight: function(){
+						if(info[rlist.date]){
+							pdate=info[rlist.date];
+							role=info.role;
+							getlist(role,rlist.route,pdate);
+							}                	
+						},
+				})
+
 				}
 
 			if(to=="startp" || p=="startp"){
 				document.getElementById("topbar").style.display="none";		
-				document.getElementById(p).style.display="block";	    
+				document.getElementById(p).style.display="block";
+				facebook();	    
 				}
 
 			if(to=="transactionp"){
@@ -550,7 +580,7 @@
 
 			if(to=="userprofilep"){
 				fbid=myinfo.fbid;
-				if(userfbid!=undefined){fbid=userfbid;}
+				if(userfbid!=""){fbid=userfbid;}
 				loaduser(fbid);
 				}
 			
@@ -562,8 +592,78 @@
 				document.getElementById(p).style.display="block";	    
 				}
 
-			if(updateuserflag==true){alert("I'm updating");updateuser();}
+			if(updateuserflag==true){updateuser();updateuserflag==false;}
 		}		
+
+// this function set controls the flow of page views where a flow is needed
+		
+		function startflow(f){
+		
+			if(f){flow=f;}
+							
+			if(flow=="enroll"){
+				if(myinfo.fbid==undefined){
+					hidegrabber();						
+					nav('startp','fbp');
+					return false;
+					}
+				if(myinfo.workadd1==undefined || myinfo.add1==undefined){
+					document.getElementById("topbar").style.display="block";
+					hidegrabber();						
+					nav('fbp','enrollp');
+					return false;
+					}
+				if(myinfo.seckey==undefined){
+					regnewuser();
+					return false;
+					}	
+				if(myinfo.seckey!=undefined){
+					nav('enrollp','congratp');
+					showgrabber();
+					flow="";
+					return false;
+					};					
+			}
+			
+			if(flow=="riderequest"){
+				if(myinfo.cardtype==null){
+					message="<p>Before your first ride we're going to need a credit card on file.</p><p>We only bill you for the rides you take.</p><p>Billing is done monthly.  </p>";
+					openconfirm();
+					navt('riderequestp','paymentp');
+					flow="";
+					return false;
+					}
+			}
+			
+			if(flow=="ridepost"){
+				
+				if(tp!=""){back();}
+								
+				if(myinfo.cartype==null){
+					message="<p>Before you post your first ride, we'd like to know a little about your card, and you'll need to agree to our terms of service.</p>";
+					openconfirm();
+					navt('ridepostp','ridedetailsp');
+					return false;
+				}
+				
+				if(myinfo.dlverified!="Y"){
+					navt('ridepostp','driverp');
+					flow="";
+					return false;
+					}
+								
+			}			
+		}
+
+// this functions set shows/hides the grabber so you can't see it or interact with it
+
+		function hidegrabber(){
+			document.getElementById("menu-btn").style.display="none";
+			}
+
+		function showgrabber(){
+			document.getElementById("menu-btn").style.display="block";
+			}		
 
 // this function turns on a loading indicator.  only use when making a non-cached server call.
 
@@ -596,7 +696,6 @@
 			confirmfunction="";
 			okmessage="OK";
 			cancelmessage="Cancel";
-			message="";
 			$('#confirm-background').fadeOut({ duration: 100 });
 			}		
 		
@@ -673,7 +772,8 @@
 			if(method=="pickselect"){
 
 				 var targetDiv = document.createElement('div');
-				 
+				 info.pickspot=false;
+
 				 if(marker=="home"){var image = 'images/basehmarker.png';nodetype="H";}  
 				 if(marker=="work"){var image = 'images/basecmarker.png';nodetype="W";}  
 				 
@@ -710,8 +810,8 @@
 						success: function(data) {
 							nodelist=data;
 							paintnodes(data); },
-						error: function(data) { alert("boo!"+JSON.stringify(data)); },
-						beforeSend: setHeaderUser
+						error: function(data) { alert("boo!"+JSON.stringify(data));reporterror(url); },
+						beforeSend: setHeader
 					});
 				}
 				
@@ -749,7 +849,10 @@
 							desc=desc+" ("+nodelist[key].campus+")";
 							}
 						info.desc=desc;
+						map.setCenter(new google.maps.LatLng(b[0],b[1]));
 						document.getElementById("location").value=desc;
+						document.getElementById("mapselect").value="Select "+desc;
+						info.pickspot=true;
 						});
 			  		});
 				}
@@ -783,15 +886,20 @@
 
 		function getLocation(){
   			if (navigator.geolocation){
-    			navigator.geolocation.getCurrentPosition(showPosition);
+    			navigator.geolocation.getCurrentPosition(showPosition, noposition);
     			}
-  				else{alert("Yikes - geolocation is not supported by this browser. Go fish.");}
+  				else {noposition();}
   				}
 
 		function showPosition(position){
-			myspot = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-			loadMap("pick",myspot,18,"home");
-  			}
+				myspot = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+				loadMap("pick",myspot,9,"work");
+				}
+  	
+		function noposition(){
+				myspot = new google.maps.LatLng(37.41412126979139,-122.04459278399656);
+				loadMap("pick",myspot,9,"work");	
+				}
   		
 // this is a map function which places the value of the user location in the text field of location
 
@@ -813,19 +921,13 @@
 // this function parses/stores the home address and then moves to the work address
 
 		function enrollhome(){
-			document.getElementById("enrollp").style.display="block";	    
-			loadMap("pick",myspot,9,"work");
 			myinfo.add1=info.add1;
 			myinfo.state=info.state;
 			myinfo.city=info.city;
 			myinfo.zip=info.zip;
 			myinfo.homelatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
-			document.getElementById("mapselecthome").style.display="none";
-			document.getElementById("mapselectwork").style.display="block";
-			document.getElementById('pTitle').innerHTML="Where do you work?";
-		  	message="<p>Well done!<br><br>Next, please tell us where you work.</p>";
 		  	document.getElementById('location').value="Company name, city";
-		  	openconfirm();
+		  	startflow();
 			}
 
 // this function parses/stores the home address and then moves to the work address
@@ -836,14 +938,49 @@
 			myinfo.workcity=info.city;
 			myinfo.workzip=info.zip;
 			myinfo.worklatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
-			nav('enroll','fbp');
+			document.getElementById("mapselecthome").style.display="block";
+			document.getElementById("mapselectwork").style.display="none";
+			document.getElementById('pTitle').innerHTML="Where do you live?";
+			loadMap("pick",myspot,9,"home");
 			}
-			
-// below are the facebook functions.  they are optimized purely for the enrollment flow to get data from the user.
-// they are loaded from calling facebook();
+
+// this function set calculates distances between two points (in miles) and updates miles, % and co2 savings
+  
+		function calculateDistance() {
+		  x = myinfo.originlatlong;
+		  y = x.split(",");
+		  var origin = new google.maps.LatLng(y[0],y[1]);		  
+
+		  x = myinfo.destlatlong;
+		  y = x.split(",");
+		  var destination = new google.maps.LatLng(y[0],y[1]);		  
+		  		  
+		  var service = new google.maps.DistanceMatrixService();
+		  service.getDistanceMatrix(
+			{
+			  origins: [origin],
+			  destinations: [destination],
+			  unitSystem: google.maps.UnitSystem.IMPERIAL,
+			  travelMode: google.maps.TravelMode.DRIVING,
+			  avoidHighways: false,
+			  avoidTolls: false
+			}, distcallback);
+		}
+  
+		function distcallback(response, status) {
+		  if (status != google.maps.DistanceMatrixStatus.OK) {
+			alert('oops, I could not calculate a distance here: ' + status);
+		  } else {
+			myinfo.miles=Math.round(response.rows[0].elements[0].distance.value/1690.34); // response in meters, 1690.34 is meters/mile 
+			myinfo.gassavings=25;
+			myinfo.co2=Math.round(myinfo.miles/20*19.59);  // 20 mpg w/19.59 (8,887 grams) pounds per gallon of gas
+			updateuser();
+		  }
+		}
+				
+// below is the facebook and authentication set. ;
 
 		function facebook(){
-		  document.getElementById('login').style.display="block";
 		  window.fbAsyncInit = function() {
 			FB.init({
 			  appId      : '443508415694320', // App ID
@@ -881,24 +1018,45 @@
 			   myinfo.fbid=response.id;
 			   localStorage.fbid=response.id;
 			   myinfo.email=response.email;
-			   // now register the new user
-			   regnewuser();
-			   //and go to the congratulations page
-			   nav("fbp","congratp");
+			   startflow();
 			 });
 		   }
 		}
-		
+
 		function loginUser() {    
 			 FB.login(function(response) { }, {scope:'email'});     
 			 }
-		
+
+		function loginUser2() {    
+			 FB.login(function(response) {
+			   if (response.authResponse) {
+		   		  document.getElementById("fbauth").src="fbauth.php";
+		   		 }
+		   	   },{scope: 'email'});
+	 		 }
+
+		function authuser(data){
+			x=JSON.parse(data);
+			
+			if(x.seckey){
+			   localStorage.fbid=x.fbid;
+			   localStorage.seckey=x.seckey;
+			   showgrabber();
+			   document.getElementById("topbar").style.display="block";
+			   loadmyinfo();
+			   }
+
+			if(x.nouser){
+				}
+			}
+
 		function logoutUser() {    
 			 FB.logout();
 			 alert("Logged-out");
+			 document.getElementById('user-info').innerHTML="";
 			 }
-
-// this function set (2) creates a new user as part of the enroll flow
+		
+// this registers a new user
 
 		function regnewuser(){
 			var dataset = {
@@ -918,35 +1076,60 @@
 				"worklatlong": myinfo.worklatlong,
 				"profileblob": myinfo.profileblob,
 				"timezone": "PDT",
+				"preference": "EMAIL",
+				"leavetime": "09:00:00",
+				"hometime": "17:00:00",
+				"notificationmethod": "EMAIL",
+				"ridereminders": "1",
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
-		
+
 		    var request=$.ajax({
                 url: "/ridezu/api/v/1/users",
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
                 success: function() {},
-                error: function() { alert('already registered?'); },
+                error: function() { alert('It looks like you are already registered.');reporterror(url);},
                 beforeSend: setHeader
             	}); 
             	
-            request.done(function(msg) {
-  				myinfo.seckey=msg.seckey;
-  				localStorage.seckey=msg.seckey;
-				});                	     	
+            request.done(function(data) {
+				myinfo=data;
+				
+				//update miles & co2 if possible
+				if(myinfo.destlatlong && myinfo.originlatlong){
+					calculateDistance();
+				}
+				
+  				myinfo.seckey=myinfo.seckey;
+  				localStorage.seckey=myinfo.seckey;
+  				startflow();
+				});          				            	     	
        		}
+       		
+// this is the congratulations page
+
+		function congratinit(){
+			document.getElementById("topbar").style.display="block";
+			showgrabber();
+			if(myinfo.destdesc==undefined || myinfo.origindesc==undefined){
+				document.getElementById('strt1').innerHTML="We're putting together routes in your area and will let you know when you can start.<br/><br/>Until then, why don't you take the tour on how it works and complete your profile.";
+				}
+			if(myinfo.destdesc!=undefined && myinfo.origindesc!=undefined){
+				document.getElementById('strt1').innerHTML="Good news!  There is a pickup spot near your home that goes right to your office.  Let's get started!";
+				document.getElementById('myr').style.display="block";
+				}
+        	}
+
+// this used to auhtenticate the request
 
         function setHeader(xhr) {
-            xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
-            xhr.setRequestHeader("Content-Type", "application/json");
-  	      }
-
-        function setHeaderUser(xhr) {
-            xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
-            xhr.setRequestHeader("Content-Type", "application/json");
-  	      }         
+            xhr.setRequestHeader("X-Id",localStorage.fbid);
+            xhr.setRequestHeader("X-Signature",localStorage.seckey);
+            xhr.setRequestHeader("Content-Type","application/json");
+        }
 		
 // reverses the route from home to work or work to home
 
@@ -977,7 +1160,8 @@
 			  $.ajax({
 			  url: url,
 			  cache: false,
-			  dataType: "json"
+			  dataType: "json",
+			  beforeSend: setHeader
 			  }).done(function(data) {
 				rlist=data;
 				paintlist();						
@@ -1083,24 +1267,36 @@
 			info.driverfbid=driverfbid;
 			info.pname=pname;
 			info.eventtime=eventtime;			
+
+		   if(info.driverfbid==myinfo.fbid){
+			  message="<h2>Really?</h2><p>You can't book yourself.  That would be silly.</p>";
+			  openconfirm();
+			  return false;
+			  }
 			
-			message="<h2>New Ride Request</h2><p>Click OK to confirm your ride request.</p>";
-			confirmfunction="selectride";
-			showcancel=true;	
-			openconfirm();			
+			if(myinfo.cardtype!=null){
+				message="<h2>New Ride Request</h2><p>Click OK to confirm your ride request.</p>";
+				confirmfunction="selectride";
+				showcancel=true;	
+				openconfirm();			
+				}
+
+			if(myinfo.cardtype==null){
+				flow="riderequest";
+				startflow();		
+				}
+
 			}
 
 // this picks the specific ride (used by riders)
 		
 		function selectride(){
+						
 			timeslot=info.timeslot;
 			rideid=info.rideid;
 			driverfbid=info.driverfbid;
 			pname=info.pname;
 			eventtime=info.eventtime;
-			
-			document.getElementById("r1").style.display="none";
-			document.getElementById("r2").style.display="none";
 			fbid=myinfo.fbid;
 			
 			//if picking an empty slot
@@ -1124,11 +1320,18 @@
 					 dataType: "json",
 					 data: jsondataset,
 					 success: function(data) {
+					 	 if(data.warn){
+					 	 	message="<h2>Really?</h2><p>I think you might be trying to overbook yourself.</p>";
+					 	 	openconfirm();
+					 	 	return false;
+					 	 	};
+						 document.getElementById("r1").style.display="none";
+						 document.getElementById("r2").style.display="none";
 						 document.getElementById("ridetimea").innerHTML=timeslot;
 						 document.getElementById("ridepickupa").innerHTML=rlist.start;
 						 document.getElementById("r3").style.display="block";
 						 },
-					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); },
+					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));reporterror(url); },
 					 beforeSend: setHeader
 				 });
 
@@ -1153,14 +1356,19 @@
 				   dataType: "json",
 				   data: jsondataset,
 				   success: function(data) {
-						document.getElementById("ridetimeb").innerHTML=timeslot;
-						document.getElementById("ridepickupb").innerHTML=rlist.start;
-						document.getElementById("dnameb").innerHTML=pname;
-						document.getElementById("dnameb1").innerHTML=pname;
-						document.getElementById("dpicb").src="https://graph.facebook.com/"+driverfbid+"/picture";
-				   		document.getElementById("r4").style.display="block";
-				   		},
-				   error: function(data) {alert("boo!"+JSON.stringify(data)); },
+					 	 if(data.warn){
+					 	 	message="<h2>Really?</h2><p>I think you might be trying to overbook yourself.</p>";
+					 	 	openconfirm();
+					 	 	return false;
+					 	 	};
+						 document.getElementById("ridetimeb").innerHTML=timeslot;
+						 document.getElementById("ridepickupb").innerHTML=rlist.start;
+						 document.getElementById("dnameb").innerHTML=pname;
+						 document.getElementById("dnameb1").innerHTML=pname;
+						 document.getElementById("dpicb").src="https://graph.facebook.com/"+driverfbid+"/picture";
+						 document.getElementById("r4").style.display="block";
+						 },
+				   error: function(data) {alert("boo!"+JSON.stringify(data));reporterror(url); },
 				   beforeSend: setHeader
 			   });
 
@@ -1203,16 +1411,30 @@
 			info.fbid1=fbid1;
 			info.pname=pname;
 			info.eventtime=eventtime;			
+
+		   if(info.fbid1==myinfo.fbid){
+			  message="<h2>Really?</h2><p>You can't book yourself.  That would be silly.<p>";
+			  openconfirm();
+			  return false;
+			  }
 			
-			message="<h2>New Ride</h2><p>Click OK to confirm your ride.</p>";
-			confirmfunction="selectrider1";
-			showcancel=true;	
-			openconfirm();
+			if(myinfo.dlverified=="Y" && myinfo.cartype!=null){
+				message="<h2>New Ride</h2><p>Click OK to confirm.</p>";
+				confirmfunction="selectrider1";
+				showcancel=true;	
+				openconfirm();			
+				}
+
+			if(myinfo.dlverified!="Y" || myinfo.cartype==null){
+				flow="ridepost";
+				startflow();		
+				}
 			}
 
 // this picks the specific ride (used by drivers)
 		
 		function selectrider1(){			
+			
 			timeslot=info.timeslot;
 			ride=info.ride;
 			fbid1=info.fbid1;
@@ -1241,13 +1463,18 @@
 					 dataType: "json",
 					 data: jsondataset,
 					 success: function(data) {
+					 	 if(data.warn){
+					 	 	message="<h2>Really?</h2><p>I think you might be trying to overbook yourself.</p>";
+					 	 	openconfirm();
+					 	 	return false;
+					 	 	};
 						 document.getElementById("posttimea").innerHTML=timeslot;
 						 document.getElementById("ridepickupa").innerHTML=rlist.start;
 						 document.getElementById("r1").style.display="none";
 						 document.getElementById("r2").style.display="none";
 						 document.getElementById("r3").style.display="block";
 					  },
-					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); },
+					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); reporterror(url);},
 					 beforeSend: setHeader
 				 });
  
@@ -1268,14 +1495,20 @@
 							 dataType: "json",
 							 data: jsondataset,
 							 success: function(data) {
+							   if(data.warn){
+								  message="<h2>Really?</h2><p>I think you might be trying to overbook yourself.</p>";
+								  openconfirm();
+								  return false;
+								  };
 								x="l"+fbid1;
 								newrow="<div class='select1'><div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+fbid1+"/picture'/>";
 								newrow=newrow+"<p>View Profile</p></div>";
 								newrow=newrow+"<div id='selectdriver'><p>"+pname+"</p></div></div>";
+								document.getElementById(x).style.backgroundColor="#7ddb1d";
 								document.getElementById(x).innerHTML=newrow;
 								document.getElementById("nextbutton").style.display="block";
 							 	},
-							 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));},
+							 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));reporterror(url);},
 							 beforeSend: setHeader
 						 });			
 						}
@@ -1315,6 +1548,82 @@
 			return etime;
 		} 
 
+// this function is for the swipe left/swipe right right function set 
+
+		(function($) { 
+				 $.fn.touchwipe = function(settings) {
+				   var config = {
+						  min_move_x: 20,
+						  min_move_y: 20,
+						  wipeLeft: function() { },
+						  wipeRight: function() { },
+						  wipeUp: function() { },
+						  wipeDown: function() { },
+						  preventDefaultEvents: true
+				   };
+				   
+				   if (settings) $.extend(config, settings);
+			   
+				   this.each(function() {
+					   var startX;
+					   var startY;
+					   var isMoving = false;
+			  
+					   function cancelTouch() {
+						   this.removeEventListener('touchmove', onTouchMove);
+						   startX = null;
+						   isMoving = false;
+					   }	
+					   
+					   function onTouchMove(e) {
+						   if(config.preventDefaultEvents) {
+							   e.preventDefault();
+						   }
+						   if(isMoving) {
+							   var x = e.touches[0].pageX;
+							   var y = e.touches[0].pageY;
+							   var dx = startX - x;
+							   var dy = startY - y;
+							   if(Math.abs(dx) >= config.min_move_x) {
+								  cancelTouch();
+								  if(dx > 0) {
+									  config.wipeLeft();
+								  }
+								  else {
+									  config.wipeRight();
+								  }
+							   }
+							   else if(Math.abs(dy) >= config.min_move_y) {
+									  cancelTouch();
+									  if(dy > 0) {
+										  config.wipeDown();
+									  }
+									  else {
+										  config.wipeUp();
+									  }
+								   }
+						   }
+					   }
+					   
+					   function onTouchStart(e)
+					   {
+						   if (e.touches.length == 1) {
+							   startX = e.touches[0].pageX;
+							   startY = e.touches[0].pageY;
+							   isMoving = true;
+							   this.addEventListener('touchmove', onTouchMove, false);
+						   }
+					   }    	 
+					   if ('ontouchstart' in document.documentElement) {
+						   this.addEventListener('touchstart', onTouchStart, false);
+					   }
+				   });
+			   
+				   return this;
+				 };
+			   
+			   })(jQuery);		
+
 // this is the my rides page, myridesp.  lots of use cases here
 
 // gets a list of myrides
@@ -1327,7 +1636,8 @@
 			  $.ajax({
 			  url: url,
 			  cache: false,
-			  dataType: "json"
+			  dataType: "json",
+			  beforeSend: setHeader
 			  }).done(function(data) {
 				mrlist=data;
 				paintmyrides();						
@@ -1373,7 +1683,7 @@
 					  }
 			  		   				
 				if(value1.day!="Today"){
-					  x=" on ";
+					  x="";
 					  }
 					  else{
 					  x="";
@@ -1429,14 +1739,29 @@
 			   document.getElementById('allrides').style.display="none";
 			   document.getElementById('r0').style.display="block";
 			   document.getElementById('r1').style.display="block";	  	
-			   b="<input type=\"submit\" onclick=\"runninglate('"+rideid+"');\" class=\"primarybutton\" value=\"I'm running late!\"/>";
+			   b="";
+			   if(value1.reffbid!=null){
+			   		b="<input type=\"submit\" onclick=\"runninglate('"+rideid+"');\" class=\"primarybutton\" value=\"I'm running late!\"/>";
+			   		}
 			   b=b+"<input type=\"submit\" onclick=\"cancelride('"+rideid+"');\" class=\"primarybutton\" value=\"Cancel Ride\"/></div>";
 			   document.getElementById('myrideaction').innerHTML=b;
 		  	
 		  	}
 		  	
 		  	if(z==0){
+				if(myinfo.destdesc==undefined || myinfo.origindesc==undefined){
+					document.getElementById('noridenote').innerHTML="We're putting together routes in your area and will let you know when you can start.<br/><br/>Until then, why don't you take the tour on how it works and complete your profile.";
+					document.getElementById('mr3').style.display="block";
+					document.getElementById('mr4').style.display="block";
+					}
+			   
+			if(myinfo.destdesc!=undefined && myinfo.origindesc!=undefined){
+					document.getElementById('mr1').style.display="block";
+					document.getElementById('mr2').style.display="block";
+					}
+			   
 			   document.getElementById('noride').style.display="block";
+
 		  	}
 		document.getElementById(p).style.display="block";	    
 	}
@@ -1509,8 +1834,8 @@
                 success: function(data) {
                 	p="mainp";
                 	nav(p,'myridesp');},
-                error: function(data) { alert("Rats - I could not cancel this. "+JSON.stringify(data)); },
-                beforeSend: setHeaderUser
+                error: function(data) { alert("Rats - I could not cancel this. "+JSON.stringify(data));reporterror(url); },
+                beforeSend: setHeader
             });
 		}	
 
@@ -1540,12 +1865,12 @@
 					m="Hi "+x3[0]+" - I am running about "+time+" late.  Let me know if this is not ok.  Thanks! -"+myinfo.fname;
 					info.tofbid=x2[0];
 				    document.getElementById('txtmessage').value=m;
+	    			info.messagetype="direct";
 				    sendmessage1();							
 				});
 
 			notlate();
 		}
-
 
 // this function set populates the page for the profile page
 // step1 get the user 
@@ -1560,19 +1885,29 @@
 		function paintuserprofile(){
 			if(userinfo.consistency==null){userinfo.consistency="Not yet rated"};
 			if(userinfo.timeliness==null){userinfo.timeliness="Not yet rated"};
-			if(userinfo.carmaker==null){userinfo.carmaker="N/A"};
+			if(info.ranking==undefined){info.ranking="Not yet rated"};
+			if(userinfo.cartype==null){userinfo.carmaker="Not available";userinfo.cartype="";};
+			if(userinfo.co2balance==null){userinfo.co2balance="0"};
+			x=parseInt(userinfo.ridesoffered)+parseInt(userinfo.ridestaken);
+			x="0";
+
 			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.fbid+"/picture";	
 			document.getElementById('workcity').innerHTML=userinfo.workcity;	
+
+			if(myinfo.fbid!=userinfo.fbid){
+				document.getElementById('messageuser').innerHTML="<br/><a class='minibutton' href='#' onclick=\"sendmessage('"+myinfo.fbid+"','"+userinfo.fbid+"','"+userinfo.fname+"');\">Send message</a>";
+				}
 			
 			if(userinfo.profileblob.quotes){
 				document.getElementById('quote').innerHTML=userinfo.profileblob.quotes;
 				}
 				
+			document.getElementById('ranking').innerHTML=info.ranking;	
 			document.getElementById('city').innerHTML=userinfo.city;	
-			document.getElementById('cartype').innerHTML=userinfo.carmaker;	
+			document.getElementById('cartype').innerHTML=userinfo.carmaker+" "+userinfo.cartype;	
 			document.getElementById('username').innerHTML=userinfo.fname+" "+userinfo.lname;	
 			document.getElementById('co2').innerHTML=userinfo.co2balance;	
-			document.getElementById('trips').innerHTML=parseInt(userinfo.ridesoffered)+parseInt(userinfo.ridestaken);
+			document.getElementById('trips').innerHTML=x;
 			document.getElementById('consistency').innerHTML=userinfo.consistency;
 			document.getElementById('timeliness').innerHTML=userinfo.timeliness;
 
@@ -1581,10 +1916,6 @@
 				document.getElementById('mywheels').style.display="block";			
 				}
 							
-			if(userinfo.profileblob.bio){
-				document.getElementById('aboutmetext').innerHTML=userinfo.profileblob.bio;
-				document.getElementById('aboutme1').style.display="block";
-				}	
 
 			if(userinfo.profileblob.work){
 				worklist="";
@@ -1611,7 +1942,7 @@
 				  edulist=edulist+"<li>";
 
 				  if(value.school){
-				  		edulist=edulist+"<strong class='educationsub'>"+value.school.name+"</strong>";
+				  		edulist=edulist+"<strong class='educationsub'>"+value.school.name+"</strong><br>";
 				  		}
 
 				  if(value.year){
@@ -1644,12 +1975,11 @@
 			fbid=myinfo.fbid;
 			
 			if(myinfo.frontphoto!=null){
-				front="https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;}
-				else {
-				front="../images/upload.png";
+				front="https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
+				document.getElementById('frontview').src=front;
+				document.getElementById('frontview').style.display="block";
 				}
-				
-			document.getElementById('frontview').src=front;
+							
 			document.getElementById('fbid').value=fbid;
 			
 			if(myinfo.isLuxury=="Y"){document.getElementById('luxurycar').checked="checked";}
@@ -1660,13 +1990,22 @@
 
 			loading("temp");	    
 			}
-		
+
+		function addphoto(){
+			document.getElementById('loadbutton').style.display="block";
+			}		
+
 		function newridedetails(){
 			myinfo.cartype=document.getElementById('cartype').value;
 			myinfo.carmaker=document.getElementById('carmaker').value;
 			myinfo.isLuxury=document.getElementById('luxurycar').value;
 			myinfo.seats=document.getElementById('seats').value
 			updateuserflag=true;
+
+			if(myinfo.cartype!=null && myinfo.carmaker!=null && myinfo.seats!=null && flow=="ridepost"){
+				document.getElementById('driverflow').style.display="block";
+				updateuser();
+				}
 			}
 
 // this function sets a selected index on a dropdown
@@ -1695,6 +2034,8 @@
 				 if(x=="front"){
 				 	myinfo.frontphoto=obj.image;
 					document.getElementById("frontview").src = "https://ridezu.s3.amazonaws.com/"+myinfo.frontphoto;
+					document.getElementById('frontview').style.display="block";
+					document.getElementById('loadbutton').style.display="none";
 					}
 				 if(x=="back"){
 				 	myinfo.backphoto=obj.image;
@@ -1715,7 +2056,6 @@
 				 updateuserflag=true;
 				 }
 			  document.getElementById('uploadprocess').style.display = 'none';
-			  document.getElementById('loadbutton').style.display = 'block';      
 			  return true;   
 		}
 
@@ -1723,14 +2063,20 @@
 
 		function homeprofileinit(){
 			document.getElementById('r1').style.display="block";
+			document.getElementById('r2').style.display="none;";			
 			document.getElementById('add1').innerHTML=myinfo.add1;
 			document.getElementById('city').innerHTML=myinfo.city;
 		  	mw=screenwidth-20;
 		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
 			document.getElementById('mapa').src=xstartlatlong;
-		  	x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.originlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&sensor=false";
-			document.getElementById('mapb').src=x1startlatlong;
-			document.getElementById('pickupname').innerHTML=myinfo.origindesc;
+		  	if(myinfo.origindesc){
+				 x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.originlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&sensor=false";
+				 document.getElementById('mapb').src=x1startlatlong;
+				 document.getElementById('pickupname').innerHTML=myinfo.origindesc;
+				 }
+				else {
+				document.getElementById('pickupname').innerHTML="Select a pickup location";
+				}
 			loading("temp");	    
 			}
 
@@ -1745,9 +2091,13 @@
 			}
 			
 		function pickpickup(){
+			document.getElementById("mapselect").value="Select";
 			document.getElementById('r1').style.display="none";
 			document.getElementById('r2').style.display="block";			
-			x = myinfo.homelatlong;
+			message="<p>Please select one of the pickup locations by clicking on the marker.<br><br>This is where you will get picked up and dropped off at the end of the day.</p>";  
+			openconfirm();
+			if(myinfo.originlatlong){x=myinfo.originlatlong;}
+				else {x=myinfo.homelatlong;}
 			y = x.split(",");
 			myspot = new google.maps.LatLng(y[0],y[1]);
 			info.pick="pickup";
@@ -1767,7 +2117,17 @@
 			if(info.pick=="pickup"){
 				 myinfo.originlatlong=info.lat+","+info.lng;
 				 myinfo.origindesc=info.desc;
+				 if(info.pickspot==false){
+						message="<p>Please click one of the available locations. Thanks!<p>";
+						openconfirm();
+						return false;
+						}
 				 }
+
+			//update miles & co2 if needed
+			if(myinfo.destlatlong && myinfo.originlatlong){
+				calculateDistance();
+				}
 					 
 			updateuserflag=true;
 			document.getElementById('r2').style.display="none";	
@@ -1778,38 +2138,82 @@
 
 		function workprofileinit(){
 			document.getElementById('r1').style.display="block";
-			document.getElementById('workname').innerHTML=myinfo.destdesc;
-			document.getElementById('workadd1').innerHTML=myinfo.workadd1;
-			document.getElementById('workcity').innerHTML=myinfo.workcity;
-			mw=screenwidth-20;
-		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.destlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
+			document.getElementById('r2').style.display="none";			
+			document.getElementById('add1').innerHTML=myinfo.workadd1;
+			document.getElementById('city').innerHTML=myinfo.workcity;
+		  	mw=screenwidth-20;
+		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.worklatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecmarker.png%7C"+myinfo.worklatlong+"&sensor=false";
 			document.getElementById('mapa').src=xstartlatlong;
-			loading("temp");	    
+		  	if(myinfo.destdesc){
+				x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.destlatong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
+				document.getElementById('mapb').src=x1startlatlong;
+				document.getElementById('pickupname').innerHTML=myinfo.destdesc;
+				}
+				else {
+				document.getElementById('pickupname').innerHTML="Select a pickup location";
+				}
+
+		loading("temp");	    
 			}
-			
-		function pickwork() {
+
+		function pickwork(){ 
 			document.getElementById('r1').style.display="none";
 			document.getElementById('r2').style.display="block";			
-			x = myinfo.destlatlong;
+			x = myinfo.worklatlong;
 			y = x.split(",");
 			myspot = new google.maps.LatLng(y[0],y[1]);
 			info.pick="work";
-			loadMap("pickselect",myspot,18,"work");		
+			loadMap("pick",myspot,18,"work");
 			}
 			
+		function pickpickupwork(){
+			document.getElementById("mapselect").value="Select";
+			document.getElementById('r1').style.display="none";
+			document.getElementById('r2').style.display="block";			
+			message="<p>Please select one of the pickup locations by clicking on the marker.<br><br>In you work at a corporate campus, please let your driver know which building you work in.</p>";  
+			openconfirm();
+			if(myinfo.destlatlong){x=myinfo.destlatlong;}
+				else {x=myinfo.worklatlong;}
+			y = x.split(",");
+			myspot = new google.maps.LatLng(y[0],y[1]);
+			info.pick="pickup";
+			loadMap("pickselect",myspot,18,"work");
+			}
+
 		function updatework(){
-			myinfo.worklatlong=info.lat+","+info.lng;			
-			myinfo.destlatlong=info.lat+","+info.lng;
-			myinfo.destdesc=info.desc;
+		
+			if(info.pick=="work"){
+				 myinfo.workadd1=info.add1;
+				 myinfo.workstate=info.state;
+				 myinfo.workcity=info.city;
+				 myinfo.workzip=info.zip;
+				 myinfo.worklatlong=info.lat+","+info.lng;
+				 }
+			
+			if(info.pick=="pickup"){
+				 myinfo.destlatlong=info.lat+","+info.lng;
+				 myinfo.destdesc=info.desc;
+				 if(info.pickspot==false){
+				 	message="<p>Please click one of the available locations. Thanks!<p>";
+				 	openconfirm();
+				 	return false;
+				 	}
+				 }
+
+			//update miles & co2 if needed
+			if(myinfo.destlatlong && myinfo.originlatlong){
+				calculateDistance();
+				}
+					 
 			updateuserflag=true;
 			document.getElementById('r2').style.display="none";	
 			workprofileinit();
-			}			
+			}
 
 // this function is for driver verification
 
 		function dverifyinit(){
-			if(myinfo.dlverified=="yes"){
+			if(myinfo.dlverified=="Y"){
 				document.getElementById('c1').checked=true;
 				document.getElementById('c2').checked=true;
 				document.getElementById('c3').checked=true;
@@ -1824,11 +2228,11 @@
 			cb3=$('#c3:checked').val();
 			cb4=$('#c4:checked').val();
 			if(cb1=="on" && cb2=="on" && cb3=="on" && cb4=="on"){
-				updateuserflag=true;
-				myinfo.dlverified="yes";
+				myinfo.dlverified="Y";
 				message="<p>Thanks! You're all set</p>";
 				openconfirm();
-				updateuserflag=true;
+				updateuser();
+				back();
 				}
 				else
 				{
@@ -1841,18 +2245,27 @@
 
 		function contactinfoinit(){
 			document.getElementById('email').value=myinfo.email;
-			document.getElementById('phone').value=myinfo.phone;
+			parts = [myinfo.phone.slice(0,3),myinfo.phone.slice(3,6),myinfo.phone.slice(6,10)];
+			document.getElementById('phone').value = parts[0]+"-"+parts[1]+"-"+parts[2];	
 			document.getElementById('name').value=myinfo.fname+" "+myinfo.lname;			
 			loading("temp");	    
 			}
 
 		function contactinfo(){
 			myinfo.email=document.getElementById('email').value;
-			myinfo.phone=document.getElementById('phone').value;
-			name=getElementById('name').value;
+			phone = document.getElementById('phone').value;
+			phone = phone.replace( /\D/g, '' );
+			if(phone.length!=0 && phone.length!=10){
+				message="<p>Please enter a 10-digit phone number xxx-xxx-xxxx</p>";
+				openconfirm();
+				phone="";
+				}
+			myinfo.phone=phone;
+			name=document.getElementById('name').value;
 			fn=name.split(" ");
 			myinfo.fname=fn[0];
 			myinfo.lname=fn[1];
+			
 			updateuserflag=true;
 			}
 			
@@ -1868,8 +2281,8 @@
                 dataType: "json",
                 success: function(data) {
                 	paintaccount(data); },
-                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data)); },
-                beforeSend: setHeaderUser
+                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+                beforeSend: setHeader
             });
         }
 
@@ -1904,31 +2317,39 @@
                 dataType: "json",
                 success: function(data) {
                 	paintaccountdetail(data); },
-                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data)); },
-                beforeSend: setHeaderUser
+                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+                beforeSend: setHeader
             });
         }
 
 		function paintaccountdetail(data){
 
-			txndetail="<table>";
-	    					
-		   $.each(data.accountdetail, function(key, value) {
-				d=value.eventtime;
-				d1=d.split(" ");
-				d2=d1[0].split("-");
-				d3=d2[1]+"/"+d2[2];				
-				if(value.credit=="0.00"){amt="-$"+value.debit;}
-				if(value.debit=="0.00"){amt="$"+value.credit;}
-				desc=value.origindesc+" > "+value.destdesc;
-				txndetail=txndetail+"<tr><td>"+d3+"</td><td>"+desc+"</td><td style='text-align:right;'>"+amt+"</td></tr>";
-			   });
+	    	if(data.accountdetail){
 
-			txndetail=txndetail+"</table>";
-			document.getElementById('txndata').innerHTML=txndetail;		
-
-			$("tr:odd").css("background-color", "#ffffff");
-
+				txndetail="<table>";
+				  
+				$.each(data.accountdetail, function(key, value) {
+					 d=value.eventtime;
+					 d1=d.split(" ");
+					 d2=d1[0].split("-");
+					 d3=d2[1]+"/"+d2[2];				
+					 if(value.credit=="0.00"){amt="-$"+value.debit;}
+					 if(value.debit=="0.00"){amt="$"+value.credit;}
+					 desc=value.origindesc+" > "+value.destdesc;
+					 txndetail=txndetail+"<tr><td>"+d3+"</td><td>"+desc+"</td><td style='text-align:right;'>"+amt+"</td></tr>";
+					});
+	 
+				 txndetail=txndetail+"</table>";
+				 document.getElementById('txndata').innerHTML=txndetail;		
+				 document.getElementById('trans').style.display="block";		
+	 
+				 $("tr:odd").css("background-color", "#ffffff");
+			}
+		
+			else {
+				 document.getElementById('notrans').style.display="block";				
+			}
+			
 		}
 
 // this function set updates PayPal payout information
@@ -1963,9 +2384,10 @@
 
 		function sendmessage(fromfbid,tofbid,toname){	
 			message="<p>Send a private message to <b>"+toname+"</b><br/><br/>";
-			message=message+"<textarea id='txtmessage' rows='3' cols='30'></textarea>";
+			message=message+"<textarea id='mymsg' rows='3' cols='30'></textarea>";
 			info.fromfbid=fromfbid;
 			info.tofbid=tofbid;
+			info.messagetype="alertbox";
 			confirmfunction="sendmessage1";
 			okmessage="Send";	
 			cancelmessage="Cancel";	
@@ -1973,8 +2395,16 @@
 			openconfirm();
 		}	
 
-		function sendmessage1(){	
-			 message1=document.getElementById("txtmessage").value;
+		function sendmessage1(msg){	
+			 
+			 if(info.messagetype=="direct"){
+			 	message1=document.getElementById("txtmessage").value;
+			 	}
+			 	
+			 if(info.messagetype=="alertbox"){
+			 	message1=document.getElementById("mymsg").value;
+			 	}
+			 			 
 			 var dataset = {"message":	message1,}				
 			 var jsondataset = JSON.stringify(dataset);
 			 url="/ridezu/api/v/1/notification/message/fbid/"+info.tofbid+"/fromfbid/"+info.fromfbid;
@@ -1988,7 +2418,7 @@
                 	message="<center><h2>Message sent!</h2></center>";
 		  			openconfirm();
                 	},
-                error: function(data) {alert("boo!"+JSON.stringify(data)); },
+                error: function(data) {alert("boo!"+JSON.stringify(data));reporterror(url);},
                 beforeSend: setHeader
             });
 
@@ -1998,12 +2428,12 @@
 
 		function paymentinfoinit(){
 			if(myinfo.last4==null){
-				document.getElementById("r1").style.display="block";
-				x="testpayment/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&secret="+myinfo.secret+"&method=newcard";
+				document.getElementById("payblock").style.display="block";
+				x="pay/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&seckey="+myinfo.seckey+"&method=newcard";
 				document.getElementById("payifrm").src=x;
 				}		
 			if(myinfo.last4!=null){
-				document.getElementById("r1").style.display="none";
+				document.getElementById("payblock").style.display="none";
 				document.getElementById("onfile").style.display="block";
 				document.getElementById("last4oncard").innerHTML=myinfo.last4;
 				document.getElementById("cardname").innerHTML=myinfo.fname+" "+myinfo.lname;
@@ -2019,9 +2449,9 @@
 		
 		function addnewcard(){
 			if(myinfo.last4!=null){
-				document.getElementById("r1").style.display="block";
+				document.getElementById("payblock").style.display="block";
 				document.getElementById("onfile").style.display="none";
-				x="testpayment/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&secret="+myinfo.secret+"&method=addnewcard&oldtoken="+myinfo.token;
+				x="pay/paymentform.php?fbid="+myinfo.fbid+"&fname="+myinfo.fname+"&lname="+myinfo.lname+"&email="+myinfo.email+"&seckey="+myinfo.seckey+"&method=addnewcard&oldtoken="+myinfo.token;
 				document.getElementById("payifrm").src=x;
 				}
 			}			
@@ -2029,7 +2459,7 @@
 		function ccupdate(instrux){
 			x=JSON.parse(instrux);
 			if(x.error){
-				message=x.error;
+				message="<p>Looks like there was an error with your credit card.  Could you try again?  Thanks!</p>";
 				openconfirm();
 				}
 			if(x.cardtype){
@@ -2037,19 +2467,44 @@
 				myinfo.cardtype=x.cardtype;
 				myinfo.token=x.token;
 				myinfo.expdate=x.expirationdate;
-				message="Your credit card has been entered securely. Thank you!";
+				message="<h2>Thank you!</h2><p>Your credit card has been entered securely.</p>";
 				openconfirm();
-				updateuserflag=true;
-				navt1();
+				updateuser();
+				back();
 				}
 		}	
-					
+
+// this function is to report errors or anomalies that users see
+
+		function reporterror(url){
+			var dataset = {
+				"fbid":	myinfo.fbid,
+				"fname": myinfo.fname,
+				"lname": myinfo.lname,
+				"email": myinfo.email,
+				"api":url,
+				"page":p,
+				}
+				
+			var jsondataset = JSON.stringify(dataset);
+
+		    var request=$.ajax({
+                url: "error.php",
+                type: "POST",
+                dataType: "html",
+                data: jsondataset,
+                success: function() {},
+                error: function() {},
+                beforeSend: setHeader
+            	}); 
+			}				
+
 // these are the functions which initialize and start the ridezu web app.  please keep everything after this line at the end of this page, and functions before this.
 
 // declare global variables. There is still some locaStorage, this should be replaced largely w/global vars.
 
   		var map; 
-  		var m={}; 
+  		var m=new Array(); 
 	    var geocoder;
 	    var myspot;
 	    var requestride;
@@ -2060,7 +2515,7 @@
 	    var myinfo={};
 	    var info={};
 	    var etime;
-	    var userfbid;
+	    var userfbid="";
 		var message;
 		var okmessage="OK";
 		var cancelmessage="Cancel";
@@ -2071,6 +2526,7 @@
 		var updateuserflag=false;
 		var tp="";
 		var p="firstp";
+		var flow="";
 		  		
 // page titles are the pageid's coupled with what shows up in the header
   		
@@ -2080,7 +2536,7 @@
    			"noroutep":"Stay tuned!" ,
    			"rideconfirmp":"Ride confirmed!",
   			"startp":"Welcome to Ridezu" ,
-  			"enrollp":"Where do you live?" ,
+  			"enrollp":"Where do you work?" ,
   			"fbp":"Login with Facebook" ,
 			"congratp":"Congratulations!",
   			"mainp":"Ridezu" ,
@@ -2097,14 +2553,12 @@
   			"rider3p":"Step 3",
   			"ride1p":"Step 1",
   			"ride2p":"Step 2",
-  			"ride3p":"Step 3",			
-  			"whereworkp":"Where do you work?",			
-  			"wherelivep":"Where do you live?",			
+  			"ride3p":"Step 3",				
   			"myridesp":"My Rides",			
   			"loginp":"Login - Test Page",			
   			"homeprofilep":"Home Details",			
   			"workprofilep":"Work Details",			
-  			"constactinfop":"Contact Info",			
+  			"contactinfop":"Contact Info",			
   			"driverp":"Driver Verification",			
   			"ridedetailsp":"My Wheels",			
   			"paymentp":"Payment Info",			
@@ -2134,15 +2588,27 @@
 
 $(document).ready(function() {
 	fbid=localStorage.fbid;
-	if(fbid!=undefined){
-	  loadmyinfo();	 
+	seckey=localStorage.seckey;
+
+	if(fbid!=undefined && seckey!=undefined){
+	  loadmyinfo();
 	}
 	else
 	{
 	  nav("firstp","startp");
 	  	  $(document).ready(function() {
-		  document.getElementById("w").style.display="block";	 
+		  document.body.style.display="block";
 		});
 	}
-	
- });
+if(client=="mweb"){
+	 window.addEventListener("load",function() {
+	   // Set a timeout...
+	   setTimeout(function(){
+		 // Hide the address bar!
+		 window.scrollTo(0, 1);
+	   }, 0);
+	document.body.style.display="block";
+	});
+  }
+ 
+});

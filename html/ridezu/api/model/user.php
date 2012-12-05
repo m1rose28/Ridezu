@@ -81,7 +81,8 @@ function findByName($query)
 
 function findByFB($query) 
 {
-   setHeader();
+  authorize($query);
+  setHeader();
     //$sql = "SELECT * FROM userprofile WHERE UPPER(fbid) = UPPER(:query) and seckey=:hash and deleted <>'Y'";
 	$sql = "SELECT * FROM userprofile WHERE UPPER(fbid) = UPPER(:query) and deleted <>'Y'";
     try {
@@ -103,6 +104,31 @@ function findByFB($query)
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 }
+
+
+function findPublicDataByFB($query)
+{
+  setHeader();
+	$sql = "SELECT id,fbid,fname,lname,city,state,workcity,workstate,createdon,origindesc,destdesc,co2,profileblob,cartype,seats,ridesoffered,ridestaken,co2balance,milesoffered,milestaken,drivertardyslips,ridertardyslips,carmaker,isLuxury,rating,consistency,timeliness,frontphoto,backphoto,leftphoto,rightphoto,userphoto FROM userprofile WHERE UPPER(fbid) = UPPER(:query) and deleted <>'Y'";
+    try {
+        $hash=getHashKey();
+		
+		$db = getConnection();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("query", $query);
+		$stmt->execute();
+        $user = $stmt->fetchObject();
+        $db = null;
+        if((!is_null($user->profileblob) || !empty($user->profileblob))  && (is_json($user->profileblob))){
+		  $user->profileblob = json_decode($user->profileblob);
+		}
+        echo json_encode($user);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+
+}
+
 
 function queryByFB($query)
 {
@@ -164,7 +190,7 @@ function addUser()
 		if ($user->homelatlong !=NULL)
 		{
 			//echo $user->homelatlong;
-			$originnode = getNearestNode($user->homelatlong,5);
+			$originnode = getNearestPNRNode($user->homelatlong,5);
 			$stmt->bindParam("originlatlong", $originnode->latlong);
 			$stmt->bindParam("origindesc", $originnode->name);
 		}
@@ -177,7 +203,7 @@ function addUser()
 		}
 		if ($user->worklatlong !=NULL)
 		{
-			$destnode = getNearestNode($user->worklatlong,5);
+			$destnode = getNearestNode($user->worklatlong,1);
 			$stmt->bindParam("destlatlong",$destnode->latlong);
 			$stmt->bindParam("destdesc",$destnode->name);
 		}
@@ -201,7 +227,8 @@ function addUser()
 		$stmt->bindParam("verificationtime", $user->verificationtime);
 		$stmt->bindParam("profileblob", $user->profileblob);
 		$stmt->bindParam("cartype", $user->cartype);
-		$stmt->bindParam("seats", $user->seats);
+		$seats = 3;
+		$stmt->bindParam("seats", $seats);
 		$stmt->bindParam("frontphoto", $user->frontphoto);
 		$stmt->bindParam("backphoto", $user->backphoto);
 		$stmt->bindParam("leftphoto", $user->leftphoto);
@@ -240,7 +267,8 @@ function addUser()
  
  function updateUser($id){
      
-        setHeader();
+        authorize($id);
+		setHeader();
         $request = Slim::getInstance()->request();
         $body = $request->getBody();
         $user = json_decode($body,true);

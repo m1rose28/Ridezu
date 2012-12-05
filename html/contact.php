@@ -10,7 +10,7 @@ if($_POST){
     // 1. send email confirmation to user who sent email
 
    // to
-   $to  = "$email";
+   $to  = $name." <".$email.">";
    
    // subject
    $subject = "Thanks for your note!";
@@ -30,8 +30,8 @@ if($_POST){
    $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
    
    // Additional headers
-   $headers .= "To: ".$name." <".$email.">"."\r\n";
    $headers .= "From: Team Ridezu <support@ridezu.com>" . "\r\n";
+   
    
    // Mail it
    mail($to, $subject, $message, $headers);

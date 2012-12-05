@@ -33,7 +33,6 @@ if(isset($_GET["client"])){$client=$_GET["client"];}
 	<title>Ridezu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<link type="text/css" rel="stylesheet" href="css/ridezu.css"> 
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/ridezu.js"></script>
 	<script type="text/javascript" src="js/ridezuadmin.js"></script>

@@ -1,44 +1,67 @@
 <?php
 
-//check server names and https values and re-direct if needed
-$s=$_SERVER['SERVER_NAME'];
-$h=$_SERVER['HTTPS'];
-$u=$_SERVER['REQUEST_URI'];
-if($h==false or $s=="ridezu.com"){header('Location: https://www.ridezu.com'.$u);}
+require_once 'rzconfig.php';
 
-
+// these are init variables
 $t="";
 $p="myridesp";
+$c="mweb";
+
 if(isset($_GET["p"])){$p=$_GET["p"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
+if(isset($_GET["c"])){$c=$_GET["c"];}
 
+if($t=="1" || $t=="2"){
+	$scriptset="
+		<script type='text/javascript' src='js/ridezuadmin.js?v=$rzversion'></script>
+		<script>localStorage.fbid='500012114';localStorage.seckey='f6462731d06d181532acd85a5791621a';</script>
+		";
+		$_SESSION['mode']="dev";
+	} else
+
+	{
+	$scriptset="";
+		$_SESSION['mode']="prod";
+		}	
+	
+if($t=="2"){ 
+	$scriptset=$scriptset."
+	   <script>localStorage.removeItem('fbid')</script>
+	   <script>localStorage.removeItem('seckey')</script>
+	   ";
+	   }
+	
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta property="og:title" content="Ridezu" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="/" />
+	<meta property="og:image" content="/images/ridezu450.png" />
 	<script type="text/javascript">
 		var startpage="<?php echo $p;?>";
-		var client="mweb";
+		var client="<?php echo $c;?>";
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<?php echo $scriptset;?>
+	 <script type='text/javascript' src='js/script.js?v=<?php echo $rzversion;?>'></script>
+	 <script type='text/javascript' src='js/ridezu.js?v=<?php echo $rzversion;?>'></script>
+	 <link type='text/css' rel='stylesheet' href='css/style.css?v=<?php echo $rzversion;?>'>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Ridezu</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
-<?php if($t==1){ ?>
-	<script type="text/javascript" src="js/ridezuadmin.js"></script>
-<?php } ?>
-
-	<script type="text/javascript" src="js/ridezu.js"></script>
-	<link type="text/css" rel="stylesheet" href="css/style.css">
 	
 </head>
 
-<body>
-		<div id="w" style="display:none;">
+<body style="display:none;">
+
+	<div id="w">
 		
 		<div id="pagebody" style="left: 0px;">
 			<div id="topbar" style="display:block;">
@@ -107,7 +130,6 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
 				</div>
 <?php if($t==1){ ?>		
 		<div id="testbar" style="background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
-		</div>		
 <?php } ?>		
 		<div id="navmenu">
 				<ul>
@@ -131,21 +153,23 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
 				</ul>
 			</div>
 		</div>
+		<div id="fb-root"></div>
 
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36391790-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-
-</script>
+	<script type="text/javascript">
+	
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-36391790-1']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	
+	</script>
+	</div>
 
 	
 </body></html>

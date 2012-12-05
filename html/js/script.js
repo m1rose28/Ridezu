@@ -54,7 +54,7 @@ $(document).ready(function(){
 		}
 		
 		if(tp!=""){
-			navt1();	
+			back();	
 		}
 
 	});

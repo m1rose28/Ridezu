@@ -37,19 +37,19 @@ include "header.php";
 					
 						<ul> 
 							<li>
-								<p>Ridezu is for working professionals. Feel safe knowing that you're carpooling with people just like you.</p>
+								<p><b>Professional</b>. Ridezu is for working pros. Feel safe knowing that you're carpooling with people just like you.</p>
 								
 								<img src="images/peoplelikeyou.jpg" alt="Image of a person" />
 							</li>
 							
 							<li>
-								<p>Real identities. Before you take a ride, preview who you're riding with.</p>
+								<p><b>Real identities</b>. Before you take a ride, preview who you're riding with.</p>
 								
 								<img src="images/previewpeople.jpg" alt="Image of a business card" />
 							</li>
 							
 							<li>
-								<p>Ridezu uses and encourages community rankings. This give you confidence that Ridezu will be a great carpooling experience.</p>
+								<p><b>Community Rankings</b>. Ridezu is a social community which drvies great carpooling experience.</p>
 								
 								<img src="images/communityrankings.jpg" alt="Image of a star" />
 							</li>
@@ -57,19 +57,19 @@ include "header.php";
 						
 						<ul>
 							<li>
-								<p>Privacy. Ridezu keeps your email and phone number private, even when communicating with other members.</p>
+								<p><b>Privacy</b>. Ridezu keeps your address, email and phone number 100% private.</p>
 								
 								<img src="images/privateinformation.jpg" alt="Image of a padlock" />
 							</li>
 							
 							<li>
-								<p>Secure messaging. You can communicate quickly with other memebers and do it securely and privately.</p>
+								<p><b>Secure messaging</b>. You can communicate quickly with other memebers and do it securely and privately.</p>
 								
 								<img src="images/securemessaging.jpg" alt="Image of a letter" />
 							</li>
 							
 							<li>
-								<p>Your credit card and payment information is always 100% secure.</p>
+								<p><b>Secure payments</b>. Your credit card and payment information is always 100% secure.</p>
 								
 								<img src="images/alwayssecure.jpg" alt="Image of a vault" />
 							</li>

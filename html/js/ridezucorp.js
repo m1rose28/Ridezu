@@ -78,7 +78,7 @@ $(document).ready(function(){
 	function openme() { 
 		$(function () {
 			themenu.animate({
-		       left: "33px"
+		       left: "46px"
 		    }, { duration: 180, queue: false });
 				$('#navmenu').fadeTo('180', 1, function() {
 				// Animation complete.
@@ -222,7 +222,12 @@ $(document).ready(function(){
 			myinfo.workcity=str1[1];
 			myinfo.workzip=str2[2];
   			
-			facebook();
+			start3();
+			}
+			
+		function start3(){
+		    document.getElementById("corpstart").innerHTML="<span style='font-size:22px;color:#000;padding-bottom:20px;'>Please login with Facebook.<br><br>We're a green company focused on social good. We'll never spam you, share your private information, or abuse your trust.</span><a href=\"#\" onclick=\"loginUser();\" id=\"startbutton\">Login</a>";     
+
 			}
 
 // this function loads the current user in a js object, this function is used for all the profile functions 
@@ -238,9 +243,28 @@ $(document).ready(function(){
 					myinfo=data;
 					welcome();
 			    	},
-                error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data)); },
+                error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data));reporterror(url) },
                 beforeSend: setHeader
             });
+		}
+
+// this function updates user data with any relevant updates
+
+		function updateuser(){
+				id=myinfo.id;
+				updateuserflag=false;
+            	var jsondataset = JSON.stringify(myinfo);
+ 				url="/ridezu/api/v/1/users/"+id;
+ 				       
+            	var request=$.ajax({
+                url: url,
+                type: "PUT",
+                dataType: "json",
+                data: jsondataset,
+                success: function(data) {},
+                error: function() { alert('uh oh, I could not save this data'); },
+                beforeSend: setHeader
+                });                                     
 		}
 		
 // this function sets the logged in-state of the user...
@@ -252,12 +276,12 @@ $(document).ready(function(){
 		       document.getElementById("navmenu").style.display="block";  
 		       document.getElementById("webappwrapper").style.display="block";  
 		       document.getElementById("corptitle").setAttribute("class", "index80");
-		    document.getElementById("homepageintro").setAttribute("class", "webapppage");
+		       document.getElementById("homepageintro").setAttribute("class", "webapppage");
 		       document.getElementById("noquotes").style.display="block";  
 		       document.getElementById("corpstart").style.display="none";  
 		       document.getElementById("quotes").style.display="none";  
 		       document.getElementById("corptitle").innerHTML="<h2>Welcome "+myinfo.fname+"</h2>";     
-		       document.getElementById("ridezuiframe").src="/index2.php?fbid="+myinfo.fbid+"&secret="+myinfo.secret+"&client=widget";
+		       document.getElementById("ridezuiframe").src="/index2.php?fbid="+myinfo.fbid+"&seckey="+myinfo.seckey+"&client=widget";
 		     }
 		  }
 
@@ -288,32 +312,60 @@ $(document).ready(function(){
 		  function handleStatusChange(response) {
 			  document.body.className = response.authResponse ? 'connected' : 'not_connected';
 			  if (response.authResponse) {
-				console.log(response);
-		
+				console.log(response);		
 				updateUserInfo(response);
 			  }
 			}
 		  function updateUserInfo(response) {
 			 FB.api('/me', function(response) {
-			   myinfo.response=JSON.stringify(response);
+			   myinfo.profileblob=JSON.stringify(response);
 			   myinfo.fname=response.first_name;
 			   myinfo.lname=response.last_name;
-			   myinfo.image="https://graph.facebook.com/" + response.id + "/picture";
 			   myinfo.fbid=response.id;
-			   fbid=response.id;
+			   localStorage.fbid=response.id;
 			   myinfo.email=response.email;
-			   // now register the new user
-			   regnewuser();
 			 });
 		   }
 		}
-		
+
+		function loginUser() {    
+			 FB.login(function(response) {
+			   if (response.authResponse) {
+				  FB.api('/me', function(response) {
+					  myinfo.profileblob=JSON.stringify(response);
+					  myinfo.fname=response.first_name;
+					  myinfo.lname=response.last_name;
+					  myinfo.fbid=response.id;
+					  localStorage.fbid=response.id;
+					  myinfo.email=response.email;
+					  if(myinfo.add1 && myinfo.workadd1){
+						  regnewuser();
+						  return false;
+						  }
+				  });
+		   		  document.getElementById("fbauth").src="fbauth.php";
+		   		 }
+		   	   },{scope: 'email'});
+	 		 }
+
 		function logoutUser() {    
-			 myinfo={};
 			 localStorage.removeItem("fbid");
-			 localStorage.removeItem("secret");
-    		 window.location.reload();
-    		 }
+			 localStorage.removeItem("seckey");
+			 location.reload();
+			 }
+
+		function authuser(data){
+			x=JSON.parse(data);
+			
+			if(x.seckey){
+			   localStorage.fbid=x.fbid;
+			   localStorage.seckey=x.seckey;
+			   loadmyinfo();
+			   }
+
+			if(x.nouser){
+				}
+			}
 
 // this function set (2) creates a new user as part of the enroll flow
 
@@ -333,8 +385,13 @@ $(document).ready(function(){
 				"email": myinfo.email,
 				"homelatlong": myinfo.homelatlong,
 				"worklatlong": myinfo.worklatlong,
-				"profileblob": myinfo.response,
-				"timezone":"PDT",
+				"profileblob": myinfo.profileblob,
+				"timezone": "PDT",
+				"preference": "EMAIL",
+				"leavetime": "09:00:00",
+				"hometime": "17:00:00",
+				"notificationmethod": "EMAIL",
+				"ridereminders": "1",
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -348,28 +405,66 @@ $(document).ready(function(){
                 error: function() { //alert('already registered?');
   					localStorage.fbid=myinfo.fbid;
   					loadmyinfo();
+  					reporterror(url);
                 	},
                 beforeSend: setHeader
             	}); 
             	
             request.done(function(msg) {
   				localStorage.seckey=msg.seckey;
-  				localStorage.fbid=myinfo.fbid;
-  				myinfo.seckey=msg.seckey;
-				loadmyinfo();
+  				localStorage.fbid=msg.fbid;
+
+				myinfo=msg;
+				
+				//update miles & co2 if possible
+				if(myinfo.destlatlong && myinfo.originlatlong){
+					calculateDistance();
+					}
 				});                	     	
        		}
 
+// this function set calculates distances between two points (in miles) and updates miles, % and co2 savings
+  
+		function calculateDistance() {
+		  x = myinfo.originlatlong;
+		  y = x.split(",");
+		  var origin = new google.maps.LatLng(y[0],y[1]);		  
+
+		  x = myinfo.destlatlong;
+		  y = x.split(",");
+		  var destination = new google.maps.LatLng(y[0],y[1]);		  
+		  		  
+		  var service = new google.maps.DistanceMatrixService();
+		  service.getDistanceMatrix(
+			{
+			  origins: [origin],
+			  destinations: [destination],
+			  unitSystem: google.maps.UnitSystem.IMPERIAL,
+			  travelMode: google.maps.TravelMode.DRIVING,
+			  avoidHighways: false,
+			  avoidTolls: false
+			}, distcallback);
+		}
+  
+		function distcallback(response, status) {
+		  if (status != google.maps.DistanceMatrixStatus.OK) {
+			alert('oops, I could not calculate a distance here: ' + status);
+		  } else {
+			myinfo.miles=Math.round(response.rows[0].elements[0].distance.value/1690.34); // response in meters, 1690.34 is meters/mile 
+			myinfo.gassavings=25;
+			myinfo.co2=Math.round(myinfo.miles/20*19.59);  // 20 mpg w/19.59 (8,887 grams) pounds per gallon of gas
+			updateuser();
+		  }
+		}
+
+// this used to auhtenticate the request
+
         function setHeader(xhr) {
-            xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
+            xhr.setRequestHeader("X-Id", localStorage.fbid);
+            xhr.setRequestHeader("X-Signature", localStorage.seckey);
             xhr.setRequestHeader("Content-Type", "application/json");
-  	      }
-
-        function setHeaderUser(xhr) {
-            xhr.setRequestHeader("X-Signature", "f8435e6f1d1d15f617c6412620362c21");
-            xhr.setRequestHeader("Content-Type", "application/json");
-  	      }         
-
+        }
+       
 // this function setupdate the title bar on the widget
 
 		function updateTitle(to){
@@ -385,6 +480,32 @@ $(document).ready(function(){
 			document.getElementById("menub").src="../images/back.png";
 			tp="";
 		}	
+
+// this function is to report errors or anomalies that users see
+
+		function reporterror(url){
+			var dataset = {
+				"fbid":	myinfo.fbid,
+				"fname": myinfo.fname,
+				"lname": myinfo.lname,
+				"email": myinfo.email,
+				"api":url,
+				"page":p,
+				}
+				
+			var jsondataset = JSON.stringify(dataset);
+
+		    var request=$.ajax({
+                url: "error.php",
+                type: "POST",
+                dataType: "html",
+                data: jsondataset,
+                success: function() {},
+                error: function() {},
+                beforeSend: setHeader
+            	}); 
+			}				
+
 		
 // declare initial variables
 
@@ -403,10 +524,10 @@ $(document).ready(function(){
 	$(document).ready(function()
 	{
 		
-		//localStorage.fbid="504711218";
-		fbid=localStorage.fbid;
+		myinfo.fbid=localStorage.fbid;
+		myinfo.seckey=localStorage.seckey;
 
-		if(fbid!=undefined){
+		if(myinfo.fbid!=undefined && myinfo.seckey!=undefined){
 		   loadmyinfo();	 
 		}
 
@@ -414,10 +535,12 @@ $(document).ready(function(){
 
 		{
 		   document.getElementById("lin").style.display="inline";
-		   document.getElementById("corptitle").style.display="block";
-		   document.getElementById("corpstart").style.display="block";
-		   document.getElementById("quotes").style.display="block";
-
+		   if($('#quotes').length>0){
+				document.getElementById("corptitle").style.display="block";
+				document.getElementById("corpstart").style.display="block";
+				document.getElementById("quotes").style.display="block";
+			}
+			facebook();
 		}			
 	
 		return false;

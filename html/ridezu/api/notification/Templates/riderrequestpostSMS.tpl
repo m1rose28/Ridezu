@@ -1,0 +1,1 @@
+Hi [$fname] - Your ride request from [$fromlocation] to [$tolocation] has been posted 

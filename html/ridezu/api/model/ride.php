@@ -144,6 +144,7 @@ function findByRiderFB($fbid)
 
 function findRideByFB($fbid)
 {
+	authorize($fbid);
 	$user  = queryByFB($fbid);
     $userTimeZone = $user->timezone;
     
@@ -190,11 +191,13 @@ function findRideByFB($fbid)
 			
 			$daydate = $eventDtTime->format('D m\/j');
 			
+			$debitwithfee = $obj->debit + getFeeByRole($obj->fbid,$obj->eventtype);
+			
 			$ridedetails[$objTypeText][$counter]=array("rideid" => $obj->rideid, "refrideid"=>$obj->refrideid, "fbid"=>$obj->fbid,"eventstate"=>$obj->eventstate,"route"=>$obj->route,"description"=>$obj->description,
 			"start"=>$obj->origindesc,"end"=>$obj->destdesc,"startlatlong"=>$obj->originlatlong,
 			"endlatlong"=>$obj->destlatlong,"miles"=>$obj->miles,"gassavings"=>$obj->gassavings,
 			"co2"=>$obj->co2,"riders"=>$obj->riders,"emptyseats"=>$obj->emptyseats,
-			"amount"=>$obj->amount,"nextamount"=>$obj->nextamount,"credit"=>$obj->credit,"debit"=>$obj->debit,"reffbid"=>$obj->reffbid, "eventtime"=>$obj->eventtime, "day"=>$day, "daydate"=>$daydate);
+			"amount"=>$obj->amount,"nextamount"=>$obj->nextamount,"credit"=>$obj->credit,"debit"=>$debitwithfee,"reffbid"=>$obj->reffbid, "eventtime"=>$obj->eventtime, "day"=>$day, "daydate"=>$daydate);
 			//print_r($objTypeText);
 			
 			
@@ -340,7 +343,15 @@ function postRide()
         
     }
     
-    
+	//if same route on same day exists for the user then do not allow.
+	$ridetime=$ride->eventtime;
+	$rideExist = recordExist($fbid,$route,$ridetime);
+	if ($rideExist)
+	{
+		echo '{"warn":{"text": "ride entry exists"}}';
+		return;
+	}
+	 
     $sql = "INSERT INTO transhistory (fbid, name, eventtype, eventstate, route, description, origindesc, destdesc,originlatlong,destlatlong,miles, gassavings, co2, riders, emptyseats, amount, nextamount, eventtime,eventgmttime) 
 	VALUES (:fbid, :name, '0','EMPTY',:route,:description,:origindesc,:destdesc,:originlatlong, :destlatlong,:miles, :gassavings,:co2,1,:emptyseats,:amount,:nextamount,:eventtime,:eventgmttime)";
     
@@ -380,9 +391,10 @@ function postRide()
         $db = null;
         //try and link riders to this drive
         
-        //$updatedDriver =getRideByKeyAsObj($id);
-        //$updatedCloneDriver = clone $updatedDriver;
-        //fillRideRequest($updatedCloneDriver);
+        //send notification
+		//function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$notifytype,$notifytime)
+		generateNotification($ride->fbid,NULL,'POST',$id,NULL,NULL,NULL);
+		
         echo json_encode(getRideByKeyAsObj($id));
     }
     catch (PDOException $e) {
@@ -418,7 +430,13 @@ function requestRide()
     }
     
     $name = strval($rider->fname) . ' ' . strval($rider->lname);
-    
+    $ridetime=$ride->eventtime;
+	$rideExist = recordExist($fbid,$route,$ridetime);
+	if ($rideExist)
+	{
+		echo '{"warn":{"text": "ride entry exists"}}';
+		return;
+	}
     
     $sql = "INSERT INTO transhistory (fbid, name, eventtype, eventstate, route, description, origindesc, destdesc,originlatlong,destlatlong,miles, gassavings, co2,  amount, nextamount, eventtime,eventgmttime) 
 	VALUES ( :fbid, :name, '1','REQUEST',:route, :description,:origindesc,:destdesc,:originlatlong, :destlatlong,:miles, :gassavings,:co2,:amount,:nextamount,:eventtime,:eventgmttime)";
@@ -455,6 +473,8 @@ function requestRide()
         $stmt->execute();
         $id = $db->lastInsertId();
         $db = null;
+		//function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$notifytype,$notifytime)
+		generateNotification($ride->fbid,NULL,'REQUEST',$id,NULL,NULL,NULL);
          echo json_encode(getRideByKeyAsObj($id));
     }
     catch (PDOException $e) {
@@ -495,6 +515,7 @@ function findMatchingDrivers($query, $searchroute, $searchdate)
     //echo $query. ' ' . $searchroute . ' '. $searchdate; 
    
     setHeader();
+	authorize($query);
     $route        = 'h2w'; //default
     //Find leave time preference and timezone for the user passed
     $user         = queryByFB($query);
@@ -589,7 +610,7 @@ function findMatchingDrivers($query, $searchroute, $searchdate)
     }
     $rides["gassavings"] = $user->gassavings;
     $rides["co2"]        = $user->co2;
-    $rides["amount"]     = getBaseTripAmount($user->miles,$user->fbid);
+    $rides["amount"]     = getBaseTripAmount($user->miles,$user->fbid) + getFee($user->fbid);
     if ($startdatetime == $todaydatetime) {
         $rides["day"] = 'Today';
     } else {
@@ -696,6 +717,7 @@ function findMatchingRiders($query, $searchroute, $searchdate)
     //echo $query. ' ' . $searchroute . ' '. $searchdate; 
    
     setHeader();
+	authorize($query);
     $route        = 'h2w'; //default
     //Find leave time preference and timezone for the user passed
     $user         = queryByFB($query);
@@ -910,6 +932,16 @@ function fillRide($driverrideid)
 	else 
 		$route='w2h';
     
+	//if same route on same day exists for the user then do not allow.
+	$ridetime=$ride->eventtime;
+	$rideExist = recordExist($fbid,$route,$ridetime);
+	if ($rideExist)
+	{
+		echo '{"warn":{"text": "ride entry exists"}}';
+		return;
+	}
+	
+	
 	//rider record
     $sql1 = "INSERT INTO transhistory (refrideid, fbid, name, eventtype, eventstate, route, description, origindesc, destdesc,originlatlong,destlatlong,miles, gassavings, co2,  amount, debit, reffbid, eventtime,eventgmttime) 
 	VALUES (:driverrideid, :fbid, :name, '1','ACTIVE',:route, :description,:origindesc,:destdesc,:originlatlong,:destlatlong,:miles, :gassavings,:co2,:amount,:debit,:reffbidNName, :eventtime,:eventgmttime)";
@@ -1015,6 +1047,15 @@ function fillRideRequest($riderrideid)
 		$route='h2w';
 	else 
 		$route='w2h';
+		
+	//if same route on same day exists for the user then do not allow.
+	$ridetime=$riderride->eventtime;
+	$rideExist = recordExist($fbid,$route,$ridetime);
+	if ($rideExist)
+	{
+		echo '{"warn":{"text": "ride entry exists"}}';
+		return;
+	}
     
     //Check if driver's entry exist for this ride time & route. If so just update it or if not insert a new record.
 	$sql0 = "SELECT * from transhistory where fbid=:driverfbid and eventtype='0' and eventstate='ACTIVE' and eventtime=:eventtime and originlatlong=:originlatlong and destlatlong=:destlatlong";
@@ -1267,18 +1308,7 @@ function cancelRide($rideid,$fbid)
 			//echo 'param1#'.$refrideidList.'#param2#'.$refRiderFBList.'#param3#'.$driverridedata->rideid.'#param4#'.$mysqltodaydatetime;
 			$stmt4->execute();
 		  
-		}
-		
-		
-		//echo 'rider';
-		//cancel rider ride
-		$sql5 = "update transhistory set eventstate='CANCEL' where rideid=:rideid and fbid=:riderfbid and eventtype='1' and eventtime > :currentdatetime";
-		$stmt5 = $db->prepare($sql5);
-		$stmt5->bindParam("rideid",$rideid);
-		$stmt5->bindParam("riderfbid",$fbid);
-		$stmt5->bindParam("currentdatetime", $mysqltodaydatetime);
-	    $stmt5->execute();
-	
+			
 		//set new price-point for driver
 		$sql6 ="UPDATE transhistory SET nextamount=((1-(riders-1)*0.1 ) * amount),credit=credit-nextamount where rideid=:driverrideid and eventtype='0' ";
 		$stmt6 = $db->prepare($sql6);
@@ -1303,6 +1333,16 @@ function cancelRide($rideid,$fbid)
 		$stmt8->bindParam("drivernextamt",$driverdata->nextamount);
 		$stmt8->execute();
 		}
+		}
+		//echo 'rider';
+		//cancel rider ride
+		$sql5 = "update transhistory set eventstate='CANCEL' where rideid=:rideid and fbid=:riderfbid and eventtype='1' and eventtime > :currentdatetime";
+		$stmt5 = $db->prepare($sql5);
+		$stmt5->bindParam("rideid",$rideid);
+		$stmt5->bindParam("riderfbid",$fbid);
+		$stmt5->bindParam("currentdatetime", $mysqltodaydatetime);
+	    $stmt5->execute();
+
 	}
 	
 	$db->commit();
@@ -1311,7 +1351,7 @@ function cancelRide($rideid,$fbid)
 	//driver cancelling - notify all riders
 	generateNotification($fbid,NULL,'CANCEL',$rideid,NULL,NULL,NULL);//notify person cancelling
 	
-	if ($ridedata->eventtype=='1') //rider cancelling - notify driver
+	if (($ridedata->eventtype=='1') && ($ridedata->refrideid != null)&& ($ridedata->refrideid !='')) //rider cancelling - notify driver
 	{
 		$driverrideid =$ridedata->refrideid;
 		$driverfbid = $ridedata->reffbid;
@@ -1353,7 +1393,9 @@ function completeRide()
 	//find all rides that are ACTIVE OR FULL and event system time is more than 2 hours passed
 	$sql0 = "SELECT fbid, rideid FROM transhistory where eventstate in  ('ACTIVE','FULL') and eventgmttime < AddTime(:currentTime, '-02:00:00')";
 	
-	$sql = "UPDATE transhistory SET eventstate='COMPLETE' where eventstate in  ('ACTIVE','FULL') and eventgmttime < AddTime(:currentTime, '-02:00:00')";
+	$sql1 = "UPDATE transhistory SET debit=debit+0.25 where eventstate='ACTIVE' and eventtype='1' and rideid=:rideid";
+	$sql2 = "UPDATE transhistory SET eventstate='COMPLETE' where eventstate in ('ACTIVE','FULL') and rideid=:rideid";
+
 	
 	try {
         $db   = getConnection();
@@ -1362,18 +1404,20 @@ function completeRide()
 		$stmt0->execute();
 		$ridedata = $stmt0->fetchAll(PDO::FETCH_OBJ);
 		//print_r ($ridedata);
+		$stmt1 = $db->prepare($sql1);
+		$stmt2 = $db->prepare($sql2);
 		foreach ($ridedata as $obj) {
 			//print_r($obj);
 			$tofbid= $obj->fbid;
 			$rideid= $obj->rideid;
+			$stmt1->bindParam("rideid",$rideid);	
+			$stmt1->execute();
+			$stmt2->bindParam("rideid",$rideid);	
+			$stmt2->execute();
 			//function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$notifytype,$notifytime)
 			generateNotification($tofbid,NULL,'COMPLETE',$rideid,NULL,NULL,NULL);
 		}
-		
-        $stmt = $db->prepare($sql);
-		$stmt->bindParam(":currentTime",$currenttime);
-        $stmt->execute();
-		$rowcount = $stmt->rowCount();
+		$rowcount = $stmt0->rowCount();
 		echo '{"count":'.$rowcount.'}';
 		$db=null;
 	}
@@ -1382,6 +1426,72 @@ function completeRide()
     }
     
 }
+
+function rideReminder()
+{
+
+	$currenttime = date('Y-m-d H:i:s');
+	//echo $currenttime;
+	//find rides that are ACTIVE or FULL and eventgmttime and current time is < 15 mins and reminder='Y'and then reminder='N'
+	$sql0 = "SELECT fbid, rideid FROM transhistory where eventstate in  ('ACTIVE','FULL') and :currentTime > AddTime(eventgmttime, '-00:16:00') and reminder='Y' ";
+	$sql = "UPDATE transhistory set reminder='N' where rideid = :rideid";
+	try {
+        $db   = getConnection();
+		$stmt0 = $db->prepare($sql0);
+		$stmt0->bindParam(":currentTime",$currenttime);
+		$stmt0->execute();
+		$ridedata = $stmt0->fetchAll(PDO::FETCH_OBJ);
+		$rideidArr = array();
+		$i=0;
+		//print_r ($ridedata);
+		$stmt = $db->prepare($sql);
+		foreach ($ridedata as $obj) {
+			$tofbid= $obj->fbid;
+			$rideid= $obj->rideid;
+			$stmt->bindParam(":rideid",$rideid);
+			$stmt->execute();
+			//function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$notifytype,$notifytime)
+			generateNotification($tofbid,NULL,'REMINDER',$rideid,NULL,NULL,NULL);
+			$i++;
+		}
+		echo '{"count":'.$i.'}';
+		$db=null;
+	}
+	catch (PDOException $e) {
+	        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+
+}
+
+function recordExist($fbid,$route,$eventdatetime)
+{
+
+	$sql = "SELECT rideid from transhistory where fbid=:fbid and route=:route and eventstate in ('REQUEST','ACTIVE','EMPTY','FULL') and DATE(eventtime)=DATE(:eventdatetime)";
+	try {
+        $db   = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("fbid",$fbid);
+		$stmt->bindParam("route",$route);
+		$stmt->bindParam("eventdatetime",$eventdatetime);
+		//print_r($sql);
+		//echo $fbid.'==='.$route.'==='.$eventdatetime;
+		$stmt->execute();
+		$rowcount = $stmt->rowCount();
+		//print_r($rowcount);
+		if ($rowcount == 0)
+			return false;
+		else
+		return true;
+		$db=null;
+		}
+	catch (PDOException $e) {
+	        echo '{"error":{"text":' . $e->getMessage() . '}}';
+    }
+
+	return true;
+}	
+	
+
 
 
 ?>

@@ -14,6 +14,7 @@ function getNearestNode($latlon,  $distance){
                 + COS($lat * PI() / 180) * COS(SUBSTRING_INDEX( `latlong` , ',', 1 ) * PI() / 180) * COS(($lon - SUBSTRING_INDEX( `latlong` , ',', -1 )) * PI() / 180))
                 * 180 / PI()) * 60 * 1.1515) AS `distance` FROM `ridenode` HAVING `distance` <= ".$distance." ORDER BY `distance` ASC limit 1";
                 $stmt = $db->prepare($sql);
+				//print_r($stmt);
                 $stmt->execute();
                 $node = $stmt->fetchObject();
                     $db = null;
@@ -24,6 +25,37 @@ function getNearestNode($latlon,  $distance){
             }      
         }
     }
+	
+
+	function getNearestPNRNode($latlon,  $distance){
+       
+		//echo 'latlong:'.$latlon.',distance:'.$distance;
+        $pos = explode(",",$latlon);
+        if(count($pos) > 0){
+           
+            $lat = $pos[0]; // latitude
+            $lon = $pos[1]; // longitude
+           
+            try {
+                $db = getConnection();
+                $sql = "SELECT  `latlong` ,`name`, ((ACOS(SIN($lat * PI() / 180) * SIN(SUBSTRING_INDEX( `latlong` , ',', 1 ) * PI() / 180)
+                + COS($lat * PI() / 180) * COS(SUBSTRING_INDEX( `latlong` , ',', 1 ) * PI() / 180) * COS(($lon - SUBSTRING_INDEX( `latlong` , ',', -1 )) * PI() / 180))
+                * 180 / PI()) * 60 * 1.1515) AS `distance` FROM `ridenode` WHERE `type` like 'Park%' HAVING `distance` <= ".$distance." ORDER BY `distance` ASC limit 1";
+                $stmt = $db->prepare($sql);
+				//print_r($stmt);
+                $stmt->execute();
+                $node = $stmt->fetchObject();
+                    $db = null;
+                 return $node;
+                 
+            } catch(PDOException $e) {
+                echo '{"error":{"text":'. $e->getMessage() .'}}';
+            }      
+        }
+    }
+	
+	
+	
 	
 	
 	
@@ -41,14 +73,18 @@ function getNearestNode($latlon,  $distance){
     	$db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->execute();
+		//print_r($stmt);
         
 		$count = $stmt->rowCount();
 		if($count > 0){
 		    $user = $stmt->fetchObject();
+			//print_r($user);
 			$nodesql = "SELECT  `latlong` , ((ACOS(SIN($user->lat * PI() / 180) * SIN(SUBSTRING_INDEX( `latlong` , ',', 1 ) * PI() / 180)
 			+ COS($user->lat * PI() / 180) * COS(SUBSTRING_INDEX( `latlong` , ',', 1 ) * PI() / 180) * COS(($user->lon - SUBSTRING_INDEX( `latlong` , ',', -1 )) * PI() / 180))
-			* 180 / PI()) * 60 * 1.1515) AS `distance` , `name`, `campus`, `type`,`custommarker` FROM `ridenode` HAVING `distance` <= 5 ORDER BY `distance` ASC";
+			* 180 / PI()) * 60 * 1.1515) AS `distance` , `name`, `campus`, `type`,`custommarker` FROM `ridenode`  HAVING `distance` <= 5 ORDER BY `distance` ASC";
+			
 			$ndstmt = $db->prepare($nodesql);
+			//print_r($ndstmt);
 			$ndstmt->execute();
 			$ndcount = $ndstmt->rowCount();
             if($ndcount > 0){

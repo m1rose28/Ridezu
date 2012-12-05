@@ -1,0 +1,3 @@
+./test/header.php:		if (in_array($fb, $userlist)==false) {
+./test/header.php:		if (in_array($fb, $userlist)==true) {
+./test/sys/users.php:$userlist = array(

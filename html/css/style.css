@@ -25,16 +25,85 @@ a img {
 	border: 0px;
 }
 
-
 #w  {
     position:  relative;
     overflow-x:  hidden;
     overflow-y:  hidden;
 	color: #424242;
-	background:  url(../images/mobilebackground.png) repeat #8b8b8b;
+	background: #8b8b8b url(../images/mobilebackground.png) repeat;
 	min-height: 500px;
 	height: 100%;
 }
+
+
+/* WEBKIT STYLING FOR FORMS */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+input, select {
+	border: 1px solid #555;
+	padding: 0.1em 0.3em;
+	font-size: 16px;
+	line-height: 1.2em;
+	width: 50%;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+	-webkit-appearance: none;
+	-webkit-border-radius: 1em;
+}
+
+input.right, select.right {
+	float: right;
+}
+
+input:focus, select:focus {
+	outline: none;
+	border: 2px solid #0aa600;
+	margin: -1px;
+}
+
+select {
+	background: url(../images/selectbg.png) no-repeat right center;
+	-webkit-background-size: 500px 26px;
+}
+
+input[type="checkbox"], input[type=radio]{
+	font-size: 16px;
+	line-height: 1em;
+	margin: 0 0.25em 0 0;
+	padding: 0;
+	width: 16px;
+	height: 16px;
+	-webkit-border-radius: 0.25em;
+	vertical-align: text-top;
+}
+
+input[type=radio] {
+	-webkit-border-radius: 8px;
+}
+
+input[type=radio]:checked {
+	background: url("../images/radioed.png") no-repeat center center;
+	-webkit-background-size: 16px 16px;
+}
+
+input[type=checkbox]:checked {
+	background: url("../images/checked.png") no-repeat center center;
+	-webkit-background-size: 16px 16px;
+}
+
+input[type=file]{
+	border: none;
+	width: 100%;
+	background: transparent;
+	-webkit-box-shadow: none;
+	-webkit-border-radius: 0;
+	display: block;
+	margin-top: 7px;
+	float: left;
+}
+
+}
+
 /* CONTROL CLASSES */
 
 .leftalign {
@@ -137,12 +206,12 @@ a.minibutton:hover {
 	-moz-box-shadow: 0px 0px 5px #333;
 	-webkit-box-shadow: 0px 0px 5px #333;
 	box-shadow: 0px 0px 5px #333;
-	-webkit-border-top-left-radius: 7px;
-	-webkit-border-top-right-radius: 7px;
-	-moz-border-radius-topleft: 7px;
-	-moz-border-radius-topright: 7px;
-	border-top-left-radius: 7px;
-	border-top-right-radius: 7px;
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-topright: 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
     height: 44px;
     width: 100%;
  }
@@ -151,18 +220,17 @@ a.minibutton:hover {
 
 
 #toolbarnav h1  {
-    text-align:  center;
-    padding-top:  10px;
-    padding-right:  40px;
-    color:  #FFF;
-    font-weight:  bold;
-    font-size:  2.1em;
-    text-shadow:  1px 1px 0px #288e05;
+	text-align: center;
+	padding-top: 10px;
+	padding-right: 5%;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 2.1em;
+	text-shadow: 1px 1px 0px #288e05;
+	z-index: 103;
 }
 
-
-
-#back-btn  {
+#menu-btn , #back-btn  {
     display:  block;
     float:  left;
     width:  43px;
@@ -184,37 +252,10 @@ a.minibutton:hover {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border: 1px solid #008600;
+	z-index: 101;
 }
 
-#back-btn:hover {
-	background: #50be00; 
-}
-
-#menu-btn  {
-    display:  block;
-    float:  left;
-    width:  43px;
-    height:  28px;
-    margin-top:  6px;
-    margin-left:  8px;
-	font-size: 24px;
-	color: white;
-	text-decoration: none;
-	background: #50be00; /* Old browsers */
-	background: -moz-linear-gradient(top,  #50be00 0%, #008600 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#50be00), color-stop(100%,#008600)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #50be00 0%,#008600 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #50be00 0%,#008600 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #50be00 0%,#008600 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #50be00 0%,#008600 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#50be00', endColorstr='#008600',GradientType=0 ); /* IE6-9 */
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	border: 1px solid #008600;
-}
-
-#menu-btn:hover {
+#menu-btn:hover, #back-btn:hover {
 	background: #50be00; 
 }
 
@@ -360,6 +401,9 @@ a.minibutton:hover {
 
 #w #pagebody #aboutme #right3 .location {
 	background: url(../images/location.png) no-repeat left center;
+	position: relative;
+	left: -3px;
+	margin-right: 6px;
 }
 
 #w #pagebody #aboutme #right3 .tripnumber {
@@ -390,7 +434,6 @@ a.minibutton:hover {
 #w #pagebody #aboutme #right3 #personal {
 	clear: both;
 	position: relative;
-	top: -20px;
 }
 
 #w #pagebody #aboutme ul.keyinfo {
@@ -463,11 +506,45 @@ a.minibutton:hover {
 	-moz-box-shadow: 0px 0px 5px #333;
 	box-shadow: 0px 0px 5px #333;
 	overflow: auto;
-	padding-bottom: 1px;
  }
  
 #w #pagebody #content.lightbackground{
     background: url(../images/lightbackground.png) repeat;
+}
+
+#w #pagebody #content.mappage {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	-webkit-border-bottom-right-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-bottomright: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+	background: transparent;
+	max-height: 100%;
+}
+
+#w #pagebody #content.mappage fieldset {
+	padding: 3px;
+	border: none;
+}
+
+#w #pagebody #content #map_canvas {
+	position: relative;
+	top: -345px;
+	border-top: 1px solid #9f9f9f;
+	z-index: 60;
+	float: left;
+	width: 100%;
+	height: 1000px;
+	display: block;
+}
+
+#w #pagebody #content.overflowhidden {
+	overflow: hidden;
 }
 
 #w #pagebody #content h2  {
@@ -488,27 +565,40 @@ a.minibutton:hover {
  }
  
 #w #pagebody #content .inputaddress  {
-    border: 1px solid #ddd;
+    border: 1px solid #9f9f9f;
     color: #424242;
-    font-size: 1.6em;
-    line-height: 1.8em;
+    font-size: 16px;
+    line-height: 16px;
 	height: 28px;
 	width: 80%;
 	-webkit-border-radius: 14px;
 	-moz-border-radius: 14px;
 	border-radius: 14px;
-	margin: 20px auto 5px auto;
-	padding-left: 20px;
-	color: #cdcdcd;
-	background: #fff url(../images/placeicon.png) no-repeat left center;
+	margin: 10px auto 5px auto;
+	padding: 0 0 0 20px;
+	background: #fff url(../images/placeicon.png) no-repeat 5px 6px;
 	display: block;
+	z-index: 99999999;
+	position: relative;
+	-moz-box-shadow: 0 0 6px -1px #000;
+	-webkit-box-shadow: 0 0 6px -1px #000;
+	box-shadow: 0 0 6px -1px #000;
  }
  
- #w #pagebody #content .inputaddress:focus  {
-	color: #424242;
- }
+#w #pagebody #content .inputaddress:focus  {
+	outline: none;
+	border: 2px solid #0aa600;
+	margin: 9px auto 4px auto;
+}
  
- #w #pagebody  .primarybutton {
+#w #pagebody #mapselectwork, #w #pagebody #mapselecthome {
+	position: fixed;
+	top: 86%;
+	left: 0;
+	z-index: 75;
+}
+ 
+#w #pagebody  .primarybutton {
     border: 1px solid #155d15;
 	font-size: 18px;
 	font-weight: bold;
@@ -555,7 +645,7 @@ a.minibutton:hover {
 }
  
 #w #pagebody #content a li:hover {
-	background: #dcdcdc url(../images/arrow.png) right center no-repeat;
+	background: #dcdcdc url(../images/arrow.png) no-repeat right center;
 }
 
 #w #pagebody #content a .last:hover {
@@ -582,7 +672,7 @@ a.minibutton:hover {
 }
 
 #w #pagebody #content ul.arrowright li {
-	background: url(../images/arrow.png) right center no-repeat;
+	background: url(../images/arrow.png) no-repeat right center;
 }
 
 #w #pagebody #content .last{
@@ -648,7 +738,6 @@ a.minibutton:hover {
     width: 29px;
 	height: 12px;
 	float: right;
-	background: #979797;
 	margin: 0px 5px 0 0;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -717,7 +806,7 @@ a.minibutton:hover {
 }
 
 #w #pagebody #content #selectdriver{
-	width: 74%;
+	width: 72%;
 	height: 74px;
 	float: right;
 	padding-top: 10px;
@@ -773,15 +862,9 @@ a.minibutton:hover {
     border: none;
 	margin: 0 0 14px 0;
 	padding: 0px;
-}
-
-#w #pagebody #content p.educationdescription{
-	font-size: 0.4em;
-	display: block;
-}
-
-#w #pagebody #content .educationsub{
-	font-size: 0.5em;
+	font-size: 0.8em;
+	overflow: hidden;
+	font-weight: normal;
 }
 
 #w #pagebody #content #map{
@@ -896,7 +979,7 @@ a.minibutton:hover {
 }
 
 #confirm-box {
-	display:block; 
+	display: block; 
 	background: #005500; /* Old browsers */
 	background: -moz-linear-gradient(top,  #005500 0%, #008c00 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#005500), color-stop(100%,#008c00)); /* Chrome,Safari4+ */
@@ -905,15 +988,18 @@ a.minibutton:hover {
 	background: -ms-linear-gradient(top,  #005500 0%,#008c00 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #005500 0%,#008c00 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005500', endColorstr='#008c00',GradientType=0 ); /* IE6-9 */
-	width:280px; 
-	padding:10px; 
-	margin:100px auto; 
+	width: 280px; 
+	padding: 10px; 
+	margin: 0 auto; 
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	color: #fff;
 	font-size: 1.3em;
 	overflow: auto;
+	border: 1px solid #008c00;
+	position: relative;
+	top: 20%;
 }
 
 #confirm-box h2 {
@@ -940,10 +1026,12 @@ a.minibutton:hover {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	display: block;
-	width: 110px;
+	width: 108px;
 	float: left;
 	font-size: 1.4em;
 	text-align: center;
+	border: 1px solid #357709;
+	text-shadow: 1px 1px 1px #357709;
 }
 
 #confirm-box a.cancel {
@@ -955,6 +1043,8 @@ a.minibutton:hover {
 	background: -ms-linear-gradient(top,  #38db05 0%,#26ac02 50%,#207b03 50%,#25a102 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #38db05 0%,#26ac02 50%,#207b03 50%,#25a102 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38db05', endColorstr='#25a102',GradientType=0 ); /* IE6-9 */
+	border: 1px solid #1c7400;
+	text-shadow: 1px 1px 1px #1c7400;
 }
 
 #confirm-box a.onlyoption {
@@ -974,21 +1064,9 @@ input.rtext {
 	-webkit-border-radius: 13px;
 	-moz-border-radius: 13px;
 	border-radius: 13px;
-	-moz-box-shadow: inset 0 0 4px 0 #000;
-	-webkit-box-shadow: inset 0 0 4px 0 #000;
-	box-shadow: inset 0 0 4px 0 #000;
-	border: none;
 	padding: 5px 7px 5px 7px;
 	font-size: 16px;
-	color: #444444;
 	width: 60%;
-}
-
-input.rtext:focus{
-	-moz-box-shadow: inset 0 0 6px 0 #34a23c;
-	-webkit-box-shadow: inset 0 0 6px 0 #34a23c;
-	box-shadow: inset 0 0 6px 0 #34a23c;
-	outline: none;
 }
 
 #payoutd input.rtext{
@@ -1004,6 +1082,25 @@ input.rtext:focus{
 	border: none;
 }
 
+#payoutd #content div.accountleft {
+	float: left;
+	width: 50%;
+	padding: 5px;
+	margin: 0px 0 0 10px;
+	height: 70px;
+}
+
+#payoutd #content div.accountright {
+	text-align: right;
+	padding: 5px;
+	margin: 10px 10px 0 0;
+	height: 70px;
+}
+
+#w #pagebody #payoutd #content p {
+	line-height: 1.2;
+}
+
 #w #pagebody #driverd #content h3 {
 	width: 90%;
 	display: inline;
@@ -1016,48 +1113,209 @@ input.rtext:focus{
 	margin: 10px 0 0 0;
 }
 
-/* WEBKIT STYLING FOR FORMS */
-
-#ridedetailslist input, #ridedetailslist select {
-	border: 1px solid #555;
-	padding: 0.1em 0.3em;
-	font-size: 16px;
-	line-height: 1.2em;
-	width: 50%;
-	background: #fff;
-	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
-	-webkit-appearance: none;
-	-webkit-box-shadow: 1px 1px 1px #fff;
-	-webkit-border-radius: 1em;
+#w #pagebody #contactinfod input[type="email"], #w #pagebody #contactinfod input[type="text"], #w #pagebody #contactinfod select.rselect{
+	width: 70%;
 	float: right;
 }
 
-#ridedetailslist input:focus, #ridedetailslist select:focus {
-	outline: none;
-	border: 2px solid #058cf5;
-	margin: -1px;
-	padding: 0 2px 0 -1px;
+#w #pagebody #contactinfod #content h3 {
+	width: 20%;
 }
 
-#ridedetails select {
-	background: url(../images/active-header.png) center right no-repeat;
+#w #pagebody #transactiond {
+	font-size: 1.3em;
+	line-height: 1.1em;
 }
 
-#ridedetails input[type="checkbox"]{
-	font-size: 16px;
-	line-height: 1em;
-	margin: 0 0.25em 0 0;
-	padding: 0;
-	width: 0.7em;
-	height: 0.7em;
-	-webkit-border-radius: 0.25em;
-	vertical-align: text-top;
+#w #pagebody #transactiond table {
+	border-spacing: 0;
+}
+
+#w #pagebody #transactiond tr {
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #9f9f9f;
+	border-spacing: none;
+}
+
+#w #pagebody #transactiond td {
+	width: 30%;
+	margin: 0 1% 0 0;
+	padding: 5px 1%;
+	border: none;
+}
+
+#aboutmed div.profileright {
+	color: #000;
+	text-align: right;
+	padding: 5px;
+	font-size: .7em;
+	line-height: 1.6em;
+	color:#6F6E6E;
+}
+
+#aboutmed div.profileleft {
+	float: left;
+	color: #000;
+	width: 50%;
+	padding: 5px;
+	font-size: .7em;
+	line-height: 1.6em;
+	color:#6F6E6E;
+}
+
+
+/* -------------------- MY ACCOUNT ------------------------------------ */
+
+#mybalance {
+	text-shadow: 2px 2px 0px #3f3e3f;
+	text-align: right;
+	color: #FFFFFF;
+	padding: 5px;
+	font-size: 1.6em;
+}
+
+#accountd div.accountleft {
+	float: left;
+	color: #000;
+	width: 50%;
+	padding: 5px;
+	font-size: 1.4em;
+	line-height: 1.6em;
+}
+
+#accountd div.accountright {
+	color: #000;
+	text-align: right;
+	padding: 5px;
+	font-size: 1.4em;
+	line-height: 1.6em;
+}
+
+#w #pagebody #notrans #content h2{
+	font-size: 1em;
+}
+
+/* ---------------------------------- FAQ & TOS------------------------------------ */
+
+#faqp, #termsp {
+	background: #e9e9e9;
+	width: 93.75%;
+	min-width: 300px;
+	margin: 10px auto;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	-webkit-box-shadow: 0px 0px 5px #333;
+	-moz-box-shadow: 0px 0px 5px #333;
+	box-shadow: 0px 0px 5px #333;
+	overflow: auto;
+}
+
+#termsd, #faqd {
+	width: 97%;
+	margin: 10px 1.5%;
+}
+
+#faqp p {
+	font-size: 1.2em;
+	margin: 5px 0 25px 0;
+}
+
+#termsp p {
+	font-size: 1.2em;
+	margin: 10px 0;
+}
+
+#faqp h2 {
+	margin: 25px 0 15px 0;
+	font-size: 1.4em;
+}
+
+#faqp h2.faq-header {
+	margin: 0 0 5px 0;
+	font-size: 1.2em;
+}
+
+/* CALC */
+
+#w #calcd #content li {
+}
+
+.question {
+	height: 50px;
+	position: relative;
+	width: 100%;
+}
+
+.question label {
+	clear: left;
+    float: left;
+    width: 100%;
+}
+
+.question .slidercontainer {
+	margin-top:7px;
+	float: left;
+    height: 20px;
+    position: relative;
+    width: 205px; 
+}
+
+.question  input {
+    width: 16px;
+}
+
+.question .slider {  
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.question .slider .circle,
+.question .textslider .circle {
+	background: #ccc;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#aaa)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #ccc,  #aaa); /* for firefox 3.6+ */    
+	border: 1px solid #bbb;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	cursor: pointer;
+	height: 20px;
+	left: 0;
+    position: absolute;
+    top: 0;
+	width: 20px;
+	z-index: 1;
+}
+
+.slidervalue {
+color:#009600;
+float:left;
+padding-left:10px;
+padding-top:9px;
+}
+.question .slider .bar,
+.question .textslider .bar {
+	background: #009600;
+	height: 15px;
+	left: 0;
+    position: absolute;
+    top: 2.5px;
+	width: 205px;
+    border: 1px solid #155d15;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	background: #2064101;
+	background: -webkit-gradient(linear, left top, left bottom, from(#0aa600), to(#007b00)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  #0aa600,  #007b00); /* for firefox 3.6+ */ 
 }
 
 /** @group nav menu **/
 
 #navmenu {
-    background: #3d3c3d url(../images/bodybackground.png) repeat;
+    background: #3d3c3d url(../images/bodybackground.png) repeat scroll;
 	max-height: 100%;
 }
 

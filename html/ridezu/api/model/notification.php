@@ -46,17 +46,23 @@ function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$noti
 				//$notifygmttime=$notifygmttime->format('Y-m-d H:i:s');
 				$stmt->bindParam("notifygmttime",$notifygmttime);
                 $stmt->bindParam("notifytype", $notifytype);
-                if ($notifytype=='SMS')
+                if ($notifytype=="SMS")
 				{
 					$stmt->bindParam("notifycontact",$touser->phone);
 				}
+				else
+				{
 				
 					$stmt->bindParam("notifycontact",$touser->email);
-				
+				}
 				if ($notifydata==NULL) //use data passed or generate
 				{
 					if ($rideid !=NULL)
-					$notifydata = '$fname='.$touser->fname.',$fbid='.$tofbid.',$rideid='.$rideid.',$eventdatetime='.$ride->eventtime.', $fromlocation = '.$ride->origindesc.', $tolocation= '.$ride->destdesc;
+					{
+					$friendlydate = date('m/d g:i A', strtotime($ride->eventtime));
+					//$notifydata = '$fname='.$touser->fname.',$fbid='.$tofbid.',$rideid='.$rideid.',$eventdatetime='.$ride->eventtime.', $fromlocation = '.$ride->origindesc.', $tolocation= '.$ride->destdesc;
+					$notifydata = '$fname='.$touser->fname.',$fbid='.$tofbid.',$rideid='.$rideid.',$eventdatetime='.$friendlydate.', $fromlocation = '.$ride->origindesc.', $tolocation= '.$ride->destdesc;
+					}
 					else 
 					$notifydata = '$fname='.$touser->fname;
 				}

@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Ridezunomics</title>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0-alpha.1/jquery.mobile-1.2.0-alpha.1.min.css" />
+	  	<link rel="stylesheet" href="themes/ridezu.min.css" />
+
+		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0-alpha.1/jquery.mobile-1.2.0-alpha.1.min.js"></script>	</head>
+	<body>
+		<div data-role="page" data-theme="a" id="calc">
+
+			<div data-role="header" data-position="inline">
+				<a href="index.php" data-transition="slide" data-direction="reverse" data-icon="home" data-iconpos="notext">Home</a>
+				<h1>Ridezunomics</h1>
+				</div>
+			<div data-role="content" data-theme="a">
+
+		<script> 
+
+		function addCommas(str){
+ 		   var arr,int,dec;
+		   str += '';
+
+		   arr = str.split('.');
+		   int = arr[0] + '';
+		   dec = arr.length>1?'.'+arr[1]:'';
+
+ 		   return int.replace(/(\d)(?=(\d{3})+$)/g,"$1,") + dec;
+		}
+		 	
+		function calcv(){
+
+		miles=document.getElementById('slider1').value;
+		utype=document.getElementById('flip-min').value;
+		gas=document.getElementById('slider2').value;
+		mpg=document.getElementById('slider3').value;
+				
+		if(utype=='driver'){
+			tmiles=miles*240*2;
+			ftmiles=addCommas(Math.round(tmiles));
+			cost=tmiles/mpg*gas;
+			fcost=addCommas(Math.round(cost));
+			pickup=.25;
+			revpermile=.10;
+			totrev=240*2*(pickup+(revpermile*miles));
+			ftotrev=addCommas(Math.round(totrev));
+			totcarbon=tmiles/mpg*20;
+			ftotcarbon=addCommas(Math.round(totcarbon));
+			copy="<div style='padding:10px;'>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>Ridezu can help.<p>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</div>";
+			}
+		
+		if(utype=='rider'){
+
+			tmiles=miles*240*2;
+			ftmiles=addCommas(tmiles);
+			cost=Math.round(tmiles/mpg*gas);
+			fcost=addCommas(Math.round(cost));
+			pickup=.25;
+			ridezufee=.25;
+			revpermile=.10;
+			totrev=240*2*(ridezufee+pickup+(revpermile*miles));
+			ftotrev=addCommas(Math.round(totrev));
+			savings=Math.round(cost-totrev);
+			fsavings=addCommas(Math.round(savings));
+			totcarbon=tmiles/mpg*20;
+			ftotcarbon=addCommas(Math.round(totcarbon));
+
+
+			if(savings>0){
+			copy="<div style='padding:10px;'>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>Ridezu can help.<p>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</div>";
+			}
+
+			if(savings<=0){
+			copy="<div style='padding:10px;'>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<p>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<p>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</div>";
+			}
+	
+			}
+			document.getElementById('resultspopup').innerHTML=copy;
+			$("#resultspopup").popup("open");
+		}
+			
+
+		
+		</script>
+
+
+			<ul data-role="listview">
+			<li>
+				<style>
+					.containing-element .ui-slider-switch { width: 9em } 
+				</style>
+				<div class="containing-element">
+					<label for="flip-min">Are you a rider or a driver?</label>
+					<select name="flip-min" id="flip-min" data-role="slider">
+					<option value="driver">Driver</option>
+					<option value="rider">Rider</option>
+					</select>
+				</div>
+			</li>	
+			<li>
+				<label for="slider1">How many miles do you drive to work?</label>
+				<input type="range" name="slider1" id="slider1" value="25" min="2" max="100" data-theme="a" />
+			</li>	
+			<li>	
+				<label for="slider2">How much do you pay for gas?</label>
+				<input type="range" name="slider2" id="slider2" step=".01" value="3.85" min="3" max="6" data-theme="a" />
+			</li>	
+			<li>	
+				<label for="slider3">What's your car's gas mileage?</label>
+				<input type="range" name="slider3" id="slider3" step="1" value="25" min="10" max="60" data-theme="a" />
+			</li>	
+			</ul>	
+ 			
+			<br><br><div id="calcv1" data-role="button" data-icon="grid">Calculate</a>
+
+			</div>
+
+
+		<div data-role="popup" id="resultspopup" data-transition="slideup" data-overlay-theme="c" data-theme="b"> </div>
+
+	<script>
+		$("#calcv1").click(function(){
+		calcv();             		
+			});
+
+		$("#resultspopup").click(function(){
+		$("#resultspopup").popup("close");
+			});
+
+
+	</script>
+			
+
+		</div>
+		
+	</body>
+</html>

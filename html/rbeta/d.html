@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Maps API v3 Example: Distance Matrix</title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
+    <script>
+
+
+      function calculateDistances() {
+      var origin = new google.maps.LatLng(37.24974529810093,-121.90942591096722);
+      var destination = new google.maps.LatLng(37.428485706404835,-122.09665329332353);
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [origin],
+            destinations: [destination],
+            unitSystem: google.maps.UnitSystem.IMPERIAL,
+            travelMode: google.maps.TravelMode.DRIVING,
+            avoidHighways: false,
+            avoidTolls: false
+          }, distcallback);
+      }
+
+      function distcallback(response, status) {
+        if (status != google.maps.DistanceMatrixStatus.OK) {
+          alert('Error was: ' + status);
+        } else {
+		  distance=Math.round(response.rows[0].elements[0].distance.value/1690.34);
+		  alert(distance);
+        }
+      }
+
+
+    </script>
+  </head>
+  <body >
+    <div id="inputs">
+      <pre class="prettyprint">
+      var origin = new google.maps.LatLng(37.24974529810093,-121.90942591096722);
+      var destination = new google.maps.LatLng(37.428485706404835,-122.09665329332353);
+      </pre>
+      <p><button type="button" onclick="calculateDistances();">Calculate
+        distances</button></p>
+    </div>
+    <div id="outputDiv"></div>
+  </body>
+</html>

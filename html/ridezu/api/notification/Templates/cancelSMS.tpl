@@ -1,2 +1,1 @@
-
-Hi [$name] - your ride at [$datetime] has been cancelled.
+Hi [$fname] - your ride at [$datetime] has been cancelled

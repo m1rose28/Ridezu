@@ -1,7 +1,6 @@
 <?php
 $defaultHash=md5('xyxxyx');
 
-
 require 'model/user.php';
 require 'model/ride.php';
 require 'model/account.php';
@@ -16,22 +15,21 @@ require 'util.php';
 require 'Slim/Slim.php';
 $app = new Slim(array(
     'debug' => true));
-//$app->hook('slim.before', 'authorize');
-
-//Declare Rest calls
-$app->get('/', 'getAPIList');
+$app->hook('slim.before', 'authenticate');
 
 
+/*** USER APIs ***/
 $app->get('/v/1/users', 'getUsers' );
 $app->get('/v/1/users/:id',	'getUser');
 $app->get('/v/1/users/search/fname/:query', 'findByName');
-$app->get('/v/1/users/search/fbid/:query', 'findByFB');
+$app->get('/v/1/users/search/fbid/:query', 'findByFB'); //authorization enabled
+$app->get('/v/1/users/searchpublic/fbid/:query', 'findPublicDataByFB');
 $app->post('/v/1/users', 'addUser');
-$app->put('/v/1/users/:id', 'updateUser');
-$app->delete('/v/1/users/:id',	'deleteUser'); 
-$app->get('/v/1/users/search/fbid/:fbid/location/:location','getNodes'); 
+$app->put('/v/1/users/:id', 'updateUser'); //authorization enabled
+//$app->delete('/v/1/users/:id',	'deleteUser'); 
+$app->get('/v/1/users/search/fbid/:fbid/location/:location','getNodes');  //authorization enabled
 
-
+/*** RIDE APIS ***/
 $app->get('/v/1/rides','getRides'); //get all rides - helper method - will be removed later
 $app->get('/v/1/rides/:id','getRide'); //get particular ride
 $app->get('/v/1/rides/:id/driver','getDriverRide'); //get driver data for particular ride
@@ -56,48 +54,25 @@ $app->get('/v/1/rides/search/fbid/:query/rider','findDefaultMatchingRiders');
 $app->put('/v/1/rides/rideid/:rideid/rider','fillRide'); //add rider to the rides
 $app->put('/v/1/rides/rideid/:rideid/driver','fillRideRequest'); //add driver to the ride request
 
-
 $app->post('/v/1/rides/driver','postRide');  //post a ride
 $app->post('/v/1/rides/rider','requestRide'); 
 $app->put('/rides/:id'.'updateRide');
 $app->delete('/v/1/rides/rideid/:rideid/fbid/:fbid','cancelRide');
 $app->get('/v/1/rides/eventstate/COMPLETE','completeRide');
-//get account data
-$app->get('/v/1/account/summary/fbid/:query/timeperiod/:timeperiod','getAccountSummary');
-$app->get('/v/1/account/detail/fbid/:query/timeperiod/:timeperiod','getAccountDetail');
+
+$app->get('/v/1/reminder','rideReminder');
 
 
-//payment APIs
-$app->get('/v/1/payment','makePayment');
+/*** USER ACCOUNT APIS ***/
+$app->get('/v/1/account/summary/fbid/:query/timeperiod/:timeperiod','getAccountSummary'); //authorization enabled
+$app->get('/v/1/account/detail/fbid/:query/timeperiod/:timeperiod','getAccountDetail'); //authorizaiton enabled
 
-//notification
+/*** NOTIFICATION APIS ***/
 $app->post('/v/1/notification/message/fbid/:fbid/fromfbid/:fromfbid','sendMessage');
 
+//payment APIs - FOR TEST ONLY
+//$app->get('/v/1/payment','makePayment');
+
 $app->run();
-
-
-function getAPIList() {
-global $defaultHash;
-
-  $hash=getHashKey();
-  if ($defaultHash <> $hash)
-	return;
-
-echo 'Get All users - GET - /users';
-	echo '<p>';
-	echo 'Get User Details - GET - /users/$id'; 
-	echo '<p>';
-	echo 'Search User by Name - GET - /users/search/fname/$query';
-	echo '<p>';
-	echo 'Search User by Facebook ID - GET - /users/search/fbid/$query';
-	echo '<p>';
-	echo 'Add user - POST - /users';
-	echo '<p>';
-	echo 'Update user - PUT -/users/$id';
-	echo '<p>';
-	echo 'Soft delete user - DELETE - /users/$id';
-}
-
-
 
 ?>

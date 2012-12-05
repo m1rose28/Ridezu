@@ -64,6 +64,9 @@ include "sidebar.php";
 						
 
 						<br/><br/>
+						<div>
+						<img src="../images/jeffthompson.png" style="width:140px;"/>
+						</div>
 					    <div>
 							<h3>Jeff Thompson</h3>
 							<h4>Vice President, Business Development</h4>
