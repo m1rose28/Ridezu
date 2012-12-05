@@ -2609,5 +2609,8 @@ if(client=="mweb"){
 	document.body.style.display="block";
 	});
   }
- 
+
+if(client=="widget"){
+ 	document.body.style.display="block";
+ 	}
 });

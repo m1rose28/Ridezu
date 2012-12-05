@@ -1,6 +1,6 @@
 <?php
 
-$rzsystem='stage';
+$rzsystem='www';
 $rzversion="1204"; // this is the version for javascript and css
 $rzdomain='ridezu.com';
 $rzhost="$rzsystem.$rzdomain";

@@ -60,95 +60,92 @@ if(isset($_GET["client"])){$client=$_GET["client"];}
 <?php } ?>
 
 </style>
-<body>
-		<div id="w" style="display:none;">
-		
-		<div id="pagebody" style="left: 0px;">
-		<div id="ios" style="display:none;">
-			<div id="topbar" style="display:block;">
-			<header id="toolbarnav" style="left:0px; ">
-				<a href="#" id="menu-btn"><img id="menub" src="../images/menu.png"/></a>
-				<h1 id="pTitle">Ridezu</h1>
-			</header>
-			</div>
-		</div>
-
-				<div id="rpopup" style="display:none;" onclick="rempopup();" class="popup"></div>
-				<div id="darkpage" class="dim" style="display:none;"></div>
-				<div id="loading" style="height:450px;display:none">
-					<div style="height:20px;background-color:#ddd;width:100%">Loading...
-					</div>
-				</div>
-				<!-- list of active pages -->
-				
-				<div id="mainp"></div> 	
-				<div id="calcp"></div>
-				<div id="mapp"></div>
-				<div id="termsp"></div>
-				<div id="howitworksp"></div>
-				<div id="drive1p"></div>
-				<div id="drive2p"></div>
-				<div id="drive3p"></div>
-				<div id="ride1p"></div>
-				<div id="ride2p"></div>
-				<div id="ride3p"></div>
-				<div id="faqp"></div>
-				<div id="profilep"></div>
-				<div id="ridesp"></div>
-				<div id="accountp"></div>
-				<div id="transactionp"></div>
-				<div id="congratp"></div>
-				<div id="fbp"></div>
-				<div id="startp"></div>
-				<div id="rideconfirmp"></div>
-				<div id="noroutep"></div>
-				<div id="selectdriverp"></div>
-				<div id="riderequestp"></div>
-				<div id="ridepostp"></div>
-				<div id="enrollp"></div>
-				<div id="loginp"></div>
-				<div id="firstp" style="display:none;"></div> 
-				<div id="myridesp"></div> 
-				<div id="userprofilep"></div> 
-				<div id="homeprofilep"></div> 
-				<div id="workprofilep"></div> 
-				<div id="contactinfop"></div> 
-				<div id="driverp"></div> 
-				<div id="ridedetailsp"></div> 
-				<div id="paymentp"></div> 
-				<div id="payoutp"></div> 
-				<div id="notifyp"></div> 
-				<div id="temp"></div> 
-
-				<div id="confirm-background">
-					<div id="confirm-box">
-						<div id="confirm-message"></div>
-						<a href="#" id="cancel-button" style="display:none;" onclick="closeconfirm('cancel');" class="cancel"></a><a href="#" id="ok-button" onclick="closeconfirm('ok');"></a>
-					</div>
-				</div>
-		
-		<div id="testbar" style="display:none;background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
-		</div>
-		<div id="testios" style="display:none;background-color:#878787;color:#fff;font-size:14px;padding:5px;">
-			<a href="ridezu://showbackbutton">Show the back button</a>
-			<input type="button" value="Reload Page" onClick="document.location.reload(true)">
-		</div>
-		</div>		
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36391790-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
-	
+<body style="display:none;">
+		<div id="w">	
+			 <div id="pagebody" style="left: 0px;">
+			 <div id="ios" style="display:none;">
+				 <div id="topbar" style="display:block;">
+				 <header id="toolbarnav" style="left:0px; ">
+					 <a href="#" id="menu-btn"><img id="menub" src="../images/menu.png"/></a>
+					 <h1 id="pTitle">Ridezu</h1>
+				 </header>
+				 </div>
+			 </div>
+	 
+					 <div id="rpopup" style="display:none;" onclick="rempopup();" class="popup"></div>
+					 <div id="darkpage" class="dim" style="display:none;"></div>
+					 <div id="loading" style="height:450px;display:none">
+						 <div style="height:20px;background-color:#ddd;width:100%">Loading...
+						 </div>
+					 </div>
+					 <!-- list of active pages -->
+					 
+					 <div id="mainp"></div> 	
+					 <div id="calcp"></div>
+					 <div id="mapp"></div>
+					 <div id="termsp"></div>
+					 <div id="howitworksp"></div>
+					 <div id="drive1p"></div>
+					 <div id="drive2p"></div>
+					 <div id="drive3p"></div>
+					 <div id="ride1p"></div>
+					 <div id="ride2p"></div>
+					 <div id="ride3p"></div>
+					 <div id="faqp"></div>
+					 <div id="profilep"></div>
+					 <div id="ridesp"></div>
+					 <div id="accountp"></div>
+					 <div id="transactionp"></div>
+					 <div id="congratp"></div>
+					 <div id="fbp"></div>
+					 <div id="startp"></div>
+					 <div id="rideconfirmp"></div>
+					 <div id="noroutep"></div>
+					 <div id="selectdriverp"></div>
+					 <div id="riderequestp"></div>
+					 <div id="ridepostp"></div>
+					 <div id="enrollp"></div>
+					 <div id="loginp"></div>
+					 <div id="firstp" style="display:none;"></div> 
+					 <div id="myridesp"></div> 
+					 <div id="userprofilep"></div> 
+					 <div id="homeprofilep"></div> 
+					 <div id="workprofilep"></div> 
+					 <div id="contactinfop"></div> 
+					 <div id="driverp"></div> 
+					 <div id="ridedetailsp"></div> 
+					 <div id="paymentp"></div> 
+					 <div id="payoutp"></div> 
+					 <div id="notifyp"></div> 
+					 <div id="temp"></div> 
+	 
+					 <div id="confirm-background">
+						 <div id="confirm-box">
+							 <div id="confirm-message"></div>
+							 <a href="#" id="cancel-button" style="display:none;" onclick="closeconfirm('cancel');" class="cancel"></a><a href="#" id="ok-button" onclick="closeconfirm('ok');"></a>
+						 </div>
+					 </div>
+			 
+			 <div id="testbar" style="display:none;background-color:#878787;color:#fff;font-size:14px;padding:5px;"></div>
+			 </div>
+			 <div id="testios" style="display:none;background-color:#878787;color:#fff;font-size:14px;padding:5px;">
+				 <a href="ridezu://showbackbutton">Show the back button</a>
+				 <input type="button" value="Reload Page" onClick="document.location.reload(true)">
+			 </div>
+	 <script type="text/javascript">
+	 
+	   var _gaq = _gaq || [];
+	   _gaq.push(['_setAccount', 'UA-36391790-1']);
+	   _gaq.push(['_trackPageview']);
+	 
+	   (function() {
+		 var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	   })();
+	 
+	 </script>
+  </div>	
 </body></html>
 
 
