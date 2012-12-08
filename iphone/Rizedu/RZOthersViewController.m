@@ -50,13 +50,34 @@
 {
     [super viewDidLoad];
     _webView.delegate = self;
-    // http://www.ridezu.com/index2.php?p=accountp&fbid=504711218&client=iOS
-    NSString *fullUrl = [NSString stringWithFormat:@"%@/index2.php?p=%@&fbid=%@&client=iOS", BASE_URL, self.path, [RZGlobalService activeUserId]];
-    NSLog(@"Loading %@", fullUrl);
+//    _webView.scalesPageToFit= true;
     
-    NSURL *url = [NSURL URLWithString:fullUrl];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [_webView loadRequest:requestObj];
+    NSString *fullUrl =
+    [NSString stringWithFormat:@"http://stage.ridezu.com/index2.php?fbid=%@&seckey=%@&client=iOS",
+        @"500012114",@"f6462731d06d181532acd85a5791621a"];
+
+    NSLog(@"Loading %@", fullUrl);
+
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:fullUrl]]];
+    
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)adWebView1 {
+    NSLog(@"Path: %@", self.path);
+    NSString *nav = [NSString stringWithFormat:@"nav1('%@');", self.path];
+    [_webView stringByEvaluatingJavaScriptFromString:nav];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    // load error, hide the activity indicator in the status bar
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    
+    // report the error inside the webview
+    NSString* errorString = [NSString stringWithFormat:
+                             @"<html><center><font size=+5 color='red'>An error occurred:<br>%@</font></center></html>",
+                             error.localizedDescription];
+    [_webView loadHTMLString:errorString baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,12 +93,12 @@
         if ([[URL scheme] isEqualToString:@"ridezu"]) {
             if ([[URL host] isEqualToString:@"showbackbutton"]) {
                 [_webView stringByEvaluatingJavaScriptFromString:@"nav1('termsp')"];
-                /*
+                
                 // set leftBarButtonItem to "Back"
                 UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:nil action:nil];
                 self.navigationItem.backBarButtonItem = backButton;
                 self.navigationItem.leftBarButtonItem = backButton;
-                 */
+                 
             }
             else {
                 //hold a reference to this webview for calling back to the webview later

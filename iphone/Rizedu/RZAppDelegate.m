@@ -34,6 +34,7 @@
 
 extern CFAbsoluteTime StartTime;
 
+
 // custom url schema handler
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([[url absoluteString] hasPrefix:@"fb"]) {
@@ -93,28 +94,37 @@ extern CFAbsoluteTime StartTime;
                                              [[RZOthersViewController alloc] initWithPath:@"faqp" andTitle:@"FAQ" withRevealBlock:revealBlock]];
     
     UINavigationController *tosNav = [[UINavigationController alloc] initWithRootViewController:
-                                             [[RZOthersViewController alloc] initWithPath:@"tosp" andTitle:@"Terms of Service" withRevealBlock:revealBlock]];
+                                             [[RZOthersViewController alloc] initWithPath:@"termsp" andTitle:@"Terms of Service" withRevealBlock:revealBlock]];
            
 	NSArray *controllers = @[
         @[myRidesNav, requestRideNav, postRideNav, enrollmentNav, profileNav],
         @[howitworksNav, ridezunomicsNav, faqNav, tosNav]
 	];
     
-	NSArray *cellInfos = @[
+    NSArray *cellInfos = nil;
+    @try {
+        cellInfos = @[
         @[
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"myrides.png"], kSidebarCellTextKey: NSLocalizedString(@"My Rides", @"")},
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"requestride.png"], kSidebarCellTextKey: NSLocalizedString(@"Request a Ride", @"")},
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"car.png"], kSidebarCellTextKey: NSLocalizedString(@"Post a Ride", @"")},
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"0006.png"], kSidebarCellTextKey: NSLocalizedString(@"Enrollment", @"")},
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"profile.png"], kSidebarCellTextKey: NSLocalizedString(@"My Profile", @"")},
-        ], 
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],     kSidebarCellTextKey: NSLocalizedString(@"My Rides", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],     kSidebarCellTextKey: NSLocalizedString(@"Request a Ride", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],      kSidebarCellTextKey: NSLocalizedString(@"Post a Ride", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],     kSidebarCellTextKey: NSLocalizedString(@"Enrollment", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],  kSidebarCellTextKey: NSLocalizedString(@"My Profile", @"")},
+        ],
         @[
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"howitworks.png"], kSidebarCellTextKey: NSLocalizedString(@"How it works", @"")},
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"credit_card.png"], kSidebarCellTextKey: NSLocalizedString(@"Ridezenomics", @"")},
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"faq.png"], kSidebarCellTextKey: NSLocalizedString(@"FAQ", @"")},
-            @{kSidebarCellImageKey: [UIImage imageNamed:@"terms.png"], kSidebarCellTextKey: NSLocalizedString(@"Terms of Service", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],  kSidebarCellTextKey: NSLocalizedString(@"How it works", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"], kSidebarCellTextKey: NSLocalizedString(@"Ridezenomics", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],         kSidebarCellTextKey: NSLocalizedString(@"FAQ", @"")},
+            @{kSidebarCellImageKey: [UIImage imageNamed:@"user.png"],       kSidebarCellTextKey: NSLocalizedString(@"Terms of Service", @"")},
         ]
-	];
+    ];
+    } @catch (NSException *ex) {
+        NSLog(@"Exception creating cellinfo, probably bad gif name!");
+        NSLog(@"%@",ex);
+        @throw(ex);
+    }
+
+
 	// Add drag feature to each root navigation controller
 	[controllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
 		[((NSArray *)obj) enumerateObjectsUsingBlock:^(id obj2, NSUInteger idx2, BOOL *stop2){
@@ -199,13 +209,13 @@ extern CFAbsoluteTime StartTime;
 - (void)saveContext
 {
     NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
+//    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
+//    if (managedObjectContext != nil) {
+//        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
+//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//            abort();
+//        }
+//    }
 }
 
 #pragma mark - Application's Documents directory
@@ -214,6 +224,10 @@ extern CFAbsoluteTime StartTime;
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void) applicationDidFinishLaunchingWithOption:(NSNotification*) notice {
+    NSLog(@"inside appdidfinishlaunchingWithOptions") ;
 }
 
 @end

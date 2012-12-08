@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22785E7A1666325400805F43 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22785E791666325400805F43 /* Default-568h@2x.png */; };
 		C039498F1661AE3500DACDDB /* RZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949881661AE3500DACDDB /* RZBaseViewController.m */; };
 		C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C039498A1661AE3500DACDDB /* RZOthersViewController.m */; };
 		C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C039498B1661AE3500DACDDB /* RZOthersViewController.xib */; };
@@ -107,6 +108,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22785E791666325400805F43 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		C03949871661AE3500DACDDB /* RZBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBaseViewController.h; sourceTree = "<group>"; };
 		C03949881661AE3500DACDDB /* RZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBaseViewController.m; sourceTree = "<group>"; };
 		C03949891661AE3500DACDDB /* RZOthersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZOthersViewController.h; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 		D3AA1F16160E574E00B51488 = {
 			isa = PBXGroup;
 			children = (
+				22785E791666325400805F43 /* Default-568h@2x.png */,
 				D3F1F227160E78BB0016F6BD /* Utils */,
 				D3F1F1BB160E634E0016F6BD /* Resources */,
 				D3AA1F2B160E574E00B51488 /* Rizedu */,
@@ -608,6 +611,7 @@
 				D3AEA6C5162F1246002800B9 /* TestUsers.plist in Resources */,
 				C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */,
 				C03949A51661B24100DACDDB /* README.md in Resources */,
+				22785E7A1666325400805F43 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

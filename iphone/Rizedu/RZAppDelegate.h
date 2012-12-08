@@ -19,4 +19,6 @@
 @property (nonatomic, strong) GHMenuViewController *menuController;
 
 @property (nonatomic, strong) UINavigationController *testUsersNav;
+
+- (void) applicationDidFinishLaunching:(NSNotification*) notice ;
 @end

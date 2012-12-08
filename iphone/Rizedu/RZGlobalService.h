@@ -31,5 +31,6 @@
 + (UIBarButtonItem*)grabberBarButtonItem:(id)target;
 
 + (NSString*)activeUserId;
++ (NSString*)activeSecKey;
 + (NSString*)activeUserName;
 @end
