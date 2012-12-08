@@ -14,6 +14,7 @@
 }
 @property IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NSString *path;
+@property (nonatomic) SEL backPressed;
 @end
 
 @implementation RZOthersViewController
@@ -37,6 +38,7 @@
     }
     return nil;
 }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -50,10 +52,9 @@
 {
     [super viewDidLoad];
     _webView.delegate = self;
-//    _webView.scalesPageToFit= true;
     
     NSString *fullUrl =
-    [NSString stringWithFormat:@"http://stage.ridezu.com/index2.php?fbid=%@&seckey=%@&client=iOS",
+    [NSString stringWithFormat:@"http://stage.ridezu.com/index1.php?fbid=%@&seckey=%@&client=iOS",
         @"500012114",@"f6462731d06d181532acd85a5791621a"];
 
     NSLog(@"Loading %@", fullUrl);
@@ -63,9 +64,11 @@
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)adWebView1 {
+    
     NSLog(@"Path: %@", self.path);
-    NSString *nav = [NSString stringWithFormat:@"nav1('%@');", self.path];
-    [_webView stringByEvaluatingJavaScriptFromString:nav];
+    
+    [_webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"nav1('%@');", self.path]];
+    
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -86,23 +89,35 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void) webView:(UIWebView*)backPressed:(NSString*) navspec
+{
+    NSLog(@"backPressed");
+}
+
 - (BOOL)webView:(UIWebView *)webViewRef shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
 
         NSURL *URL = [request URL];    
         if ([[URL scheme] isEqualToString:@"ridezu"]) {
             if ([[URL host] isEqualToString:@"showbackbutton"]) {
-                [_webView stringByEvaluatingJavaScriptFromString:@"nav1('termsp')"];
+//                [_webView stringByEvaluatingJavaScriptFromString:@"nav1('termsp')"];
                 
                 // set leftBarButtonItem to "Back"
-                UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:nil action:nil];
-                self.navigationItem.backBarButtonItem = backButton;
+                UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                               initWithTitle: @"Back"
+                                               style: UIBarButtonItemStyleBordered
+                                               target: self
+                                               action: @selector(backPressed:)];
+                
+                [self.navigationItem setBackBarButtonItem: backButton];
+//                self.navigationItem.backBarButtonItem = backButton;
                 self.navigationItem.leftBarButtonItem = backButton;
                  
-            }
-            else {
+            } else if ([[URL host] isEqualToString:@"updatetitle"]) {
                 //hold a reference to this webview for calling back to the webview later
                 _webView = webViewRef;
+                [self setTitle:[URL path]];
             }
             return NO;
         }
