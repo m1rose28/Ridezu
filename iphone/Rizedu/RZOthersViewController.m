@@ -54,15 +54,9 @@
     _webView.delegate = self;
     
     NSString *fullUrl =
-<<<<<<< HEAD
     [NSString stringWithFormat:@"http://stage.ridezu.com/index1.php?fbid=%@&seckey=%@&client=iOS",
         @"500012114",@"f6462731d06d181532acd85a5791621a"];
-=======
->>>>>>> fail commit
 
-    [NSString stringWithFormat:@"http://stage.ridezu.com/index1.php?fbid=%@&seckey=%@&client=iOS",@"500012114",@"f6462731d06d181532acd85a5791621a"];
-
-    
     NSLog(@"Loading %@", fullUrl);
 
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:fullUrl]]];
@@ -107,11 +101,7 @@
         NSURL *URL = [request URL];    
         if ([[URL scheme] isEqualToString:@"ridezu"]) {
             if ([[URL host] isEqualToString:@"showbackbutton"]) {
-<<<<<<< HEAD
 //                [_webView stringByEvaluatingJavaScriptFromString:@"nav1('termsp')"];
-=======
-                [_webView stringByEvaluatingJavaScriptFromString:@"back()"];
->>>>>>> fail commit
                 
                 // set leftBarButtonItem to "Back"
                 UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
