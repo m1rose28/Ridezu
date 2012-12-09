@@ -95,8 +95,8 @@
     NSLog(@"backPressed");
 }
 
+
 - (BOOL)webView:(UIWebView *)webViewRef shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
 
         NSURL *URL = [request URL];    
         if ([[URL scheme] isEqualToString:@"ridezu"]) {
@@ -121,7 +121,6 @@
             }
             return NO;
         }
-    }
     return YES;
 }
 @end
