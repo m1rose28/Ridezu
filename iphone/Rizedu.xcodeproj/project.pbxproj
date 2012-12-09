@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22785E7A1666325400805F43 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22785E791666325400805F43 /* Default-568h@2x.png */; };
+		9AA1E25D16753ACB006E523D /* ridezubar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA1E25C16753ACB006E523D /* ridezubar@2x.png */; };
+		9AA1E26016753AE0006E523D /* ridezubar.png in Resources */ = {isa = PBXBuildFile; fileRef = 9AA1E25F16753AE0006E523D /* ridezubar.png */; };
 		C039498F1661AE3500DACDDB /* RZBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C03949881661AE3500DACDDB /* RZBaseViewController.m */; };
 		C03949901661AE3500DACDDB /* RZOthersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C039498A1661AE3500DACDDB /* RZOthersViewController.m */; };
 		C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C039498B1661AE3500DACDDB /* RZOthersViewController.xib */; };
@@ -109,6 +111,8 @@
 
 /* Begin PBXFileReference section */
 		22785E791666325400805F43 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		9AA1E25C16753ACB006E523D /* ridezubar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ridezubar@2x.png"; sourceTree = "<group>"; };
+		9AA1E25F16753AE0006E523D /* ridezubar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ridezubar.png; sourceTree = "<group>"; };
 		C03949871661AE3500DACDDB /* RZBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZBaseViewController.h; sourceTree = "<group>"; };
 		C03949881661AE3500DACDDB /* RZBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZBaseViewController.m; sourceTree = "<group>"; };
 		C03949891661AE3500DACDDB /* RZOthersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZOthersViewController.h; sourceTree = "<group>"; };
@@ -424,6 +428,8 @@
 			children = (
 				D306E87B162D0B4400F394AF /* locateButton.png */,
 				D306E87C162D0B4400F394AF /* locateButton@2x.png */,
+				9AA1E25F16753AE0006E523D /* ridezubar.png */,
+				9AA1E25C16753ACB006E523D /* ridezubar@2x.png */,
 				D306E87D162D0B4400F394AF /* location.png */,
 				D306E87E162D0B4400F394AF /* location@2x.png */,
 				D3BCCA75161E9C7D00987648 /* icon@2x.png */,
@@ -612,6 +618,8 @@
 				C03949911661AE3500DACDDB /* RZOthersViewController.xib in Resources */,
 				C03949A51661B24100DACDDB /* README.md in Resources */,
 				22785E7A1666325400805F43 /* Default-568h@2x.png in Resources */,
+				9AA1E25D16753ACB006E523D /* ridezubar@2x.png in Resources */,
+				9AA1E26016753AE0006E523D /* ridezubar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

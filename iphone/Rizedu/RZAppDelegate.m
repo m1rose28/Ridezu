@@ -173,7 +173,7 @@ extern CFAbsoluteTime StartTime;
 
 - (void)customizeAppearance {
     // this is to unset the background image by other themes
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"titlebar.png"] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"ridezubar.png"] forBarMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setBackgroundImage:nil forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     [[UIToolbar appearance] setTintColor:[RZGlobalService greenColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[RZGlobalService greenColor]];
