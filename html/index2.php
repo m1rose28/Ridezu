@@ -118,6 +118,7 @@ if(isset($_GET["client"])){$client=$_GET["client"];}
 					 <div id="payoutp"></div> 
 					 <div id="notifyp"></div> 
 					 <div id="temp"></div> 
+	  				 <div id="commputep"></div> 
 	 
 					 <div id="confirm-background">
 						 <div id="confirm-box">

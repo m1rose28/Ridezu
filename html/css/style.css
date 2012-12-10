@@ -271,6 +271,16 @@ a.minibutton:hover {
 	margin: 2px 0 0 5px;
 }
 
+#w #pagebody #left3 {
+	float: left;
+	width: 65%;
+}
+
+#w #pagebody #right3 {
+	float: right;
+	width: 32%;
+}
+
 #w #pagebody #precontent {
 	width: 93.75%;
 	min-width: 300px;
@@ -289,6 +299,83 @@ a.minibutton:hover {
 	padding: 4px 0px 3px 7px;
 	font-weight: bold; 
 	font-size: 1.4em;
+}
+
+#w #pagebody #precontent #routebutton {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	width: 80%;
+	padding: 2px 5% 7px 5%;
+	margin: 10px 5%;
+	height: 18px;
+	background: #afafaf; /* Old browsers */
+	background: -moz-linear-gradient(top,  #afafaf 0%, #777777 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#afafaf), color-stop(100%,#777777)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #afafaf 0%,#777777 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #afafaf 0%,#777777 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #afafaf 0%,#777777 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #afafaf 0%,#777777 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#afafaf', endColorstr='#777777',GradientType=0 ); /* IE6-9 */
+	border: 1px solid #5B5B5B;
+	text-shadow: 1px 1px 0px #666;
+	display: block;
+	color: #fff;
+	font-size: 120%;
+	text-align: center;
+}
+
+#w #pagebody #precontent #routebutton img {
+	width: 14px;
+	height: 17px;
+	position: relative;
+	top: 2px;
+	left: -3px;
+}
+
+#w #pagebody #precontent #routedirection {
+	width: 80%;
+	padding: 2px 5% 7px 5%;
+	margin: 10px 5%;
+	height: 18px;
+	text-shadow: 1px 1px 0px #666;
+	display: block;
+	color: #fff;
+	font-size: 120%;
+	text-align: center;
+}
+
+#w #pagebody #precontent #routedirection img {
+	width: 14px;
+	height: 17px;
+	position: relative;
+	top: 2px;
+	left: -3px;
+}
+
+#w #pagebody #precontent #savings {
+	height: 48px;
+	display: block;
+	color: #fff;
+}
+
+#w #pagebody #precontent #savings div.arrowright{
+	display: block;
+	margin: 10px 0;
+	width: 100%;
+	background: url(../images/arrow.png) no-repeat center right;
+}
+
+#w #pagebody #precontent #savings h5 {
+	text-align: center;
+}
+
+#w #pagebody #precontent #savings h4 {
+	margin: 0 0 0 0;
+	text-shadow: 1px 1px 0px #333;
+	text-align: center;
+	position: relative; 
+	left: -10px;
 }
 
 #w #pagebody #precontent .routeicon{
@@ -460,6 +547,7 @@ a.minibutton:hover {
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 	margin: 5px 0px 5px 0px;
+	overflow: auto;
 }
 
 #w #pagebody #aboutme h5.keyinfotitle{
@@ -1162,6 +1250,24 @@ input.rtext {
 	line-height: 1.6em;
 	color:#6F6E6E;
 }
+
+#commuted #content div.commuteleft {
+	float: left;
+	width: 50%;
+	padding: 5px;
+	margin: 5px 5px 0 0;
+	font-size: 1.4em;
+	line-height: 1.6em;
+	}
+
+#commuted #content div.commuteright {
+	text-align: right;
+	padding: 5px;
+	margin: 5px 5px 0 0;
+	font-size: 1.4em;
+	line-height: 1.6em;
+	}
+
 
 
 /* -------------------- MY ACCOUNT ------------------------------------ */

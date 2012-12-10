@@ -1,38 +1,33 @@
 			<section id="precontent">
-				<div id="left2">
+				<div id="left3">
 					<h3>Route</h3>
 					<div class="glassbg">
-						<img onclick="reverseroute();" class="routeicon" src="../images/routeicon.png" alt="Route"/>
-						<ul>
-							<li><img src="../images/start.png" alt="Start" /><span id="origindesc"></span></li>
-							<li><img src="../images/end.png" alt="End" /><span id="destdesc"></span></li>
-						</ul>
+						<a href="#" id="routebutton" onclick="reverseroute();">
+							<span id="origindesc"><img src="images/start.png"/>Home</span>
+							&rarr;
+							<span id="destdesc"><img src="images/start3.png"/>Work</span>
+						</a>
 					</div>
 				</div>
-				
-				<div id="right2">
+
+				<div id="right3">
 					<h3>Collect</h3>
-					<div class="glassbg">
-						<h4 class="savings">$<span id="amount"></span></h4>
-					</div>
-					<div class="glassbg">
-						
-						<ul class="darktext">
-							<li>Savings</li>
-							<li><img src="../images/gas.png" alt="Gasoline Icon" /><span id="gassavings"></span></li>
-							<li><img src="../images/co2.png" alt="CO2 Emission Icon" /><span id="co2"></span></li>
-						</ul>
-					</div>
+					<a id="savings" class="glassbg" href="#" onclick="navt('ridepostp','commutep');">
+						<div class="arrowright">
+							<h4><span id="amount"></span></h4>
+						</div>
+					</a>
 				</div>
 			</section>
 
 
 			<div id="r1" style="display:block;">
 				<section id="content">
-						<h2>What time do you want to <span id="gotext"></span><span id="leavetime"></span>?</h2>
+						<div id="timeframe"><h2>What time do you want to <span id="gotext"></span><span id="leavetime"></span>?</h2></div>
 						<ul>
 						<div id="ridelist1"></div>
 						<a href="#" onclick="paintlist('1');"><li class="last" id="showall">Show all times</li></a>
+						<a href="#" onclick="paintlist();"><li class="last" id="showfewer" style="display:none;">Show fewer times</li></a>
 						</ul>
 				</section>
 			</div>

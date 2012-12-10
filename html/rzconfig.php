@@ -12,22 +12,24 @@ $u=$_SERVER['REQUEST_URI'];
 if($s=="stage.ridezu.com"){
 	$rzsystem='stage';
 	$_SESSION['mode']="dev";
+	$rzversion=time(); // this is the version for javascript and css
 	}
 
-if($s=="www.ridezu.com"){
+if($s=="www.ridezu.com" or $s=="ridezu.com"){
 	$rzsystem='www';
 	$_SESSION['mode']="prod";
+	$rzversion="1204"; // this is the version for javascript and css
 	}
 
-
-$rzversion="1204"; // this is the version for javascript and css
 $rzdomain='ridezu.com';
 $rzhost="$rzsystem.$rzdomain";
 
-if($h==false or $s!=$rzhost){
-  $url = "https://".$rzhost."/".$u;
-  header("Location: $url");
-  exit;
+if($rzsystem!='stage'){
+  if($h==false or $s!=$rzhost){
+    $url = "https://".$rzhost."/".$u;
+    header("Location: $url");
+    exit;
   }
+}
 
 ?>

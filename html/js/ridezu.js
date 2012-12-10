@@ -12,6 +12,7 @@
                 success: function(data) {
 					myinfo=data;
 					nav("firstp",startpage);
+					if(tm=="1"){showdetail();}
 				    $(document).ready(function() {
 		  				document.body.style.display="block";
 						});
@@ -397,10 +398,10 @@
 			document.getElementById(p).innerHTML="";		
 			document.getElementById(to).style.display="none";
 			if(client=="mweb"){scrollTo(0,0);}						
-			url="pages/"+ to + ".html";
+			url="pages/"+ to + ".html?v="+v;
 			$.ajax({
   			url: url,
-  			cache: true,
+  			cache: false,
   			dataType: "html"
 			}).done(function( html ) {
   				document.getElementById(to).innerHTML=html;
@@ -525,7 +526,7 @@
 					}
 				getlist("rider");
 
-				$('#r1').touchwipe({
+				$('#timeframe').touchwipe({
 					wipeLeft: function(){
 						info[rlist.nextdate]=rlist.date;						
 						role=info.role;
@@ -550,7 +551,7 @@
 				
 				getlist("driver");
 
-				 $('#r1').touchwipe({
+				 $('#timeframe').touchwipe({
 					wipeLeft: function(){
 						info[rlist.nextdate]=rlist.date;						
 						role=info.role;
@@ -587,11 +588,26 @@
 				workprofileinit();
 				}
 
-			if(to=="pricingp" || to=="mainp" || to=="profilep" || to=="howitworksp" || to=="termsp" || to=="faqp" || to=="calcp" || to=="fbp" || to=="enrollp" || to=="congratp"){
+			if(to=="commutep"){
+				commuteinit();
+				}
+				
+			if(to=="profilep"){
+				profileinit();
+				}
+
+			if(to=="pricingp" || to=="mainp" || to=="howitworksp" || to=="profilep" || to=="termsp" || to=="faqp" || to=="calcp" || to=="fbp" || to=="enrollp" || to=="congratp"){
 				document.getElementById(p).style.display="block";	    
 				}
 
 			if(updateuserflag==true){updateuser();updateuserflag==false;}
+
+			if(client=="iOS"){
+				a="ridezu://title/update/"+pageTitles[to];
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					window.location.href = a;
+					}				
+				}
 		}		
 
 // this function set controls the flow of page views where a flow is needed
@@ -1171,7 +1187,14 @@
 
 		function paintlist(preftime){		
 		  role=info.role;
-		  if(preftime=="1"){document.getElementById('showall').style.display="none";}
+		  if(preftime=="1"){
+		  	document.getElementById('showall').style.display="none";
+		  	document.getElementById('showfewer').style.display="block";
+		  	}
+		  if(preftime!="1"){
+		  	document.getElementById('showall').style.display="block";
+		  	document.getElementById('showfewer').style.display="none";
+		  	}
 		  if(rlist.day!="Today"){
 		  		x=" on "+rlist.daydate;
 		  		}
@@ -1183,23 +1206,21 @@
 		  z=0;
 
 		  if(rlist.route=="h2w"){
-		  		document.getElementById('origindesc').innerHTML="Home";
-				document.getElementById('destdesc').innerHTML="Work";
+		  		document.getElementById('origindesc').innerHTML="<img src='images/start.png'/>Home";
+				document.getElementById('destdesc').innerHTML="<img src='images/start3.png'/>Work";
 				document.getElementById('gotext').innerHTML="go to work";
 		  		} 
 		  		
 		  		else {
-		  		document.getElementById('origindesc').innerHTML="Work";
-				document.getElementById('destdesc').innerHTML="Home";
+		  		document.getElementById('origindesc').innerHTML="<img src='images/start3.png'/>Work";
+				document.getElementById('destdesc').innerHTML="<img src='images/start.png'/>Home";
 				document.getElementById('gotext').innerHTML="go home";
 		  		}
 		  mw=screenwidth-20;
 		  xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+rlist.startlatlong+"&sensor=false";
 		  document.getElementById('ridedesta').src=xstartlatlong;		  		  
 		  document.getElementById('ridedestb').src=xstartlatlong;		  
-		  document.getElementById('amount').innerHTML=rlist.amount;
-		  document.getElementById('gassavings').innerHTML=rlist.gassavings;
-		  document.getElementById('co2').innerHTML=rlist.co2;
+		  document.getElementById('amount').innerHTML="$"+rlist.amount;
 		  
 		  var ridelist="";
 		  var r=0;
@@ -1688,8 +1709,15 @@
 					  x="";
 					  }
 
-				if(x0=="Rider"){document.getElementById('ridedetails').innerHTML="Ride Request: ";}
-				if(x0=="Driver"){document.getElementById('ridedetails').innerHTML="Ride Post: ";}
+				if(x0=="Rider"){
+					document.getElementById('ridedetails').innerHTML="Ride Request: ";
+					document.getElementById('costcollect').innerHTML="Cost";
+
+					}
+				if(x0=="Driver"){
+					document.getElementById('ridedetails').innerHTML="Ride Post: ";
+					document.getElementById('costcollect').innerHTML="Collect";
+					}
 				
 				document.getElementById('godate').innerHTML=x;
 				document.getElementById('leavetime').innerHTML=evtime(value1.eventtime);
@@ -1698,20 +1726,18 @@
 				x="";
 	   
 				if(value1.route=="h2w"){
-					  document.getElementById('origindesc').innerHTML="Home";
-					  document.getElementById('destdesc').innerHTML="Work";
+					 document.getElementById('origindesc').innerHTML="<img src='images/start.png'/>Home";
+					 document.getElementById('destdesc').innerHTML="<img src='images/start3.png'/>Work";
 					  } 
 					  
 					  else {
-					  document.getElementById('origindesc').innerHTML="Work";
-					  document.getElementById('destdesc').innerHTML="Home";
+					  document.getElementById('origindesc').innerHTML="<img src='images/start3.png'/>Work";
+					  document.getElementById('destdesc').innerHTML="<img src='images/start.png'/>Home";
 					  }
 		  		mw=screenwidth-20;
 				xoriginlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+value1.startlatlong+"&sensor=false";
 				document.getElementById('ridedesta').src=xoriginlatlong;		  		  
-				document.getElementById('amount').innerHTML=value1.amount;
-				document.getElementById('gassavings').innerHTML=value1.gassavings;
-				document.getElementById('co2').innerHTML=value1.co2;
+				document.getElementById('amount').innerHTML="$"+value1.amount;
 								
 				if(value1.eventstate=="EMPTY" || value1.eventstate=="REQUEST"){
 					document.getElementById('nomatch').innerHTML="We haven't found a match yet.";
@@ -1781,7 +1807,7 @@
 		    	document.getElementById('imdriving').style.display="block";	 
 		  		$.each(mrlist["Driver"], function(key3, value3) {
 					value3=mrlist["Driver"][key3];
-					if(value3.route=="h2w"){rte="<img style='width:12px;' src='../images/end.png' /> Work";}
+					if(value3.route=="h2w"){rte="<img style='width:12px;' src='../images/start3.png' /> Work";}
 					if(value3.route=="w2h"){rte="<img style='width:12px;' src='../images/start.png' /> Home";}
 					etime=evtime(value3.eventtime);
 					imdrivinglist=imdrivinglist+"<a href=\"#\" onclick=\"paintmyrides('"+value3.rideid+"')   \"><li><span class='date'>"+value3.day+"</span><span class='time'> "+etime+" <span class='dest'>"+rte+"</span></li></a>";				
@@ -1793,7 +1819,7 @@
 		    	document.getElementById('imriding').style.display="block";	 		  		  
 		  		$.each(mrlist["Rider"], function(key4, value4) {
 					value3=mrlist["Rider"][key4];
-					if(value4.route=="h2w"){rte="<img style='width:12px;' src='../images/end.png' /> Work";}
+					if(value4.route=="h2w"){rte="<img style='width:12px;' src='../images/start3.png' /> Work";}
 					if(value4.route=="w2h"){rte="<img style='width:12px;' src='../images/start.png' /> Home";}
 					etime=evtime(value4.eventtime);
 					imridinglist=imridinglist+"<a href=\"#\" onclick=\"paintmyrides('"+value4.rideid+"')   \"><li><span class='date'>"+value4.day+ "</span><span class='time'> "+etime+" </span><span class='dest'>"+rte+"</span></li></a>";				
@@ -2058,6 +2084,14 @@
 			  return true;   
 		}
 
+// this function set is for the profilepage
+
+		function profileinit(){
+			if(myinfo.miles>0){
+				document.getElementById('commute').style.display="block";
+				}					
+		}
+
 // this function set is for the home profile page (first half = update home / second half = pick a place close to you)
 
 		function homeprofileinit(){
@@ -2208,6 +2242,23 @@
 			document.getElementById('r2').style.display="none";	
 			workprofileinit();
 			}
+			
+// this function set is for the commute page
+
+		function commuteinit(){
+			if(myinfo.miles.length>0){
+				mapurl="https://maps.googleapis.com/maps/api/staticmap?size=300x200&maptype=roadmap&markers=icon:http://stage.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&markers=icon:http://stage.ridezu.com/images/basecbmarker.png%7C"+myinfo.worklatlong+"&markers=icon:http://stage.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&markers=icon:http://stage.ridezu.com/images/basecpmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
+				document.getElementById('commutex').style.display="block";		
+				document.getElementById('miles').innerHTML=myinfo.miles;
+				document.getElementById('collectyearly').innerHTML="$"+(myinfo.amount*220*2);
+				document.getElementById('saveyearly').innerHTML="$"+(myinfo.amount*220*2*.25);			
+				document.getElementById('co2savings').innerHTML=myinfo.co2*220*2;			
+				document.getElementById('map').src=mapurl;
+				}					
+			else {
+				document.getElementById('nocommute').style.display="block";				
+				}
+		}
 
 // this function is for driver verification
 
@@ -2244,8 +2295,10 @@
 
 		function contactinfoinit(){
 			document.getElementById('email').value=myinfo.email;
-			parts = [myinfo.phone.slice(0,3),myinfo.phone.slice(3,6),myinfo.phone.slice(6,10)];
-			document.getElementById('phone').value = parts[0]+"-"+parts[1]+"-"+parts[2];	
+			if(myinfo.phone!=null){
+				parts = [myinfo.phone.slice(0,3),myinfo.phone.slice(3,6),myinfo.phone.slice(6,10)];
+				document.getElementById('phone').value = parts[0]+"-"+parts[1]+"-"+parts[2];	
+				}
 			document.getElementById('name').value=myinfo.fname+" "+myinfo.lname;			
 			loading("temp");	    
 			}
@@ -2511,7 +2564,6 @@
 	    var mrlist;
 	    var nodelist;
 	    var userinfo={};
-	    var myinfo={};
 	    var info={};
 	    var etime;
 	    var userfbid="";
@@ -2547,12 +2599,6 @@
   			"howitworksp":"How it Works",
   			"termsp":"Terms of Service",
   			"faqp":"FAQ's",
-  			"rider1p":"Step 1",
-  			"rider2p":"Step 2",
-  			"rider3p":"Step 3",
-  			"ride1p":"Step 1",
-  			"ride2p":"Step 2",
-  			"ride3p":"Step 3",				
   			"myridesp":"My Rides",			
   			"loginp":"Login - Test Page",			
   			"homeprofilep":"Home Details",			
@@ -2564,7 +2610,8 @@
   			"payoutp":"Payout Info",			
   			"notifyp":"Notifications",			
   			"userprofilep":"Profile",			
-  			"pricingp":"Pricing"			
+  			"pricingp":"Pricing",			
+  			"commutep":"My Commute"			
 			};
 
 // this watches for orientation change and makes any site changes, if needed
@@ -2606,11 +2653,13 @@ if(client=="mweb"){
 		 // Hide the address bar!
 		 window.scrollTo(0, 1);
 	   }, 0);
+	document.getElementById("showbar").style.display="block";
 	document.body.style.display="block";
 	});
   }
 
-if(client=="widget"){
+if(client=="widget" || client=="iOS"){
  	document.body.style.display="block";
+	document.getElementById("showbar").style.display="none";
  	}
 });

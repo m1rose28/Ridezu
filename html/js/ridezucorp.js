@@ -253,7 +253,7 @@ $(document).ready(function(){
 		function updateuser(){
 				updateuserflag=false;
             	var jsondataset = JSON.stringify(myinfo);
- 				url="/ridezu/api/v/1/users/"+myinfo.id="/fbid/"+myinfo.fbid;
+ 				url="/ridezu/api/v/1/users/"+myinfo.id+"/fbid/"+myinfo.fbid;
  				       
             	var request=$.ajax({
                 url: url,
@@ -280,7 +280,7 @@ $(document).ready(function(){
 		       document.getElementById("corpstart").style.display="none";  
 		       document.getElementById("quotes").style.display="none";  
 		       document.getElementById("corptitle").innerHTML="<h2>Welcome "+myinfo.fname+"</h2>";     
-		       document.getElementById("ridezuiframe").src="/index2.php?fbid="+myinfo.fbid+"&seckey="+myinfo.seckey+"&client=widget";
+		       document.getElementById("ridezuiframe").src="/index1.php?fbid="+myinfo.fbid+"&seckey="+myinfo.seckey+"&client=widget";
 		     }
 		  }
 

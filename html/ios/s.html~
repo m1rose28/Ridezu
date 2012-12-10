@@ -1,0 +1,17 @@
+<html>
+<title>
+  Ridezu scripts
+</title>
+<body>
+<h1>Ridezu!</h1>
+<div id="accountp"></div>
+
+
+<script>
+function john(){
+alert("hellojohn");
+}
+</script>
+</body>
+</html>
+

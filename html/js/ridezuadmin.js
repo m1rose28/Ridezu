@@ -55,11 +55,12 @@
 			myinfo.destlatlong=userdata[id].destlatlong;
 			myinfo.homelatlong=userdata[id].homelatlong;
 			myinfo.worklatlong=userdata[id].worklatlong;
-
-			testdata="Logged in as: "+myinfo.fname+" "+myinfo.lname+" : "+myinfo.fbid;
-			testlink="<a class='tlink' href='/test/servicetest.php?uid="+myinfo.fbid+"' target='ridezutest'>"+testdata+"</a>";
-			document.getElementById('testbar').innerHTML=testlink;
-
 			loadmyinfo();
 		}
 		
+// updates the test bar with appropriate data 
+		function showdetail(){
+			testdata=myinfo.fname+" "+myinfo.lname+" ("+myinfo.fbid+")";
+			//testlink="<a class='tlink' href='/test/servicetest.php?uid="+myinfo.fbid+"' target='ridezutest'>"+testdata+"</a>";
+			document.getElementById('testbar').innerHTML=testdata;
+			}

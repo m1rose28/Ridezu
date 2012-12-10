@@ -10,12 +10,14 @@ if($h==false or $s=="ridezu.com"){header('Location: https://www.ridezu.com'.$u);
 
 if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["seckey"])){$seckey=$_GET["seckey"];}
+if(isset($_GET["d"])){$d=$_GET["d"];}
 
 if($fbid && $seckey){
 	$dbh=mysql_connect ("localhost", "ridezu", "ridezu123") or die ('I cannot connect to the database because: ' . mysql_error());
 	mysql_select_db ("ridezu");
 	mysql_query("DELETE FROM userprofile WHERE fbid='$fbid' and seckey='$seckey'") or die(mysql_error());
-	echo "deleted";	
+	echo "deleted";
+	header('Location: d.php?d=1');
 	}
 
 ?>
@@ -25,7 +27,16 @@ if($fbid && $seckey){
 <br/>Facebook state: <span id="fbstate"></span> 
 <br/><br/>User id: <span id="fbid"></span>  
 <br/><br/>Secret: <span id="seckey"></span> 
-<br/><br/>Delete User (kiss your user goodbye): <span id="deleteuser"></span> 
+
+<?php if (isset($d)==false){ ?> 
+	<br/><br/>Delete User (kiss your user goodbye): <span id="deleteuser"></span> 
+<?php } ?>
+
+<?php if (isset($d)){ ?> 
+	<br/><br/>User removed from db 
+<?php } ?>
+
+
 <script>
   var fbstate="";
   var fbid="";
@@ -57,10 +68,10 @@ if($fbid && $seckey){
 	 } else if (response.status === 'not_authorized') {
 	   // the user is logged in to Facebook, 
 	   // but has not authenticated your app
-	   fbstate="This user is logged into Facebook but not authorized in this app.";
+	   fbstate="This user is logged into Facebook but not authorized in this app. <a href=\"#\" onclick=\"logout();\">Logout</a>";
 	 } else {
 	   // the user isn't logged in to Facebook.
-	   fbstate="The user is not logged into Facebook.";
+	   fbstate="The user is not logged into Facebook. <a href=\"#\" onclick=\"logout();\">Logout</a>";
 	 }
 	showfbstate();
 	});

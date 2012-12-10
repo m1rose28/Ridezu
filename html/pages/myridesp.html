@@ -9,30 +9,25 @@ textarea {
 </style>
 			<div id="r0" style="display:none;">
 			<section id="precontent">
-				<div id="left2">
+
+				<div id="left3">
 					<h3>Route</h3>
 					<div class="glassbg">
-						<img class="routeicon" src="../images/routeicon.png" alt="Route"/>
-						<ul>
-							<li><img src="../images/start.png" alt="Start" /><span id="origindesc"></span></li>
-							<li><img src="../images/end.png" alt="End" /><span id="destdesc"></span></li>
-						</ul>
+						<div id="routedirection">
+							<span id="origindesc"><img src="images/start.png"/>Home</span>
+							&rarr;
+							<span id="destdesc"><img src="images/start3.png"/>Work</span>
+						</div>
 					</div>
 				</div>
 				
-				<div id="right2">
-					<h3>Cost & Savings</h3>
-					<div class="glassbg">
-						<h4 class="savings">$<span id="amount"></span></h4>
-					</div>
-					<div class="glassbg">
-						
-						<ul class="darktext">
-							<li>Savings</li>
-							<li><img src="../images/gas.png" alt="Gasoline Icon" /><span id="gassavings"></span></li>
-							<li><img src="../images/co2.png" alt="CO2 Emission Icon" /><span id="co2"></span></li>
-						</ul>
-					</div>
+				<div id="right3">
+					<h3><span id="costcollect"></span></h3>
+					<a id="savings" class="glassbg" href="#" onclick="navt('myridesp','commutep');">
+						<div class="arrowright">
+							<h4><span id="amount"></span></h4>
+						</div>
+					</a>
 				</div>
 			</section>
 			</div>
@@ -83,7 +78,7 @@ textarea {
    					<input id="mr1" type="submit" onclick="nav('myridesp','riderequestp');" data-role="none" class="primarybutton" value="Request a ride" style="display:none;"/>
    					<input id="mr2" type="submit" onclick="nav('myridesp','ridepostp');" data-role="none" class="primarybutton" value="Post a ride" style="display:none;"/>
    					<input id="mr3" type="submit" onclick="nav('myridesp','howitworksp');" data-role="none" class="primarybutton" value="How it Works" style="display:none;"/>
-   					<input id="mr4" type="submit" onclick="nav('myprofilep','calcp');" data-role="none" class="primarybutton" value="My Profile" style="display:none;"/>
+   					<input id="mr4" type="submit" onclick="nav('myridesp','profilep');" data-role="none" class="primarybutton" value="My Profile" style="display:none;"/>
 
 					
    				</div>
