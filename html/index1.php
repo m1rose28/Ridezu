@@ -2,7 +2,7 @@
 
 require_once 'rzconfig.php';
 
-// these are init variables
+// these are init variables  
 $t="";$fbid="";$seckey="";$scriptset="";
 
 $p="myridesp";
