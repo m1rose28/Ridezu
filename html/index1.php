@@ -2,8 +2,8 @@
 
 require_once 'rzconfig.php';
 
-// these are init variables  
-$t="";$fbid="";$seckey="";$scriptset="";
+// these are init variables
+$t="";$fbid="";$seckey="";$scriptset="";$c="";
 
 $p="myridesp";
 $client="mweb";
@@ -13,6 +13,7 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
 if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["seckey"])){$seckey=$_GET["seckey"];}
 if(isset($_GET["client"])){$client=$_GET["client"];}
+if(isset($_GET["c"])){$c=$_GET["c"];}
 
 
 if($t=="1" || $t=="2"){
@@ -110,7 +111,13 @@ if($client=="iOS"){
 		var v="<?php echo $rzversion;?>";
 	    var myinfo={};
 	    var tm="0";
-	</script>
+	    myinfo.company="<?php echo $c;?>";
+		if(localStorage.seckey!=undefined){
+			var optimizely = optimizely || [];
+			optimizely.push("disable");	
+			}		
+	</script>		
+	<script src="//cdn.optimizely.com/js/157370915.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 

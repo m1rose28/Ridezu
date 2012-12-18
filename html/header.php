@@ -1,10 +1,26 @@
-<?php require_once 'rzconfig.php'; ?>
+<?php require_once 'rzconfig.php';
+
+if(isset($_GET["c"])){$c=$_GET["c"];}
+if(isset($_GET["t"])){$t=$_GET["t"];}
+
+ ?>
+
 
 <!DOCTYPE html>
 
 <html lang="en">
 
     <head>
+		<script>
+      		var page="<?php echo $title;?>";
+      		var myinfo={};
+	    	myinfo.company="<?php echo $c;?>";
+	    	if(localStorage.seckey!=undefined){
+				var optimizely = optimizely || [];
+				optimizely.push("disable");	
+	    		}		
+      	</script>		
+      	<script src="//cdn.optimizely.com/js/157370915.js"></script>
       	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -14,9 +30,6 @@
         <link rel="stylesheet" href="css/style.css?v=<?php echo $rzversion;?>">
         <link rel="stylesheet" href="css/normalize.min.css?v=<?php echo $rzversion;?>">
 		<link rel="stylesheet" href="css/corpstyle.css?v=<?php echo $rzversion;?>">
-      	<script>
-      	var page="<?php echo $title;?>";
-      	</script>
     </head>
     <body>
         <header>
@@ -30,6 +43,8 @@
 			<div class="corpwrapper">
 				<div id="corplogo">
 					<h1><a href="/index.php"><img src="images/ridezulogo.png" alt="Ridezu" /></a></h1>
+					
+					<img id="cobrand" src=""/>
 				</div>
 				
 				<div id="corpmenu">

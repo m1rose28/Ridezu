@@ -8,6 +8,7 @@
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
+			    cache: false,
                 dataType: "json",
                 success: function(data) {
 					myinfo=data;
@@ -36,6 +37,7 @@
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
+			    cache: false,
                 dataType: "json",
                 success: function(data) {
 					userinfo=data;
@@ -56,6 +58,7 @@
             	var request=$.ajax({
                 url: url,
                 type: "PUT",
+			    cache: false,
                 dataType: "json",
                 data: jsondataset,
                 success: function(data) {},
@@ -398,10 +401,10 @@
 			document.getElementById(p).innerHTML="";		
 			document.getElementById(to).style.display="none";
 			if(client=="mweb"){scrollTo(0,0);}						
-			url="pages/"+ to + ".html?v="+v;
+			url="pages/"+ to + ".php?v="+v;
 			$.ajax({
   			url: url,
-  			cache: false,
+  			cache: true,
   			dataType: "html"
 			}).done(function( html ) {
   				document.getElementById(to).innerHTML=html;
@@ -442,12 +445,12 @@
 				}
 			document.getElementById(from).style.display="none";		
 			if(client=="mweb"){scrollTo(0,0);}						
-			url="pages/"+ to + ".html";
+			url="pages/"+ to + ".php?v="+v;
 			tp=to;
 			document.getElementById("menub").src="../images/back.png";
 			$.ajax({
   			url: url,
-  			cache: false,
+  			cache: true,
   			dataType: "html"
 			}).done(function( html ) {
   				document.getElementById("temp").innerHTML=html;
@@ -569,6 +572,7 @@
 				}
 
 			if(to=="startp" || p=="startp"){
+				window['optimizely'].push(["activate", 160930926]);
 				document.getElementById("topbar").style.display="none";		
 				document.getElementById(p).style.display="block";
 				facebook();	    
@@ -612,30 +616,34 @@
 
 // this function set controls the flow of page views where a flow is needed
 		
+// this function controls the flow of enrollment
+
 		function startflow(f){
 		
 			if(f){flow=f;}
 							
 			if(flow=="enroll"){
 				if(myinfo.fbid==undefined){
+					document.getElementById("topbar").style.display="block";
 					hidegrabber();						
-					nav('startp','fbp');
+					nav(p,'fbp');
 					return false;
 					}
+
 				if(myinfo.workadd1==undefined || myinfo.add1==undefined){
 					document.getElementById("topbar").style.display="block";
 					hidegrabber();						
-					nav('fbp','enrollp');
+					nav(p,'enrollp');
 					return false;
 					}
+					
 				if(myinfo.seckey==undefined){
 					regnewuser();
 					return false;
 					}	
-				if(myinfo.seckey!=undefined){
-					nav('enrollp','congratp');
-					showgrabber();
-					flow="";
+
+				if(myinfo.seckey!=undefined && myinfo.fbid!=undefined){
+					loginUser2();
 					return false;
 					};					
 			}
@@ -655,7 +663,7 @@
 				if(tp!=""){back();}
 								
 				if(myinfo.cartype==null){
-					message="<p>Before you post your first ride, we'd like to know a little about your card, and you'll need to agree to our terms of service.</p>";
+					message="<p>Before you post your first ride, we'd like to know a little about your car, and you'll need to agree to our terms of service.</p>";
 					openconfirm();
 					navt('ridepostp','ridedetailsp');
 					return false;
@@ -822,6 +830,7 @@
 						url: url,
 						type: "GET",
 						dataType: "json",
+					    cache: false,
 						success: function(data) {
 							nodelist=data;
 							paintnodes(data); },
@@ -943,6 +952,7 @@
 			myinfo.homelatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 		  	document.getElementById('location').value="Company name, city";
 		  	startflow();
+			window.optimizely.push(['trackEvent', 'address']);
 			}
 
 // this function parses/stores the home address and then moves to the work address
@@ -1033,7 +1043,9 @@
 			   myinfo.fbid=response.id;
 			   localStorage.fbid=response.id;
 			   myinfo.email=response.email;
-			   startflow();
+			   //flow="enroll";
+			   //startflow();
+			   window.optimizely.push(['trackEvent', 'fblogin']);
 			 });
 		   }
 		}
@@ -1062,6 +1074,8 @@
 			   }
 
 			if(x.nouser){
+				flow="enroll";
+				startflow();
 				}
 			}
 
@@ -1090,6 +1104,7 @@
 				"homelatlong": myinfo.homelatlong,
 				"worklatlong": myinfo.worklatlong,
 				"profileblob": myinfo.profileblob,
+				"company": myinfo.company,
 				"timezone": "PDT",
 				"preference": "EMAIL",
 				"leavetime": "09:00:00",
@@ -1104,9 +1119,17 @@
                 url: "/ridezu/api/v/1/users",
                 type: "POST",
                 dataType: "json",
+			    cache: false,
                 data: jsondataset,
                 success: function() {},
-                error: function() { alert('It looks like you are already registered.');reporterror(url);},
+                error: function() { 
+                	reporterror(url);
+                	alert("It looks like you are already registered. Please Login.");
+                	localStorage.removeItem('fbid');
+                	localStorage.removeItem('seckey');
+                	document.location.reload(true);
+                	
+                	},
                 beforeSend: setHeader
             	}); 
             	
@@ -1116,11 +1139,13 @@
 				//update miles & co2 if possible
 				if(myinfo.destlatlong && myinfo.originlatlong){
 					calculateDistance();
-				}
+					}
 				
-  				myinfo.seckey=myinfo.seckey;
   				localStorage.seckey=myinfo.seckey;
-  				startflow();
+  				localStorage.fbid=myinfo.fbid;
+  				flow="";
+  				nav(p,'congratp');
+  				window.optimizely.push(['trackEvent', 'reguser']);
 				});          				            	     	
        		}
        		
@@ -1337,6 +1362,7 @@
 				 var request=$.ajax({
 					 url: url,
 					 type: "POST",
+				     cache: false,
 					 dataType: "json",
 					 data: jsondataset,
 					 success: function(data) {
@@ -1373,6 +1399,7 @@
 			   var request=$.ajax({
 				   url: url,
 				   type: "PUT",
+			       cache: false,
 				   dataType: "json",
 				   data: jsondataset,
 				   success: function(data) {
@@ -1480,6 +1507,7 @@
 				 var request=$.ajax({
 					 url: "/ridezu/api/v/1/rides/driver",
 					 type: "POST",
+		 		     cache: false,
 					 dataType: "json",
 					 data: jsondataset,
 					 success: function(data) {
@@ -1512,6 +1540,7 @@
 						 var request=$.ajax({
 							 url: url,
 							 type: "PUT",
+				    		 cache: false,
 							 dataType: "json",
 							 data: jsondataset,
 							 success: function(data) {
@@ -1855,6 +1884,7 @@
 		    var request=$.ajax({
                 url: url,
                 type: "DELETE",
+			    cache: false,
                 dataType: "json",
                 success: function(data) {
                 	p="mainp";
@@ -2330,6 +2360,7 @@
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
+ 			    cache: false,
                 dataType: "json",
                 success: function(data) {
                 	paintaccount(data); },
@@ -2366,6 +2397,7 @@
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
+ 			    cache: false,
                 dataType: "json",
                 success: function(data) {
                 	paintaccountdetail(data); },
@@ -2464,6 +2496,7 @@
 		    var request=$.ajax({
                 url: url,
                 type: "POST",
+			    cache: false,
                 dataType: "json",
                 data: jsondataset,
                 success: function(data) {
@@ -2543,6 +2576,7 @@
 		    var request=$.ajax({
                 url: "error.php",
                 type: "POST",
+ 			    cache: false,
                 dataType: "html",
                 data: jsondataset,
                 success: function() {},

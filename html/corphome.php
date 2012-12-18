@@ -19,14 +19,12 @@ include "header.php";
 				 <div id="corpstart" class="index80" style="display:none;">
 				 
 					 <input class="arvo" type="text" value="Where I live" id="home" onfocus="if(this.value==this.defaultValue)this.value='';" 
-					 onblur="if(this.value=='')this.value=this.defaultValue;"
-					 >
+					 onblur="if(this.value=='')this.value=this.defaultValue;">
 					 
 					 <input class="arvo" type="text" value="Where I work" id="work" onfocus="if(this.value==this.defaultValue)this.value='';" 
-					 onblur="if(this.value=='')this.value=this.defaultValue;"
-					 >
+					 onblur="if(this.value=='')this.value=this.defaultValue;">
 					 
-					<a href="#" onclick="start();" id="startbutton">Start</a>
+					<a href="#" onclick="getaddr();" id="startbutton">Go</a>
 
 				 </div>
 

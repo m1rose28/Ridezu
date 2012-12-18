@@ -30,7 +30,7 @@ include "header.php";
 				
 				<div id="maincontent" class="left">
 
-				<?php include "pages/faqp.html";?>
+				<?php include "pages/faqp.php";?>
 
 				</div>
 			</div>

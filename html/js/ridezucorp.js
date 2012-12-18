@@ -134,41 +134,68 @@ $(document).ready(function(){
 
 // this is the google search for address functionality
 
-      function initialize() {
-
-        geocoder = new google.maps.Geocoder();
-
-        var home1 = document.getElementById('home');
-        var autocomplete1 = new google.maps.places.Autocomplete(home1);
-		
-        var work1 = document.getElementById('work');
-        var autocomplete2 = new google.maps.places.Autocomplete(work1);
+	   function initialize() {
  
- 	    google.maps.event.addListener(autocomplete1, 'place_changed', function() {
-          var place1 = autocomplete1.getPlace();
-          var place2 = autocomplete2.getPlace();
-
-          
-          if (!place1.geometry) {
-            // Inform the user that the place was not found and return.
-            return;
-          }       
-          });
+		 geocoder = new google.maps.Geocoder();
  
-         
-        function setupClickListener(id, types) {
-          google.maps.event.addDomListener(radioButton, 'click', function() {
-          autocomplete1.setTypes(types);
-          autocomplete2.setTypes(types);
-          });
-        }
-      }
+		 var home1 = document.getElementById('home');
+		 var autocomplete1 = new google.maps.places.Autocomplete(home1);
+		 
+		 var work1 = document.getElementById('work');
+		 var autocomplete2 = new google.maps.places.Autocomplete(work1);
+  
+		 google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+		   var place1 = autocomplete1.getPlace();
+		   var place2 = autocomplete2.getPlace();
+ 
+		   
+		   if (!place1.geometry) {
+			 // Inform the user that the place was not found and return.
+			 return;
+		   }       
+		   });
+  
+		  
+		 function setupClickListener(id, types) {
+		   google.maps.event.addDomListener(radioButton, 'click', function() {
+		   autocomplete1.setTypes(types);
+		   autocomplete2.setTypes(types);
+		   });
+		 }
+	   }
+ 
+	   google.maps.event.addDomListener(window, 'load', initialize);
 
-	  google.maps.event.addDomListener(window, 'load', initialize);
+// this function controls the flow of enrollment
 
-// this function validates the from and to 
+		function appstart(){
+				
+			if(myinfo.fbid!=undefined && myinfo.add1!=undefined && myinfo.seckey!=undefined){	// start the app you've got everything!
+				welcome();
+				return false;
+				}
 
-		function start(){
+			if(myinfo.fbid!=undefined && myinfo.add1!=undefined && myinfo.seckey==undefined){	// reg the user already;
+				regnewuser();
+	   		    return false;
+				}
+
+			if(myinfo.fbid!=undefined && myinfo.add1==undefined){	// get the address
+				document.getElementById("corpstart").innerHTML="<input class=\"arvo\" type=\"text\" value=\"Where I live\" id=\"home\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><input class=\"arvo\" type=\"text\" value=\"Where I work\" id=\"work\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><a href=\"#\" onclick=\"getaddr();\" id=\"startbutton\">Next</a>";
+				document.getElementById("overlay").style.display="none";
+				initialize();
+	   		    return false;
+				}
+
+			if(myinfo.fbid==undefined && myinfo.add1!=undefined){	// got the address now get them to enroll in fb
+			    document.getElementById("corpstart").innerHTML="<span style='font-size:22px;color:#000;padding-bottom:20px;'>Please login with Facebook.<br><br>We're a green company focused on social good. We'll never spam you, share your private information, or abuse your trust.</span><a href=\"#\" onclick=\"loginUser();\" id=\"startbutton\">Login</a>";     
+				return false;
+				}				
+			}
+			
+// this function validates the from and to during the enrollment process
+
+		function getaddr(){
             var addr1=document.getElementById("home").value;
 		
 			geocoder.geocode( { 'address': addr1}, function(results, status) {
@@ -176,12 +203,12 @@ $(document).ready(function(){
 				   homex = results[0].formatted_address;
 				   homelatlong = results[0].geometry.location;
 				   myinfo.homelatlong=homelatlong.lat()+","+homelatlong.lng();
-				   start1();
+				   getaddr1();
 				 } 
 			   });		   
 			}
 
-		function start1(){
+		function getaddr1(){
             var addr2=document.getElementById("work").value;
 		
 			geocoder.geocode( { 'address': addr2}, function(results, status) {
@@ -189,12 +216,12 @@ $(document).ready(function(){
 				   workx = results[0].formatted_address;
 				   worklatlong = results[0].geometry.location;
 				   myinfo.worklatlong=worklatlong.lat()+","+worklatlong.lng();
-				   start2();
+				   getaddr2();
 				 } 
 			   });
 			}
 
-		function start2(){
+		function getaddr2(){
 			h=homex.split(",");
 			w=workx.split(",");				
 			if(homex.indexOf("USA")==-1 || h[3]!=" USA"){
@@ -222,12 +249,12 @@ $(document).ready(function(){
 			myinfo.workcity=str1[1];
 			myinfo.workzip=str2[2];
   			
-			start3();
-			}
-			
-		function start3(){
-		    document.getElementById("corpstart").innerHTML="<span style='font-size:22px;color:#000;padding-bottom:20px;'>Please login with Facebook.<br><br>We're a green company focused on social good. We'll never spam you, share your private information, or abuse your trust.</span><a href=\"#\" onclick=\"loginUser();\" id=\"startbutton\">Login</a>";     
-
+  			if(myinfo.seckey!=undefined){
+  				updateuser();
+  				}
+  				
+		    window.optimizely.push(['trackEvent', 'address']);
+			appstart();
 			}
 
 // this function loads the current user in a js object, this function is used for all the profile functions 
@@ -241,7 +268,7 @@ $(document).ready(function(){
                 dataType: "json",
                 success: function(data) {
 					myinfo=data;
-					welcome();
+					appstart();
 			    	},
                 error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data));reporterror(url) },
                 beforeSend: setHeader
@@ -269,6 +296,10 @@ $(document).ready(function(){
 // this function sets the logged in-state of the user...
 
 		function welcome(){
+			if(myinfo.company!=null && myinfo.company!=""){
+				document.getElementById("cobrand").src="images/cobrand/"+myinfo.company+".png";
+				document.getElementById("cobrand").style.display="inline";
+				}
 		    document.getElementById("lout").style.display="inline";
 		    document.getElementById("lin").style.display="none";
 		    if(page=="Ridezu"){
@@ -337,10 +368,8 @@ $(document).ready(function(){
 					  myinfo.fbid=response.id;
 					  localStorage.fbid=response.id;
 					  myinfo.email=response.email;
-					  if(myinfo.add1 && myinfo.workadd1){
-						  regnewuser();
-						  return false;
-						  }
+					  window.optimizely.push(['trackEvent', 'fblogin']);
+					  appstart();
 				  });
 		   		  document.getElementById("fbauth").src="fbauth.php";
 		   		 }
@@ -369,42 +398,47 @@ $(document).ready(function(){
 // this function set (2) creates a new user as part of the enroll flow
 
 		function regnewuser(){
-			var dataset = {
-				"fbid":	myinfo.fbid,
-				"fname": myinfo.fname,
-				"lname": myinfo.lname,
-				"add1": myinfo.add1,
-				"city": myinfo.city,
-				"state": myinfo.state,	
-				"zip": myinfo.zip,
-				"workadd1": myinfo.workadd1,
-				"workcity": myinfo.workcity,
-				"workstate": myinfo.workstate,	
-				"workzip": myinfo.workzip,
-				"email": myinfo.email,
-				"homelatlong": myinfo.homelatlong,
-				"worklatlong": myinfo.worklatlong,
-				"profileblob": myinfo.profileblob,
-				"timezone": "PDT",
-				"preference": "EMAIL",
-				"leavetime": "09:00:00",
-				"hometime": "17:00:00",
-				"notificationmethod": "EMAIL",
-				"ridereminders": "1",
-				}
-				
+
+				var dataset = {
+					"fbid":	myinfo.fbid,
+					"fname": myinfo.fname,
+					"lname": myinfo.lname,
+					"add1": myinfo.add1,
+					"city": myinfo.city,
+					"state": myinfo.state,	
+					"zip": myinfo.zip,
+					"workadd1": myinfo.workadd1,
+					"workcity": myinfo.workcity,
+					"workstate": myinfo.workstate,	
+					"workzip": myinfo.workzip,
+					"email": myinfo.email,
+					"homelatlong": myinfo.homelatlong,
+					"worklatlong": myinfo.worklatlong,
+					"profileblob": myinfo.profileblob,
+					"company": myinfo.company,
+					"timezone": "PDT",
+					"preference": "EMAIL",
+					"leavetime": "09:00:00",
+					"hometime": "17:00:00",
+					"notificationmethod": "EMAIL",
+					"ridereminders": "1",
+					}
+					
 			var jsondataset = JSON.stringify(dataset);
-		
+			url = "/ridezu/api/v/1/users";
 		    var request=$.ajax({
-                url: "/ridezu/api/v/1/users",
+                url: url,
                 type: "POST",
                 dataType: "json",
                 data: jsondataset,
-                success: function() {},
-                error: function() { //alert('already registered?');
-  					localStorage.fbid=myinfo.fbid;
-  					loadmyinfo();
-  					reporterror(url);
+                success: function() {
+                	},
+                error: function() {
+                	reporterror(url);
+                	alert("It looks like you are already registered. Please Login.");
+                	localStorage.removeItem('fbid');
+                	localStorage.removeItem('seckey');
+                	document.location.reload(true);
                 	},
                 beforeSend: setHeader
             	}); 
@@ -419,6 +453,8 @@ $(document).ready(function(){
 				if(myinfo.destlatlong && myinfo.originlatlong){
 					calculateDistance();
 					}
+			    window.optimizely.push(['trackEvent', 'reguser']);
+				appstart();
 				});                	     	
        		}
 
@@ -489,7 +525,7 @@ $(document).ready(function(){
 				"lname": myinfo.lname,
 				"email": myinfo.email,
 				"api":url,
-				"page":p,
+				"page":"corpsite",
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -513,7 +549,6 @@ $(document).ready(function(){
 	    var workx;
 		var homelatlng;
 		var worklatlng;
-	    var myinfo={};
 	    var fbid;
 	    var tp;
 
@@ -522,6 +557,8 @@ $(document).ready(function(){
 
 	$(document).ready(function()
 	{
+		//this tells you which experiment is running (so you can turn one off)
+		//x=window['optimizely'].data.state.variationMap;
 		
 		myinfo.fbid=localStorage.fbid;
 		myinfo.seckey=localStorage.seckey;
@@ -538,6 +575,10 @@ $(document).ready(function(){
 				document.getElementById("corptitle").style.display="block";
 				document.getElementById("corpstart").style.display="block";
 				document.getElementById("quotes").style.display="block";
+				if(myinfo.company!=null && myinfo.company!=""){
+					document.getElementById("cobrand").src="images/cobrand/"+myinfo.company+".png";
+					document.getElementById("cobrand").style.display="inline";
+					}				
 			}
 			facebook();
 		}			

@@ -214,10 +214,7 @@ a.minibutton:hover {
 	border-top-right-radius: 4px;
     height: 44px;
     width: 100%;
- }
- 
-
-
+}
 
 #toolbarnav h1  {
 	text-align: center;
@@ -271,12 +268,12 @@ a.minibutton:hover {
 	margin: 2px 0 0 5px;
 }
 
-#w #pagebody #left3 {
+#left3 {
 	float: left;
 	width: 65%;
 }
 
-#w #pagebody #right3 {
+#right3 {
 	float: right;
 	width: 32%;
 }
@@ -354,7 +351,7 @@ a.minibutton:hover {
 }
 
 #w #pagebody #precontent #savings {
-	height: 48px;
+	height: 47px;
 	display: block;
 	color: #fff;
 }
@@ -376,12 +373,6 @@ a.minibutton:hover {
 	text-align: center;
 	position: relative; 
 	left: -10px;
-}
-
-#w #pagebody #precontent .routeicon{
-	width: 32px;
-	height: 32px;
-	padding: 10px 0px 10px 10px;
 }
 
 #w #pagebody #precontent .darktext{
@@ -439,7 +430,9 @@ a.minibutton:hover {
 	float: right;
 }
 
-#w #pagebody #aboutme{
+/* PROFILE PAGE */
+
+#aboutme{
 	width: 93.75%;
 	min-width: 300px;
 	margin: 10px auto;
@@ -448,60 +441,40 @@ a.minibutton:hover {
 	font-size: 1.4em;
 }
 
-#w #pagebody #aboutme #left3 {
-	width: 32%;
+#aboutme #left3 {
+	width: 33%;
 	float: left;
 }
 
-#w #pagebody #aboutme #left3 .displaypicture{
-	width: 90%;
-	max-width: 95px;
+#aboutme #left3 .displaypicture{
+	width: 100%;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
 
-#w #pagebody #aboutme #right3 {
+#aboutme #right3 {
 	width: 65%;
 	float: left;
 }
 
-#w #pagebody #aboutme #right3 ul{
+#aboutme #right3 ul{
 	list-style-type: none;
 }
 
-#w #pagebody #aboutme #right3 li{
+#aboutme #right3 li{
 	display: inline;
 	float: left;
 	padding: 2px 0 0 16px;
 	margin: 1px 12px 1px 0;
 }
 
-#w #pagebody #aboutme #right3 .quickinfo{
+#aboutme #right3 .quickinfo{
 	color: #424242;
 	font-size:0.8em;
 }
 
-#w #pagebody #aboutme #right3 .occupation {
-	background: url(../images/occupation.png) no-repeat left center;
-}
-
-#w #pagebody #aboutme #right3 .location {
-	background: url(../images/location.png) no-repeat left center;
-	position: relative;
-	left: -3px;
-	margin-right: 6px;
-}
-
-#w #pagebody #aboutme #right3 .tripnumber {
-	background: url(../images/tripnumber.png) no-repeat left center;
-}
-
-#w #pagebody #aboutme #right3 .co2saved {
-	background: url(../images/co2saved.png) no-repeat left center;
-}
-
-#w #pagebody #aboutme #right3 p.quote {
+#aboutme #right3 p.quote {
 	color: #eee;
 	font-style: italic;
 	font-size: 0.85em;
@@ -509,7 +482,7 @@ a.minibutton:hover {
 	padding: 5px 0 0 0;
 }
 
-#w #pagebody #aboutme #right3 #rating {
+#aboutme #right3 #rating {
 	height: 15px;
 	width: 72px;
 	float: right;
@@ -518,18 +491,18 @@ a.minibutton:hover {
 	left: -38px;
 }
 
-#w #pagebody #aboutme #right3 #personal {
+#aboutme #right3 #personal {
 	clear: both;
 	position: relative;
 }
 
-#w #pagebody #aboutme ul.keyinfo {
+#aboutme ul.keyinfo {
 	list-style-type: none;
 	height: 50px;
 	clear: both;
 }
 
-#w #pagebody #aboutme .keyinfo li {
+#aboutme .keyinfo li {
 	display: inline;
 	float: left;
 	height: 40px;
@@ -541,7 +514,11 @@ a.minibutton:hover {
 	text-align: center;
 }
 
-#w #pagebody .glassbg {
+#aboutmed h3 {
+	font-size: 130%
+}
+
+.glassbg {
 	background: url(../images/glassbackground.png) repeat;
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
@@ -550,19 +527,19 @@ a.minibutton:hover {
 	overflow: auto;
 }
 
-#w #pagebody #aboutme h5.keyinfotitle{
+#aboutme h5.keyinfotitle{
 	margin: 5px;
 	font-size: 0.7em;
 	font-weight: normal;
 }
 
-#w #pagebody #aboutme p.keyinfovalue{
+#aboutme p.keyinfovalue{
 	margin: 5px;
 	font-weight: bold;
 	font-size: 0.9em;
 }
 
-#w #pagebody #aboutme li.first{
+#aboutme li.first{
 	-webkit-border-top-left-radius: 5px;
 	-webkit-border-bottom-left-radius: 5px;
 	-moz-border-radius-topleft: 5px;
@@ -571,13 +548,47 @@ a.minibutton:hover {
 	border-bottom-left-radius: 5px;
 }
 
-#w #pagebody #aboutme li.last{
+#aboutme li.last{
 	-webkit-border-top-right-radius: 5px;
 	-webkit-border-bottom-right-radius: 5px;
 	-moz-border-radius-topright: 5px;
 	-moz-border-radius-bottomright: 5px;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
+}
+
+#aboutmed .abouttitle{
+    font-size: 100%;
+}
+
+#aboutmed table {
+	width: 100%;
+	font-weight: normal;
+	font-size: 80%;
+}
+
+#aboutmed td.tablevalue {
+	text-align: right;
+}
+
+#aboutmed td.tabletitle {
+	padding-left: 20px;
+}
+
+#aboutmed #homeicon, #aboutmed #workicon {
+	background: url(../images/location.png) no-repeat left center;
+}
+
+#aboutmed #caricon {
+	background: url(../images/occupation.png) no-repeat left center;
+}
+
+#aboutmed #tripsicon {
+	background: url(../images/tripnumber.png) no-repeat left center;
+}
+
+#aboutmed #co2icon {
+	background: url(../images/co2saved.png) no-repeat left center;
 }
 
 /* */
@@ -930,9 +941,6 @@ a.minibutton:hover {
     width: 100%;
 }
 
-#w #pagebody #content  .abouttitle{
-    font-size: 1em;
-}
 
 #w #pagebody #content .educationtitle{
     font-size: 0.5em;
@@ -1272,6 +1280,10 @@ input.rtext {
 
 /* -------------------- MY ACCOUNT ------------------------------------ */
 
+#accountd {
+	font-size: 120%;
+}
+
 #mybalance {
 	text-shadow: 2px 2px 0px #3f3e3f;
 	text-align: right;
@@ -1283,18 +1295,22 @@ input.rtext {
 #accountd div.accountleft {
 	float: left;
 	color: #000;
-	width: 50%;
+	width: 60%;
 	padding: 5px;
 	font-size: 1.4em;
 	line-height: 1.6em;
+	padding-left: 5%;
 }
 
 #accountd div.accountright {
+	float: right;
 	color: #000;
 	text-align: right;
 	padding: 5px;
 	font-size: 1.4em;
 	line-height: 1.6em;
+	width: 20%;
+	padding-right: 5%;
 }
 
 #w #pagebody #notrans #content h2{
@@ -1417,6 +1433,57 @@ padding-top:9px;
 	background: -webkit-gradient(linear, left top, left bottom, from(#0aa600), to(#007b00)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  #0aa600,  #007b00); /* for firefox 3.6+ */ 
 }
+
+/*Splash Screen*/
+
+#splashwrap {
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	background:url(images/splashhighres.jpg) no-repeat center top;
+	background-size:100%;
+	width:100%;
+	min-height:100%;
+	height: 100%;
+	margin:0; 
+	padding:0;
+}
+
+#splashlogo {
+	display: block; 
+	width: 80%; 
+	margin: 0 10%; 
+	padding: 0;
+}
+
+#splashcontent {
+	position: absolute; 
+	top: 65%; 
+	left: 20px; 
+	display: block;
+	width:280px;
+	text-shadow: 1px 1px 3px #000;
+}
+
+@media only screen and (min-width: 479px) {
+	#splashlogo {
+		width: 192px;
+		float: left;
+		margin: 70px 24px 0 24px;
+		position: relative;
+	}
+	
+	#splashcontent {
+		position: relative;
+		float: right;
+		width: 192px;
+		margin: 70px 24px 0 24px;
+		top: 0;
+		left: 0;
+	}
+}
+
+
 
 /** @group nav menu **/
 

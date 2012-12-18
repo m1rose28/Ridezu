@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 $_SESSION['mode']="";
 
 //check server names and https values and re-direct if needed
@@ -13,12 +14,13 @@ if($s=="stage.ridezu.com"){
 	$rzsystem='stage';
 	$_SESSION['mode']="dev";
 	$rzversion=time(); // this is the version for javascript and css
+	//$rzversion="1204"; // this is the version for javascript and css
 	}
 
 if($s=="www.ridezu.com" or $s=="ridezu.com"){
 	$rzsystem='www';
 	$_SESSION['mode']="prod";
-	$rzversion="1204"; // this is the version for javascript and css
+	$rzversion="1212"; // this is the version for javascript and css
 	}
 
 $rzdomain='ridezu.com';

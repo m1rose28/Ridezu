@@ -2,12 +2,6 @@
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
 
-//check server names and https values and re-direct if needed
-$s=$_SERVER['SERVER_NAME'];
-$h=$_SERVER['HTTPS'];
-$u=$_SERVER['REQUEST_URI'];
-if($h==false or $s=="ridezu.com"){header('Location: https://www.ridezu.com'.$u);}
-
 if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["seckey"])){$seckey=$_GET["seckey"];}
 if(isset($_GET["d"])){$d=$_GET["d"];}
@@ -26,7 +20,7 @@ if($fbid && $seckey){
 <div id="fb-root"></div>
 <br/>Facebook state: <span id="fbstate"></span> 
 <br/><br/>User id: <span id="fbid"></span>  
-<br/><br/>Secret: <span id="seckey"></span> 
+<br/><br/>Seckey: <span id="seckey"></span> 
 
 <?php if (isset($d)==false){ ?> 
 	<br/><br/>Delete User (kiss your user goodbye): <span id="deleteuser"></span> 
@@ -65,15 +59,22 @@ if($fbid && $seckey){
 	   var uid = response.authResponse.userID;
 	   var accessToken = response.authResponse.accessToken;
 	   fbstate="This user is logged into the app <a href=\"#\" onclick=\"logout();\">Logout</a>";
+		showfbstate();
+		alert("facebook response:"+response.status);
+
 	 } else if (response.status === 'not_authorized') {
 	   // the user is logged in to Facebook, 
 	   // but has not authenticated your app
 	   fbstate="This user is logged into Facebook but not authorized in this app. <a href=\"#\" onclick=\"logout();\">Logout</a>";
+		showfbstate();
+		alert("facebook response:"+response.status);
+
 	 } else {
 	   // the user isn't logged in to Facebook.
 	   fbstate="The user is not logged into Facebook. <a href=\"#\" onclick=\"logout();\">Logout</a>";
+		showfbstate();
+		alert("facebook response:"+response.status);
 	 }
-	showfbstate();
 	});
 
   };
@@ -95,7 +96,6 @@ function showfbstate(){
 	if(localStorage.fbid){document.getElementById("fbid").innerHTML=fbid+" <a href='#' onclick=\"remove()\";>Remove</a>";}
 	if(localStorage.seckey){document.getElementById("seckey").innerHTML=seckey+" <a href='#' onclick=\"remove()\";>Remove</a>";}
 	if(localStorage.seckey && localStorage.fbid){document.getElementById("deleteuser").innerHTML="<a href=\"d.php?fbid="+fbid+"&seckey="+seckey+"\">Delete User</a>";}
-
 	}  
 
 function logout(){

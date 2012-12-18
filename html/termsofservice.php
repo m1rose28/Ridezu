@@ -16,8 +16,7 @@ include "header.php";
 					
 				</div>
 			</div>
-		</section>
-		
+		</section>		
 		<section>
 			<div class="corpwrapper">
 				<aside id="corpapplinks" class="right">
@@ -30,7 +29,7 @@ include "header.php";
 				
 				<div id="maincontent" class="left">
 
-				<?php include "pages/termsp.html";?>
+				<?php include "pages/termsp.php";?>
 
 				</div>
 			</div>

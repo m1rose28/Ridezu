@@ -162,6 +162,13 @@ header #corplogo {
 	float: left;
 }
 
+header #corplogo #cobrand {
+	width: 160px;
+	float: right;
+	display: none;
+	margin-top: -45px;
+}
+
 header #corpmenu {
 	float: right;
 	width: 550px;
