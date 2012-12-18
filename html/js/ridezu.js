@@ -465,7 +465,7 @@
 		function navinit(to){
 		
 		// this function pushes the page to google analytics
-		_gaq.push(['_trackEvent', 'Pageview', 'View', to ]);
+		_gaq.push(['_trackPageview', pageTitles[to]]);
 		
 			if(to=="accountp"){
 				account();
@@ -952,6 +952,7 @@
 			myinfo.homelatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 		  	document.getElementById('location').value="Company name, city";
 		  	startflow();
+ 			_gaq.push(['_trackPageview', "Enroll - Home Selected"]);
 			window.optimizely.push(['trackEvent', 'address']);
 			}
 
@@ -966,6 +967,7 @@
 			document.getElementById("mapselecthome").style.display="block";
 			document.getElementById("mapselectwork").style.display="none";
 			document.getElementById('pTitle').innerHTML="Where do you live?";
+ 			_gaq.push(['_trackPageview', "Enroll - Work Selected"]);
 			loadMap("pick",myspot,9,"home");
 			}
 
@@ -1144,6 +1146,7 @@
   				localStorage.seckey=myinfo.seckey;
   				localStorage.fbid=myinfo.fbid;
   				flow="";
+ 				_gaq.push(['_trackPageview', "New User Registration"]);
   				nav(p,'congratp');
   				window.optimizely.push(['trackEvent', 'reguser']);
 				});          				            	     	
@@ -1181,6 +1184,7 @@
 			document.getElementById("r3").style.display="none";
 			document.getElementById("r1").style.display="block";
 			getlist(role,route,rlist.date);
+			_gaq.push(['_trackPageview', "Reverse Route"]);
 		}
  	
 // gets a list of riders/drivers
@@ -2481,6 +2485,8 @@
 
 		function sendmessage1(msg){	
 			 
+			  _gaq.push(['_trackPageview', "Sent Message"]);
+
 			 if(info.messagetype=="direct"){
 			 	message1=document.getElementById("txtmessage").value;
 			 	}

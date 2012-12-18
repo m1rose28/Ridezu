@@ -125,7 +125,7 @@ if($client=="iOS"){
 
 	<script type='text/javascript' src='js/script.js?v=<?php echo $rzversion;?>'></script>
 	<script type='text/javascript' src='js/ridezu.js?v=<?php echo $rzversion;?>'></script>
-	<title>Ridezu</title>
+	<title>Ridezu Mobile</title>
 	<link rel="icon" href="favicon.ico" type="image/x-icon"> 
 	
 </head>
@@ -256,7 +256,7 @@ if($client=="iOS"){
 	<script type="text/javascript">
 	
 	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-36391790-1']);
+	  _gaq.push(['_setAccount', '<?php echo $ga;?>']);
 	  _gaq.push(['_trackPageview']);
 	
 	  (function() {
