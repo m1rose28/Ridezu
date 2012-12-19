@@ -39,6 +39,7 @@ if($_SESSION['m']==""){ ?>
 	if(screen.width<700){window.location = x;}
 	if(screen.width>699){window.location = y;}
 	</script>
+	<a href="https://www.ridezu.com/index.php?m=0">Ridezu</a>
 	</body></html>
 <?php } ?>
 
