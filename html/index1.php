@@ -66,10 +66,10 @@ if($client=="widget"){
 if($client=="iOS"){
 	$scriptset=$scriptset."
 		<script>
-		//localStorage.fbid=\"$fbid\";
-		//localStorage.seckey=\"$seckey\";
-		localStorage.fbid='500012114';
-		localStorage.seckey='f6462731d06d181532acd85a5791621a';
+		localStorage.fbid=\"$fbid\";
+		localStorage.seckey=\"$seckey\";
+		//localStorage.fbid='500012114';
+		//localStorage.seckey='f6462731d06d181532acd85a5791621a';
 		myinfo.fbid=localStorage.fbid;
 		myinfo.seckey=localStorage.seckey;
 		alert(client+\":\"+myinfo.fbid+\":\"+myinfo.seckey);
@@ -98,10 +98,14 @@ if($client=="iOS"){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta property="og:title" content="Ridezu" />
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="/" />
-	<meta property="og:image" content="/images/ridezu450.png" />
+	<meta name="description" content="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!">
+	<meta property="og:site_name" content="Ridezu"/>
+	<meta property="fb:app_id" content="443508415694320"/>  
+	<meta property="og:title" content="Ridezu"/>
+	<meta property="og:description" content="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!" /> 
+	<meta property="og:type" content="company"/>
+	<meta property="og:url" content="https://www.ridezu.com"/>
+	<meta property="og:image" content="https://www.ridezu.com/images/ridezuAppIcon200.png" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link type='text/css' rel='stylesheet' href='css/style.css?v=<?php echo $rzversion;?>'>

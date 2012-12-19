@@ -3,7 +3,7 @@
 if(isset($_GET["c"])){$c=$_GET["c"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
 
- ?>
+?>
 
 
 <!DOCTYPE html>
@@ -25,7 +25,14 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Ridezu</title>
-        <meta name="description" content="">
+        <meta name="description" content="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!">
+        <meta property="og:site_name" content="Ridezu"/>
+        <meta property="fb:app_id" content="443508415694320"/>  
+        <meta property="og:title" content="Ridezu"/>
+        <meta property="og:description" content="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!" /> 
+        <meta property="og:type" content="company"/>
+        <meta property="og:url" content="https://www.ridezu.com"/>
+        <meta property="og:image" content="https://www.ridezu.com/images/ridezuAppIcon200.png" />
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="css/style.css?v=<?php echo $rzversion;?>">
         <link rel="stylesheet" href="css/normalize.min.css?v=<?php echo $rzversion;?>">

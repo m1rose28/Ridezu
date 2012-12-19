@@ -30,7 +30,7 @@ $rzhost="$rzsystem.$rzdomain";
 
 if($rzsystem!='stage'){
   if($h==false or $s!=$rzhost){
-    $url = "https://".$rzhost."/".$u;
+    $url = "https://".$rzhost.$u;
     header("Location: $url");
     exit;
   }

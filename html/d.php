@@ -17,7 +17,6 @@ if($fbid && $seckey){
 ?>
 <html>
 <body>
-<div id="fb-root"></div>
 <br/>Facebook state: <span id="fbstate"></span> 
 <br/><br/>User id: <span id="fbid"></span>  
 <br/><br/>Seckey: <span id="seckey"></span> 
@@ -31,24 +30,20 @@ if($fbid && $seckey){
 <?php } ?>
 
 
+<div id="fb-root"></div>
 <script>
-  var fbstate="";
-  var fbid="";
-  var seckey="";
-  
-  if(localStorage.fbid){fbid=localStorage.fbid;}
-  if(localStorage.seckey){seckey=localStorage.seckey;}
-  
   window.fbAsyncInit = function() {
     // init the FB JS SDK
-	FB.init({
-	  appId      : '443508415694320', // App ID
-	  channelUrl : 'ridezu.com/channel.html', // Channel File
-	  status     : true, // check login status
-	  cookie     : true, // enable cookies to allow the server to access the session
-	  xfbml      : true  // parse XFBML
+    FB.init({
+      appId      : '443508415694320', // App ID from the App Dashboard
+      channelUrl : 'ridezu.com/channel.html', // Channel File for x-domain communication
+      status     : true, // check the login status upon init?
+      oauth 	: true,
+      cookie     : true, // set sessions cookies to allow your server to access the session?
+      xfbml      : true  // parse XFBML tags on this page?
     });
 
+    // Additional initialization code such as adding Event Listeners goes here
    FB.getLoginStatus(function(response) {
 	 if (response.status === 'connected') {
 	   // the user is logged in and has authenticated your
@@ -76,7 +71,7 @@ if($fbid && $seckey){
 		alert("facebook response:"+response.status);
 	 }
 	});
-
+	
   };
 
   // Load the SDK's source Asynchronously
@@ -90,6 +85,21 @@ if($fbid && $seckey){
      js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
      ref.parentNode.insertBefore(js, ref);
    }(document, /*debug*/ false));
+
+
+</script>
+
+
+<script>
+  var fbstate="";
+  var fbid="";
+  var seckey="";
+  
+  if(localStorage.fbid){fbid=localStorage.fbid;}
+  if(localStorage.seckey){seckey=localStorage.seckey;}
+
+
+  
 
 function showfbstate(){
 	document.getElementById("fbstate").innerHTML=fbstate;

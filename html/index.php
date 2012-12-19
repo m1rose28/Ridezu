@@ -23,6 +23,15 @@ if($c!=""){$url=$url."&c=".$c;}
 if($_SESSION['m']==""){ ?>
 	<!DOCTYPE html>
 	<html lang="en">
+	<head>
+	    <meta property="og:site_name" content="Ridezu"/>
+        <meta property="fb:app_id" content="443508415694320"/>  
+        <meta property="og:title" content="Ridezu"/>
+        <meta property="og:description" content="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!" /> 
+        <meta property="og:type" content="company"/>
+        <meta property="og:url" content="https://www.ridezu.com"/>
+        <meta property="og:image" content="https://www.ridezu.com/images/ridezuAppIcon200.png" />
+	</head>
 	<body>
 	<script type="text/javascript">
 	x="index.php?m=1"+"<?php echo $url;?>";
