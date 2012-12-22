@@ -17,7 +17,8 @@ if($fbid && $seckey){
 ?>
 <html>
 <body>
-<br/>Facebook state: <span id="fbstate"></span> 
+<br/>Facebook state (front end): <span id="fbstate"></span> 
+<br/>Facebook state (back end): <span id="fbstate1"></span> 
 <br/><br/>User id: <span id="fbid"></span>  
 <br/><br/>Seckey: <span id="seckey"></span> 
 
@@ -31,6 +32,7 @@ if($fbid && $seckey){
 
 
 <div id="fb-root"></div>
+<iframe id="fbauth" src="fbauth.php" style="width:0px;height:0px;"></iframe>
 <script>
   window.fbAsyncInit = function() {
     // init the FB JS SDK
@@ -94,15 +96,30 @@ if($fbid && $seckey){
   var fbstate="";
   var fbid="";
   var seckey="";
+  var fbstate1="";
   
   if(localStorage.fbid){fbid=localStorage.fbid;}
   if(localStorage.seckey){seckey=localStorage.seckey;}
 
+  function authuser(data){
+	  x=JSON.parse(data);
+	  
+	  if(x.seckey){
+		 localStorage.fbid=x.fbid;fbid=localStorage.fbid;
+		 localStorage.seckey=x.seckey;seckey=localStorage.seckey;
+		 fbstate1="Logged on to back end";
+		 showfbstate();
+		 }
 
-  
+	  if(x.nouser){
+		 fbstate1="Logged off to back end";
+		 showfbstate();
+		  }
+	  }
 
 function showfbstate(){
 	document.getElementById("fbstate").innerHTML=fbstate;
+	document.getElementById("fbstate1").innerHTML=fbstate1;
 	if(localStorage.fbid){document.getElementById("fbid").innerHTML=fbid+" <a href='#' onclick=\"remove()\";>Remove</a>";}
 	if(localStorage.seckey){document.getElementById("seckey").innerHTML=seckey+" <a href='#' onclick=\"remove()\";>Remove</a>";}
 	if(localStorage.seckey && localStorage.fbid){document.getElementById("deleteuser").innerHTML="<a href=\"d.php?fbid="+fbid+"&seckey="+seckey+"\">Delete User</a>";}

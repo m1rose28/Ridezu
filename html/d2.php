@@ -1,5 +1,4 @@
 <?php
-
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
 
@@ -27,26 +26,11 @@ session_start();
 
 <html>
   <body>
-   <script>
 
- 	  var x1;
+Hello <?php echo $fname;?>,
+<br><br>
+facebook id: <?php echo $fb;?>
+<br>seckey: <?php echo $seckey;?>
 
-<?php if(isset($seckey)) { ?>	 	 
-
-	  x1= "{\"fbid\":\"<?php echo $fb;?>\",\"seckey\":\"<?php echo $seckey;?>\"}";
-	  parent.authuser(x1);
-	
-<?php }	?>		 
-
-<?php if(isset($seckey)==false) { ?>	 	 
-
-	  x1= "{\"nouser\":\"true\"}";
-	  parent.authuser(x1);
-	
-<?php }	?>		 
-
-
-		 
-  </script>
 </body>
 </html>

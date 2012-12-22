@@ -14,6 +14,7 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
 		<script>
       		var page="<?php echo $title;?>";
       		var myinfo={};
+      		var info={};
 	    	myinfo.company="<?php echo $c;?>";
 	    	if(localStorage.seckey!=undefined){
 				var optimizely = optimizely || [];
@@ -56,14 +57,23 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
 				
 				<div id="corpmenu">
 					<ul>
-						<li><a href="/howitworks.php">how it works</a></li>
-						<li><a href="/benefits.php">benefits</a></li>
-						<li><a href="/safety.php">safety</a></li>
-						<li><a href="/faq.php">faq</a></li>
-						<li id="lin" style="display:none;"><a href="#" onclick="loginUser();">login</a></li>
-						<li id="lout" style="display:none;"><a href="#" onclick="logoutUser();">logout</a></li>
+						<li><a href="/howitworks.php" alt="How it Works">how it works</a></li>
+						<li><a href="/benefits.php" alt="Benefits">benefits</a></li>
+						<li><a href="/safety.php" alt="Safety">safety</a></li>
+						<li><a href="/faq.php" alt="Faq">faq</a></li>
+						<li id="lin" style="display:none;"><a href="#" onclick="loginUser();" alt="Login">login</a></li>
+						<li id="lout" style="display:none;"><a href="#" onclick="logoutUser();" alt="Logout">logout</a></li>
 					</ul>
 				</div>
 			</div>
 		</header>
 
+				<div id="confirm-background">
+					<div id="confirm-box">
+						<div id="confirm-message"></div>
+						<center>
+						<a href="#" id="cancel-button" style="display:none;" onclick="closeconfirm('cancel');" class="cancel"></a>
+						<a href="#" id="ok-button" onclick="closeconfirm('ok');"></a>
+						</center>
+					</div>
+				</div>

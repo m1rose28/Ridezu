@@ -83,7 +83,7 @@
 		return x;
 		}
 
-// this function adds commas to long numbers (used in ridezunomics)
+// this function adds commas to long numbers (used in Ridezunomics)
 											
 		function addCommas(str){
  		   if(str==null){str=0;}
@@ -165,6 +165,7 @@
 				
 				this.addEvents("start");
 				this.setValue(this.options.start);
+
 			};
 			
 			MobileSlider.prototype.addEvents = function addEvents(name) {
@@ -189,7 +190,11 @@
 				this.addEvents("move");
 				this.addEvents("end");
 				this.handle(event);
-				this.circle.style.left = '-30px';
+				var baroffset = $(this.bar).offset();
+   	 			var circleWidth = this.circle.offsetWidth;
+ 				var leftoffset = baroffset.left+(circleWidth/2);
+ 				circleleft="-"+leftoffset+"px";
+ 				this.circle.style.left = circleleft;
 			};
 			
 			MobileSlider.prototype.move = function move(event) {
@@ -206,17 +211,20 @@
 				
 				value = Math.min(value, this.options.max);
 				value = Math.max(value, this.options.min);
-				
 						
-   	 					var circleWidth = this.circle.offsetWidth;
-    						var barWidth = this.bar.offsetWidth;
-    						var range = this.options.max - this.options.min;
-    						var width = barWidth - circleWidth;
-						var position = Math.round((value - this.options.min) * width / range)
+   	 			var circleWidth = this.circle.offsetWidth;
+    			var barWidth = this.bar.offsetWidth;
+    			var range = this.options.max - this.options.min;
+    			var width = barWidth;
+				var baroffset = $(this.bar).offset();
+ 				var leftoffset = baroffset.left;
+ 				var rightoffset = leftoffset+width;
+ 				
+				var position = Math.round(leftoffset+(width*((value-this.options.min)/(this.options.max-this.options.min))));
 
-    					this.setCirclePosition(position);
-    					this.value = value;
-    					this.callback(value);
+    			this.setCirclePosition(position);
+    			this.value = value;
+    			this.callback(value);
 			};
 			
 			MobileSlider.prototype.setCirclePosition = function setCirclePosition(x_position) {
@@ -228,7 +236,7 @@
 						var option1 = document.getElementById("option1");
 						
 						option0.style.webkitTransform = 'translate3d(' + ((option0.offsetLeft)-x_position) + 'px, 0, 0)';
-						option1.style.webkitTransform = 'translate3d(' + ((option0.offsetLeft - 20)-x_position) + 'px, 0, 0)';
+						option1.style.webkitTransform = 'translate3d(' + ((option0.offsetLeft0)-x_position) + 'px, 0, 0)';
 						
 						this.setToggleValue();
 					}
@@ -253,40 +261,37 @@
 						option1.style.MozTransform = 
 						option1.style.msTransform = 
 						option1.style.OTransform = 
-						option1.style.transform = 'translateX(' + ((option0.offsetLeft - 20)-x_position) + 'px)';
+						option1.style.transform = 'translateX(' + ((option0.offsetLeft)-x_position) + 'px)';
 						
 						this.setToggleValue();
 					}
 				}
-			};
-			
+			};			
 						
 			MobileSlider.prototype.handle = function handle(event) {
 				event.preventDefault();
 				if (event.targetTouches){ event = event.targetTouches[0]; }
 			  
-				var position = event.pageX; 
+				var position = event.pageX;
 				var element;
 				var circleWidth = this.circle.offsetWidth;
 				var barWidth = this.bar.offsetWidth;
-				var width = barWidth - circleWidth;
+				var width = barWidth;
 				var range = (this.options.max - this.options.min);
 				var value;
+				var baroffset = $(this.bar).offset();
+ 				var leftoffset = baroffset.left;
+ 				var rightoffset = leftoffset+width;
 				  
-				for (element = this.element; element; element = element.offsetParent) {
-				  position -= element.offsetLeft;
-				}
-				
-				position += circleWidth / 2;
-				position = Math.min(position, barWidth);
-				position = Math.max(position - circleWidth, 0);
-			  
+				position = Math.max(position, leftoffset);
+				position = Math.min(position, rightoffset);
+							  
 				this.setCirclePosition(position);
-					value = (this.options.min + (position * range / width)).toFixed(this.decimalPlaces);
+					value = (this.options.min+((position-leftoffset)/width)*(this.options.max-this.options.min)).toFixed(this.decimalPlaces);
 				if(this.allowDecimals) {
 					
 				} else {
-					value = this.options.min + Math.round(position * range / width);
+					value = this.options.min + Math.round(((position-leftoffset)/width)*(this.options.max-this.options.min));
 				}
 				this.setValue(value);
 			};
@@ -297,35 +302,49 @@
 				}
 			};
 
+			info.gasprice=4.25;
+			info.miles=20;
+			info.mpg=20;
+			
+			if(localStorage.gasprice){info.gasprice=localStorage.gasprice};
+			if(localStorage.miles){info.miles=localStorage.miles};
+			if(myinfo.miles){info.miles=myinfo.miles};
+			if(localStorage.mpg){info.mpg=localStorage.mpg};
+
+
 			var slider1 = new MobileSlider("slider1", {
-			    start: 25,
-			    min: 1,
-			    max: 100,
+			    start: info.miles,
+			    min: 2,
+			    max: 80,
 			    update: function(value) {
 			        document.getElementById("slidervaluea").innerHTML = value;
+			        localStorage.miles=value;
 			    }
+
 			});
 			
 			var slider2 = new MobileSlider("slider2", {
 				decimals: true,
 				decimal_places: 2,
-			    start: 3.85,
-			    min: 3.00,
-			    max: 6.00,
+			    start: info.gasprice,
+			    min: 3.49,
+			    max: 5.99,
 			    update: function(value) {
 			        document.getElementById("slidervalueb").innerHTML = value;
+			        localStorage.gasprice=value;
 			    }
 			});
 			
 			var slider3 = new MobileSlider("slider3", {
-			    start: 25,
+			    start: info.mpg,
 			    min: 10,
-			    max: 60,
+			    max: 50,
 			    update: function(value) {
 			        document.getElementById("slidervaluec").innerHTML = value;
+			        localStorage.mpg=value;
 			    }
 			});
-			
+
 		}
 
 // this is the calculator function for ridezunomics
@@ -333,7 +352,7 @@
 		function calcv(){
 
 			miles=document.getElementById('slidervaluea').innerHTML;
-			if(document.getElementById("driver").checked=="checked"){utype="driver";} else {utype="rider";}
+			if(document.getElementById("driver").checked==true){utype="driver";} else {utype="rider";}
 			gas=document.getElementById('slidervalueb').innerHTML;
 			mpg=document.getElementById('slidervaluec').innerHTML;
 								

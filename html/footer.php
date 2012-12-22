@@ -1,10 +1,10 @@
 		<footer>
 			<div class="corpwrapper">
 				<ul id="corpfootermenu">
-					<li><a href="about.php">about</a></li>
-					<li><a href="faq.php">faq</a></li>
-					<li><a href="safety.php">safety</a></li>
-					<li><a href="contact.php">contact us</a></li>
+					<li><a href="about.php" alt="About">about</a></li>
+					<li><a href="faq.php" alt="Faq">faq</a></li>
+					<li><a href="safety.php" alt="Safety">safety</a></li>
+					<li><a href="contact.php" alt="Contact Us">contact us</a></li>
 				</ul>
 				
 				<br><center>
@@ -22,7 +22,7 @@
 					</li>
 				</ul>
 				
-				<p><a href="termsofservice.php">Terms of Service</a> &#124; <a href="privacy.php">Privacy</a> &#124; &copy; 2012 Ridezu. All rights reserved.</p>
+				<p><a href="termsofservice.php" alt="Terms of Service">Terms of Service</a> &#124; <a href="privacy.php" alt="Privacy Policy">Privacy</a> &#124; &copy; 2012 Ridezu. All rights reserved.</p>
 		<br><br><br><br><br><br><br><br><br><br>
 
 			</div>

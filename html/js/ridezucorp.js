@@ -112,8 +112,7 @@ $(document).ready(function(){
 	
 });
 
-
-	function closeme() {
+		function closeme() {
 	var themenu  = $("#navmenu");
 	var viewport = {
     	width  : $(window).width(),
@@ -132,9 +131,11 @@ $(document).ready(function(){
 		});
 	}
 
-// this is the google search for address functionality
+// this is the google search for address functionality (only on home page)
 
-	   function initialize() {
+		if(page=="Ridezu"){
+	
+			function initialize() {
  
 		 geocoder = new google.maps.Geocoder();
  
@@ -163,8 +164,8 @@ $(document).ready(function(){
 		   });
 		 }
 	   }
- 
-	   google.maps.event.addDomListener(window, 'load', initialize);
+	   		google.maps.event.addDomListener(window, 'load', initialize);
+	   }
 
 // this function controls the flow of enrollment
 
@@ -516,6 +517,338 @@ $(document).ready(function(){
 			tp="";
 		}	
 
+// this function adds commas to long numbers (used in Ridezunomics)
+											
+		function addCommas(str){
+ 		   if(str==null){str=0;}
+ 		   var arr,int,dec;
+		   str += '';
+
+		   arr = str.split('.');
+		   int = arr[0] + '';
+		   dec = arr.length>1?'.'+arr[1]:'';
+
+ 		   return int.replace(/(\d)(?=(\d{3})+$)/g,"$1,") + dec;
+		}
+// this function set initiates the calculator and slider function function (fiverr)
+
+		function calcinit(){
+
+			function MobileSlider(container, options) {
+				this.init(container, options);
+			}
+			
+			MobileSlider.prototype.init = function init(container, options) {
+				if(typeof container === "string") {
+					this.container_element = document.getElementById(container);
+				} else {
+					this.container_element = container;
+				}
+				
+				this.events = {
+					start: ['touchstart', 'mousedown'],
+					move: ['touchmove', 'mousemove'],
+					end: ['touchend', 'touchcancel', 'mouseup']
+				};
+				
+				this.options = options;
+				
+				this.allowDecimals = this.options.decimals;
+				this.decimalPlaces = this.options.decimal_places;
+				
+				if(this.options.toggle) {
+					this.options.start = 0;
+					this.options.min = 0;
+					this.options.max = 1;
+					this.allowDecimals = true;
+					this.decimalPlaces = 2;
+					
+					var option1 = document.createElement('span');
+					option1.innerHTML = this.options.toggle_values[1];
+					option1.setAttribute("id", "option1");
+					option1.setAttribute("class", "togglespan");
+					this.container_element.appendChild(option1);
+					
+					var option0 = document.createElement('span');
+					option0.innerHTML = this.options.toggle_values[0];
+					option0.setAttribute("id", "option0");
+					option0.setAttribute("class", "togglespan");
+					this.container_element.appendChild(option0);
+					
+					var selected_value_element = document.createElement("span");
+					selected_value_element.setAttribute("id", "selectedvalue");
+					this.container_element.appendChild(selected_value_element);
+					this.selected_value_element = document.getElementById("selectedvalue");
+					
+					option1.style.left = option1.offsetWidth +"px";
+					
+				}
+			
+				this.supportsWebkit3dTransform = (
+				  'WebKitCSSMatrix' in window && 
+				  'm11' in new WebKitCSSMatrix()
+				);
+				
+				this.circle = this.container_element.getElementsByClassName('circle')[0];
+				this.bar = this.container_element.getElementsByClassName('bar')[0];
+				
+				this.start = this.start.bind(this);
+				this.move = this.move.bind(this);
+				this.end = this.end.bind(this);
+				
+				this.addEvents("start");
+				this.setValue(this.options.start);
+
+			};
+			
+			MobileSlider.prototype.addEvents = function addEvents(name) {
+				var list = this.events[name];
+				var handler = this[name];
+				
+				for (var next in list){
+				  this.container_element.addEventListener(list[next], handler, false);
+				}
+			};
+			
+			MobileSlider.prototype.removeEvents = function removeEvents(name){ 
+				var list = this.events[name];
+				var handler = this[name];
+				  
+				for (var next in list){
+				  this.container_element.removeEventListener(list[next], handler, false);
+				}
+			};
+			
+			MobileSlider.prototype.start = function start(event) {	
+				this.addEvents("move");
+				this.addEvents("end");
+				this.handle(event);
+				var baroffset = $(this.bar).offset();
+   	 			var circleWidth = this.circle.offsetWidth;
+ 				var leftoffset = baroffset.left+(circleWidth/2);
+ 				circleleft="-"+leftoffset+"px";
+ 				this.circle.style.left = circleleft;
+			};
+			
+			MobileSlider.prototype.move = function move(event) {
+				this.handle(event);
+			};
+			
+			MobileSlider.prototype.end = function end(event) {
+				this.removeEvents("move");
+				this.removeEvents("end");
+			};
+			
+			MobileSlider.prototype.setValue = function setValue(value) {
+				if (value === undefined){ value = this.options.min; }
+				
+				value = Math.min(value, this.options.max);
+				value = Math.max(value, this.options.min);
+						
+   	 			var circleWidth = this.circle.offsetWidth;
+    			var barWidth = this.bar.offsetWidth;
+    			var range = this.options.max - this.options.min;
+    			var width = barWidth;
+				var baroffset = $(this.bar).offset();
+ 				var leftoffset = baroffset.left;
+ 				var rightoffset = leftoffset+width;
+ 				
+				var position = Math.round(leftoffset+(width*((value-this.options.min)/(this.options.max-this.options.min))));
+
+    			this.setCirclePosition(position);
+    			this.value = value;
+    			this.callback(value);
+			};
+			
+			MobileSlider.prototype.setCirclePosition = function setCirclePosition(x_position) {
+				
+				if (this.supportsWebkit3dTransform) {
+					this.circle.style.webkitTransform = 'translate3d(' + x_position + 'px, 0, 0)';
+					if(this.options.toggle) {
+						var option0 = document.getElementById("option0");
+						var option1 = document.getElementById("option1");
+						
+						option0.style.webkitTransform = 'translate3d(' + ((option0.offsetLeft)-x_position) + 'px, 0, 0)';
+						option1.style.webkitTransform = 'translate3d(' + ((option0.offsetLeft0)-x_position) + 'px, 0, 0)';
+						
+						this.setToggleValue();
+					}
+				} else {
+					this.circle.style.webkitTransform = 
+					this.circle.style.MozTransform = 
+					this.circle.style.msTransform = 
+					this.circle.style.OTransform = 
+					this.circle.style.transform = 'translateX(' + x_position + 'px)';
+				  
+					if(this.options.toggle) {
+						var option0 = document.getElementById("option0");
+						var option1 = document.getElementById("option1");
+						
+						option0.style.webkitTransform = 
+						option0.style.MozTransform = 
+						option0.style.msTransform = 
+						option0.style.OTransform = 
+						option0.style.transform = 'translateX(' + ((option0.offsetLeft)-x_position) + 'px)';
+						
+						option1.style.webkitTransform = 
+						option1.style.MozTransform = 
+						option1.style.msTransform = 
+						option1.style.OTransform = 
+						option1.style.transform = 'translateX(' + ((option0.offsetLeft)-x_position) + 'px)';
+						
+						this.setToggleValue();
+					}
+				}
+			};			
+						
+			MobileSlider.prototype.handle = function handle(event) {
+				event.preventDefault();
+				if (event.targetTouches){ event = event.targetTouches[0]; }
+			  
+				var position = event.pageX;
+				var element;
+				var circleWidth = this.circle.offsetWidth;
+				var barWidth = this.bar.offsetWidth;
+				var width = barWidth;
+				var range = (this.options.max - this.options.min);
+				var value;
+				var baroffset = $(this.bar).offset();
+ 				var leftoffset = baroffset.left;
+ 				var rightoffset = leftoffset+width;
+				  
+				position = Math.max(position, leftoffset);
+				position = Math.min(position, rightoffset);
+							  
+				this.setCirclePosition(position);
+					value = (this.options.min+((position-leftoffset)/width)*(this.options.max-this.options.min)).toFixed(this.decimalPlaces);
+				if(this.allowDecimals) {
+					
+				} else {
+					value = this.options.min + Math.round(((position-leftoffset)/width)*(this.options.max-this.options.min));
+				}
+				this.setValue(value);
+			};
+			
+			MobileSlider.prototype.callback = function callback(value) { 
+				if (this.options.update){
+					this.options.update(value);
+				}
+			};
+
+			info.gasprice=4.25;
+			info.miles=20;
+			info.mpg=20;
+			
+			if(localStorage.gasprice){info.gasprice=localStorage.gasprice};
+			if(localStorage.miles){info.miles=localStorage.miles};
+			if(myinfo.miles){info.miles=myinfo.miles};
+			if(localStorage.mpg){info.mpg=localStorage.mpg};
+
+			var slider1 = new MobileSlider("slider1", {
+			    start: info.miles,
+			    min: 2,
+			    max: 80,
+			    update: function(value) {
+			        document.getElementById("slidervaluea").innerHTML = value;
+			        localStorage.miles=value;
+			    }
+
+			});
+			
+			var slider2 = new MobileSlider("slider2", {
+				decimals: true,
+				decimal_places: 2,
+			    start: info.gasprice,
+			    min: 3.49,
+			    max: 5.99,
+			    update: function(value) {
+			        document.getElementById("slidervalueb").innerHTML = value;
+			        localStorage.gasprice=value;
+			    }
+			});
+			
+			var slider3 = new MobileSlider("slider3", {
+			    start: info.mpg,
+			    min: 10,
+			    max: 50,
+			    update: function(value) {
+			        document.getElementById("slidervaluec").innerHTML = value;
+			        localStorage.mpg=value;
+			    }
+			});
+
+		}
+
+// this is the calculator function for ridezunomics
+
+		function calcv(){
+		
+			miles=document.getElementById('slidervaluea').innerHTML;
+			if(document.getElementById("driver").checked==true){utype="driver";} else {utype="rider";}
+			gas=document.getElementById('slidervalueb').innerHTML;
+			mpg=document.getElementById('slidervaluec').innerHTML;
+								
+			if(utype=='driver'){
+				tmiles=miles*240*2;
+				ftmiles=addCommas(Math.round(tmiles));
+				cost=tmiles/mpg*gas;
+				fcost=addCommas(Math.round(cost));
+				pickup=.25;
+				revpermile=.10;
+				totrev=240*2*(pickup+(revpermile*miles));
+				ftotrev=addCommas(Math.round(totrev));
+				totcarbon=tmiles/mpg*20;
+				ftotcarbon=addCommas(Math.round(totcarbon));
+				message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+			}
+		
+			if(utype=='rider'){
+
+				tmiles=miles*240*2;
+				ftmiles=addCommas(tmiles);
+				cost=Math.round(tmiles/mpg*gas);
+				fcost=addCommas(Math.round(cost));
+				pickup=.25;
+				ridezufee=.25;
+				revpermile=.10;
+				totrev=240*2*(ridezufee+pickup+(revpermile*miles));
+				ftotrev=addCommas(Math.round(totrev));
+				savings=Math.round(cost-totrev);
+				fsavings=addCommas(Math.round(savings));
+				totcarbon=tmiles/mpg*20;
+				ftotcarbon=addCommas(Math.round(totcarbon));
+
+				if(savings>0){
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+				}
+	
+				if(savings<=0){
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+				}
+			}
+			openconfirm(); 
+		}
+		
+// these two functions show the alert dialog (and process functions, if required)
+
+		function openconfirm(){
+			document.getElementById('confirm-message').innerHTML=message;
+			document.getElementById('cancel-button').innerHTML=cancelmessage;
+			document.getElementById('ok-button').innerHTML=okmessage;
+			if(showcancel==true){document.getElementById('cancel-button').style.display="block";document.getElementById('ok-button').style.float="left"}
+			if(showcancel==false){document.getElementById('ok-button').style.float="center";}
+			$('#confirm-background').fadeIn({ duration: 100 });		
+			}
+			
+		function closeconfirm(action){
+			if(action=="ok" && confirmfunction!=""){window[confirmfunction]();}
+			document.getElementById('cancel-button').style.display="none";	
+			showcancel=false;
+			confirmfunction="";
+			okmessage="OK";
+			cancelmessage="Cancel";
+			$('#confirm-background').fadeOut({ duration: 100 });
+			}		
 // this function is to report errors or anomalies that users see
 
 		function reporterror(url){
@@ -551,7 +884,11 @@ $(document).ready(function(){
 		var worklatlng;
 	    var fbid;
 	    var tp;
-
+		var cancelmessage="Cancel";
+		var message;
+		var okmessage="OK";
+		var confirmfunction="";
+		var showcancel=false;
 
 // this starts the docs and loads the page, off we go!
 
@@ -585,3 +922,7 @@ $(document).ready(function(){
 	
 		return false;
 	});
+	
+	if(page=="How it Works"){
+		calcinit();
+		}

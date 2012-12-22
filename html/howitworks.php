@@ -51,15 +51,71 @@ include "header.php";
 		
 		<section>
 			<div class="corpwrapper">
-				<aside id="corpapplinks" class="right">
-					<h3>access ridezu on any mobile device</h3>
+				<div id="ridezunomics" class="right">
+				<div style="background-color:#15a501;color: #fff;padding:10px;padding-left:20px;font-size:22px;">
+					Ridezunomics Calculator
+				</div>
+									<ul style="list-style-type: none;padding-left:20px;margin-top:10px;"> 
+						<li>
+						
+						<div class="question" style="padding-bottom:15px;">
+							<label style="padding-bottom:4px;">Are you a rider or a driver?</label>
+								<input type="radio" name="utype1" id="rider" value="Rider">Rider
+								<input type="radio" name="utype1" id="driver" value="Driver" checked>Driver
+						</div>				
 					
-					<a href="#"><img src="images/appstorelink.png" alt="link to Ridezu's app on the iOS app store" /></a>
-					
-					<a href="#"><img src="images/html5.png" alt="link to the web app" /></a>
-				</aside>
+						</li>
+						<li>
+						<div class="question" style="padding-bottom:15px;">
+							<label>How far is your commute?</label>
+							<div class="slidercontainer">
+								<div id="slider1" class="slider">
+									<div class="circle"></div>
+									<div class="bar"></div>
+								</div>
+							</div>
+							<div class="slidervalue">
+								<span id="slidervaluea">25</span>m
+							</div>
+						</div>
+						</li>
+						<li>
+						<div class="question" style="padding-bottom:15px;">
+							<label>How much do you pay for gas?</label>
+							<div class="slidercontainer">
+								<div id="slider2" class="slider">
+									<div class="circle"></div>
+									<div class="bar"></div>
+								</div>
+							</div>
+							<div class="slidervalue">
+								$<span id="slidervalueb">3.85</span>
+							</div>
+						</div>
+						</li>
+						<li>
+						<div class="question" style="padding-bottom:15px;">
+							<label>What's your car's gas mileage?</label>
+							<div class="slidercontainer">
+								<div id="slider3" class="slider">
+									<div class="circle"></div>
+									<div class="bar"></div>
+								</div>
+							</div>
+							<div class="slidervalue">
+								<span id="slidervaluec">25</span>
+							</div>
+						</div>
+						</li>
+		
+		
+					</ul>
+		
+					<input type="submit" id="startbutton" onclick="calcv();" value="Calculate"/>
+									
+				</div>
 				
-				<div id="maincontent" class="left">
+				<div id="howitworkscontent" class="left" style="padding:0px;">
 
 					<div id="BCLcontainingBlock">
 					   <div class="BCLvideoWrapper">
