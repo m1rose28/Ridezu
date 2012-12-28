@@ -203,7 +203,7 @@ if($client=="iOS"){
 				window.location = a;
 			     }
 			 </script>
-			 <section id="content">
+			 <br><br><section id="content">
 				 <ul>
 				 <a href="ridezu://backbutton/visible/true"><li>Show the back button</li></a>
 				 <a href="ridezu://title/update/hello%20world"><li>Update the title to "hello world"</li></a>

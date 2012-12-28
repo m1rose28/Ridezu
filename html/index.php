@@ -24,6 +24,7 @@ if($_SESSION['m']==""){ ?>
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
+		<meta name="description" content="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!">
 	    <meta property="og:site_name" content="Ridezu"/>
         <meta property="fb:app_id" content="443508415694320"/>  
         <meta property="og:title" content="Ridezu"/>

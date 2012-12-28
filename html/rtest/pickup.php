@@ -1,10 +1,4 @@
 <?php 
-
-error_reporting(E_ALL); 
-ini_set( 'display_errors','1');
-
-$dbh=mysql_connect ("localhost", "ridezu", "ridezu123") or die ('I cannot connect to the database because: ' . mysql_error());
-mysql_select_db ("ridezu");
 	
 $m="";
 	
