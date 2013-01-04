@@ -23,7 +23,7 @@ textarea {
 				
 				<div id="right3">
 					<h3><span id="costcollect"></span></h3>
-					<a id="savings" class="glassbg" href="#" onclick="navt('myridesp','commutep');">
+					<a id="savings" class="glassbg"  onclick="navt('myridesp','commutep');">
 						<div class="arrowright">
 							<h4><span id="amount"></span></h4>
 						</div>
@@ -47,11 +47,11 @@ textarea {
 					<section id="content">
 						<h2>How late are you running?</h2>
 						<ul>
-						<a href="#" onclick="runninglatemessage('2 minutes');"><li>2 minutes</li></a>
-						<a href="#" onclick="runninglatemessage('5 minutes');"><li>5 minutes</li></a>
-						<a href="#" onclick="runninglatemessage('10 minutes');"><li>10 minutes</li></a>
-						<a href="#" onclick="runninglatemessage('15 minutes');"><li>15 minutes</li></a>
-						<a href="#" onclick="runninglatemessage('20 minutes');"><li>20 minutes</li></a>
+						<a  onclick="runninglatemessage('2 minutes');"><li>2 minutes</li></a>
+						<a  onclick="runninglatemessage('5 minutes');"><li>5 minutes</li></a>
+						<a  onclick="runninglatemessage('10 minutes');"><li>10 minutes</li></a>
+						<a  onclick="runninglatemessage('15 minutes');"><li>15 minutes</li></a>
+						<a  onclick="runninglatemessage('20 minutes');"><li>20 minutes</li></a>
 						</ul>
 					<input type="text" id="txtmessage" style="display:none;" value="">
 					</section>

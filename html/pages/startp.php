@@ -24,7 +24,7 @@ only screen and (min-device-pixel-ratio : 1.5) {
 				<center>
 					<input type="submit" data-role="none" onclick="startflow('enroll');" class="primarybutton" value="Start"/>
 					<br><br><br>
-					<a href="#" onclick="loginUser2();" style="font-size:14px;color:#fff;">Already registered? Login with Facebook</a>
+					<a onclick="loginUser2();" style="font-size:14px;color:#fff;">Already registered? Login with Facebook</a>
 				</center>
 			</div>
 			<iframe id="fbauth" src="" style="width:0px;height:0px;"></iframe>

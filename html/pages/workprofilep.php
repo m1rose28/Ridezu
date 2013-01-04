@@ -4,7 +4,7 @@
 				<h3>Work Address (actual)</h3>
 			</section>
 				<section id="content" class="overflowhidden">
-				<a href="#" onclick="pickwork()">
+				<a onclick="pickwork()">
 					<ul>
 						<li>
 							<div id="add1"></div>
@@ -18,7 +18,7 @@
 				<h3>Pickup Location</h3>
 			</section>
 				<section id="content" class="overflowhidden">
-				<a href="#" onclick="pickpickupwork()">
+				<a onclick="pickpickupwork()">
 					<ul>
 						<li>
 							<div id="pickupname"></div>

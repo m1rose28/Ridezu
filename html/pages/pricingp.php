@@ -9,7 +9,7 @@
 			
 			<section id="content">
 			<ul>
-			<a href="#" onclick="nav('pricintp','calcp');">
+			<a onclick="nav('pricintp','calcp');">
 			<li>
 				<div style="width:80%;float:left;">
 				Riders
@@ -21,7 +21,7 @@
 			
 			</li>
 			</a>
-			<a href="#" onclick="nav('pricintp','calcp');">
+			<a onclick="nav('pricintp','calcp');">
 			<li>
 				<div style="width:80%;float:left;">
 				Drivers

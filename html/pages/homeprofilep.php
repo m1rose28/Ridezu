@@ -5,7 +5,7 @@
 				<h3>Home Address (private)</h3>
 			</section>
 				<section id="content" class="overflowhidden">
-				<a href="#" onclick="pickhome()">
+				<a onclick="pickhome()">
 					<ul>
 						<li>
 							<div id="add1"></div>
@@ -19,7 +19,7 @@
 				<h3>Pickup Location</h3>
 			</section>
 				<section id="content" class="overflowhidden">
-				<a href="#" onclick="pickpickup()">
+				<a onclick="pickpickup()">
 					<ul>
 						<li>
 							<div id="pickupname"></div>

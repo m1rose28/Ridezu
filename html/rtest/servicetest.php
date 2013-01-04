@@ -3,9 +3,12 @@ $p="api";
 $d=date("Y-m-d");
 $time="9:30";
 $uid="500023557";
+$seckey="396c0d2c3a08e5b75a256830ac87a2a8";
 
 if(isset($_GET['uid'])){
 	$uid=$_GET['uid'];
+	$seckey=$_GET['seckey'];
+
 	}
 	
 include 'header.php';
@@ -17,8 +20,8 @@ include 'header.php';
 
 // this function set 2 creates a new user
 		var retval="";
-		localStorage.fbid="500023557";
-		localStorage.seckey="396c0d2c3a08e5b75a256830ac87a2a8";
+		localStorage.fbid="<?php echo $uid;?>";
+		localStorage.seckey="<?php echo $seckey;?>";
 		
 		function regnewuser(){
 
@@ -454,6 +457,26 @@ include 'header.php';
             });
         }
 
+// this is to see others on your route
+
+		function seeothers(){
+        	fbid=document.getElementById("locfbid").value;
+		    url="/ridezu/api/v/1/users/searchpublicbymatch/fbid/"+fbid;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    url=url;
+		    var request=$.ajax({
+                url: url,
+                type: type,
+                dataType: "json",
+                success: function(data) {show(instr,data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+        }
+
+
 //this is to send a message
 
 		 function sendmessage(){
@@ -485,8 +508,6 @@ include 'header.php';
             xhr.setRequestHeader("X-Signature", localStorage.seckey);
             xhr.setRequestHeader("Content-Type", "application/json");
         }
-
-
         
 //this shows the actual json result
 
@@ -551,8 +572,8 @@ include 'header.php';
 	 <p><div class="input-append"><input id="accountfbid" value="<?php echo $uid;?>" type="text"/><input id="timeperiod" value="Y" type="text"/><a class="btn btn-primary" onclick="account();">Account Summary</a></div></p>
 	 <p><div class="input-append"><input id="accountdetailfbid" value="<?php echo $uid;?>" type="text"/><input id="detailtimeperiod" value="Y" type="text"/><a class="btn btn-primary" onclick="accountdetail();">Account Detail</a></div></p>
 	 <p><div class="input-append"><input id="nodefbid" value="<?php echo $uid;?>" type="text"/><input id="nodetype" value="H" type="text"/><a class="btn btn-primary" onclick="nodes();">Get Nodes</a></div></p>
-	 <p><div class="input-append"><input id="tofbid" value="<?php echo $uid;?>" type="text"/><input id="fromfbid" value="<?php echo $uid;?>" type="text"/><input id="txtmessage" value="test message" type="text"/><a class="btn btn-primary" onclick="sendmessage();">Send Message</a></div></p>
-	 
+	 <p><div class="input-append"><input id="locfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="seeothers();">See others on my route</a></div></p>
+		 
 		 
 	 <div class="modal" style="display:none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	   <div class="modal-header">

@@ -2,45 +2,45 @@
 			<section id="content">
 			
 			<ul>
-				<a href="#" onclick="navt('profilep','commutep');">
+				<a onclick="navt('profilep','commutep');">
 					<li id="commute" style="display:none;" class="first">Commute</li>
 				</a>
 		 		
-				<a href="#" onclick="navt('profilep','homeprofilep');">
+				<a onclick="navt('profilep','homeprofilep');">
 					<li class="first">Home</li>
 				</a>
 			
 			
-				<a href="#" onclick="navt('profilep','workprofilep');">
+				<a  onclick="navt('profilep','workprofilep');">
 					<li>Work</li>
 				</a>
 			
 			
-				<a href="#" onclick="navt('profilep','userprofilep');">
+				<a onclick="navt('profilep','userprofilep');">
 					<li>About Me</li>
 				</a>
 			
 			
-				<a href="#" onclick="navt('profilep','contactinfop');">
+				<a onclick="navt('profilep','contactinfop');">
 					<li>Contact Info</li>
 				</a>
 	
 			
-				<a href="#" onclick="navt('profilep','ridedetailsp');">
+				<a onclick="navt('profilep','ridedetailsp');">
 					<li>Ride Details</li>
 				</a>
 			
 			
-				<a href="#" onclick="navt('profilep','paymentp');">
+				<a onclick="navt('profilep','paymentp');">
 					<li>Payment Info</li>
 				</a>
 			
 			
-				<a href="#" onclick="navt('profilep','payoutp');">
+				<a onclick="navt('profilep','payoutp');">
 					<li>Payout Info</li>
 				</a>
 			
-				<a href="#" onclick="navt('profilep','notifyp');">
+				<a onclick="navt('profilep','notifyp');">
 					<li class="last">Notification Preferences</li>
 				</a>
 						

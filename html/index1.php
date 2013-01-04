@@ -142,7 +142,7 @@ if($client=="iOS"){
 		 <div id="showbar" style="display:none;">
 			<div id="topbar" style="display:block;">
 			  <header id="toolbarnav" style="left:0px; ">
-				  <a href="#" id="menu-btn"><img id="menub" src="../images/menu.png"/></a>
+				  <a id="menu-btn"><img id="menub" src="../images/menu.png"/></a>
 				  <h1 id="pTitle">Ridezu</h1>
 			  </header>
 			</div>
@@ -207,8 +207,8 @@ if($client=="iOS"){
 				 <ul>
 				 <a href="ridezu://backbutton/visible/true"><li>Show the back button</li></a>
 				 <a href="ridezu://title/update/hello%20world"><li>Update the title to "hello world"</li></a>
-				 <a href="#" onclick="updatetitle()"><li>Update the title a random name</li></a>
-				 <a href="#" onclick="document.location.reload(true)"><li>Reload Page</li></a>
+				 <a onclick="updatetitle()"><li>Update the title a random name</li></a>
+				 <a onclick="document.location.reload(true)"><li>Reload Page</li></a>
 				 </ul>
 			 </section>
 <?php } ?>
@@ -220,10 +220,10 @@ if($client=="iOS"){
 			 <section id="content">
 				 <ul>
 				 <li class="first" id="testbar" onclick="nav1('loginp');"></li>
-				 <a href="#" onclick="nav1('startp');" ><li>Start Page</li></a>
+				 <a onclick="nav1('startp');" ><li>Start Page</li></a>
 				 <a href="index1.php?t=2"><li>Remove Cookies</li></a>
 				 <a href="index1.php"><li>Exit Test Mode</li></a>
-				 <a href="#" onclick="document.location.reload(true)"><li>Reload Page</li></a>
+				 <a onclick="document.location.reload(true)"><li>Reload Page</li></a>
 				 </ul>
 			 </section>
 <?php } ?>		
@@ -232,8 +232,8 @@ if($client=="iOS"){
 					<div id="confirm-box">
 						<div id="confirm-message"></div>
 						<center>
-						<a href="#" id="cancel-button" style="display:none;" onclick="closeconfirm('cancel');" class="cancel"></a>
-						<a href="#" id="ok-button" onclick="closeconfirm('ok');"></a>
+						<a id="cancel-button" style="display:none;" onclick="closeconfirm('cancel');" class="cancel"></a>
+						<a id="ok-button" onclick="closeconfirm('ok');"></a>
 						</center>
 					</div>
 				</div>

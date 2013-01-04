@@ -41,7 +41,7 @@ $result = mysql_query($query) or die(mysql_error());
 
 <div class="row">
 
-	<div class="span5">
+	<div class="span6">
 
 	  <ul class="nav nav-tabs">
 		<li class="active">
@@ -57,10 +57,12 @@ while($row = mysql_fetch_array($result,MYSQL_ASSOC)){
 	
 	$e=$row['email'];
 	$f=$row['fbid'];
+	$seckey=$row['seckey'];
+	$d=date('m/d/y', strtotime($row[createdon]));
 	
 	echo "<tr><td><a href=\"#\" onclick=\"profile('$f');\">$row[fname] $row[lname]</a></td>";
-	echo "<td><a href=\"mailto:$e\" target=\"_myframe\">email</a> <a href=\"http://www.facebook.com/profile.php?id=$f\" target=\"_myframe\">fb</a></td>";
-	echo "<td>$row[createdon]</td>";
+	echo "<td><a href=\"mailto:$e\" target=\"_myframe\"><image src=\"../images/emails.png\"/ alt=\"email\"></a> <a href=\"http://www.facebook.com/profile.php?id=$f\" target=\"_myframe\"><image src=\"../images/facebook-icons.png\"/ alt=\"message via facebook\"></a><a href=\"servicetest.php?uid=$f&seckey=$seckey\"><image src=\"../images/connects.png\"/ alt=\"api test tool\"></a></td>";
+	echo "<td>$d</td>";
 	echo "<td>$row[balance]</td>";
 	echo "</td></<tr>";
 	

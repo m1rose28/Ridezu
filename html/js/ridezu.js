@@ -403,10 +403,13 @@
 // function set to link from navigation side window (close window) or from primary windows to eachother
 
 		function nav1(to){
-			closeme();
-			if(p!=to){
-				nav(p,to);
-				}
+			if(client=="mweb"){
+			   closeme();
+			   if(p!=to){
+				   nav(p,to);
+				   }
+			   }
+			else nav(p,to);
 			}
 					
 		function nav(from, to){
@@ -415,6 +418,7 @@
 
 			if(client=="widget"){
 				parent.updateTitle(pageTitles[to]);
+
 				}
 			document.getElementById(p).style.display="none";		
 			document.getElementById(p).innerHTML="";		
@@ -448,8 +452,7 @@
 			   document.getElementById("temp").innerHTML="";
 			   document.getElementById('pTitle').innerHTML=pageTitles[p];
 			   if(client=="widget"){
-				   parent.updateTitle(pageTitles[to]);
-				   parent.showarrow();
+				   parent.updateTitle(pageTitles[p]);
 				   }
 			   document.getElementById(p).style.display="block";
 			   document.getElementById("menub").src="../images/menu.png";
@@ -463,18 +466,18 @@
 				parent.updateTitle(pageTitles[to]);
 				}
 			document.getElementById(from).style.display="none";		
-			if(client=="mweb"){scrollTo(0,0);}						
+			if(client=="mweb"){
+				scrollTo(0,0);
+				document.getElementById("menub").src="../images/back.png";
+				}						
 			url="pages/"+ to + ".php?v="+v;
 			tp=to;
-			document.getElementById("menub").src="../images/back.png";
 			$.ajax({
   			url: url,
   			cache: true,
   			dataType: "html"
 			}).done(function( html ) {
   				document.getElementById("temp").innerHTML=html;
-				xx=document.getElementById("temp");
-				$(xx).trigger('create');
   				navinit(to);  				
 				});
 		}
@@ -622,7 +625,7 @@
 			if(to=="pricingp" || to=="mainp" || to=="howitworksp" || to=="profilep" || to=="termsp" || to=="faqp" || to=="calcp" || to=="fbp" || to=="enrollp" || to=="congratp"){
 				document.getElementById(p).style.display="block";	    
 				}
-
+				
 			if(updateuserflag==true){updateuser();updateuserflag==false;}
 
 			if(client=="iOS"){
@@ -717,7 +720,6 @@
 
 		function loading(p){
 			document.getElementById(p).style.display="block";
-			document.getElementById("loading").style.display="none";
 		}
 	
 // these two functions show the alert dialog (and process functions, if required)
@@ -1284,8 +1286,8 @@
 			r++;
 			if((r>z && r<(z+5)) || preftime=="1"){
 
-			   if(role=="driver"){ridelist=ridelist+"<a href=\"#\" onclick=\"selectdriver('"+key+"');\"><li>";icon="car";}
-			   if(role=="rider"){ridelist=ridelist+"<a href=\"#\" onclick=\"selectrider('"+key+"');\"><li>";icon="person";}
+			   if(role=="driver"){ridelist=ridelist+"<a onclick=\"selectdriver('"+key+"');\"><li>";icon="car";}
+			   if(role=="rider"){ridelist=ridelist+"<a onclick=\"selectrider('"+key+"');\"><li>";icon="person";}
 
 			   ridelist=ridelist+"<span>"+key+"</span>";  
 			   timeslot=value;
@@ -1313,10 +1315,10 @@
 			var r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
-					personlist=personlist+"<li class='driver'><a href=\"#\" onclick=\"profile('riderequestp',"+value.fbid+");\">";
+					personlist=personlist+"<li class='driver'><a onclick=\"profile('riderequestp',"+value.fbid+");\">";
 					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
 					personlist=personlist+"<p>View Profile</p></div></a>";
-					personlist=personlist+"<a href=\"#\" onclick=\"authselectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
+					personlist=personlist+"<a onclick=\"authselectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
 					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
 			});
 			personlist=personlist+"</ul>";
@@ -1458,10 +1460,10 @@
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
 
-					personlist=personlist+"<li class=\"driver\" id=\"l"+value.fbid+"\"><a href=\"#\" onclick=\"profile('ridepostp',"+value.fbid+");\">";
+					personlist=personlist+"<li class=\"driver\" id=\"l"+value.fbid+"\"><a onclick=\"profile('ridepostp',"+value.fbid+");\">";
 					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
 					personlist=personlist+"<p>View Profile</p></div></a>";
-					personlist=personlist+"<a href=\"#\" onclick=\"authselectrider('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
+					personlist=personlist+"<a onclick=\"authselectrider('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
 					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
 
 			});
@@ -1750,7 +1752,7 @@
  			  	value1=mrlist[x0][x1];
 				
 				if(z>1){
-					  sm="<a href='#' onclick='showallrides();'>Show all rides.</div>";
+					  sm="<a onclick='showallrides();'>Show all rides.</div>";
 					  document.getElementById('showmore').innerHTML=sm;
 					  }
 			  		   				
@@ -1802,10 +1804,10 @@
 					$.each(n, function(key2, value2) {
 							m=value2.split("|");
 
-							x=x+"<li class='driver'><a href=\"#\" onclick=\"profile('myridesp',"+m[0]+");\">";
+							x=x+"<li class='driver'><a onclick=\"profile('myridesp',"+m[0]+");\">";
 							x=x+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+m[0]+"/picture'/>";
 							x=x+"<p>View Profile</p></div></a>";
-							x=x+"<div id='selectdriver'><p>"+m[1]+"<br/><a class='minibutton' href='#' onclick=\"sendmessage('"+myinfo.fbid+"','"+m[0]+"','"+m[1]+"');\">Send message</a>";
+							x=x+"<div id='selectdriver'><p>"+m[1]+"<br/><a class='minibutton' onclick=\"sendmessage('"+myinfo.fbid+"','"+m[0]+"','"+m[1]+"');\">Send message</a>";
 							x=x+"</p></div></li>";
 							
 					});
@@ -1862,7 +1864,7 @@
 					if(value3.route=="h2w"){rte="<img style='width:12px;' src='../images/start3.png' /> Work";}
 					if(value3.route=="w2h"){rte="<img style='width:12px;' src='../images/start.png' /> Home";}
 					etime=evtime(value3.eventtime);
-					imdrivinglist=imdrivinglist+"<a href=\"#\" onclick=\"paintmyrides('"+value3.rideid+"')   \"><li><span class='date'>"+value3.day+"</span><span class='time'> "+etime+" <span class='dest'>"+rte+"</span></li></a>";				
+					imdrivinglist=imdrivinglist+"<a onclick=\"paintmyrides('"+value3.rideid+"')   \"><li><span class='date'>"+value3.day+"</span><span class='time'> "+etime+" <span class='dest'>"+rte+"</span></li></a>";				
 			  	});
 	  		  
 		  	 }
@@ -1874,7 +1876,7 @@
 					if(value4.route=="h2w"){rte="<img style='width:12px;' src='../images/start3.png' /> Work";}
 					if(value4.route=="w2h"){rte="<img style='width:12px;' src='../images/start.png' /> Home";}
 					etime=evtime(value4.eventtime);
-					imridinglist=imridinglist+"<a href=\"#\" onclick=\"paintmyrides('"+value4.rideid+"')   \"><li><span class='date'>"+value4.day+ "</span><span class='time'> "+etime+" </span><span class='dest'>"+rte+"</span></li></a>";				
+					imridinglist=imridinglist+"<a onclick=\"paintmyrides('"+value4.rideid+"')   \"><li><span class='date'>"+value4.day+ "</span><span class='time'> "+etime+" </span><span class='dest'>"+rte+"</span></li></a>";				
 			  	});
 
 
@@ -1973,7 +1975,7 @@
 			document.getElementById('workcity').innerHTML=userinfo.workcity;	
 
 			if(myinfo.fbid!=userinfo.fbid){
-				document.getElementById('messageuser').innerHTML="<br/><a class='minibutton' href='#' onclick=\"sendmessage('"+myinfo.fbid+"','"+userinfo.fbid+"','"+userinfo.fname+"');\">Send message</a>";
+				document.getElementById('messageuser').innerHTML="<br/><a class='minibutton' onclick=\"sendmessage('"+myinfo.fbid+"','"+userinfo.fbid+"','"+userinfo.fname+"');\">Send message</a>";
 				}
 			
 			if(userinfo.profileblob.quotes){
@@ -2060,7 +2062,7 @@
 							
 			document.getElementById('fbid').value=fbid;
 			
-			if(myinfo.isLuxury=="Y"){document.getElementById('luxurycar').checked="checked";}
+			if(myinfo.isLuxury=="on"){document.getElementById('luxurycar').checked="checked";}
 			
 			setSelectedIndex(document.getElementById('cartype'),myinfo.cartype);
 			setSelectedIndex(document.getElementById('carmaker'),myinfo.carmaker);

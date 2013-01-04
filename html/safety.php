@@ -49,7 +49,7 @@ include "header.php";
 							</li>
 							
 							<li>
-								<p><b>Community Rankings</b>. Ridezu is a social community which drvies great carpooling experience.</p>
+								<p><b>Community Rankings</b>. Ridezu is a social community which drives great carpooling experience.</p>
 								
 								<img src="images/communityrankings.jpg" alt="Image of a star" />
 							</li>
@@ -63,7 +63,7 @@ include "header.php";
 							</li>
 							
 							<li>
-								<p><b>Secure messaging</b>. You can communicate quickly with other memebers and do it securely and privately.</p>
+								<p><b>Secure messaging</b>. You can communicate quickly with other members and do it securely and privately.</p>
 								
 								<img src="images/securemessaging.jpg" alt="Image of a letter" />
 							</li>
