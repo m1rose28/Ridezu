@@ -22,7 +22,7 @@ if($s=="www.ridezu.com" or $s=="ridezu.com"){
 	$rzsystem='www';
 	$ga="UA-36391790-1";
 	$_SESSION['mode']="prod";
-	$rzversion="1221"; // this is the version for javascript and css
+	$rzversion="104"; // this is the version for javascript and css
 	}
 
 $rzdomain='ridezu.com';
