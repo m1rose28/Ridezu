@@ -142,7 +142,7 @@ if($client=="iOS"){
 		 <div id="showbar" style="display:none;">
 			<div id="topbar" style="display:block;">
 			  <header id="toolbarnav" style="left:0px; ">
-				  <a id="menu-btn"><img id="menub" src="../images/menu.png"/></a>
+				  <a href="#" id="menu-btn"><img id="menub" src="../images/menu.png"/></a>
 				  <h1 id="pTitle">Ridezu</h1>
 			  </header>
 			</div>
