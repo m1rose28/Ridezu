@@ -1,5 +1,6 @@
 <?php
 $title="Ridezu";
+$desc="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!";
 include "header.php";
 ?>
 

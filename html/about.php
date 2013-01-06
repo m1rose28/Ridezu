@@ -1,5 +1,6 @@
 <?php
 $title="About Us";
+$desc="Ridezu is a mobile-social platform to help us all get together and massively change the way we get to work.";
 include "header.php";
 ?>
 		

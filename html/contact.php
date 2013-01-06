@@ -68,6 +68,7 @@ if($_POST){
 }
 
 $title="Contact Us";
+$desc="It's easy to contact us and we'll get back to you right away.";
 include "header.php";
 ?>
 		

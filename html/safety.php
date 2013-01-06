@@ -1,5 +1,6 @@
 <?php
 $title="Safety";
+$desc="Ridezu is very safe.  Find out why.";
 include "header.php";
 ?>
 		

@@ -1,5 +1,6 @@
 <?php
 $title="Privacy Policy";
+$desc="Your privacy is important and we keep your private information truly private.";
 include "header.php";
 ?>
 		

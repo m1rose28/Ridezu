@@ -1,5 +1,6 @@
 <?php
 $title="FAQ";
+$desc="Simple answers to all your questions about Ridezu.";
 include "header.php";
 ?>
 		

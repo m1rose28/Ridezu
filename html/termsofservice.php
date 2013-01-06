@@ -1,5 +1,6 @@
 <?php
 $title="Terms of Service";
+$desc="Our attorneys made us do this.  We made them keep it simple.";
 include "header.php";
 ?>
 		

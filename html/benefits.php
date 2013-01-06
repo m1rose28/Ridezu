@@ -1,5 +1,7 @@
 <?php
 $title="Benefits";
+$desc="Discover all the benefits of Ridezu.";
+
 include "header.php";
 ?>
 		

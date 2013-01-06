@@ -2,6 +2,9 @@
 
 require_once 'rzconfig.php';
 
+$desc="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!";
+$title="Ridezu Mobile";
+
 // these are init variables
 $t="";$fbid="";$seckey="";$scriptset="";$c="";
 
@@ -106,6 +109,9 @@ if($client=="iOS"){
 	<meta property="og:type" content="company"/>
 	<meta property="og:url" content="https://www.ridezu.com"/>
 	<meta property="og:image" content="https://www.ridezu.com/images/ridezuAppIcon200.png" />
+	<link rel="apple-touch-icon" href="../images/ridezuAppIcon72.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="../images/ridezuAppIcon72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="../images/ridezuAppIcon72.png" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link type='text/css' rel='stylesheet' href='css/style.css?v=<?php echo $rzversion;?>'>

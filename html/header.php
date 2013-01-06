@@ -25,8 +25,8 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
       	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Ridezu</title>
-        <meta name="description" content="Ridezu is a community for carpooling to and from the office. It's convenient, economical and green.  Join today!">
+        <title><?php echo $title; ?></title>
+        <meta name="description" content="<?php echo $desc;?>">
         <meta property="og:site_name" content="Ridezu"/>
         <meta property="fb:app_id" content="443508415694320"/>  
         <meta property="og:title" content="Ridezu"/>
