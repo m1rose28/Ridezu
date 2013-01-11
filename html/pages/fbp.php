@@ -19,4 +19,4 @@
 		</h2>
 	</section>
 	
-			<input type="submit" id="login" onclick="loginUser();" data-role="none" class="primarybutton" value="Login with Facebook"/>
+			<input type="submit" id="login" onclick="loginUser2();" data-role="none" class="primarybutton" value="Login with Facebook"/>

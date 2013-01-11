@@ -643,8 +643,9 @@
 		function startflow(f){
 		
 			if(f){flow=f;}
-							
-			if(flow=="enroll"){
+			
+			   if(flow=="enroll"){
+					
 				if(myinfo.fbid==undefined){
 					document.getElementById("topbar").style.display="block";
 					hidegrabber();						
@@ -662,14 +663,9 @@
 				if(myinfo.seckey==undefined){
 					regnewuser();
 					return false;
-					}	
-
-				if(myinfo.seckey!=undefined && myinfo.fbid!=undefined){
-					loginUser2();
-					return false;
-					};					
-			}
-			
+					}
+				 }	
+													
 			if(flow=="riderequest"){
 				if(myinfo.cardtype==null){
 					message="<p>Before your first ride we're going to need a credit card on file.</p><p>We only bill you for the rides you take.</p><p>Billing is done monthly.  </p>";
@@ -972,7 +968,7 @@
 			myinfo.zip=info.zip;
 			myinfo.homelatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 		  	document.getElementById('location').value="Company name, city";
-		  	startflow();
+		  	startflow("enroll");
  			_gaq.push(['_trackPageview', "Enroll - Home Selected"]);
 			window.optimizely.push(['trackEvent', 'address']);
 			}
@@ -1053,54 +1049,64 @@
 		  function handleStatusChange(response) {
 			  document.body.className = response.authResponse ? 'connected' : 'not_connected';
 			  if (response.authResponse) {
-				console.log(response);
-		
-				updateUserInfo(response);
 			  }
 			}
 		  function updateUserInfo(response) {
-			 FB.api('/me', function(response) {
-			   myinfo.profileblob=JSON.stringify(response);
-			   myinfo.fname=response.first_name;
-			   myinfo.lname=response.last_name;
-			   myinfo.fbid=response.id;
-			   localStorage.fbid=response.id;
-			   myinfo.email=response.email;
-			   //flow="enroll";
-			   //startflow();
-			   window.optimizely.push(['trackEvent', 'fblogin']);
-			 });
 		   }
 		}
-
-		function loginUser() {    
-			 FB.login(function(response) { }, {scope:'email'});     
-			 }
 
 		function loginUser2() {    
 			 FB.login(function(response) {
 			   if (response.authResponse) {
-		   		  document.getElementById("fbauth").src="fbauth.php";
+
+				  FB.api('/me', function(response) {
+				  myinfo.profileblob=JSON.stringify(response);
+				  myinfo.fname=response.first_name;
+				  myinfo.lname=response.last_name;
+				  myinfo.fbid=response.id;
+				  localStorage.fbid=response.id;
+				  myinfo.email=response.email;
+				  info.accessToken=FB.getAuthResponse()['accessToken'];
+				  //console.log(info.accessToken);
+
+				 window.optimizely.push(['trackEvent', 'fblogin']);
+
+				 if(info.accessToken){
+	
+						   // check the ridezu server if this user exists or not...
+						   
+						   fbid=localStorage.fbid;
+						   url="/fbauth2.php?accesstoken="+info.accessToken;
+						   var request=$.ajax({
+							   url: url,
+							   type: "GET",
+							   dataType: "json",
+							   success: function(data) {
+								   if(data.seckey!="na"){
+									   localStorage.fbid=data.fbid;
+									   localStorage.seckey=data.seckey;
+									   myinfo.fbid=data.fbid;;
+									   myinfo.seckey=data.seckey;
+									   loadmyinfo();
+									   document.getElementById("topbar").style.display="block";
+									   showgrabber();
+									   }
+									else {
+										startflow("enroll");
+										}
+								   },
+							   error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data));reporterror(url) },
+							   beforeSend: setHeader
+						   });			   										  
+						
+						}		
+
+			 });
+
+
 		   		 }
 		   	   },{scope: 'email'});
 	 		 }
-
-		function authuser(data){
-			x=JSON.parse(data);
-			
-			if(x.seckey){
-			   localStorage.fbid=x.fbid;
-			   localStorage.seckey=x.seckey;
-			   showgrabber();
-			   document.getElementById("topbar").style.display="block";
-			   loadmyinfo();
-			   }
-
-			if(x.nouser){
-				flow="enroll";
-				startflow();
-				}
-			}
 
 		function logoutUser() {    
 			 FB.logout();
@@ -1352,8 +1358,7 @@
 				}
 
 			if(myinfo.cardtype==null){
-				flow="riderequest";
-				startflow();		
+				startflow("riderequest");		
 				}
 
 			}
@@ -1498,8 +1503,7 @@
 				}
 
 			if(myinfo.dlverified!="Y" || myinfo.cartype==null){
-				flow="ridepost";
-				startflow();		
+				startflow("ridepost");		
 				}
 			}
 

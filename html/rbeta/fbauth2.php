@@ -1,9 +1,6 @@
 <?php
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', '1');
-
-require 'facebooksdk/src/facebook.php';
+require '../facebooksdk/src/facebook.php';
 
 if(isset($_GET["accesstoken"])){$accesstoken=$_GET["accesstoken"];}
 
@@ -16,7 +13,7 @@ $facebook = new Facebook(array(
 //$fbtoken="AAAGTXlmShfABAFiYZCynncqKdk88GLeYizDOlW10dvNgLYsx2E5Ott4hSOwAe00sDMyzdeNiIyw0ssEVQOZCFo2tT3RFZB2eIs8kSdbLgZDZD";//lynn
 
 //set access token
-//$facebook->setAccessToken($accesstoken);
+$facebook->setAccessToken($accesstoken);
 
 // Get User ID
 $user = $facebook->getUser();
@@ -32,31 +29,21 @@ while($row = mysql_fetch_array($result))
 	{
 	 $seckey=$row['seckey'];
 	  }
+
+if(isset($seckey)){ 	 
+
+	  echo "{\"fbid\":\"$user\",\"seckey\":\"$seckey\"}";
+	}
+
+if(isset($seckey)==false && $user!="0") { 	 
+
+	  echo "{\"fbid\":\"$user\",\"seckey\":\"na\"}";
+	}
+
+if(isset($seckey)==false && $user=="0") { 	 
+
+	  echo "{\"fbid\":\"na\",\"seckey\":\"na\"}";
+	}
+
 ?>
 
-<html>
-  <body>
-   <script>
-
- 	  var x1;
- 	  
-
-<?php if(isset($seckey)) { ?>	 	 
-
-	  x1= "{\"fbid\":\"<?php echo $user;?>\",\"seckey\":\"<?php echo $seckey;?>\"}";
-	  parent.authuser(x1);
-	
-<?php }	?>		 
-
-<?php if(isset($seckey)==false) { ?>	 	 
-
-	  x1= "{\"nouser\":\"true\"}";
-	  parent.authuser(x1);
-	
-<?php }	?>		 
-
-
-		 
-  </script>
-</body>
-</html>

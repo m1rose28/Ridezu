@@ -67,6 +67,7 @@ if($client=="widget"){
 
 
 if($client=="iOS"){
+	$clstring="$client fb: $fbid sc: $seckey";
 	$scriptset=$scriptset."
 		<script>
 		localStorage.fbid=\"$fbid\";
@@ -75,7 +76,11 @@ if($client=="iOS"){
 		//localStorage.seckey='f6462731d06d181532acd85a5791621a';
 		myinfo.fbid=localStorage.fbid;
 		myinfo.seckey=localStorage.seckey;
-		alert(client+\":\"+myinfo.fbid+\":\"+myinfo.seckey);
+		clstring = client+\":\"+myinfo.fbid+\":\"+myinfo.seckey;
+		if(myinfo.seckey=='(null)'){
+			fburl='fbauthIOS.php';
+			window.location = fburl;
+			}
 		</script>
 
 		<style>
@@ -203,7 +208,9 @@ if($client=="iOS"){
 				<div id="commutep"></div> 
 
 <?php if($client=="iOS"){ ?>
+			 
 			 <script>
+
 			 function updatetitle(){
 			 	a="ridezu://title/update/"+Math.random();
 				window.location = a;
@@ -215,6 +222,9 @@ if($client=="iOS"){
 				 <a href="ridezu://title/update/hello%20world"><li>Update the title to "hello world"</li></a>
 				 <a onclick="updatetitle()"><li>Update the title a random name</li></a>
 				 <a onclick="document.location.reload(true)"><li>Reload Page</li></a>
+				 <a><li>Client: <?php echo $client;?></li></a>
+				 <a><li>fbid: <?php echo $fbid;?></li></a>
+				 <a><li>seckey: <?php echo $seckey;?></li></a>
 				 </ul>
 			 </section>
 <?php } ?>

@@ -343,19 +343,10 @@ $(document).ready(function(){
 		  function handleStatusChange(response) {
 			  document.body.className = response.authResponse ? 'connected' : 'not_connected';
 			  if (response.authResponse) {
-				console.log(response);		
 				updateUserInfo(response);
 			  }
 			}
 		  function updateUserInfo(response) {
-			 FB.api('/me', function(response) {
-			   myinfo.profileblob=JSON.stringify(response);
-			   myinfo.fname=response.first_name;
-			   myinfo.lname=response.last_name;
-			   myinfo.fbid=response.id;
-			   localStorage.fbid=response.id;
-			   myinfo.email=response.email;
-			 });
 		   }
 		}
 
@@ -369,11 +360,41 @@ $(document).ready(function(){
 					  myinfo.fbid=response.id;
 					  localStorage.fbid=response.id;
 					  myinfo.email=response.email;
+					  info.accessToken=FB.getAuthResponse()['accessToken'];
+					  //console.log(info.accessToken);
 					  window.optimizely.push(['trackEvent', 'fblogin']);
-					  appstart();
+
+					  if(info.accessToken){
+	   
+							  // check the ridezu server if this user exists or not...
+							  
+							  fbid=localStorage.fbid;
+							  url="/fbauth2.php?accesstoken="+info.accessToken;
+							  var request=$.ajax({
+								  url: url,
+								  type: "GET",
+								  dataType: "json",
+								  success: function(data) {
+									  if(data.seckey!="na"){
+										  localStorage.fbid=data.fbid;
+										  localStorage.seckey=data.seckey;
+										  myinfo.fbid=data.fbid;;
+										  myinfo.seckey=data.seckey;
+										  loadmyinfo();
+										  appstart();
+										  }
+									   else {
+										   appstart();
+										   }
+									  },
+								  error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data));reporterror(url) },
+								  beforeSend: setHeader
+							  });			   										  
+						   
+						   }		
+		
 				  });
-		   		  document.getElementById("fbauth").src="fbauth.php";
-		   		 }
+	   		 }
 		   	   },{scope: 'email'});
 	 		 }
 
@@ -382,19 +403,6 @@ $(document).ready(function(){
 			 localStorage.removeItem("seckey");
 			 location.reload();
 			 }
-
-		function authuser(data){
-			x=JSON.parse(data);
-			
-			if(x.seckey){
-			   localStorage.fbid=x.fbid;
-			   localStorage.seckey=x.seckey;
-			   loadmyinfo();
-			   }
-
-			if(x.nouser){
-				}
-			}
 
 // this function set (2) creates a new user as part of the enroll flow
 

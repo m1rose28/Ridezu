@@ -36,7 +36,7 @@ include "sidebar.php";
 					<p>Ridezu is a mobile-social platform to help us all get together and massively change the way we get to work. Our mission is to get 30 million cars off the road, reduce costs for both driving and riding, and help improve the environment.</p>
 					<p>It's a hugely ambitious project, and we hope you'll join us. </p>
 					
-					<h2>Meat the Team</h2>
+					<h2>Meet the Team</h2>
 					<br/>
 						<div>
 						<img src="../images/markpic.jpeg" style="width:140px;"/>

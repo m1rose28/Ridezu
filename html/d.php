@@ -57,20 +57,17 @@ if($fbid && $seckey){
 	   var accessToken = response.authResponse.accessToken;
 	   fbstate="This user is logged into the app <a href=\"#\" onclick=\"logout();\">Logout</a>";
 		showfbstate();
-		alert("facebook response:"+response.status);
 
 	 } else if (response.status === 'not_authorized') {
 	   // the user is logged in to Facebook, 
 	   // but has not authenticated your app
 	   fbstate="This user is logged into Facebook but not authorized in this app. <a href=\"#\" onclick=\"logout();\">Logout</a>";
 		showfbstate();
-		alert("facebook response:"+response.status);
 
 	 } else {
 	   // the user isn't logged in to Facebook.
 	   fbstate="The user is not logged into Facebook. <a href=\"#\" onclick=\"logout();\">Logout</a>";
 		showfbstate();
-		alert("facebook response:"+response.status);
 	 }
 	});
 	
