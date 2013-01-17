@@ -123,7 +123,7 @@
 
 - (void)movedAnnotation:(MKPointAnnotation *)anno
 {
-    NSLog(@"Dragged annotation to %f,%f", anno.coordinate.latitude, anno.coordinate.longitude);
+    //NSLog(@"Dragged annotation to %f,%f", anno.coordinate.latitude, anno.coordinate.longitude);
     
     CLLocation *newLocation = [[CLLocation alloc] initWithLatitude:anno.coordinate.latitude longitude:anno.coordinate.longitude];
     
@@ -137,7 +137,7 @@
          NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
          
          //Print the location to console
-         NSLog(@"I am currently at %@",locatedAt);
+         //NSLog(@"I am currently at %@",locatedAt);
          
          //Set the label text to current location
          searchField.text = locatedAt;
@@ -146,7 +146,6 @@
          double latitude = placemark.location.coordinate.latitude;
          
          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-         [defaults setValue:placemark.thoroughfare forKey:@"homeAdd1"];
          [defaults setValue:placemark.locality forKey:@"homeCity"];
          [defaults setValue:placemark.administrativeArea forKey:@"homeState"];
          [defaults setValue:placemark.postalCode forKey:@"homeZip"];
@@ -218,6 +217,7 @@
     double latitude = [[coordinates objectAtIndex:1] doubleValue];
     
     NSString *homeAdd1 = [[placemark objectAtIndex:0] valueForKeyPath:@"AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.DependentLocality.Thoroughfare.ThoroughfareName"];
+        
     NSString *homeCity = [[placemark objectAtIndex:0] valueForKeyPath:@"AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.LocalityName"];
     NSString *homeState = [[placemark objectAtIndex:0] valueForKeyPath:@"AddressDetails.Country.AdministrativeArea.AdministrativeAreaName"];
     NSString *homeZipCode = [[placemark objectAtIndex:0] valueForKeyPath:@"AddressDetails.Country.AdministrativeArea.SubAdministrativeArea.Locality.DependentLocality.PostalCode.PostalCodeNumber"];
@@ -293,9 +293,15 @@
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:jsonDict
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
- //   NSString *str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    NSLog(@"%@",[error description]);
+    
+    //NSLog(@"%@",[error description]);
+ 
+    // Get JSON request as a string
+    NSString *json_string = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    // output my JSON request
+    //NSLog(@"JSON: %@", json_string);
+    
     
     NSURL *url = [NSURL URLWithString:@"https://stage.ridezu.com/ridezu/api/v/1/users"];
     
@@ -310,14 +316,15 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"%d", [jsonData length]] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:jsonData];
-    
+ 
+
     NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
     [connection start];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"%@",[error description]);
+    //NSLog(@"%@",[error description]);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data

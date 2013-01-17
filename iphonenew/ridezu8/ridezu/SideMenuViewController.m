@@ -44,24 +44,26 @@
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewStyleGrouped reuseIdentifier:CellIdentifier];
     }
-
+    
     cell.layer.borderColor = [[UIColor colorWithRed:80.0/255.0f green:80.0/255.0f blue:80.0/255.0f alpha:1.0]CGColor];
     cell.layer.borderWidth = .5f;
     cell.textLabel.text = [array objectAtIndex:indexPath.row];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
+
+    if([array objectAtIndex:indexPath.row]==@"Ridezu"){
+        cell.imageView.image = [UIImage imageNamed:@"logo200"];
+        cell.textLabel.text = @"";
+    }
     
     UIView *selectedBackgroundViewForCell = [UIView new];
-    
+   
     [selectedBackgroundViewForCell setBackgroundColor:[UIColor colorWithRed:50.0/255.0f green:50.0/255.0f blue:50.0/255.0f alpha:1.0]];
-    
     cell.selectedBackgroundView = selectedBackgroundViewForCell;
-    
-    //cell.selectionStyle = [[UIColor colorWithRed:80.0/255.0f green:80.0/255.0f blue:80.0/255.0f alpha:1.0]CGColor];
-    //cell.selectionStyle = UITableViewCellSelectionStyleGray;
     
     return cell;
 }

@@ -128,7 +128,7 @@
 
 - (void)movedAnnotation:(MKPointAnnotation *)anno
 {
-    NSLog(@"Dragged annotation to %f,%f", anno.coordinate.latitude, anno.coordinate.longitude);
+    //NSLog(@"Dragged annotation to %f,%f", anno.coordinate.latitude, anno.coordinate.longitude);
     
     CLLocation *newLocation = [[CLLocation alloc] initWithLatitude:anno.coordinate.latitude longitude:anno.coordinate.longitude];
     
@@ -142,7 +142,7 @@
          NSString *locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
          
          //Print the location to console
-         NSLog(@"I am currently at %@",locatedAt);
+         //NSLog(@"I am currently at %@",locatedAt);
          
          //Set the label text to current location
          searchField.text = locatedAt;
@@ -151,7 +151,6 @@
          double latitude = placemark.location.coordinate.latitude;
          
          NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-         [defaults setValue:placemark.thoroughfare forKey:@"workAdd1"];
          [defaults setValue:placemark.locality forKey:@"workCity"];
          [defaults setValue:placemark.administrativeArea forKey:@"workState"];
          [defaults setValue:placemark.postalCode forKey:@"workZip"];

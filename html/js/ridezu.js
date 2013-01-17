@@ -53,8 +53,7 @@
 		function updateuser(){
 				updateuserflag=false;
             	var jsondataset = JSON.stringify(myinfo);
- 				url="/ridezu/api/v/1/users/"+myinfo.id+"/fbid/"+myinfo.fbid;
- 				       
+ 				url="/ridezu/api/v/1/users/"+myinfo.id+"/fbid/"+myinfo.fbid;  
             	var request=$.ajax({
                 url: url,
                 type: "PUT",
@@ -396,6 +395,35 @@
 			}
 			openconfirm(); 
 		}
+
+// this is a function to determine if the current .js is current (and reload the page if otherwise).  This is used only on iOS and android where the js stays resident.
+
+		function versiontest(){
+			var ts1 = Math.round(new Date().getTime() / 1000); 
+			var te=ts1-ts;
+			
+			if(te>86400){ // this checks if the app is older than one day
+
+					url="/getversion.php";
+					var request=$.ajax({
+						url: url,
+						type: "GET",
+						dataType: "json",
+						success: function(data) {
+							//alert(v+":"+data.version+":"+env);
+							if(data.version!=v && env!="stage"){
+								location.reload(true);
+								}
+							
+							if(data.version==v){
+								ts=Math.round(new Date().getTime() / 1000); 
+								}
+							},
+					});			   										  
+				
+				}
+		
+			}	
 		
 // anything with a "nav" is the navigation system. which shows (to) and hides (from) pages as well as invokes specific
 // javascript for individual pages to load.   
@@ -403,16 +431,31 @@
 // function set to link from navigation side window (close window) or from primary windows to eachother
 
 		function nav1(to){
+			
 			if(client=="mweb"){
-			   closeme();
-			   if(p!=to){
+				closeme();
+			    
+			    if(p!=to){
 				   nav(p,to);
 				   }
 			   }
-			else nav(p,to);
+			
+			else {
+				nav(p,to);
+				versiontest();
+				}
 			}
 					
 		function nav(from, to){
+						
+			var online = navigator.onLine;
+			
+			if(online==false){
+			  message="<h2>You're offline.</h2><p>I'm not detecting that you've got internet access.  Please check your access and try again.</p>";
+			  openconfirm();
+			  return false;			
+			}
+
 			document.getElementById('pTitle').innerHTML=pageTitles[to];
 			document.getElementById('temp').innerHTML="";
 
@@ -424,6 +467,12 @@
 			document.getElementById(p).innerHTML="";		
 			document.getElementById(to).style.display="none";
 			if(client=="mweb"){scrollTo(0,0);}						
+			if(client=="iOS"){
+				a="ridezu://window/scrolltotop";
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					window.location.href = a;
+					}
+				}						
 			url="pages/"+ to + ".php?v="+v;
 			$.ajax({
   			url: url,
@@ -454,6 +503,14 @@
 			   if(client=="widget"){
 				   parent.updateTitle(pageTitles[p]);
 				   }
+
+			   if(client=="iOS"){
+				   a="ridezu://window/scrolltotop";
+				   if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					   window.location.href = a;
+					   }
+				   }				   
+			   
 			   document.getElementById(p).style.display="block";
 			   document.getElementById("menub").src="../images/menu.png";
 			   return false;
@@ -469,6 +526,12 @@
 			if(client=="mweb"){
 				scrollTo(0,0);
 				document.getElementById("menub").src="../images/back.png";
+				}						
+			if(client=="iOS"){
+				a="ridezu://backbutton/visible/true";
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					window.location.href = a;
+					}
 				}						
 			url="pages/"+ to + ".php?v="+v;
 			tp=to;
@@ -1156,8 +1219,7 @@
                 	alert("It looks like you are already registered. Please Login.");
                 	localStorage.removeItem('fbid');
                 	localStorage.removeItem('seckey');
-                	document.location.reload(true);
-                	
+                	document.location.reload(true);      	
                 	},
                 beforeSend: setHeader
             	}); 
@@ -1188,6 +1250,9 @@
 				document.getElementById('strt1').innerHTML="We're putting together routes in your area and will let you know when you can start.<br/><br/>Until then, why don't you take the tour on how it works and complete your profile.";
 				}
 			if(myinfo.destdesc!=undefined && myinfo.origindesc!=undefined){
+				if(myinfo.miles==null){
+					calculateDistance();
+					}
 				document.getElementById('strt1').innerHTML="Good news!  There is a pickup spot near your home that goes right to your office.  Let's get started!";
 				document.getElementById('myr').style.display="block";
 				}
@@ -1290,7 +1355,7 @@
 
 		  $.each(rlist.rideList, function(key, value) { 			
 			r++;
-			if((r>z && r<(z+5)) || preftime=="1"){
+			if((r>z && r<(z+6)) || preftime=="1"){
 
 			   if(role=="driver"){ridelist=ridelist+"<a onclick=\"selectdriver('"+key+"');\"><li>";icon="car";}
 			   if(role=="rider"){ridelist=ridelist+"<a onclick=\"selectrider('"+key+"');\"><li>";icon="person";}
@@ -1927,6 +1992,14 @@
 
 		function notlate(){
 			if(client=="mweb"){scrollTo(0,0);}						
+
+			if(client=="iOS"){
+				a="ridezu://window/scrolltotop";
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					window.location.href = a;
+					}
+				}	
+
 			   document.getElementById('r0').style.display="block";
 			   document.getElementById('r1').style.display="block";			
 			   document.getElementById('rlate').style.display="none";			
@@ -1934,6 +2007,14 @@
 
 		function runninglate(id){
 			if(client=="mweb"){scrollTo(0,0);}						
+
+			if(client=="iOS"){
+				a="ridezu://window/scrolltotop";
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					window.location.href = a;
+					}
+				}	
+				
 			   document.getElementById('r0').style.display="none";
 			   document.getElementById('r1').style.display="none";			
 			   document.getElementById('rlate').style.display="block";			
@@ -2618,7 +2699,7 @@
 
 // these are the functions which initialize and start the ridezu web app.  please keep everything after this line at the end of this page, and functions before this.
 
-// declare global variables. There is still some locaStorage, this should be replaced largely w/global vars.
+// declare global variables. 
 
   		var map; 
   		var m=new Array(); 
@@ -2637,8 +2718,8 @@
 		var cancelmessage="Cancel";
 		var confirmfunction="";
 		var showcancel=false;
-		var screenwidth=320;
-		var screenheight=480;
+		var screenwidth=screen.width;
+		var screenheight=screen.height;
 		var updateuserflag=false;
 		var tp="";
 		var p="firstp";

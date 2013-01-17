@@ -43,7 +43,10 @@
 				<a onclick="navt('profilep','notifyp');">
 					<li class="last">Notification Preferences</li>
 				</a>
-						
+
+				<a onclick="location.reload(true);">
+					<li class="last">Update App</li>
+				</a>						
 			</ul>	
 			</section>
 </div>	

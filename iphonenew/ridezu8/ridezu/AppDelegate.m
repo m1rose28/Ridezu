@@ -34,7 +34,7 @@
     NSString *secStr = [defaults valueForKey:@"secretKey"];
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"titlebar"] forBarMetrics:UIBarMetricsDefault];
-    
+
     if ([fbStr length] > 5 && [secStr length] > 5)
     {
         [defaults setBool:YES forKey:@"Success"];

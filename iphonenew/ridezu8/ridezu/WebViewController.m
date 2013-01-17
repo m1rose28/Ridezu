@@ -110,6 +110,14 @@
     {
         [self middleMethod];
     }
+    
+    else if([requestString isEqualToString:@"ridezu://window/scrolltotop"])
+    {
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
+    }
+
+    
     else if ([[components objectAtIndex:2] isEqualToString:@"title"] && [[components objectAtIndex:3] isEqualToString:@"update"])
     {
         self.title = [[components objectAtIndex:[components count]-1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -178,6 +186,9 @@
         urlString = [NSString stringWithFormat:@"http://stage.ridezu.com/index1.php?client=iOS&fbid=%@&seckey=%@&p=termsp",[defaults valueForKey:@"fbid"],[defaults valueForKey:@"secretKey"]];
     }
     NSURL *url = [NSURL URLWithString:urlString];
+    
+    //NSLog(@"%@",urlString);
+
     NSURLRequest *theRequest = [NSURLRequest requestWithURL:url];
     [webview loadRequest:theRequest];
 }
@@ -199,44 +210,71 @@
 
 - (void)javaScriptFunctions:(NSInteger)index
 {
-    if (index == 1)
+
+    if (index == 0)
+    {
+        //this reloads the page.  we don't expect users to click on this but if the app is erring out, it's likely they might click on it
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *urlString;
+        urlString = [NSString stringWithFormat:@"http://stage.ridezu.com/index1.php?client=iOS&fbid=%@&seckey=%@",[defaults valueForKey:@"fbid"],[defaults valueForKey:@"secretKey"]];
+            NSURL *url = [NSURL URLWithString:urlString];
+            NSURLRequest *theRequest = [NSURLRequest requestWithURL:url];
+            [webview loadRequest:theRequest];
+    }
+   
+    else if (index == 1)
     {
         [webview stringByEvaluatingJavaScriptFromString:@"nav1('myridesp')"];
+         CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 2)
     {
        [webview stringByEvaluatingJavaScriptFromString:@"nav1('riderequestp')"]; 
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 3)
     {
         [webview stringByEvaluatingJavaScriptFromString:@"nav1('ridepostp')"];
-        
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 4)
     {
         [webview stringByEvaluatingJavaScriptFromString:@"nav1('accountp')"];
-        
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 5)
     {
         [webview stringByEvaluatingJavaScriptFromString:@"nav1('profilep')"];
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 6)
     {
         [webview stringByEvaluatingJavaScriptFromString:@"nav1('howitworksp')"];
-
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 7)
     {
         [webview stringByEvaluatingJavaScriptFromString:@"nav1('calcp')"];
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 8)
     {
         [webview stringByEvaluatingJavaScriptFromString:@"nav1('faqp')"];
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     else if (index == 9)
     {
          [webview stringByEvaluatingJavaScriptFromString:@"nav1('termsp')"];
+        CGPoint top = CGPointMake(0, 0);
+        [webview.scrollView setContentOffset:top animated:YES];
     }
     
 }

@@ -17,10 +17,25 @@ if($fbid && $seckey){
 ?>
 <html>
 <body>
+<script>
+  var fbstate="";
+  var fbid="";
+  var seckey="";
+  var fbstate1="";
+
+function remove1(){
+	alert("fbid and seckey removed from local storage");
+	localStorage.removeItem('fbid');
+	localStorage.removeItem('seckey');
+	document.getElementById("seckey").innerHTML="";
+	document.getElementById("fbid").innerHTML="";
+	}
+</script>
+
 <br/>Facebook state (front end): <span id="fbstate"></span> 
 <br/>Facebook state (back end): <span id="fbstate1"></span> 
-<br/><br/>User id: <span id="fbid"></span>  
-<br/><br/>Seckey: <span id="seckey"></span> 
+<br/><br/>User id: <div id="fbid"></div> <a href="#" onclick="remove1();return false;">Remove</a> 
+<br/><br/>Seckey: <div id="seckey"></div> <a href="#" onclick="remove1();return false;">Remove</a>
 
 <?php if (isset($d)==false){ ?> 
 	<br/><br/>Delete User (kiss your user goodbye): <span id="deleteuser"></span> 
@@ -89,11 +104,8 @@ if($fbid && $seckey){
 </script>
 
 
+
 <script>
-  var fbstate="";
-  var fbid="";
-  var seckey="";
-  var fbstate1="";
   
   if(localStorage.fbid){fbid=localStorage.fbid;}
   if(localStorage.seckey){seckey=localStorage.seckey;}
@@ -117,8 +129,8 @@ if($fbid && $seckey){
 function showfbstate(){
 	document.getElementById("fbstate").innerHTML=fbstate;
 	document.getElementById("fbstate1").innerHTML=fbstate1;
-	if(localStorage.fbid){document.getElementById("fbid").innerHTML=fbid+" <a href='#' onclick=\"remove()\";>Remove</a>";}
-	if(localStorage.seckey){document.getElementById("seckey").innerHTML=seckey+" <a href='#' onclick=\"remove()\";>Remove</a>";}
+	if(localStorage.fbid){document.getElementById("fbid").innerHTML=fbid;}
+	if(localStorage.seckey){document.getElementById("seckey").innerHTML=seckey;}
 	if(localStorage.seckey && localStorage.fbid){document.getElementById("deleteuser").innerHTML="<a href=\"d.php?fbid="+fbid+"&seckey="+seckey+"\">Delete User</a>";}
 	}  
 
@@ -128,11 +140,7 @@ function logout(){
 		});
 	}
 
-function remove(){
-	localStorage.removeItem('fbid');
-	localStorage.removeItem('seckey');
-	location.reload();
-	}
+
 	
 </script>
 

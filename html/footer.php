@@ -14,12 +14,14 @@
 				</center>
 				
 				<ul id="corpsociallinks">
-					<li>
-						<img src="images/facebook.png" />
+					<a href="http://www.facebook.com/Ridezu" target="_blank">
+					<li class="fbicon">
 					</li>
-					<li>
-						<img src="images/twitter.png" />
+					</a>
+					<a href="http://www.twitter.com/teamridezu" target="_blank">
+					<li class="twttricon">
 					</li>
+					</a>
 				</ul>
 				
 				<p><a href="termsofservice.php" alt="Terms of Service">Terms of Service</a> &#124; <a href="privacy.php" alt="Privacy Policy">Privacy</a> &#124; &copy; 2012 Ridezu. All rights reserved.</p>

@@ -6,7 +6,7 @@ $desc="Ridezu is a community for carpooling to and from the office. It's conveni
 $title="Ridezu Mobile";
 
 // these are init variables
-$t="";$fbid="";$seckey="";$scriptset="";$c="";
+$t="";$fbid="";$seckey="";$scriptset="";$c="";$client1="";
 
 $p="myridesp";
 $client="mweb";
@@ -15,7 +15,7 @@ if(isset($_GET["p"])){$p=$_GET["p"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
 if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["seckey"])){$seckey=$_GET["seckey"];}
-if(isset($_GET["client"])){$client=$_GET["client"];}
+if(isset($_GET["client"])){$client=$_GET["client"];if($client=="android"){$client="iOS";$client1="android";}}
 if(isset($_GET["c"])){$c=$_GET["c"];}
 
 
@@ -72,15 +72,9 @@ if($client=="iOS"){
 		<script>
 		localStorage.fbid=\"$fbid\";
 		localStorage.seckey=\"$seckey\";
-		//localStorage.fbid='500012114';
-		//localStorage.seckey='f6462731d06d181532acd85a5791621a';
 		myinfo.fbid=localStorage.fbid;
 		myinfo.seckey=localStorage.seckey;
 		clstring = client+\":\"+myinfo.fbid+\":\"+myinfo.seckey;
-		if(myinfo.seckey=='(null)'){
-			fburl='fbauthIOS.php';
-			window.location = fburl;
-			}
 		</script>
 
 		<style>
@@ -89,13 +83,7 @@ if($client=="iOS"){
 				}
 		
 		   #w {
-			   min-height:0px;padding-bottom:5px;
-			   -webkit-border-bottom-left-radius: 7px;
-			   -webkit-border-bottom-right-radius: 7px;
-			   -moz-border-radius-bottomleft: 7px;
-			   -moz-border-radius-bottomright: 7px;
-			   border-bottom-left-radius: 7px;
-			   border-bottom-right-radius: 7px;
+			   min-height:500px;padding-bottom:10px;
 				}		
 		</style>
 		";
@@ -121,9 +109,11 @@ if($client=="iOS"){
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link type='text/css' rel='stylesheet' href='css/style.css?v=<?php echo $rzversion;?>'>
 	<script type="text/javascript">
+		var ts = Math.round(new Date().getTime() / 1000);
 		var startpage="<?php echo $p;?>";
 		var client="<?php echo $client;?>";
 		var v="<?php echo $rzversion;?>";
+		var env="<?php echo $rzsystem;?>";
 	    var myinfo={};
 	    var tm="0";
 	    myinfo.company="<?php echo $c;?>";
@@ -171,12 +161,6 @@ if($client=="iOS"){
 				<div id="mapp"></div>
 				<div id="termsp"></div>
 				<div id="howitworksp"></div>
-				<div id="drive1p"></div>
-				<div id="drive2p"></div>
-				<div id="drive3p"></div>
-				<div id="ride1p"></div>
-				<div id="ride2p"></div>
-				<div id="ride3p"></div>
 				<div id="faqp"></div>
 				<div id="profilep"></div>
 				<div id="ridesp"></div>
@@ -207,7 +191,7 @@ if($client=="iOS"){
 				<div id="pricingp"></div> 
 				<div id="commutep"></div> 
 
-<?php if($client=="iOS"){ ?>
+<?php if($client=="android"){ ?>
 			 
 			 <script>
 

@@ -324,11 +324,13 @@ section #corpstart input:focus{
 }
 
 section #corpstart #home {
-	background: #fff url(../images/homeicon.png) no-repeat 14px 11px;
+	background: #fff url(../images/corpsprite.png) no-repeat;
+	background-position: 4px -98px;
 }
 
 section #corpstart #work {
-	background: #fff url(../images/workiconblue.png) no-repeat 14px 11px;
+	background: #fff url(../images/corpsprite.png) no-repeat;
+	background-position: 4px -143px;
 }
 
 section #maincontent {
@@ -385,7 +387,8 @@ section #maincontent #placestravelled {
 
 section #maincontent p.place {
 	padding: 0 0 0 15px;
-	background: url(../images/placeicon.png) no-repeat left center;
+	background: url(../images/corpsprite.png) no-repeat;
+	background-position: -10px -194px;
 	display: inline;
 	margin: 0 10px;
 }
@@ -886,12 +889,19 @@ footer #corpfootermenu a:hover{
 footer #corpsociallinks {
 	display: block;
 	margin: 20px auto;
-	width: 80px;
+	width: 72px;
+	position: relative; 
+	left: -15px;
+	top: -15px;
 }
 
 footer #corpsociallinks li {
 	margin: 3px;
 	padding: 0;
+	width: 30px;
+	height: 30px;
+	display: block;
+	float: left;
 }
 
 footer #corpsociallinks li:hover {
@@ -899,10 +909,21 @@ footer #corpsociallinks li:hover {
 	top: 2px;
 }
 
+footer #corpsociallinks li.fbicon {
+	background: url(../images/corpsprite.png);
+	background-position: -9.5px -9.5px;
+}
+
+footer #corpsociallinks li.twttricon {
+	background: url(../images/corpsprite.png);
+	background-position: -9.5px -58.5px;
+}
+
 footer p {
 	text-align: center;
 	color: #a1a1a1;
 	font-size: 12px;
+	clear: both;
 }
 
 
