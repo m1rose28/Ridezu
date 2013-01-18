@@ -552,6 +552,10 @@
 		// this function pushes the page to google analytics
 		_gaq.push(['_trackPageview', pageTitles[to]]);
 		
+			if(to=="aboutp"){
+				aboutinit();
+				}
+				
 			if(to=="accountp"){
 				account();
 				}
@@ -2460,6 +2464,13 @@
 			
 			updateuserflag=true;
 			}
+
+// this function is for the about page
+
+		function aboutinit(){
+			document.getElementById('version').innerHTML=displayversion;
+			document.getElementById('device').innerHTML=device;
+			}
 			
 // this function set are the account management functions
 
@@ -2728,6 +2739,7 @@
 // page titles are the pageid's coupled with what shows up in the header
   		
   		var pageTitles = { 
+  			"aboutp":"About" ,
   			"riderequestp":"Request a Ride" ,
   			"ridepostp":"Post a Ride" ,
    			"noroutep":"Stay tuned!" ,

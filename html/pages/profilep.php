@@ -41,12 +41,20 @@
 				</a>
 			
 				<a onclick="navt('profilep','notifyp');">
-					<li class="last">Notification Preferences</li>
+					<li>Notification Preferences</li>
 				</a>
+
+				<a onclick="navt('profilep','aboutp');">
+					<li>About</li>
+				</a>
+
 
 				<a onclick="location.reload(true);">
 					<li class="last">Update App</li>
 				</a>						
+
+
+
 			</ul>	
 			</section>
 </div>	

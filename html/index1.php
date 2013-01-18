@@ -112,6 +112,8 @@ if($client=="iOS"){
 		var ts = Math.round(new Date().getTime() / 1000);
 		var startpage="<?php echo $p;?>";
 		var client="<?php echo $client;?>";
+		var device="<?php echo $device;?>";
+		var displayversion="<?php echo $displayversion;?>";
 		var v="<?php echo $rzversion;?>";
 		var env="<?php echo $rzsystem;?>";
 	    var myinfo={};
@@ -191,7 +193,7 @@ if($client=="iOS"){
 				<div id="pricingp"></div> 
 				<div id="commutep"></div> 
 
-<?php if($client=="android"){ ?>
+<?php if($client1=="android"){ ?>
 			 
 			 <script>
 
@@ -206,7 +208,7 @@ if($client=="iOS"){
 				 <a href="ridezu://title/update/hello%20world"><li>Update the title to "hello world"</li></a>
 				 <a onclick="updatetitle()"><li>Update the title a random name</li></a>
 				 <a onclick="document.location.reload(true)"><li>Reload Page</li></a>
-				 <a><li>Client: <?php echo $client;?></li></a>
+				 <a><li>Client: <?php echo $client1;?></li></a>
 				 <a><li>fbid: <?php echo $fbid;?></li></a>
 				 <a><li>seckey: <?php echo $seckey;?></li></a>
 				 </ul>
