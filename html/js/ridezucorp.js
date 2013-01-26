@@ -182,8 +182,8 @@ $(document).ready(function(){
 				}
 
 			if(myinfo.fbid!=undefined && myinfo.add1==undefined){	// get the address
-				document.getElementById("corpstart").innerHTML="<input class=\"arvo\" type=\"text\" value=\"Where I live\" id=\"home\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><input class=\"arvo\" type=\"text\" value=\"Where I work\" id=\"work\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><a href=\"#\" onclick=\"getaddr();\" id=\"startbutton\">Next</a>";
-				document.getElementById("overlay").style.display="none";
+				document.getElementById("corpstartcalc").innerHTML="<input class=\"arvo\" type=\"text\" value=\"Where I live\" id=\"home\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><input class=\"arvo\" type=\"text\" value=\"Where I work\" id=\"work\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><a href=\"#\" onclick=\"getaddr();\" id=\"startbutton\">Next</a>";
+				//document.getElementById("overlay").style.display="none";
 				initialize();
 	   		    return false;
 				}
@@ -254,7 +254,7 @@ $(document).ready(function(){
   				updateuser();
   				}
   				
-		    window.optimizely.push(['trackEvent', 'address']);
+		    //window.optimizely.push(['trackEvent', 'address']);
 			appstart();
 			}
 
@@ -309,7 +309,8 @@ $(document).ready(function(){
 		       document.getElementById("corptitle").setAttribute("class", "index80");
 		       document.getElementById("homepageintro").setAttribute("class", "webapppage");
 		       document.getElementById("noquotes").style.display="block";  
-		       document.getElementById("corpstart").style.display="none";  
+		       document.getElementById("corpstart").style.display="none"; 
+			   document.getElementById("corpstartcalc").style.display="none";
 		       document.getElementById("quotes").style.display="none";  
 		       document.getElementById("corptitle").innerHTML="<h2>Welcome "+myinfo.fname+"</h2>";     
 		       document.getElementById("ridezuiframe").src="/index1.php?fbid="+myinfo.fbid+"&seckey="+myinfo.seckey+"&client=widget";
@@ -362,7 +363,7 @@ $(document).ready(function(){
 					  myinfo.email=response.email;
 					  info.accessToken=FB.getAuthResponse()['accessToken'];
 					  //console.log(info.accessToken);
-					  window.optimizely.push(['trackEvent', 'fblogin']);
+					  //window.optimizely.push(['trackEvent', 'fblogin']);
 
 					  if(info.accessToken){
 	   
@@ -462,7 +463,7 @@ $(document).ready(function(){
 				if(myinfo.destlatlong && myinfo.originlatlong){
 					calculateDistance();
 					}
-			    window.optimizely.push(['trackEvent', 'reguser']);
+			    //window.optimizely.push(['trackEvent', 'reguser']);
 				appstart();
 				});                	     	
        		}
@@ -538,6 +539,7 @@ $(document).ready(function(){
 
  		   return int.replace(/(\d)(?=(\d{3})+$)/g,"$1,") + dec;
 		}
+		
 // this function set initiates the calculator and slider function function (fiverr)
 
 		function calcinit(){
@@ -599,7 +601,7 @@ $(document).ready(function(){
 				
 				this.circle = this.container_element.getElementsByClassName('circle')[0];
 				this.bar = this.container_element.getElementsByClassName('bar')[0];
-				
+
 				this.start = this.start.bind(this);
 				this.move = this.move.bind(this);
 				this.end = this.end.bind(this);
@@ -807,7 +809,7 @@ $(document).ready(function(){
 				ftotrev=addCommas(Math.round(totrev));
 				totcarbon=tmiles/mpg*20;
 				ftotcarbon=addCommas(Math.round(totcarbon));
-				message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+				message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.</p><p>By using Ridezu you'll collect an estimated <b>$"+ftotrev+"</b> to help offset your gas costs.</p><p>PS. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
 			}
 		
 			if(utype=='rider'){
@@ -827,14 +829,23 @@ $(document).ready(function(){
 				ftotcarbon=addCommas(Math.round(totcarbon));
 
 				if(savings>0){
-					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>Ridezu can help.<br><br>By using ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.</p><p>By using Ridezu you'll still pay <b>$"+ftotrev+"</b> to get to work, but you'll save <b>$"+fsavings+ "</b> in gas, save the miles from your car, and you'll be so green.</p><p>PS. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
 				}
 	
 				if(savings<=0){
-					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.<br><br>By using ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.<br><br>ps. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
+					message="<p>This year you're going to drive <b>"+ftmiles+"</b> miles. In terms of just gas money this will cost you <b>$"+fcost+"</b>, assuming gas prices don't increase.</p><p>By using Ridezu you'll pay <b>$"+ftotrev+"</b> to get to work.  This might be a little more than gas, but you'll save the miles from your car, and you'll be so green.</p><p>PS. You'll also free the Earth of <b>"+ftotcarbon+"</b> pounds of CO2 - whew!</p>";
 				}
 			}
-			openconfirm(); 
+			
+		//check if homepage or howitworks
+			if($("#corpstartcalc").length > 0){
+  				document.getElementById('calcmessage').innerHTML=message;
+  				document.getElementById('wizard1').style.display="none";
+  				document.getElementById('wizard2').style.display="block";
+			}
+			else {
+				openconfirm(); 
+			}
 		}
 		
 // these two functions show the alert dialog (and process functions, if required)
@@ -857,6 +868,19 @@ $(document).ready(function(){
 			cancelmessage="Cancel";
 			$('#confirm-background').fadeOut({ duration: 100 });
 			}		
+			
+// this function controls the sign up wizard
+
+		function calcback() {
+			document.getElementById('wizard1').style.display="block";
+  			document.getElementById('wizard2').style.display="none";
+		}
+		
+		function nextstep() {
+			document.getElementById('wizard3').style.display="block";
+  			document.getElementById('wizard2').style.display="none";
+		}
+			
 // this function is to report errors or anomalies that users see
 
 		function reporterror(url){
@@ -928,9 +952,13 @@ $(document).ready(function(){
 			facebook();
 		}			
 	
-		return false;
+		if(page=="How it Works" || page=="Ridezu"){
+			calcinit();
+			}
+
+		return false;	
+	
 	});
 	
-	if(page=="How it Works"){
-		calcinit();
-		}
+
+		

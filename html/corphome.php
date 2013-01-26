@@ -12,20 +12,90 @@ include "header.php";
 				 </div>
 				 
 				 <div id="corptitle" class="index80 homepage">
-					 <h2>Revolutionizing the</h2>
-					 <h3>way we get to work</h3>
+					 <h2>How much money</h2>
+					 <h3>can you save?</h3>
 					 <h4>convenient &#8226; economical &#8226; green</h4>
 				 </div>
 				 
-				 <div id="corpstart" class="index80" style="display:none;">
+				 <div id="corpstartcalc" class="index80">
+				 	<div id="homepagecalctitle">
+				 		<h1>How much can you save?</h1>
+				 	</div>
 				 
-					 <input class="arvo" type="text" value="Where I live" id="home" onfocus="if(this.value==this.defaultValue)this.value='';" 
-					 onblur="if(this.value=='')this.value=this.defaultValue;">
-					 
-					 <input class="arvo" type="text" value="Where I work" id="work" onfocus="if(this.value==this.defaultValue)this.value='';" 
-					 onblur="if(this.value=='')this.value=this.defaultValue;">
-					 
-					<a href="#" onclick="getaddr();" id="startbutton">Go</a>
+				 	<div id="ridezunomics">
+				 		<div id="wizard1">
+						<ul id="calclist" style="list-style-type: none;padding-left:20px;margin-top:10px;"> 
+							<li>
+								<div class="question" style="padding-bottom:15px;">
+									<label style="padding-bottom:4px;">Are you a rider or a driver?</label>
+									<input type="radio" name="utype1" id="rider" value="Rider">Rider
+									<input type="radio" name="utype1" id="driver" value="Driver" checked>Driver
+								</div>				
+							</li>
+							
+							<li>
+								<div class="question" style="padding-bottom:15px;">
+									<label>How far is your commute?</label>
+									<div class="slidercontainer">
+										<div id="slider1" class="slider">
+											<div class="circle"></div>
+											<div class="bar"></div>
+										</div>
+									</div>
+									
+									<div class="slidervalue">
+										<span id="slidervaluea">25</span>m
+									</div>
+								</div>
+							</li>
+							
+							<li>
+								<div class="question" style="padding-bottom:15px;">
+									<label>How much do you pay for gas?</label>
+									<div class="slidercontainer">
+										<div id="slider2" class="slider">
+											<div class="circle"></div>
+											<div class="bar"></div>
+										</div>
+									</div>
+							
+									<div class="slidervalue">
+										$<span id="slidervalueb">3.85</span>
+									</div>
+								</div>
+							</li>
+							
+							<li>
+								<div class="question" style="padding-bottom:15px;">
+									<label>What's your car's gas mileage?</label>
+									<div class="slidercontainer">
+										<div id="slider3" class="slider">
+											<div class="circle"></div>
+											<div class="bar"></div>
+										</div>
+									</div>
+						
+									<div class="slidervalue">
+										<span id="slidervaluec">25</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+		
+						<input type="submit" id="startbutton" onclick="calcv();" value="Go" style="margin: -10px 0 0 20px;"/>
+						</div>
+						
+						<div id="wizard2" style="display: none;">
+							<p id="calcmessage"></p>
+						
+							<input type="submit" id="startbutton" onclick="loginUser()" value="Try Ridezu!"/>
+							<input type="submit" id="backbutton" onclick="calcback()" value="Back"/>
+						</div>
+						
+						<div id="wizard3" style="display: none;">
+							<p>Hello</p>
+						</div>
+					</div>
 
 				 </div>
 
@@ -56,12 +126,12 @@ include "header.php";
 		 </div>
 	 </section>
 	 
-	 <section id="quotes" style="display:none;">
+	 <section id="quotes" style="">
 		 <div class="corpwrapper">
 			 <aside id="corpapplinks" class="left">
 				 <h3>access ridezu on any mobile device</h3>
 				 
-				 <a href="#"><img src="images/appstorelink.png" alt="link to Ridezu's app on the iOS app store" /></a>
+				 <a href="https://itunes.apple.com/app/ridezu/id594682080?mt=8" target="apple" ><img src="images/appstore.png" alt="link to Ridezu's app on the iOS app store" /></a>
 				 
 				 <a href="#"><img src="images/html5.png" alt="link to the web app" /></a>
 			 </aside>
@@ -212,13 +282,14 @@ include "header.php";
 		 </div>
 	 </section>
 	
-	<section id ="noquotes" style="display:none;">
+	<section id="noquotes" style="display:none;">
 		<div class="corpwrapper">
 			<div id="space">
 			</div>
 		</div>
 	</section>
-		
+
+	<div id="corpstart" style="display:none;"></div>		
 <?php
 include "footer.php";
 ?>

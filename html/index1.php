@@ -198,14 +198,14 @@ if($client=="iOS"){
 			 <script>
 
 			 function updatetitle(){
-			 	a="ridezu://title/update/"+Math.random();
-				window.location = a;
+			    a=Math.random();
+			 	window.android.updatetitle(a);
 			     }
 			 </script>
 			 <br><br><section id="content">
 				 <ul>
-				 <a href="ridezu://backbutton/visible/true"><li>Show the back button</li></a>
-				 <a href="ridezu://title/update/hello%20world"><li>Update the title to "hello world"</li></a>
+				 <a href="#" onclick="window.android.backbuttonvisible('true')"><li>Show the back button</li></a>
+				 <a href="#" onclick="window.android.updatetitle('Hello World')"><li>Update the title to "hello world"</li></a>
 				 <a onclick="updatetitle()"><li>Update the title a random name</li></a>
 				 <a onclick="document.location.reload(true)"><li>Reload Page</li></a>
 				 <a><li>Client: <?php echo $client1;?></li></a>
@@ -257,7 +257,11 @@ if($client=="iOS"){
 		</div>
 		<div id="fb-root"></div>
 
-
+    <script>
+    if(env=="stage"){
+    	document.getElementById('w').style.background="#8b8b8b url(../images/mobilebackground_stage.png) repeat";
+    }    
+    </script>
 
 	<script type="text/javascript">
 	

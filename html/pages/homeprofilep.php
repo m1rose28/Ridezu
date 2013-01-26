@@ -44,7 +44,7 @@
 								
 			</section>
 
-			<input type="button" id="mapselect" onclick="updatehome();" data-role="none" class="primarybutton" value="Select" style="position:fixed;top: 86%;left: 0;z-index:300;"/>
+			<input type="button" id="mapselect" onclick="updatehome();" data-role="none" class="primarybutton" value="Select" style="position: fixed;top: 75%;left: 0;z-index: 300;"/>
 
 		</div>
 		

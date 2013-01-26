@@ -931,7 +931,7 @@
 			  			}
 			  		
 			  		if(value.type=="Company"){
-			  			icn="../images/basecmarker.png";
+			  			icn="../images/basecbmarker.png";
 			  			}
 
 			  		if(value.custommarker!=""){
@@ -1341,8 +1341,7 @@
 				document.getElementById('destdesc').innerHTML="<img src='images/start.png'/>Home";
 				document.getElementById('gotext').innerHTML="go home";
 		  		}
-		  mw=screenwidth-20;
-		  xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+rlist.startlatlong+"&sensor=false";
+		  xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size="+mw+"x"+mh+"&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+rlist.startlatlong+"&sensor=false";
 		  document.getElementById('ridedesta').src=xstartlatlong;		  		  
 		  document.getElementById('ridedestb').src=xstartlatlong;		  
 		  document.getElementById('amount').innerHTML="$"+rlist.amount;
@@ -1359,7 +1358,7 @@
 
 		  $.each(rlist.rideList, function(key, value) { 			
 			r++;
-			if((r>z && r<(z+6)) || preftime=="1"){
+			if((r>z && r<(z+slots)) || preftime=="1"){
 
 			   if(role=="driver"){ridelist=ridelist+"<a onclick=\"selectdriver('"+key+"');\"><li>";icon="car";}
 			   if(role=="rider"){ridelist=ridelist+"<a onclick=\"selectrider('"+key+"');\"><li>";icon="person";}
@@ -1861,8 +1860,7 @@
 					  document.getElementById('origindesc').innerHTML="<img src='images/start3.png'/>Work";
 					  document.getElementById('destdesc').innerHTML="<img src='images/start.png'/>Home";
 					  }
-		  		mw=screenwidth-20;
-				xoriginlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+value1.startlatlong+"&sensor=false";
+				xoriginlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size="+mw+"x"+mh+"&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+value1.startlatlong+"&sensor=false";
 				document.getElementById('ridedesta').src=xoriginlatlong;		  		  
 				document.getElementById('amount').innerHTML="$"+value1.amount;
 								
@@ -2243,11 +2241,11 @@
 			document.getElementById('r2').style.display="none;";			
 			document.getElementById('add1').innerHTML=myinfo.add1;
 			document.getElementById('city').innerHTML=myinfo.city;
-		  	mw=screenwidth-20;
-		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
+			document.getElementById('map_canvas').style.height=(screenheight-20)+"px";
+		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
 			document.getElementById('mapa').src=xstartlatlong;
 		  	if(myinfo.origindesc){
-				 x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.originlatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&sensor=false";
+				 x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.originlatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&sensor=false";
 				 document.getElementById('mapb').src=x1startlatlong;
 				 document.getElementById('pickupname').innerHTML=myinfo.origindesc;
 				 }
@@ -2318,11 +2316,11 @@
 			document.getElementById('r2').style.display="none";			
 			document.getElementById('add1').innerHTML=myinfo.workadd1;
 			document.getElementById('city').innerHTML=myinfo.workcity;
-		  	mw=screenwidth-20;
-		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.worklatlong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecmarker.png%7C"+myinfo.worklatlong+"&sensor=false";
+			document.getElementById('map_canvas').style.height=(screenheight-20)+"px";
+		  	xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.worklatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecbmarker.png%7C"+myinfo.worklatlong+"&sensor=false";
 			document.getElementById('mapa').src=xstartlatlong;
 		  	if(myinfo.destdesc){
-				x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.destlatong+"&zoom=13&size="+mw+"x100&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
+				x1startlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.destlatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecbmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
 				document.getElementById('mapb').src=x1startlatlong;
 				document.getElementById('pickupname').innerHTML=myinfo.destdesc;
 				}
@@ -2354,7 +2352,7 @@
 			y = x.split(",");
 			myspot = new google.maps.LatLng(y[0],y[1]);
 			info.pick="pickup";
-			loadMap("pickselect",myspot,18,"work");
+			loadMap("pickselect",myspot,12,"work");
 			}
 
 		function updatework(){
@@ -2729,8 +2727,11 @@
 		var cancelmessage="Cancel";
 		var confirmfunction="";
 		var showcancel=false;
-		var screenwidth=screen.width;
-		var screenheight=screen.height;
+		var screenwidth=$(window).width();
+		var screenheight=$(window).height();
+		var mw=screenwidth-20;
+		var mh=Math.max(100,screenheight-270);
+		var slots=Math.max(4,Math.round((screenheight-200)/40));
 		var updateuserflag=false;
 		var tp="";
 		var p="firstp";
@@ -2804,20 +2805,24 @@ $(document).ready(function() {
 		  document.body.style.display="block";
 		});
 	}
-if(client=="mweb"){
-	 window.addEventListener("load",function() {
-	   // Set a timeout...
-	   setTimeout(function(){
-		 // Hide the address bar!
-		 window.scrollTo(0, 1);
-	   }, 0);
-	document.getElementById("showbar").style.display="block";
-	document.body.style.display="block";
-	});
-  }
-
-if(client=="widget" || client=="iOS"){
- 	document.body.style.display="block";
-	document.getElementById("showbar").style.display="none";
- 	}
+	if(client=="mweb"){
+		 window.addEventListener("load",function() {
+		   // Set a timeout...
+		   setTimeout(function(){
+			 // Hide the address bar!
+			 window.scrollTo(0, 1);
+		   }, 0);
+		document.getElementById("showbar").style.display="block";
+		document.body.style.display="block";
+		});
+	  }
+	
+	if(client=="widget" || client=="iOS"){
+		document.body.style.display="block";
+		document.getElementById("showbar").style.display="none";
+		}
+	
+    if(client!="widget"){
+    	document.getElementById("w").style.minHeight=(screenheight-10)+"px";
+    	}
 });

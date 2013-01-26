@@ -117,6 +117,15 @@ section {
 	padding: 0;
 	position: relative;
 	left: 10px;
+	/*overflow: hidden;*/
+}
+
+.portalwrapper {
+	width: 980px;
+	margin: 0px auto;
+	padding: 0;
+	position: relative;
+	left: 10px;
 	overflow: hidden;
 }
 
@@ -149,7 +158,7 @@ header {
 	height: 110px;
 	margin: 10px 0 0 0;
 	min-width: 980px;
-	overflow: auto;
+	overflow: visible;
 }
 
 header h1 {
@@ -172,17 +181,63 @@ header #corplogo #cobrand {
 header #corpmenu {
 	float: right;
 	width: 550px;
-	margin: 30px 0 0 0;
+	margin: 30px 0px 0px 0;
+	
 }
 
 header #corpmenu ul {
-	list-style-type: none;
+	list-style: none;
+	position: relative;
+	display: inline-table;
+	padding-bottom:7px;
+}
+
+header #corpmenu ul:after {
+	content: ""; 
+	clear: both; 
+	display: block;
 }
 
 header #corpmenu li {
-	display: inline;
 	font-size: 22px;
-	margin-left: 34px;
+	display: inline;
+	margin-left: 23px;
+	padding-bottom: 10px;
+}
+
+header #corpmenu ul ul {
+	background: #eee;
+	border-radius: 5px;
+	width: 200px;
+	display: none;
+	position: absolute;
+	top: 100%;
+	z-index: 99999;
+	margin:-1px 0px 0px 25px;
+	padding: 5px;
+	-moz-box-shadow: 0 0 10px -2px #000;
+	-webkit-box-shadow: 0 0 10px -2px #000;
+	box-shadow: 0 0 10px -2px #000;
+}
+
+header #corpmenu li:hover > ul {
+	display: block;
+}
+
+header #corpmenu ul ul li {
+	display: block;
+	font-size:18px;
+	margin-left: 0px;
+	border-bottom: 1px dotted #333;
+	padding: 5px;
+}
+
+header #corpmenu ul ul li a:hover {
+	color:#15a501;
+}
+
+header #corpmenu ul ul li.last {
+	border-bottom: none;
 }
 
 #homepageintro {
@@ -299,7 +354,7 @@ section #corpstart {
 	box-shadow: 0 0 10px 0 #000;
 }
 
-section #corpstart input{
+section #corpstart input, section #corpstartcalc input[type=text]{
 	width: 330px;
 	height: 33px;
 	-webkit-border-radius: 25px;
@@ -316,21 +371,141 @@ section #corpstart input{
 	border: none;
 }
 
-section #corpstart input:focus{
+section #corpstart input:focus, section #corpstartcalc input[type=text]:focus{
 	outline: none;
 	-moz-box-shadow: inset 0 0 5px 1px #175300;
 	-webkit-box-shadow: inset 0 0 5px 1px #175300;
 	box-shadow: inset 0 0 5px 1px #175300;
 }
 
-section #corpstart #home {
+section #corpstart #home, section #corpstartcalc #home {
 	background: #fff url(../images/corpsprite.png) no-repeat;
 	background-position: 4px -98px;
 }
 
-section #corpstart #work {
+section #corpstart #work, section #corpstartcalc #work {
 	background: #fff url(../images/corpsprite.png) no-repeat;
 	background-position: 4px -143px;
+}
+
+section #corpstartcalc {
+	width: 410px;
+	height: 280px;
+	background: url(../images/bglight.png) repeat;
+	float: right;
+	position: relative; 
+	left: -80px;
+	margin-top: -20px;
+	overflow: hidden;
+	-webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
+	-moz-box-shadow: 0 0 10px 0 #000;
+	-webkit-box-shadow: 0 0 10px 0 #000;
+	box-shadow: 0 0 10px 0 #000;
+}
+
+section #corpstartcalc #backbutton {
+	width: 150px;
+	padding: 7px 5px 5px 5px;
+	margin: -10px 0 0 0;
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: rgb(150,150,150); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(150,150,150,1) 0%, rgba(104,104,104,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(150,150,150,1)), color-stop(100%,rgba(104,104,104,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(150,150,150,1) 0%,rgba(104,104,104,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(150,150,150,1) 0%,rgba(104,104,104,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(150,150,150,1) 0%,rgba(104,104,104,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(150,150,150,1) 0%,rgba(104,104,104,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#969696', endColorstr='#686868',GradientType=0 ); /* IE6-9 */
+	text-align: center;
+	text-shadow: -1px -1px #474747;
+	font-family: Helvetica, Arial, Sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	border: 1px solid #474747;
+	-moz-box-shadow: 0 1px 0 0 #333;
+	-webkit-box-shadow: 0 1px 0 0 #333;
+	box-shadow: 0 1px 0 0 #333;
+	float: left;
+}
+
+section #corpstartcalc #backbutton:hover {
+	background: rgb(104,104,104); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(104,104,104,1) 0%, rgba(150,150,150,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(104,104,104,1)), color-stop(100%,rgba(150,150,150,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(104,104,104,1) 0%,rgba(150,150,150,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(104,104,104,1) 0%,rgba(150,150,150,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(104,104,104,1) 0%,rgba(150,150,150,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(104,104,104,1) 0%,rgba(150,150,150,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#686868', endColorstr='#969696',GradientType=0 ); /* IE6-9 */
+}
+
+section #corpstartcalc #homepagecalctitle {
+	z-index: 999; 
+	float: left;
+	width: 410px;
+	height: 280px;
+	display: none;
+}
+
+section #corpstartcalc #homepagecalctitle h1 {
+	color: #fff;
+	font-size: 50px;
+	margin: 20% 20px;
+	text-align: center;
+	text-shadow: 0px 0px 5px #666;
+	line-height: 40px;
+}
+
+section #corpstartcalc #ridezunomics {
+	margin: 0px auto;
+	width: 410px;
+	float: left;
+}
+
+section #corpstartcalc #startbutton {
+	width: 150px;
+	float: right; 
+	position: absolute;
+	margin: -10px 0 0 0;
+	bottom: 10px;
+	right: 10px;
+}
+
+section #corpstartcalc #wizard1 #startbutton {
+	position: relative;
+	width: 120px;
+	top: -60px;
+	right: 0;
+	bottom: 0;
+}
+
+section #corpstartcalc #wizard2 {
+	padding: 0px 10px;
+}
+
+section #corpstartcalc #wizard2 #backbutton {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+
+section #corpstartcalc #wizard1 {
+	padding: 0 10px 0 0;
+}
+
+section #corpstartcalc p {
+	margin: 10px 0;
+	padding-bottom:8px;
+	line-height:1.3;
+}
+
+section #corpstartcalc #home {
+	margin-top: 40px;
 }
 
 section #maincontent {
@@ -347,9 +522,6 @@ section #maincontent .displaypicture {
 	margin: 5px;
 	height: 110px;
 	width: 110px;
-	-webkit-border-radius: 7px;
-	-moz-border-radius: 7px;
-	border-radius: 7px;	
 }
 
 section #maincontent #border {
@@ -434,6 +606,61 @@ section #maincontent.contact p{
 	margin-bottom: 0;
 }
 
+section #portalcontent {
+	min-height: 180px;
+	width: 980px;
+	background: #fff;
+	margin: 20px 0 20px 0px;
+	position: relative;
+	padding: 10px;
+	overflow: hidden;
+}
+
+section #portalcontent .charttitle {
+	font-size:25px;
+	margin-left:30px;
+	}
+
+section #portalcontent .charttitle {
+	font-size:25px;
+	margin-left:30px;
+	}
+	
+section #portalcontent .summarytable {
+	margin-left:50px;
+	background: #eeeeee;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;	
+	width:30%;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	}
+
+section #loginbox{
+	background:#bae685;
+	padding:10px;
+	margin-top:10px;
+	margin-left:30px;
+	margin-bottom:20px;
+	width:320px;
+	}
+
+section #loginbox div{
+	padding:10px 10px 10px 0px;
+	}
+
+section #loginbox input{
+	width:300px;
+	display:block;
+	}
+	
+section #loginbox a{
+	display:block;
+	text-align:center;
+	}
+	
 section #startbutton {
 	width: 200px;
 	padding: 7px 5px 5px 5px;
@@ -1066,4 +1293,5 @@ footer p {
         page-break-after: avoid;
     }
 }
+
 

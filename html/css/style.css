@@ -633,7 +633,8 @@ a.minibutton:hover {
 
 #w #pagebody #content #map_canvas {
 	position: relative;
-	top: -345px;
+	top: -55px;
+	margin:0px;
 	border-top: 1px solid #9f9f9f;
 	z-index: 60;
 	float: left;

@@ -1,7 +1,14 @@
-<?php require_once 'rzconfig.php';
+<?php require_once '../rzconfig.php';
+
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
+$c="";
 
 if(isset($_GET["c"])){$c=$_GET["c"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
+
+$dbh=mysql_connect ("localhost", "ridezu", "ridezu123") or die ('I cannot connect to the database because: ' . mysql_error());
+mysql_select_db ("ridezu");
 
 ?>
 
@@ -34,11 +41,11 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
         <meta property="og:url" content="https://www.ridezu.com"/>
         <meta property="og:image" content="https://www.ridezu.com/images/ridezuAppIcon200.png" />
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="css/style.css?v=<?php echo $rzversion;?>">
-        <link rel="stylesheet" href="css/normalize.min.css?v=<?php echo $rzversion;?>">
-		<link rel="stylesheet" href="css/corpstyle.css?v=<?php echo $rzversion;?>">
+        <link rel="stylesheet" href="../css/normalize.min.css?v=<?php echo $rzversion;?>">
+		<link rel="stylesheet" href="../css/style.css?v=<?php echo $rzversion;?>">
+		<link rel="stylesheet" href="../css/corpstyle.css?v=<?php echo $rzversion;?>">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script src="js/ridezucorp.js?v=<?php echo $rzversion;?>"></script>
+        <script src="../js/ridezucorp.js?v=<?php echo $rzversion;?>"></script>
     </head>
     <body>
         <header>
@@ -51,19 +58,26 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
 	        
 			<div class="corpwrapper">
 				<div id="corplogo">
-					<h1><a href="/index.php"><img src="images/ridezulogo.png" alt="Ridezu" /></a></h1>
+					<h1><a href="../index.php"><img src="../images/ridezulogo.png" alt="Ridezu" /></a></h1>
 					
 					<img id="cobrand" src=""/>
 				</div>
 				
 				<div id="corpmenu">
 					<ul>
-						<li><a href="/howitworks.php" alt="How it Works">how it works</a></li>
-						<li><a href="/benefits.php" alt="Benefits">benefits</a></li>
-						<li><a href="/safety.php" alt="Safety">safety</a></li>
-						<li><a href="/faq.php" alt="Faq">faq</a></li>
-						<li id="lin" style="display:none;"><a href="#" onclick="loginUser();" alt="Login">login</a></li>
-						<li id="lout" style="display:none;"><a href="#" onclick="logoutUser();" alt="Logout">logout</a></li>
+						<li class="dropdown"><a href="#" alt="Analytics">Analytics</a>
+							<ul>
+								<li><a href="usagesummary.php">Usage Summary</a></li>
+								<li><a href="footprint.php">Footprint Analysis</a></li>
+								<li><a href="carpoolstudy.php">Carpool Report</a></li>
+								<li><a href="co2savings.php">C02 Savings</a></li>
+								<li><a href="funfacts.php">Fun Facts</a></li>
+							</ul>
+						</li>
+						<li><a href="messaging.php" alt="Benefits">Messaging</a></li>
+						<li><a href="rides.php" alt="Safety">Rides</a></li>
+						<li><a href="admin.php" alt="Faq">Admin</a></li>
+						<li><a href="login.php" alt="Faq">Login</a></li>
 					</ul>
 				</div>
 			</div>
