@@ -127,8 +127,7 @@ function findByLogin($login, $pwd)
         $stmt->execute();
         $user = $stmt->fetchObject();
         $db = null;
-        if((!is_null($user->profileblob) || !empty($user->profileblob))  && (is_json($user->profileb\
-lob))){
+        if((!is_null($user->profileblob) || !empty($user->profileblob))  && (is_json($user->profileblob))){
           $user->profileblob = json_decode($user->profileblob);
         }
         echo json_encode($user);
