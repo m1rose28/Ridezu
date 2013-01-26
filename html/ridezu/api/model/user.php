@@ -105,6 +105,37 @@ function findByFB($query)
     }
 }
 
+function findByLogin($login, $pwd)
+{
+  //    authorize($query);                                                                           
+    setHeader();
+
+    $sql = "SELECT u.* FROM login l, userprofile u " .
+             " WHERE UPPER(l.user_key) = UPPER(:login) " .
+             "   and UPPER(l.password) = UPPER(sha1(:pwd)) " .
+             "   and l.userprofile_id = u.id " .
+             "   and u.deleted <> 'Y' ";
+    try {
+        $hash=getHashKey();
+
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam("login", $login);
+        $stmt->bindParam("pwd", $pwd);
+
+        $stmt->execute();
+        $user = $stmt->fetchObject();
+        $db = null;
+        if((!is_null($user->profileblob) || !empty($user->profileblob))  && (is_json($user->profileb\
+lob))){
+          $user->profileblob = json_decode($user->profileblob);
+        }
+        echo json_encode($user);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
 
 function findPublicDataByFB($query)
 {

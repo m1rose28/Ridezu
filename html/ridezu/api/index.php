@@ -23,6 +23,7 @@ $app->get('/v/1/users', 'getUsers' );
 $app->get('/v/1/users/:id',	'getUser');
 $app->get('/v/1/users/search/fname/:query', 'findByName');
 $app->get('/v/1/users/search/fbid/:query', 'findByFB'); //authorization enabled
+$app->get('/v/1/users/search/login/:userid/pwd/:pwd', 'findByLogin');
 $app->get('/v/1/users/searchpublic/fbid/:query', 'findPublicDataByFB');
 $app->post('/v/1/users', 'addUser');
 $app->put('/v/1/users/:id/fbid/:fbid', 'updateUser'); //authorization enabled
