@@ -127,14 +127,53 @@ function findByLogin($login, $pwd)
         $stmt->execute();
         $user = $stmt->fetchObject();
         $db = null;
-		if ($user == FALSE) {
-		  echo '{"loginresult":{"text":' . "invalid credentials" .'}}';
-		} else {
-		  if((!is_null($user->profileblob) || !empty($user->profileblob))  && (is_json($user->profileblob))){
-			$user->profileblob = json_decode($user->profileblob);
-		  }
-		}
+        if ($user == FALSE) {
+          echo '{"loginresult":{"text":' . "invalid credentials" .'}}';
+        } else {
+          if((!is_null($user->profileblob) || !empty($user->profileblob))  && (is_json($user->profileblob))){
+            $user->profileblob = json_decode($user->profileblob);
+          }
+        }
         echo json_encode($user);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+function updatePwdLogin($login, $pwd, $newpwd) {
+
+    setHeader();
+
+    $sql = "SELECT l.user_key FROM login l, userprofile u " .
+             " WHERE UPPER(l.user_key) = UPPER(:login) " .
+             "   and UPPER(l.password) = UPPER(sha1(:pwd)) " .
+             "   and l.userprofile_id = u.id " .
+             "   and u.deleted <> 'Y' ";
+
+    try {
+	  $hash=getHashKey();
+
+	  $db = getConnection();
+	  $stmt = $db->prepare($sql);
+
+	  $stmt->bindParam("login", $login);
+	  $stmt->bindParam("pwd", $pwd);
+
+	  $stmt->execute();
+	  $user = $stmt->fetchObject();
+
+	  if ($user == FALSE) {
+		echo '{"updatepasswordresult":{"text":' . "invalid credentials" .'}}';
+	  } else {
+		$sql = "UPDATE login set password = sha1(:newpwd) where user_key = :login";
+        $stmt= $db->prepare($sql);
+
+		$stmt->bindParam("login", $login);
+		$stmt->bindParam("newpwd", $newpwd);
+		$stmt->execute();
+		echo '{"updatepasswordresult":{"text":' . "success" .'}}';
+	  }
+	  $db = null;
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
