@@ -1,7 +1,9 @@
 <?php 
 	
+$title="Footprint";
 include 'header.php';
 
+//$c="Tesla";
 $m="";
 $q="";
 $campus="";
@@ -14,11 +16,13 @@ if($campus!="" and $campus !="All"){
 	$q=" and campus='$campus'";
 	}
 	
-$query = "SELECT id,add1,city,state,latlong from footprint where latlong is not null".$q;
+$query = "SELECT id,add1,city,state,latlong from footprint where latlong is not null and company='$c'".$q;
 
-$result = mysql_query($query) or die(mysql_error());
+$footprintdata = mysql_query($query) or die(mysql_error());
 
-while($row = mysql_fetch_array($result)){
+if(mysql_num_rows($footprintdata)>1){
+
+while($row = mysql_fetch_array($footprintdata)){
 
 	$image="../images/start1.png";
 	$latlong=$row[4];
@@ -30,7 +34,7 @@ while($row = mysql_fetch_array($result)){
 		}
 	}
 
-$query = "SELECT campus,worklatlong,count(id) from footprint where worklatlong is not null group by campus order by count(id) DESC";
+$query = "SELECT campus,worklatlong,count(id) from footprint where worklatlong is not null and company='$c' group by campus order by count(id) DESC";
 
 $result = mysql_query($query) or die(mysql_error());
 
@@ -139,7 +143,7 @@ opacity:.9;
 					</div>
 					
 					<div id="corptitle" class="index80">
-						<h2>Carpool Footprint Map</h2>
+						<h2>Footprint Map</h2>
 					</div>
 					
 				</div>
@@ -299,7 +303,42 @@ opacity:.9;
 
 </script>
 
-<?php
+<?php 
+}
+
+if(mysql_num_rows($footprintdata)<1){ ?>
+
+
+		<section id="homepageintro">
+			<div class="portalwrapper">
+				<div id="corpmain">
+					<div id="slider">
+						<img class="slide" src="../images/bannerimage.jpg" alt="San Francisco" />
+					</div>
+					
+					<div id="corptitle" class="index80">
+						<h2>Footprint</h2>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+		<section>
+			<div class="portalwrapper">
+
+				<div id="portalcontent" class="left contact">				
+					<div class="charttitle">Footprint Map</div>
+					<div class="charttext">Have you ever seen a graphical representation of where your employees live, by campus?  The Ridezu Footprint shows you where your employees live and you can easily see where alternative transportation can make a big difference.</div>
+					<br><img src="../images/footprint.png" style="margin-left:50px;"/>
+				</div>
+			</div>
+		</section>
+
+
+
+<?php }
+
 
 include "footer.php";
 ?>

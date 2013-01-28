@@ -41,6 +41,12 @@ function authenticate()
     if ((strpos($reqURL, 'v/1/users') !== false) && ($reqPOST)) {
         return;
     }
+    if ((strpos($reqURL, 'v/1/users/search/login') !== false)) {
+        return;
+    }
+	if (strpos($reqURL, 'balance/virtual/fixBalance') !== false) {
+        return;
+    }
     if (strpos($reqURL, 'rides/eventstate/COMPLETE') !== false) {
         return;
     }

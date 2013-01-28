@@ -29,10 +29,6 @@
 
 			</div>
 		</footer>
-
-	   <div id="fb-root"></div>
-	   <iframe id="fbauth" src="" style="width:0px;height:0px;"></iframe>
-		
 		
 	   <script type="text/javascript">
 	   

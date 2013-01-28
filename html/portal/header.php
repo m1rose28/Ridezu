@@ -2,10 +2,25 @@
 
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
-$c="";
 
-if(isset($_GET["c"])){$c=$_GET["c"];}
-if(isset($_GET["t"])){$t=$_GET["t"];}
+$script="";
+
+if(isset($_GET["logoff"])){
+	$_SESSION['corpuserid']="";
+	$_SESSION['corpseckey']="";
+	$_SESSION['company']="";
+	$script=$script."
+			localStorage.removeItem(\"corplogin\");
+			localStorage.removeItem(\"corpuserid\");
+			localStorage.removeItem(\"corpseckey\");
+			";
+	}
+
+$c=$_SESSION['company'];
+$corpuserid=$_SESSION['corpuserid'];
+$corpseckey=$_SESSION['corpseckey'];
+
+if($corpseckey=="" and $title!="Login"){header("Location: login.php");echo "what";}
 
 $dbh=mysql_connect ("localhost", "ridezu", "ridezu123") or die ('I cannot connect to the database because: ' . mysql_error());
 mysql_select_db ("ridezu");
@@ -19,14 +34,14 @@ mysql_select_db ("ridezu");
 
     <head>
 		<script>
+      		<?php echo $script;?>
       		var page="<?php echo $title;?>";
-      		var myinfo={};
+      		var mycorpinfo={};
       		var info={};
-	    	myinfo.company="<?php echo $c;?>";
-	    	if(localStorage.seckey!=undefined){
-				var optimizely = optimizely || [];
-				optimizely.push("disable");	
-	    		}		
+	    	mycorpinfo.company="<?php echo $c;?>";
+      		mycorpinfo.corpuserid="<?php echo $corpuserid;?>";
+      		mycorpinfo.corpseckey="<?php echo $corpseckey;?>";
+
       	</script>		
       	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
         <meta charset="utf-8">
@@ -45,16 +60,10 @@ mysql_select_db ("ridezu");
 		<link rel="stylesheet" href="../css/style.css?v=<?php echo $rzversion;?>">
 		<link rel="stylesheet" href="../css/corpstyle.css?v=<?php echo $rzversion;?>">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script src="../js/ridezucorp.js?v=<?php echo $rzversion;?>"></script>
+        <script src="../js/ridezuportal.js?v=<?php echo $rzversion;?>"></script>
     </head>
     <body>
         <header>
-			<style>
-				body.connected #login { display: none; }
-				body.connected #logout { display: block; }
-				body.not_connected #login { display: block; }
-				body.not_connected #logout { display: none; }
-			</style>
 	        
 			<div class="corpwrapper">
 				<div id="corplogo">
@@ -74,10 +83,13 @@ mysql_select_db ("ridezu");
 								<li><a href="funfacts.php">Fun Facts</a></li>
 							</ul>
 						</li>
-						<li><a href="messaging.php" alt="Benefits">Messaging</a></li>
-						<li><a href="rides.php" alt="Safety">Rides</a></li>
-						<li><a href="admin.php" alt="Faq">Admin</a></li>
-						<li><a href="login.php" alt="Faq">Login</a></li>
+						<li><a href="messaging.php" alt="Messaging">Messaging</a></li>
+						<li><a href="rides.php" alt="Rides">Rides</a></li>
+						<li><a href="admin.php" alt="Admin">Admin</a></li>
+						<?php 	if($corpseckey!=""){?>
+							<li><a href="login.php?logoff=true" alt="Logoff">Logoff</a></li>
+							<?php } ?>
+
 					</ul>
 				</div>
 			</div>

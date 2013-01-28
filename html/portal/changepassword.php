@@ -1,6 +1,6 @@
 <?php 
 
-$title="Login";
+$title="Change Password";
 	
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
@@ -11,6 +11,8 @@ include 'header.php';
 
 ?>
 
+
+
 		<section id="homepageintro">
 			<div class="portalwrapper">
 				<div id="corpmain">
@@ -19,7 +21,7 @@ include 'header.php';
 					</div>
 					
 					<div id="corptitle" class="index80">
-						<h2>Login</h2>
+						<h2>Change Password</h2>
 					</div>
 					
 				</div>
@@ -31,23 +33,21 @@ include 'header.php';
 
 				<div id="portalcontent" class="left contact">
 				
-					 <div class="charttitle">Login</div>
+					 <div class="charttitle">Change Password</div>
 					 <div id="loginbox">
-					 <div>Email:</div>
-					 <input type="text" id="login" value=""/>
-					 <div>Password:</div>
-					 <input type="password" id="password" value=""/>
-					 <br><div id="startbutton" href="#" onclick="loginuser();">Login</div> 
-					 <!--<a href="#" onclick="passwordreset();">Forgot password?</a>-->
+					 <div>Please enter your current password:</div>
+					 <input type="password" id="oldpassword" value=""/>
+					 <div>Please enter your new password:</div>
+					 <input type="password" id="newpassword" value=""/>
+					 <div>Please re-type your new password:</div>
+					 <input type="password" id="newpassword1" value=""/>
+					 <br><div id="startbutton" href="#" onclick="changepassword();">Change Password</div> 
 					 </div>
-					 					 <br> 
-					 <!--Don't have a login? <a href="register.php">Sign-up for a corporate account ></a>-->
-
+					 
 				</div>
 			</div>
 		</section>
 
-<iframe id="loginiframe" src="" style="width:0px;height:0px;"/> 
 
 <?php 
 include 'footer.php';

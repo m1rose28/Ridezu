@@ -180,8 +180,8 @@ header #corplogo #cobrand {
 
 header #corpmenu {
 	float: right;
-	width: 550px;
-	margin: 30px 0px 0px 0;
+	width: 590px;
+	margin: 10px 0px 0px 0;
 	
 }
 
@@ -621,11 +621,23 @@ section #portalcontent .charttitle {
 	margin-left:30px;
 	}
 
+section #portalcontent .label1 {
+	color:#aaa;
+	padding-top:15px;
+	}
+	
 section #portalcontent .charttitle {
 	font-size:25px;
 	margin-left:30px;
 	}
-	
+
+section #portalcontent .charttext {
+	font-size:18px;
+	padding-left:30px;
+	padding-top:10px;
+	padding-right:30px;
+	}
+		
 section #portalcontent .summarytable {
 	margin-left:50px;
 	background: #eeeeee;
@@ -639,7 +651,7 @@ section #portalcontent .summarytable {
 	}
 
 section #loginbox{
-	background:#bae685;
+	background:#e1ffbc;
 	padding:10px;
 	margin-top:10px;
 	margin-left:30px;

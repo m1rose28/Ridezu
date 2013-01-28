@@ -2,8 +2,12 @@
 	
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
+
+$title="Carpool Report";
 	
 include 'header.php';
+
+//$c="Tesla";
 
 $campus="not selected";
 $campusd="<select id=\"campus\" onchange=\"selectcampus();\"><option value=\"Select a campus\">Select a campus</option>";
@@ -11,9 +15,12 @@ if(isset($_GET["campus"])){$campus=addslashes($_GET["campus"]);}
 
 $q=" and campus='$campus'";
 	
-$query = "SELECT campus,count(id) from footprint where worklatlong is not null group by campus order by count(id) DESC ";
+$query = "SELECT campus,count(id) from footprint where worklatlong is not null and company='$c' group by campus order by count(id) DESC ";
 
 $result = mysql_query($query) or die(mysql_error());
+$c1=mysql_num_rows($result);
+
+if($c1>0){
 
 while($row = mysql_fetch_array($result)){
 	$campusd=$campusd."<option value=\"$row[0]\">$row[0]</option>";
@@ -21,7 +28,7 @@ while($row = mysql_fetch_array($result)){
 
 $campusd=$campusd."</select>";
 	
-$query = "SELECT id,add1,city,state,latlong,worklatlong from footprint where latlong is not null".$q;
+$query = "SELECT id,add1,city,state,latlong,worklatlong from footprint where latlong is not null and company='$c'".$q;
 
 $result = mysql_query($query) or die(mysql_error());
 
@@ -178,7 +185,7 @@ $penetration=round(($carpool/$c)*100)."%";
 					</div>
 					
 					<div id="corptitle" class="index80">
-						<h2>Carpool Footprint Study</h2>
+						<h2>Carpool Report</h2>
 					</div>
 					
 				</div>
@@ -240,8 +247,41 @@ $penetration=round(($carpool/$c)*100)."%";
 
 </script>
 
-
 <?php 
+}
+
+if($c1<1){ ?>
+
+
+		<section id="homepageintro">
+			<div class="portalwrapper">
+				<div id="corpmain">
+					<div id="slider">
+						<img class="slide" src="../images/bannerimage.jpg" alt="San Francisco" />
+					</div>
+					
+					<div id="corptitle" class="index80">
+						<h2>Carpool Report</h2>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+		<section>
+			<div class="portalwrapper">
+
+				<div id="portalcontent" class="left contact">				
+					<div class="charttitle">Carpool Report</div>
+					<div class="charttext">Will carpools really work for your company?  The Ridezu Carpool Report tells you how many people can take advantage of carpools and if it's a good solution for your company.</div>
+					<br><img src="../images/carpoolreport.png" style="margin-left:50px;"/>
+				</div>
+			</div>
+		</section>
+
+
+
+<?php }
 include 'footer.php';
 ?>
 

@@ -1,6 +1,6 @@
 <?php 
 
-$title="Login";
+$title="Sign-up";
 	
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
@@ -11,6 +11,8 @@ include 'header.php';
 
 ?>
 
+
+
 		<section id="homepageintro">
 			<div class="portalwrapper">
 				<div id="corpmain">
@@ -19,7 +21,7 @@ include 'header.php';
 					</div>
 					
 					<div id="corptitle" class="index80">
-						<h2>Login</h2>
+						<h2>Sign-up</h2>
 					</div>
 					
 				</div>
@@ -31,23 +33,27 @@ include 'header.php';
 
 				<div id="portalcontent" class="left contact">
 				
-					 <div class="charttitle">Login</div>
+					 <div class="charttitle">Sign-up for a corporate account</div>
 					 <div id="loginbox">
+					 <div>First name:</div>
+					 <input type="text" id="fname" value=""/>
+					 <div>Last name:</div>
+					 <input type="text" id="lname" value=""/>
+					 <div>Company:</div>
+					 <input type="text" id="company" value=""/>
 					 <div>Email:</div>
-					 <input type="text" id="login" value=""/>
+					 <input type="text" id="email" value=""/>
 					 <div>Password:</div>
 					 <input type="password" id="password" value=""/>
-					 <br><div id="startbutton" href="#" onclick="loginuser();">Login</div> 
-					 <!--<a href="#" onclick="passwordreset();">Forgot password?</a>-->
+					 <br><div id="startbutton" href="#" onclick="passwordreset();">Sign-up</div> 
+					 <a href="login.php">I already have an account</a>
 					 </div>
 					 					 <br> 
-					 <!--Don't have a login? <a href="register.php">Sign-up for a corporate account ></a>-->
-
 				</div>
 			</div>
 		</section>
 
-<iframe id="loginiframe" src="" style="width:0px;height:0px;"/> 
+
 
 <?php 
 include 'footer.php';

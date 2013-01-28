@@ -7,17 +7,19 @@ $title="CO2 Savings";
 	
 include 'header.php';
 
-$company="Tesla";
+//$c="Tesla";
 	
-$query = "SELECT Date,ShuttleC02Savings,VanpoolCO2Savings,CarpoolCO2Savings,BikeCO2savings,TotalCO2Savings,CumulativeCO2Savings from chartdata where type='day' and Company='$company' order by Date ASC limit 0,31";
+$query = "SELECT Date,ShuttleC02Savings,VanpoolCO2Savings,CarpoolCO2Savings,BikeCO2savings,TotalCO2Savings,CumulativeCO2Savings from chartdata where type='day' and Company='$c' order by Date ASC limit 0,31";
 
 $dailydata = mysql_query($query) or die(mysql_error());
 
-$query = "SELECT Date,ShuttleC02Savings,VanpoolCO2Savings,CarpoolCO2Savings,BikeCO2savings,TotalCO2Savings,CumulativeCO2Savings from chartdata where type='month' and Company='$company' order by Date ASC limit 0,31";
+$query = "SELECT Date,ShuttleC02Savings,VanpoolCO2Savings,CarpoolCO2Savings,BikeCO2savings,TotalCO2Savings,CumulativeCO2Savings from chartdata where type='month' and Company='$c' order by Date ASC limit 0,31";
 
 $monthlydata = mysql_query($query) or die(mysql_error());
 
 // now that we have the data let's start printing it out
+
+if(mysql_num_rows($dailydata)>1){
 
 ?>
 
@@ -211,6 +213,41 @@ $monthlydata = mysql_query($query) or die(mysql_error());
 	</script>
 
 <?php 
+}
+
+if(mysql_num_rows($dailydata)<1){ ?>
+
+
+		<section id="homepageintro">
+			<div class="portalwrapper">
+				<div id="corpmain">
+					<div id="slider">
+						<img class="slide" src="../images/bannerimage.jpg" alt="San Francisco" />
+					</div>
+					
+					<div id="corptitle" class="index80">
+						<h2>CO2 Savings</h2>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+		<section>
+			<div class="portalwrapper">
+
+				<div id="portalcontent" class="left contact">				
+					<div class="charttitle">CO2 Savings</div>
+					<div class="charttext">How much CO2 are you saving?  Now you confidently demonstrate how much CO2 your programs are contributing to the environment. </div>
+					<br><img src="../images/co2savings.png" style="margin-left:50px;"/>
+				</div>
+			</div>
+		</section>
+
+
+
+<?php }
+
 include 'footer.php';
 ?>
 

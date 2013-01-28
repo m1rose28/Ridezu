@@ -30,8 +30,7 @@ function getAccountSummary($fbid, $timeperiod)
     }
     
     
-    $sql = "select sum(credit) totalcredit, sum(debit) totaldebit, count(1) totaltrips, sum(miles) totalmiles, count(1) totalgassavingspercent, sum(co2) totalco2, (sum(riders) - count(1)) totalpassengers,
-0 virtualbalance, 0 realbalance	
+    $sql = "select sum(credit) totalcredit, sum(debit) totaldebit, count(1) totaltrips, sum(miles) totalmiles, count(1) totalgassavingspercent, sum(co2) totalco2, (sum(riders) - count(1)) totalpassengers
 from transhistory
 where fbid =:fbid and eventtype in ('1','0') and eventstate='COMPLETE' and eventtime between :startdate and :enddate order by eventtime desc";
     
@@ -51,12 +50,6 @@ where fbid =:fbid and eventtype in ('1','0') and eventstate='COMPLETE' and event
             $workingdays                     = getWorkingDays($startdate, $enddate, array());
             //echo "working days " . $workingdays;
             $account->totalgassavingspercent = (string) round($account->totaltrips * 2 / $workingdays * 100, 2);
-			
-			//get vitual balance and real balance and override the value in $account
-			$balance = getBalance($fbid);
-			$account->virtualbalance=$balance->virtualbalance;
-			$account->realbalance=$balance->realbalance;
-		
             echo '{"account":' . json_encode($account) . '}';
         }
         $db = null;

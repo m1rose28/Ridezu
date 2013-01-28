@@ -2489,9 +2489,9 @@
         }
 
 		function paintaccount(data){
-			document.getElementById('credits').innerHTML=curr(data.account.totalcredit);
+			document.getElementById('credits').innerHTML=curr(+data.account.totalcredit+data.account.virtualbalance);
 			document.getElementById('charges').innerHTML=curr(data.account.totaldebit);
-			balance1=+data.account.totalcredit - +data.account.totaldebit;
+			balance1=+data.account.totalcredit - +data.account.totaldebit + +data.account.virtualbalance;
 
 			if(balance1>0){legend="driver"} else {legend="rider"}
 

@@ -7,25 +7,25 @@ $title="Fun Facts";
 	
 include 'header.php';
 
-$company="Tesla";
+//$c="Tesla";
 	
 // this gets the trip data 
 
-	$query = "SELECT sum(ShuttleUsers),sum(VanpoolUsers),sum(CarpoolUsers),sum(Bike) from chartdata where type='month' and Company='$company'";
+	$query = "SELECT sum(ShuttleUsers),sum(VanpoolUsers),sum(CarpoolUsers),sum(Bike) from chartdata where type='month' and Company='$c'";
 	$tripdata = mysql_query($query) or die(mysql_error());
 	$td = mysql_fetch_array($tripdata);
 	$totaltrips=number_format($td[0]+$td[1]+$td[2]+$td[3]);
 	
 // co2 savings
 
-	$query = "SELECT sum(ShuttleC02Savings),sum(VanpoolCO2Savings),sum(CarpoolCO2Savings),sum(BikeCO2savings) from chartdata where type='month' and Company='$company'";
+	$query = "SELECT sum(ShuttleC02Savings),sum(VanpoolCO2Savings),sum(CarpoolCO2Savings),sum(BikeCO2savings) from chartdata where type='month' and Company='$c'";
 	$co2data = mysql_query($query) or die(mysql_error());
 	$co2 = mysql_fetch_array($co2data);
 	$totalco2=number_format($co2[0]+$co2[1]+$co2[2]+$co2[3]);
 
 // cars removed from road (total vehicles-(total cars/density)
 
-	$query = "SELECT AVG(ShuttleDensity),AVG(VanpoolDensity),AVG(CarpoolDensity) from chartdata where type='month' and Company='$company'";
+	$query = "SELECT AVG(ShuttleDensity),AVG(VanpoolDensity),AVG(CarpoolDensity) from chartdata where type='month' and Company='$c'";
 	$den = mysql_query($query) or die(mysql_error());
 	$cardensity = mysql_fetch_array($den);
 	$s=array();
@@ -61,6 +61,9 @@ $company="Tesla";
 
 
 // now that we have the data let's start printing it out
+// note: we'll only include this data if we have data
+
+if ($totaltrips>0){
 
 ?>
 
@@ -281,6 +284,40 @@ $company="Tesla";
 	</script>
 
 <?php 
+}
+
+if ($totaltrips<=0){
+?>
+
+		<section id="homepageintro">
+			<div class="portalwrapper">
+				<div id="corpmain">
+					<div id="slider">
+						<img class="slide" src="../images/bannerimage.jpg" alt="San Francisco" />
+					</div>
+					
+					<div id="corptitle" class="index80">
+						<h2>Fun Facts</h2>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+		<section>
+			<div class="portalwrapper">
+
+				<div id="portalcontent" class="left contact">				
+					<div class="charttitle">Fun Facts</div>
+					<div class="charttext">How many cars are you taking off the road?  How much are you saving your employees?  Fun Facts includes a series of fun and quoteable graphs and figures to help you drive more interest in alternative transportation.</div>
+					<br><img src="../images/funfacts.png" style="margin-left:50px;"/>
+				</div>
+			</div>
+		</section>
+
+
+<?php }
+
 include 'footer.php';
 ?>
 

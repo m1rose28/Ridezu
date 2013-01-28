@@ -7,17 +7,21 @@ $title="Usage Summary";
 	
 include 'header.php';
 
-$company="Tesla";
+//$c="Tesla Motors";
 	
-$query = "SELECT Date,ShuttleUsers,VanPoolUsers,CarpoolUsers,Bike from chartdata where type='day' and Company='$company' order by Date ASC limit 0,31";
+$query = "SELECT Date,ShuttleUsers,VanPoolUsers,CarpoolUsers,Bike from chartdata where type='day' and Company='$c' order by Date ASC limit 0,31";
 
 $dailydata = mysql_query($query) or die(mysql_error());
 
-$query = "SELECT Date,ShuttleUsers,VanPoolUsers,CarpoolUsers,Bike from chartdata where type='month' and Company='$company' order by Date ASC limit 0,31";
+
+$query = "SELECT Date,ShuttleUsers,VanPoolUsers,CarpoolUsers,Bike from chartdata where type='month' and Company='$c' order by Date ASC limit 0,31";
 
 $monthlydata = mysql_query($query) or die(mysql_error());
 
 // now that we have the data let's start printing it out
+
+if(mysql_num_rows($dailydata)>1){
+
 
 ?>
 
@@ -145,6 +149,42 @@ $monthlydata = mysql_query($query) or die(mysql_error());
 	</script>
 
 <?php 
+}
+
+if(mysql_num_rows($dailydata)<1){ ?>
+
+
+		<section id="homepageintro">
+			<div class="portalwrapper">
+				<div id="corpmain">
+					<div id="slider">
+						<img class="slide" src="../images/bannerimage.jpg" alt="San Francisco" />
+					</div>
+					
+					<div id="corptitle" class="index80">
+						<h2>Usage Summary</h2>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		
+		<section>
+			<div class="portalwrapper">
+
+				<div id="portalcontent" class="left contact">				
+					<div class="charttitle">Usage Summary</div>
+					<div class="charttext">How are your employees getting to work?  How many of them are using your programs?  Usage Summary gives a great daily and monthly usage of the platform.</div>
+					<br><img src="../images/usagesummary.png" style="margin-left:50px;"/>
+				</div>
+			</div>
+		</section>
+
+
+
+<?php }
+
+
 include 'footer.php';
 ?>
 

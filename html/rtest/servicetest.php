@@ -476,11 +476,13 @@ include 'header.php';
             });
         }
 
-// this is to get balance
 
-		function getbalance(){
-        	fbid=document.getElementById("balancefbid").value;
-		    url="/ridezu/api/v/1/balance/"+fbid;
+// this is to try a login
+
+		function loginuser(){
+        	login=document.getElementById("login").value;
+        	password=document.getElementById("password").value;
+		    url="/ridezu/api/v/1/users/search/login/"+login+"/pwd/"+password;
 			type="GET";
 			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
 
@@ -495,12 +497,15 @@ include 'header.php';
             });
         }
 
-// this is to make a referral
 
-		function referral(){
-        	fbid1=document.getElementById("referringfbid").value;
-        	fbid2=document.getElementById("referredfbid").value;
-		    url="/ridezu/api/v/1/balance/referer/"+fbid1+"/fbid/"+fbid2;
+// this is to change password
+
+		function changepassword(){
+        	clogin=document.getElementById("clogin").value;
+        	cpassword=document.getElementById("cpassword").value;
+        	cpassword1=document.getElementById("cpassword1").value;
+		    
+		    url="/ridezu/api/v/1/users/search/login/"+clogin+"/pwd/"+cpassword+"/newpwd/"+cpassword1;
 			type="GET";
 			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
 
@@ -514,6 +519,7 @@ include 'header.php';
                 beforeSend: setHeader
             });
         }
+
 
 
 //this is to send a message
@@ -612,8 +618,8 @@ include 'header.php';
 	 <p><div class="input-append"><input id="accountdetailfbid" value="<?php echo $uid;?>" type="text"/><input id="detailtimeperiod" value="Y" type="text"/><a class="btn btn-primary" onclick="accountdetail();">Account Detail</a></div></p>
 	 <p><div class="input-append"><input id="nodefbid" value="<?php echo $uid;?>" type="text"/><input id="nodetype" value="H" type="text"/><a class="btn btn-primary" onclick="nodes();">Get Nodes</a></div></p>
 	 <p><div class="input-append"><input id="locfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="seeothers();">See others on my route</a></div></p>
-	 <p><div class="input-append"><input id="balancefbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="getbalance();">Get balance</a></div></p>
-	 <p><div class="input-append"><input id="referringfbid" value="<?php echo $uid;?>" type="text"/><input id="referredfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="referral();">Make referral</a></div></p>
+	 <p><div class="input-append"><input id="login" value="login" type="text"/><input id="password" value="password" type="text"/><a class="btn btn-primary" onclick="loginuser();">Login</a></div></p>
+	 <p><div class="input-append"><input id="clogin" value="login" type="text"/><input id="cpassword" value="old password" type="text"/><input id="cpassword1" value="new password" type="text"/><a class="btn btn-primary" onclick="changepassword();">Change Password</a></div></p>
 		 
 		 
 	 <div class="modal" style="display:none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
