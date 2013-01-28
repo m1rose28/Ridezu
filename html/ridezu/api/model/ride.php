@@ -1391,7 +1391,7 @@ function completeRide()
 	//echo $currenttime;
 	
 	//find all rides that are ACTIVE OR FULL and event system time is more than 2 hours passed
-	$sql0 = "SELECT fbid, rideid FROM transhistory where eventstate in  ('ACTIVE','FULL') and eventgmttime < AddTime(:currentTime, '-02:00:00')";
+	$sql0 = "SELECT fbid, rideid,credit,debit,eventtype FROM transhistory where eventstate in  ('ACTIVE','FULL') and eventgmttime < AddTime(:currentTime, '-02:00:00')";
 	
 	$sql1 = "UPDATE transhistory SET debit=debit+0.25 where eventstate='ACTIVE' and eventtype='1' and rideid=:rideid";
 	$sql2 = "UPDATE transhistory SET eventstate='COMPLETE' where eventstate in ('ACTIVE','FULL') and rideid=:rideid";
@@ -1414,7 +1414,17 @@ function completeRide()
 			$stmt1->execute();
 			$stmt2->bindParam("rideid",$rideid);	
 			$stmt2->execute();
-			//function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$notifytype,$notifytime)
+			//update balance
+			if ($obj->eventtype=='1') //rider
+			{
+				$amount=$obj->debit;
+				postRideBalance($tofbid,$amount,$rideid);
+			}	
+			else 
+			{
+				$amount=$obj->credit;
+				postDriveBalance($tofbid,$amount,$rideid);
+			}
 			generateNotification($tofbid,NULL,'COMPLETE',$rideid,NULL,NULL,NULL);
 		}
 		$rowcount = $stmt0->rowCount();

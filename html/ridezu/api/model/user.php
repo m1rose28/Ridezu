@@ -105,9 +105,9 @@ function findByFB($query)
     }
 }
 
-function findByLogin($login, $pwd)
+function findByLogin($login, $pwd) 
 {
-  //    authorize($query);                                                                           
+  //    authorize($query);
     setHeader();
 
     $sql = "SELECT u.* FROM login l, userprofile u " .
@@ -117,18 +117,18 @@ function findByLogin($login, $pwd)
              "   and u.deleted <> 'Y' ";
     try {
         $hash=getHashKey();
-
+        
         $db = getConnection();
         $stmt = $db->prepare($sql);
-
+ 
         $stmt->bindParam("login", $login);
         $stmt->bindParam("pwd", $pwd);
-
+ 
         $stmt->execute();
         $user = $stmt->fetchObject();
-        $db = null;
+
         if ($user == FALSE) {
-          echo '{"loginresult":{"text":' . "invalid credentials" .'}}';
+		  echo '{"loginresult":{"text":"invalid credentials"}}';
         } else {
           if((!is_null($user->profileblob) || !empty($user->profileblob))  && (is_json($user->profileblob))){
             $user->profileblob = json_decode($user->profileblob);
@@ -142,13 +142,13 @@ function findByLogin($login, $pwd)
 
 function updatePwdLogin($login, $pwd, $newpwd) {
 
-    setHeader();
-
+  setHeader();
+  //  echo '{"login":{' . $login . '}}';
     $sql = "SELECT l.user_key FROM login l, userprofile u " .
              " WHERE UPPER(l.user_key) = UPPER(:login) " .
              "   and UPPER(l.password) = UPPER(sha1(:pwd)) " .
              "   and l.userprofile_id = u.id " .
-             "   and u.deleted <> 'Y' ";
+	  "   and u.deleted <> 'Y' ";
 
     try {
 	  $hash=getHashKey();
@@ -163,7 +163,7 @@ function updatePwdLogin($login, $pwd, $newpwd) {
 	  $user = $stmt->fetchObject();
 
 	  if ($user == FALSE) {
-		echo '{"updatepasswordresult":{"text":' . "invalid credentials" .'}}';
+		echo '{"updatepasswordresult":{"text":"invalid credentials"}}';
 	  } else {
 		$sql = "UPDATE login set password = sha1(:newpwd) where user_key = :login";
         $stmt= $db->prepare($sql);
@@ -171,13 +171,13 @@ function updatePwdLogin($login, $pwd, $newpwd) {
 		$stmt->bindParam("login", $login);
 		$stmt->bindParam("newpwd", $newpwd);
 		$stmt->execute();
-		echo '{"updatepasswordresult":{"text":' . "success" .'}}';
+		echo '{"updatepasswordresult":{"text":"success"}}';
 	  }
-	  $db = null;
     } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+	  echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
 }
+
 
 function findPublicDataByFB($query)
 {
@@ -201,6 +201,31 @@ function findPublicDataByFB($query)
     }
 
 }
+
+
+function findPublicDataForMatchedUsers($fbid)
+{
+  authorize($fbid);
+  setHeader();
+	$sql = "SELECT id,fbid,fname,lname,city,state,workcity,workstate,createdon,origindesc,destdesc,co2,profileblob,cartype,seats,ridesoffered,ridestaken,co2balance,milesoffered,milestaken,drivertardyslips,ridertardyslips,carmaker,isLuxury,rating,consistency,timeliness,frontphoto,backphoto,leftphoto,rightphoto,userphoto FROM userprofile WHERE (homelatlong,worklatlong) in (SELECT u.homelatlong,u.worklatlong from userprofile u WHERE UPPER(u.fbid) = UPPER(:fbid) and u.deleted <>'Y')";
+try {
+		$db = getConnection();
+	    $stmt = $db->prepare($sql);
+        $stmt->bindParam("fbid", $fbid);
+		$stmt->execute();
+		$users = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		array_walk($users, function(&$value, $key){ 
+			if((!is_null($value->profileblob) || !empty($value->profileblob)) && (is_json($value->profileblob))){
+			  $value->profileblob = json_decode($value->profileblob);
+			}		
+		});		
+		echo  json_encode($users);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+	}
+}
+
 
 
 function queryByFB($query)
@@ -331,6 +356,8 @@ function addUser()
         $db = null;
 		//send welcome email
 		generateNotification($user->fbid,NULL,'WELCOME',NULL,NULL,'EMAIL',NULL);
+		//give user sign-up money
+		addSignUpBalance($user->fbid,$userid);
 		echo getUser($userid);
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';

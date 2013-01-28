@@ -7,6 +7,7 @@ require 'model/account.php';
 require 'model/node.php';
 require 'model/notification.php';
 require 'model/payment.php';
+require 'model/balance.php';
 require 'util.php';
 //require_once 'braintree-php-2.17.0/lib/Braintree.php';
 //require_once __DIR__ . '/vendor/autoload.php';
@@ -26,6 +27,7 @@ $app->get('/v/1/users/search/fbid/:query', 'findByFB'); //authorization enabled
 $app->get('/v/1/users/search/login/:userid/pwd/:pwd', 'findByLogin');
 $app->get('/v/1/users/search/login/:userid/pwd/:pwd/newpwd/:newpwd', 'updatePwdLogin');
 $app->get('/v/1/users/searchpublic/fbid/:query', 'findPublicDataByFB');
+$app->get('/v/1/users/searchpublicbymatch/fbid/:query', 'findPublicDataForMatchedUsers');
 $app->post('/v/1/users', 'addUser');
 $app->put('/v/1/users/:id/fbid/:fbid', 'updateUser'); //authorization enabled
 //$app->delete('/v/1/users/:id',	'deleteUser'); 
@@ -71,6 +73,13 @@ $app->get('/v/1/account/detail/fbid/:query/timeperiod/:timeperiod','getAccountDe
 
 /*** NOTIFICATION APIS ***/
 $app->post('/v/1/notification/message/fbid/:fbid/fromfbid/:fromfbid','sendMessage');
+
+/******** BALANCE APIS********/
+//$app->get('/v/1/balance/add/:fbid','addSignUpBalance'); 
+//$app->get('/v/1/balance/user/:fbid/amount/:amount/rideid/:rideid/transaction/:transaction','postRideBalance');
+//$app->get('/v/1/balance/:fbid','getBalance'); 
+$app->get('/v/1/balance/virtual/fixBalance','fixVirtualBalance');
+//$app->get('/v/1/balance/referer/:referfbid/fbid/:newfbid', 'addRefererBalance');
 
 //payment APIs - FOR TEST ONLY
 //$app->get('/v/1/payment','makePayment');
