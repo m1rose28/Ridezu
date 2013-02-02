@@ -885,28 +885,28 @@ $(document).ready(function(){
 
 	 	  function fbpopup(){
 		  	  url="https://www.facebook.com/dialog/feed?app_id=443508415694320&"+
-		  	  "link=https://stage.ridezu.com%3Fr%3D"+myinfo.fbid+"&"+
-		  	  "picture=http://stage.ridezu.com/images/getyour10.png&"+
+		  	  "link=https://www.ridezu.com%3Fr%3D"+myinfo.fbid+"&"+
+		  	  "picture=http://www.ridezu.com/images/getyour10.png&"+
 		  	  "name=Get%20$10%20from%20Ridezu&"+
 		  	  "caption=Sign-up%20Today&"+
 		  	  "display=popup&"+
 		  	  "description=Use this special referral from "+myinfo.fname+" "+myinfo.lname+" and get an instant $10 on the newest and coolest ride-sharing network&"+
-		  	  "redirect_uri=https://stage.ridezu.com/r/closeme.php";
+		  	  "redirect_uri=https://www.ridezu.com/r/closeme.php";
 	          psize="height=300,width=550";
 	          popitup(url,psize)	   
 	 	   }
 		  
 		  function twitterpopup(){
 		  	  vurl="?r="+myinfo.fbid;
-		  	  vurl1="https://stage.ridezu.com"+vurl;
+		  	  vurl1="https://www.ridezu.com"+vurl;
 		      url="https://twitter.com/share?text=Checkout Ridezu - a cool, new ridesharing service.  Signup today and get instant $10.&url="+vurl1+"&counturl=https://www.ridezu.com";
 	          psize="height=300,width=550,top=25%,left=30%;";
 		      popitup(url,psize);
 		  }
 
 		  function linkedinpopup(){
-		  	  vurl="https://stage.ridezu.com/r/newsfeed.php?n=l&amp;fbid=<?php echo $fbid;?>&amp;name=<?php echo $name;?>";
-		  	  vurl1="https://stage.ridezu.com/r/newsfeed.php?n=l&amp;fbid=<?php echo $fbid;?>&amp;name=<?php echo $name;?>";
+		  	  vurl="https://www.ridezu.com/r/newsfeed.php?n=l&amp;fbid=<?php echo $fbid;?>&amp;name=<?php echo $name;?>";
+		  	  vurl1="https://www.ridezu.com/r/newsfeed.php?n=l&amp;fbid=<?php echo $fbid;?>&amp;name=<?php echo $name;?>";
 
 		  	  url="https://www.linkedin.com/cws/share?url="+vurl+"&original_referer="+vurl1;
 		  	  //+"&original_referer="+vurl1;
