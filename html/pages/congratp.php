@@ -1,7 +1,7 @@
 	<section id="content">
-		<h2 class="last">Congratulations, you're now signed up for Ridezu.</b>
+		<h2 class="last">Congratulations, you're now signed up for Ridezu!  Plus as a special bonus we've credited your account with $10.</b>
 		<br/><br/>
-		<span id="strt1">We're putting together routes in your area and will let you know when you can start.
+		<span id="strt1">We're pulling together other people in your area and will let you know when you can start.
 		<br/><br/>
 		Until then, why don't you take the tour on how it works and complete your profile.</span>
 		</h2>

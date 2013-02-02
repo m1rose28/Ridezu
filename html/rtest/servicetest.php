@@ -41,6 +41,7 @@ include 'header.php';
         hlng=document.getElementById("reghlng").value;
         wlat=document.getElementById("regwlat").value;
         wlng=document.getElementById("regwlng").value;
+        refer=document.getElementById("referfbid").value;
 
 		//		"homelatlong": hlat+","+hlng,
 		//		"worklatlong": wlat+","+wlng,
@@ -57,7 +58,8 @@ include 'header.php';
 				"workcity": wcity,
 				"workstate": wstate,	
 				"workzip": wzip,
-				"email": email
+				"email": email,
+				"referer":refer
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -576,11 +578,12 @@ include 'header.php';
 			}        
 </script>
 
+
 <div style="padding-left:20px;">
 
 	<p><div class="input-append"><a class="btn btn-primary" onclick="shownewuser();">Make a new user</a>
 	<div id="makenewuser" style="display:none;background-color:#eee;padding:10px;"/>	 
-		 <p><div class="input-append">fbid:  <input id="regfbid" value="504711218" type="text"/></div></p>
+		 <p><div class="input-append">fbid: <input id="regfbid" value="<?php echo "test".rand(1000,9000);?>" type="text"/></div></p>
 		 <p><div class="input-append">first name: <input id="regfname" value="Mark" type="text"/></div></p>
 		 <p><div class="input-append">last name:  <input id="reglname" value="Rose" type="text"/></div></p>
 		 <p><div class="input-append">email:  <input id="regemail" value="m1rose28@gmail.com" type="text"/></div></p>
@@ -592,10 +595,12 @@ include 'header.php';
 		 <p><div class="input-append">work city:  <input id="regwcity" value="Los Gatos" type="text"/></div></p>
 		 <p><div class="input-append">work state:  <input id="regwstate" value="CA" type="text"/></div></p>
 		 <p><div class="input-append">work zip:  <input id="regwzip" value="95132" type="text"/></div></p>
-		 <p><div class="input-append">home lat:  <input id="reghlat" value="" type="37.2388541"/></div></p>
-		 <p><div class="input-append">home lng:  <input id="reghlng" value="" type="-121.9214275"/></div></p>
-		 <p><div class="input-append">work lat:  <input id="regwlat" value="" type="text"/></div></p>
-		 <p><div class="input-append">work lng:  <input id="regwlng" value="" type="text"/></div></p>
+		 <p><div class="input-append">home lat:  <input id="reghlat" value="37.2388541" type="text"/></div></p>
+		 <p><div class="input-append">home lng:  <input id="reghlng" value="-121.9214275" type="text"/></div></p>
+		 <p><div class="input-append">work lat:  <input id="regwlat" value="-121.9214275" type="text"/></div></p>
+		 <p><div class="input-append">work lng:  <input id="regwlng" value="-121.9214275" type="text"/></div></p>
+		 <p><div class="input-append">referfbid:  <input id="referfbid" value="504711218" type="text"/></div></p>
+
 		 <p><div class="input-append"><a class="btn btn-primary" onclick="regnewuser();">Create</a>  <a class="btn" onclick="hidenewuser();">hide</a></div></p>
 	 </div> 
 	 </div></p>

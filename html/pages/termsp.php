@@ -1,7 +1,7 @@
 <div id="termsd">
 					<div>
 						<h2>Terms of Service</h2> 
-						Last Updated: November 19, 2012
+						Last Updated: January 31, 2013
 
 
 <p>Welcome to the user agreement (the "Agreement" or "User Agreement" or "Terms of Service") for Ridezu, a website owned and operated by Ridezu Inc., a Delaware corporation. This User Agreement is a legally binding agreement made between you ("you," "your," or "yourself") and Ridezu Inc. ("Ridezu," "Ridezu.com," "we," "us" or "our").
@@ -78,10 +78,17 @@ Disputes with Other Users
 
 <p>If you select this feature, and have SMS Service from one of the supported carriers, message and data rates may apply.
 
-
 <h3>Verification Service </h3>
 
 <p>By using the Service, you authorize us to use third party verification services to supply us with information about you including, but not limited to your identity and criminal history.  You further authorize us to use that information as we see fit and to share that information with other users of the Service. You agree that Ridezu shall not be held responsible or liable in any way if any information provided by a third party verification service is inaccurate. When a third party verification service is used, you warrant that you will comply with the Fair Credit Reporting Act, 15 USC 1681.
+
+<h3>Ridezu Promotional Dollars</h3>
+
+<p>Ridezu offers Promotional Dollars which can be used for taking rides on Ridezu and Ridezu services.  Promotional Dollars are non-transferable and may not be sold, bartered, or cashed out.  Ridezu may cancel and revoke Promotional Dollars at any time for any reason by Ridezu.
+
+<p>Ridezu Promotional Dollars and offers are valid only through Ridezu.com for the promotion by customers with billing address in the United States.  Your use of Promotional Dollars constitutes your acceptance of these terms and conditions. Offer void where prohibited by law.
+
+<p>Riders or Drivers found attempting to "game the system" by creating false identities,false rides, or false uses of Promotional Dollars will be expelled from the Ridezu service and all Ridezu Promotional Dollars will be voided.
 
 <h3>Termination </h3>
 

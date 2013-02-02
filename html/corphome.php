@@ -18,11 +18,19 @@ include "header.php";
 				 </div>
 				 
 				 <div id="corpstartcalc" class="index80">
-				 	<div id="homepagecalctitle">
-				 		<h1>How much can you save?</h1>
-				 	</div>
 				 
-				 	<div id="ridezunomics">
+				 	<div id="referafriend" style="display:none;">
+				 	  <div id="welcomer">Welcome! As a special referral from<br>
+				 	  		<span id="referror"></span>
+				 	  </div>
+				 	  <img id="referpic" src=""/>
+				 	  <div id="bonus">Sign up today and get $10 in FREE Rides
+					
+					  <input type="submit" id="startbutton" onclick="loginUser();" value="Try Ridezu!" style="bottom:15px;left:130px;"/>
+					  </div>
+				 </div>
+				 			 					 	
+				 	<div id="ridezunomics" style="display:none;">
 				 		<div id="wizard1">
 						<ul id="calclist" style="list-style-type: none;padding-left:20px;margin-top:10px;"> 
 							<li>
@@ -99,7 +107,14 @@ include "header.php";
 
 				 </div>
 
-				 <div id="navmenu" class="desktop" style="display:none;">	
+				
+				 
+			 </div>
+		 </div>
+	 </section>
+	 
+	 <section id="webapp">
+	 	 <div id="navmenu" class="desktop" style="display:none;">	
 						 <ul>
 							 <li class="first"><a href="#" class="navlink" onclick="document.getElementById('ridezuiframe').contentWindow.nav1('myridesp');">My Rides</a></li>
 							 <li><a href="#" class="navlink" onclick="document.getElementById('ridezuiframe').contentWindow.nav1('riderequestp');">Request a Ride</a></li>
@@ -110,7 +125,7 @@ include "header.php";
 						 </ul>
 				 </div>
 				 
-				 <div id="webappwrapper" class="index80" style="display:none;">
+		<div id="webappwrapper" class="index80" style="display:none;">
 					 
 					 <div id="toolbarnav"> 
 						 <a href="#" id="menu-btn"><img id="menub" src="images/menu.png" alt="Menu Button" /></a>
@@ -118,15 +133,12 @@ include "header.php";
 						 <h1 id="title"></h1>
 					 </div>
 					 
-					 <iframe id="ridezuiframe" src="" height="575" width="340"></iframe>
+					 <iframe id="ridezuiframe" src="" height="460" width="340"></iframe>
 					 
 				 </div>
-				 
-			 </div>
-		 </div>
 	 </section>
 	 
-	 <section id="quotes" style="">
+	 <section id="quotes" style="display:none">
 		 <div class="corpwrapper">
 			 <aside id="corpapplinks" class="left">
 				 <h3>access ridezu on any mobile device</h3>
@@ -282,14 +294,48 @@ include "header.php";
 		 </div>
 	 </section>
 	
-	<section id="noquotes" style="display:none;">
-		<div class="corpwrapper">
-			<div id="space">
-			</div>
-		</div>
-	</section>
 
-	<div id="corpstart" style="display:none;"></div>		
+	
+	<section id="noquotes" style="display:none;">
+	   <div class="corpwrapper">
+		<div id="promo">
+			<div id="promotext">
+				<div id="promotext1">Share the word, share the wealth
+				</div>
+				<div id="promotext2">Share Ridezu on your your social networks and we'll give each of your friends $10 for joining.  Plus, for each friend that joins we'll give you $10 too.  Sweet!  &nbsp;<a id="rules" onclick="showrules();">See details ></a>  
+				</div>
+			</div>
+			<ul id="referbuttons">
+				<li><a id="facebookbutton" onclick="fbpopup();">share</a></li>
+				<li><a id="twitterbutton" onclick="twitterpopup();">share</a></li>
+				<li><a id="emailbutton" onclick="emailpopup();">share</a></li>
+			</ul>
+		</div>
+	   </div>
+	</section>
+	
+	<script>
+	function showrules(){
+		message="<h2>Refer-a-Friend</h2>";
+		message+="<p>For Ridezu to be useful, we need lots and lots of people to join, and we need your help. ";
+		message+="<p>To help kickstart Ridezu, we're offering $10 in free rides for new members and $10 to members who refer those members.";
+		message+="<p>For example.  Tom joins Ridezu, he gets $10.  Tom refers Sally.  Sally gets $10, plus Tom gets *another* $10 for referring Sally. Pretty cool deal.";
+		message+="<p>So what is $10 good for?";
+		message+="<p>Let's say you commute from San Jose to Palo Alto.  This costs about $3.50.  By earning Ridezu promotional dollars you'll find yourself getting to and from work - completely FREE!";
+		message+="<p>What if I am a driver and someone pays using promotional dollars?  Even if someone pays with promotional dollars, because you're driving and offering a service you get real dollars.";
+		message+="<p>What if I am a driver and I have promotional dollars from my sign-up and referrals? While you can't cash out promotional dollars, you can use these promotional dollars the next time you have to take a ride.  We find people are both riders and drivers.";
+		message+="<p>Can I cash out my free rides?  Nope. Sorry.";
+		message+="<p>Is there a limit to how many people I can refer?  No.  We need lots and lots of people to join.";
+		message+="<p>PS. Don't try to game the system, that's just not cool.  Also see our Terms and Conditions.";
+		openconfirm();
+		}
+	function emailpopup(){
+		message="<h2>Share via email</h2>";
+		message+="<p>Simply copy and paste the link below and send to your friends.  It's as easy as that!";
+		message+="<p>https://www.ridezu/com?r="+myinfo.fbid;
+		openconfirm();
+		}
+	</script>
 <?php
 include "footer.php";
 ?>

@@ -360,8 +360,6 @@ function addUser()
 		addSignUpBalance($user->fbid,$userid);
 		
 		//check if there was a referer; if so give the referer money
-		if (isset($user->referer))
-		{
 		$referer = $user->referer;
 		if (!is_null($referer) && ($referer !=''))
 		{
@@ -369,7 +367,6 @@ function addUser()
 			//send notification
 			$msgtext = '$refered='.strval($user->fname) . ' ' . strval($user->lname);
 			generateNotification($referer,NULL,'REFER',NULL,$msgtext,'EMAIL',NULL);
-		}
 		}
 		echo getUser($userid);
     } catch(PDOException $e) {

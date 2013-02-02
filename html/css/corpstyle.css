@@ -181,7 +181,7 @@ header #corplogo #cobrand {
 header #corpmenu {
 	float: right;
 	width: 590px;
-	margin: 10px 0px 0px 0;
+	margin: 25px 0px 0px 0;
 	
 }
 
@@ -190,6 +190,7 @@ header #corpmenu ul {
 	position: relative;
 	display: inline-table;
 	padding-bottom:7px;
+	float: right;
 }
 
 header #corpmenu ul:after {
@@ -259,7 +260,6 @@ header #corpmenu ul ul li.last {
 
 #homepageintro.webapppage{
 	height: 360px;
-	overflow: visible;
 }
 
 #space {
@@ -286,6 +286,15 @@ section .slide {
 	-webkit-box-shadow: 0 0 20px -3px #000;
 	box-shadow: 0 0 20px -3px #000;
 */
+
+#noquotes {
+	position: relative;
+	top: 0;
+}
+
+#promo:hover {
+	z-index: 999999;
+}
 
 section #corpmain {
 	min-width: 940px;
@@ -505,7 +514,189 @@ section #corpstartcalc p {
 }
 
 section #corpstartcalc #home {
-	margin-top: 40px;
+	margin-top: 30px;
+}
+
+section #corpstartcalc #referafriend {
+	background: url(../images/10promo.png) no-repeat;
+	opacity:20%;
+	height:260px;
+	width:390px;
+}
+
+section #corpstartcalc #welcomer {
+	color:#2f7c10;
+	margin-left:10px;
+	margin-top:20px;
+	font-size:22px;
+	width:310px;
+	text-align:center;
+	float:left;
+	line-height:1.1;
+}
+
+section #corpstartcalc #welcomer #referror{
+	font-size:28px;
+}
+
+section #corpstartcalc #referpic {
+	margin-top:20px;
+	margin-left:10px;
+	width:55px;
+	height:55px;
+	-moz-box-shadow: 0 0 10px -2px #000;
+	-webkit-box-shadow: 0 0 10px -2px #000;
+	box-shadow: 0 0 10px -2px #000;
+}
+
+section #corpstartcalc #bonus {
+	padding-top:20px;
+	margin-left:40px;
+	width:310px;
+	font-size:35px;
+	color:#2f7c10;	
+	clear:both;
+	text-align:center;
+}
+
+section #promo  {
+	width: 890px;
+	height: 170px;
+	background: #fff;
+	float: right;
+	-webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
+	margin:20px;
+	padding: 15px;
+	position: relative; 
+	left: -15px;
+	-moz-box-shadow: 0 0 10px 0 #000;
+	-webkit-box-shadow: 0 0 10px 0 #000;
+	box-shadow: 0 0 10px 0 #000;
+}
+
+section #promotext {
+	width:680px;
+	float:left;
+	margin-left:10px;
+}
+
+section #promotext1 {
+	color:#52b72c;
+	font-size:30px;
+	padding-bottom:10px;
+}
+
+section #promotext2 {
+	color:#7a7a7a;
+	font-size:26px;
+}
+
+section #rules {
+	color:#52b72c;
+}
+
+section #rules:hover {
+	color:#469b25;
+}
+
+section #emailbutton {
+	width: 200px;
+	padding: 3px 10px 3px 35px;
+	margin: 5px auto;
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #5BC200;
+	background-image:url('../images/emailbutton.png');
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:5px 3px;
+	text-align: center;
+	font-size: 20px;
+	border: 1px solid #2f6a2f;
+	-moz-box-shadow: 0 1px 0 0 #2d4a24;
+	-webkit-box-shadow: 0 1px 0 0 #2d4a24;
+	box-shadow: 0 1px 0 0 #2d4a24;
+}
+
+section #emailbutton:hover {
+	background: #12A401;
+	background-image:url('../images/emailbutton.png');
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:5px 3px;
+}
+
+section #twitterbutton {
+	width: 200px;
+	padding: 3px 10px 3px 35px;
+	margin: 5px auto;
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #619cb6;
+	background-image:url('../images/tbutton.png');
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:5px 3px;
+	text-align: center;
+	font-size: 20px;
+	border: 1px solid #2f6a2f;
+	-moz-box-shadow: 0 1px 0 0 #2d4a24;
+	-webkit-box-shadow: 0 1px 0 0 #2d4a24;
+	box-shadow: 0 1px 0 0 #2d4a24;
+}
+
+section #twitterbutton:hover {
+	background: #a4d7e8;
+	background-image:url('../images/tbutton.png');
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:5px 3px;
+}
+
+section #facebookbutton {
+	width: 200px;
+	padding: 3px 10px 3px 35px;
+	margin: 5px auto;
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #3e5a85;
+	background-image:url('../images/fbutton.png');
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:5px 3px;
+	text-align: center;
+	font-size: 20px;
+	border: 1px solid #2f6a2f;
+	-moz-box-shadow: 0 1px 0 0 #2d4a24;
+	-webkit-box-shadow: 0 1px 0 0 #2d4a24;
+	box-shadow: 0 1px 0 0 #2d4a24;
+}
+
+section #facebookbutton:hover {
+	background: #336faa;
+	background-image:url('../images/fbutton.png');
+	background-size:25px 25px;
+	background-repeat:no-repeat;
+	background-position:5px 3px;
+}
+
+section #referbuttons {
+	list-style:none;
+	position:relative;
+	top:20px;
+	left:40px;
+}
+
+section #referbuttons li{
+	margin:10px;
 }
 
 section #maincontent {
@@ -756,12 +947,23 @@ section #webappwrapper {
 	width: 340px;
 	float: right;
 	position: relative; 
-	left: -103px;
+	left: -23px;
 	background: transparent;
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 	z-index: 100;
+}
+
+#webapp {
+	position: absolute;
+	top: 460px;
+	left: 460px;
+	background: transparent;
+	min-width: 0;
+	overflow: visible;
+	width: 600px;
+	height: 360px;
 }
 
 #ridezuiframe {
@@ -775,7 +977,7 @@ section #webappwrapper {
 	float: left;
 	position: relative;
 	left: 280px;
-	top: -280px;
+	top: -290px;
 	-webkit-border-radius: 5px;
 	-webkit-border-top-right-radius: 0;
 	-moz-border-radius: 5px;
@@ -854,11 +1056,6 @@ section #corpapplinks img{
 	display: block;
 	margin: 10px auto;
 }
-
-#webapp {
-	position: relative;
-}
-
 
 /* HOW IT WORKS PAGE*/
 
@@ -1019,6 +1216,7 @@ padding-top:9px;
 	background: linear-gradient(to bottom,  #005500 0%,#008c00 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005500', endColorstr='#008c00',GradientType=0 ); /* IE6-9 */
 	width: 480px; 
+	max-height:500px;
 	padding: 10px; 
 	margin: 0 auto; 
 	-webkit-border-radius: 5px;
@@ -1114,7 +1312,8 @@ footer li {
 footer #corpfootermenu {
 	display: block;
 	margin: 0px auto;
-	width: 280px;
+	width: 400px;
+	z-index: 99999999999;
 }
 
 footer #corpfootermenu a{

@@ -182,14 +182,14 @@ $(document).ready(function(){
 				}
 
 			if(myinfo.fbid!=undefined && myinfo.add1==undefined){	// get the address
-				document.getElementById("corpstartcalc").innerHTML="<input class=\"arvo\" type=\"text\" value=\"Where I live\" id=\"home\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><input class=\"arvo\" type=\"text\" value=\"Where I work\" id=\"work\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><a href=\"#\" onclick=\"getaddr();\" id=\"startbutton\">Next</a>";
+				document.getElementById("corpstartcalc").innerHTML="<div style='font-size:18px;padding:10px;'>Next, tell us about your commute.</div><input class=\"arvo\" type=\"text\" value=\"Where I live\" id=\"home\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><input class=\"arvo\" type=\"text\" value=\"Where I work\" id=\"work\" onfocus=\"if(this.value==this.defaultValue)this.value=\'\';\" onblur=\"if(this.value==\'\')this.value=this.defaultValue;\"><a href=\"#\" onclick=\"getaddr();\" id=\"startbutton\">Next</a>";
 				//document.getElementById("overlay").style.display="none";
 				initialize();
 	   		    return false;
 				}
 
 			if(myinfo.fbid==undefined && myinfo.add1!=undefined){	// got the address now get them to enroll in fb
-			    document.getElementById("corpstart").innerHTML="<span style='font-size:22px;color:#000;padding-bottom:20px;'>Please login with Facebook.<br><br>We're a green company focused on social good. We'll never spam you, share your private information, or abuse your trust.</span><a href=\"#\" onclick=\"loginUser();\" id=\"startbutton\">Login</a>";     
+			    document.getElementById("corpstartcalc").innerHTML="<span style='font-size:22px;color:#000;padding-bottom:20px;'>Please login with Facebook.<br><br>We're a green company focused on social good. We'll never spam you, share your private information, or abuse your trust.</span><a href=\"#\" onclick=\"loginUser();\" id=\"startbutton\">Login</a>";     
 				return false;
 				}				
 			}
@@ -309,7 +309,6 @@ $(document).ready(function(){
 		       document.getElementById("corptitle").setAttribute("class", "index80");
 		       document.getElementById("homepageintro").setAttribute("class", "webapppage");
 		       document.getElementById("noquotes").style.display="block";  
-		       document.getElementById("corpstart").style.display="none"; 
 			   document.getElementById("corpstartcalc").style.display="none";
 		       document.getElementById("quotes").style.display="none";  
 		       document.getElementById("corptitle").innerHTML="<h2>Welcome "+myinfo.fname+"</h2>";     
@@ -432,6 +431,7 @@ $(document).ready(function(){
 					"hometime": "17:00:00",
 					"notificationmethod": "EMAIL",
 					"ridereminders": "1",
+					"referer":referrer
 					}
 					
 			var jsondataset = JSON.stringify(dataset);
@@ -881,6 +881,46 @@ $(document).ready(function(){
   			document.getElementById('wizard2').style.display="none";
 		}
 			
+// this function set is for sharing on fb/twitter/linkedin
+
+	 	  function fbpopup(){
+		  	  url="https://www.facebook.com/dialog/feed?app_id=443508415694320&"+
+		  	  "link=https://stage.ridezu.com%3Fr%3D"+myinfo.fbid+"&"+
+		  	  "picture=http://stage.ridezu.com/images/getyour10.png&"+
+		  	  "name=Get%20$10%20from%20Ridezu&"+
+		  	  "caption=Sign-up%20Today&"+
+		  	  "display=popup&"+
+		  	  "description=Use this special referral from "+myinfo.fname+" "+myinfo.lname+" and get an instant $10 on the newest and coolest ride-sharing network&"+
+		  	  "redirect_uri=https://stage.ridezu.com/r/closeme.php";
+	          psize="height=300,width=550";
+	          popitup(url,psize)	   
+	 	   }
+		  
+		  function twitterpopup(){
+		  	  vurl="?r="+myinfo.fbid;
+		  	  vurl1="https://stage.ridezu.com"+vurl;
+		      url="https://twitter.com/share?text=Checkout Ridezu - a cool, new ridesharing service.  Signup today and get instant $10.&url="+vurl1+"&counturl=https://www.ridezu.com";
+	          psize="height=300,width=550,top=25%,left=30%;";
+		      popitup(url,psize);
+		  }
+
+		  function linkedinpopup(){
+		  	  vurl="https://stage.ridezu.com/r/newsfeed.php?n=l&amp;fbid=<?php echo $fbid;?>&amp;name=<?php echo $name;?>";
+		  	  vurl1="https://stage.ridezu.com/r/newsfeed.php?n=l&amp;fbid=<?php echo $fbid;?>&amp;name=<?php echo $name;?>";
+
+		  	  url="https://www.linkedin.com/cws/share?url="+vurl+"&original_referer="+vurl1;
+		  	  //+"&original_referer="+vurl1;
+	          psize="height=375,width=625,top=100,left=250";
+		      popitup(url,psize);		  	  
+		  }
+		  
+		  function popitup(url) {
+		  	  newwindow=window.open(url,'name',psize);
+		  	  newwindow.moveTo(400,250);
+			  if (window.focus) {newwindow.focus()}
+			  return false;
+		  }
+
 // this function is to report errors or anomalies that users see
 
 		function reporterror(url){
@@ -905,7 +945,6 @@ $(document).ready(function(){
                 beforeSend: setHeader
             	}); 
 			}				
-
 		
 // declare initial variables
 
@@ -942,7 +981,6 @@ $(document).ready(function(){
 		   document.getElementById("lin").style.display="inline";
 		   if($('#quotes').length>0){
 				document.getElementById("corptitle").style.display="block";
-				document.getElementById("corpstart").style.display="block";
 				document.getElementById("quotes").style.display="block";
 				if(myinfo.company!=null && myinfo.company!=""){
 					document.getElementById("cobrand").src="images/cobrand/"+myinfo.company+".png";
@@ -956,6 +994,17 @@ $(document).ready(function(){
 			calcinit();
 			}
 
+		if(referrer!=""){
+			document.getElementById("referror").innerHTML=rname;
+			x="https://graph.facebook.com/"+referrer+"/picture";
+			document.getElementById("referpic").src=x;
+			document.getElementById("referafriend").style.display="block"; 
+			}
+		
+		else {
+			document.getElementById("ridezunomics").style.display="block";
+			}
+		
 		return false;	
 	
 	});

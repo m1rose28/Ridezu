@@ -120,11 +120,11 @@ if($client=="iOS"){
 	    var tm="0";
 	    myinfo.company="<?php echo $c;?>";
 		if(localStorage.seckey!=undefined){
-			var optimizely = optimizely || [];
-			optimizely.push("disable");	
+			//var optimizely = optimizely || [];
+			//optimizely.push("disable");	
 			}		
 	</script>		
-	<script src="//cdn.optimizely.com/js/157370915.js"></script>
+	<!--<script src="//cdn.optimizely.com/js/157370915.js"></script>-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 

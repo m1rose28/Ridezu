@@ -661,7 +661,7 @@
 				}
 
 			if(to=="startp" || p=="startp"){
-				window['optimizely'].push(["activate", 160930926]);
+				//window['optimizely'].push(["activate", 160930926]);
 				document.getElementById("topbar").style.display="none";		
 				document.getElementById(p).style.display="block";
 				facebook();	    
@@ -734,13 +734,13 @@
 				 }	
 													
 			if(flow=="riderequest"){
-				if(myinfo.cardtype==null){
-					message="<p>Before your first ride we're going to need a credit card on file.</p><p>We only bill you for the rides you take.</p><p>Billing is done monthly.  </p>";
-					openconfirm();
-					navt('riderequestp','paymentp');
-					flow="";
-					return false;
-					}
+				//if(myinfo.cardtype==null){
+					//message="<p>Before your first ride we're going to need a credit card on file.</p><p>We only bill you for the rides you take.</p><p>Billing is done monthly.  </p>";
+					//openconfirm();
+					//navt('riderequestp','paymentp');
+					//flow="";
+					//return false;
+					//}
 			}
 			
 			if(flow=="ridepost"){
@@ -1037,7 +1037,7 @@
 		  	document.getElementById('location').value="Company name, city";
 		  	startflow("enroll");
  			_gaq.push(['_trackPageview', "Enroll - Home Selected"]);
-			window.optimizely.push(['trackEvent', 'address']);
+			//window.optimizely.push(['trackEvent', 'address']);
 			}
 
 // this function parses/stores the home address and then moves to the work address
@@ -1136,7 +1136,7 @@
 				  info.accessToken=FB.getAuthResponse()['accessToken'];
 				  //console.log(info.accessToken);
 
-				 window.optimizely.push(['trackEvent', 'fblogin']);
+				 //window.optimizely.push(['trackEvent', 'fblogin']);
 
 				 if(info.accessToken){
 	
@@ -1241,7 +1241,7 @@
   				flow="";
  				_gaq.push(['_trackPageview', "New User Registration"]);
   				nav(p,'congratp');
-  				window.optimizely.push(['trackEvent', 'reguser']);
+  				//window.optimizely.push(['trackEvent', 'reguser']);
 				});          				            	     	
        		}
        		
@@ -1418,16 +1418,16 @@
 			  return false;
 			  }
 			
-			if(myinfo.cardtype!=null){
+			//if(myinfo.cardtype!=null){
 				message="<h2>New Ride Request</h2><p>Click OK to confirm your ride request.</p>";
 				confirmfunction="selectride";
 				showcancel=true;	
 				openconfirm();			
-				}
+			//	}
 
-			if(myinfo.cardtype==null){
-				startflow("riderequest");		
-				}
+			//if(myinfo.cardtype==null){
+			//	startflow("riderequest");		
+			//	}
 
 			}
 

@@ -31,12 +31,13 @@ include "header.php";
 				</aside>
 				
 				<div id="maincontent" class="left">
-
 				<?php include "pages/benefitsp.php";?>
 
 				</div>
 			</div>
 		</section>
+		
+
 		
 <?php
 include "footer.php";

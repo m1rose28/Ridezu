@@ -66,7 +66,10 @@ function generateNotification($tofbid,$fromfbid,$event,$rideid,$notifydata,$noti
 					else 
 					$notifydata = '$fname='.$touser->fname;
 				}
-				
+				else
+				{
+					$notifydata = '$text='.$notifydata;
+				}
                 $stmt->bindParam("notifydata", $notifydata);
                 $notifystatus = "PENDING";
                 $stmt->bindParam("status", $notifystatus );
@@ -84,9 +87,8 @@ function sendMessage($tofbid,$fromfbid)
 {
 	 $request = Slim::getInstance()->request();
 		$text = json_decode($request->getBody());
-			$msg = '$text='.$text;
 		
-            generateNotification($tofbid,$fromfbid,'MESSAGE',NULL,$msg,'SMS',NULL);
+            generateNotification($tofbid,$fromfbid,'MESSAGE',NULL,$text->message,'SMS',NULL);
 		
 }
 

@@ -25,12 +25,12 @@
 
 			  <div id="nocommute" style="display:none;">
 				<h2>
-					It looks like we haven't found a route for your yet on Ridezu.  As soon as we do - you can see it here, with gas savings, c02 savings, and much more. 
+					It looks like we haven't found a route for your yet on Ridezu.  As soon as we do - you can see it here, with gas savings, CO2 savings, and much more. 
 				</h2>
 			  </div>
 			
 			</section>
 
-			<input type="button" onclick="nav('profilep','calcp');" data-role="none" class="primarybutton" value="Ridzunomics"/>
+			<input type="button" onclick="nav('profilep','calcp');" data-role="none" class="primarybutton" value="Ridezunomics"/>
 
 </div>

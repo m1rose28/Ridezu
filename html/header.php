@@ -1,7 +1,10 @@
 <?php require_once 'rzconfig.php';
 
+$c="";$t="";$r="";
+
 if(isset($_GET["c"])){$c=$_GET["c"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
+if(isset($_GET["r"])){$r=$_GET["r"];}
 
 ?>
 
@@ -15,11 +18,9 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
       		var page="<?php echo $title;?>";
       		var myinfo={};
       		var info={};
+      		var referrer="<?php echo $r;?>";
+      		var rname="<?php echo $rname;?>";
 	    	myinfo.company="<?php echo $c;?>";
-	    	if(localStorage.seckey!=undefined){
-				var optimizely = optimizely || [];
-				optimizely.push("disable");	
-	    		}		
       	</script>		
       	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
         <meta charset="utf-8">
@@ -42,12 +43,6 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
     </head>
     <body>
         <header>
-			<style>
-				body.connected #login { display: none; }
-				body.connected #logout { display: block; }
-				body.not_connected #login { display: block; }
-				body.not_connected #logout { display: none; }
-			</style>
 	        
 			<div class="corpwrapper">
 				<div id="corplogo">
