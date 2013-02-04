@@ -436,7 +436,7 @@ a.minibutton:hover {
 	width: 93.75%;
 	min-width: 300px;
 	margin: 10px auto;
-	min-height: 144px;
+	min-height: 120px;
 	color: #fff;
 	font-size: 1.4em;
 }
@@ -447,10 +447,12 @@ a.minibutton:hover {
 }
 
 #aboutme #left3 .displaypicture{
-	width: 100%;
+	width: 75px;
+	height: 75px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+	margin-right:5px;
 }
 
 #aboutme #right3 {
@@ -518,6 +520,7 @@ a.minibutton:hover {
 	font-size: 130%
 }
 
+
 .glassbg {
 	background: url(../images/glassbackground.png) repeat;
 	-webkit-border-radius: 7px;
@@ -572,7 +575,7 @@ a.minibutton:hover {
 }
 
 #aboutmed td.tabletitle {
-	padding-left: 20px;
+	padding-left: 0px;
 }
 
 #aboutmed #homeicon, #aboutmed #workicon {
@@ -1260,21 +1263,21 @@ input.rtext {
 	color:#6F6E6E;
 }
 
-#commuted #content div.commuteleft {
-	float: left;
-	width: 50%;
-	padding: 5px;
-	margin: 5px 5px 0 0;
-	font-size: 1.4em;
-	line-height: 1.6em;
+#commuted table {
+	padding:0px;
+	margin:0px;
+	width:100%;
+	margin-bottom:10px;
+	}
+	
+#commuted td {
+	font-size: 1.8em;
+	padding:5px;
 	}
 
-#commuted #content div.commuteright {
-	text-align: right;
-	padding: 5px;
-	margin: 5px 5px 0 0;
-	font-size: 1.4em;
-	line-height: 1.6em;
+#commuted #commute {
+	font-size:1.4em;
+	background:#dddddd;
 	}
 
 

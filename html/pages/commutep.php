@@ -7,18 +7,18 @@
 
 			<section id="content" style="overflow:hidden;">
 			  <div id="commutex" style="display:none;">
-				 <div class="commuteleft">
-						 Distance 
-						 <br/>Save Yearly (riding)
-						 <br/>Collect Yearly (driving)
-						 <br/>CO2 Savings Yearly	 
-				 </div>
-				 <div class="commuteright">
-						 <span id="miles"></span>
-						 <br/><span id="saveyearly"></span>
-						 <br/><span id="collectyearly"></span>
-						 <br/><span id="co2savings"></span>
-				 </div>
+				 <table>
+				 	<tr><td>One-way trip </td><td align="right"><span id="miles"></span></td></tr>
+				 	<tr><td>Drive yearly</td><td align="right"><span id="annmiles"></span></td></tr>
+				 	<tr><td colspan="2" id="commute" align="middle">If I ride...</td></tr>
+				 	<tr><td>One-way cost</td><td align="right"><span id="savedaily"></span></td></tr>
+				 	<tr><td>Save yearly</td><td align="right"><span id="saveyearly"></span></td></tr>
+				 	<tr><td>Save CO2 yearly</td><td align="right"><span id="co2savings"></span> pounds</td></tr>
+				 	<tr><td colspan="2" id="commute" align="middle">If I drive...</td></tr>
+				 	<tr><td>Collect one-way</td><td align="right"><span id="collectdaily"></span></td></tr>
+				 	<tr><td>Collect yearly</td><td align="right"><span id="collectyearly"></span></td></tr>
+
+				 </table>
 
 				<img id="map" class="roundedbottom" style="width:300px;height:200px;" src=""/>
 			   </div>

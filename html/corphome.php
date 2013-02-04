@@ -133,7 +133,7 @@ include "header.php";
 						 <h1 id="title"></h1>
 					 </div>
 					 
-					 <iframe id="ridezuiframe" src="" height="460" width="340"></iframe>
+					 <iframe id="ridezuiframe" src="" width="340" height="475" frameborder="0"></iframe>
 					 
 				 </div>
 	 </section>

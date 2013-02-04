@@ -296,7 +296,9 @@ $(document).ready(function(){
 		
 // this function sets the logged in-state of the user...
 
-		function welcome(){
+		function welcome(wtype){
+			wmessage="";
+			if(wtype=="newuser"){wmessage="&p=congratp";}
 			if(myinfo.company!=null && myinfo.company!=""){
 				document.getElementById("cobrand").src="images/cobrand/"+myinfo.company+".png";
 				document.getElementById("cobrand").style.display="inline";
@@ -312,7 +314,7 @@ $(document).ready(function(){
 			   document.getElementById("corpstartcalc").style.display="none";
 		       document.getElementById("quotes").style.display="none";  
 		       document.getElementById("corptitle").innerHTML="<h2>Welcome "+myinfo.fname+"</h2>";     
-		       document.getElementById("ridezuiframe").src="/index1.php?fbid="+myinfo.fbid+"&seckey="+myinfo.seckey+"&client=widget";
+		       document.getElementById("ridezuiframe").src="/index1.php?fbid="+myinfo.fbid+"&seckey="+myinfo.seckey+"&client=widget"+wmessage;
 		     }
 		  }
 
@@ -464,7 +466,7 @@ $(document).ready(function(){
 					calculateDistance();
 					}
 			    //window.optimizely.push(['trackEvent', 'reguser']);
-				appstart();
+				welcome("newuser");
 				});                	     	
        		}
 

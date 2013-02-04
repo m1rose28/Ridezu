@@ -482,7 +482,7 @@
   				document.getElementById(to).innerHTML=html;
 				xx=document.getElementById(to);
 				$(xx).trigger('create');
-  				nav2(from,to);  				
+  				nav2(from,to);
 				});
 		}
 			
@@ -1283,6 +1283,7 @@
 			_gaq.push(['_trackPageview', "Reverse Route"]);
 		}
  	
+
 // gets a list of riders/drivers
 		
 		function getlist(role,route,date){
@@ -1344,7 +1345,7 @@
 		  xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+rlist.startlatlong+"&zoom=13&size="+mw+"x"+mh+"&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+rlist.startlatlong+"&sensor=false";
 		  document.getElementById('ridedesta').src=xstartlatlong;		  		  
 		  document.getElementById('ridedestb').src=xstartlatlong;		  
-		  document.getElementById('amount').innerHTML="$"+rlist.amount;
+		  document.getElementById('amount').innerHTML=curr(rlist.amount);
 		  
 		  var ridelist="";
 		  var r=0;
@@ -1862,7 +1863,7 @@
 					  }
 				xoriginlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+value1.startlatlong+"&zoom=13&size="+mw+"x"+mh+"&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basemarker.png%7C"+value1.startlatlong+"&sensor=false";
 				document.getElementById('ridedesta').src=xoriginlatlong;		  		  
-				document.getElementById('amount').innerHTML="$"+value1.amount;
+				document.getElementById('amount').innerHTML=curr(value1.amount);
 								
 				if(value1.eventstate=="EMPTY" || value1.eventstate=="REQUEST"){
 					document.getElementById('nomatch').innerHTML="We haven't found a match yet.";
@@ -2389,13 +2390,38 @@
 
 		function commuteinit(){
 			if(myinfo.miles.length>0){
+
 				mapurl="https://maps.googleapis.com/maps/api/staticmap?size=300x200&maptype=roadmap&markers=icon:http://stage.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&markers=icon:http://stage.ridezu.com/images/basecbmarker.png%7C"+myinfo.worklatlong+"&markers=icon:http://stage.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&markers=icon:http://stage.ridezu.com/images/basecpmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
 				document.getElementById('commutex').style.display="block";		
-				document.getElementById('miles').innerHTML=myinfo.miles;
-				document.getElementById('collectyearly').innerHTML="$"+(myinfo.amount*220*2);
-				document.getElementById('saveyearly').innerHTML="$"+(myinfo.amount*220*2*.25);			
-				document.getElementById('co2savings').innerHTML=myinfo.co2*220*2;			
+				document.getElementById('miles').innerHTML=myinfo.miles+" miles";			
+				document.getElementById('annmiles').innerHTML=addCommas(myinfo.miles*240*2)+" miles";			
+				document.getElementById('co2savings').innerHTML=addCommas((myinfo.co2*240*2)/25*20); //miles / mpg * 20, where avg mpg=25			
 				document.getElementById('map').src=mapurl;
+
+				url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/driver";
+				$.ajax({
+				url: url,
+				cache: false,
+				dataType: "json",
+				beforeSend: setHeader
+				}).done(function(data) {
+				  info.collect=data.amount;
+				  document.getElementById('collectdaily').innerHTML=addCommas(curr(info.collect));
+				  document.getElementById('collectyearly').innerHTML=addCommas(curr(info.collect*240*2));
+					});			  
+  
+				url="/ridezu/api/v/1/rides/search/fbid/"+fbid+"/rider";
+				$.ajax({
+				url: url,
+				cache: false,
+				dataType: "json",
+				beforeSend: setHeader
+				}).done(function(data) {
+				  info.cost=data.amount;
+				  document.getElementById('savedaily').innerHTML=addCommas(curr(info.cost));
+				  document.getElementById('saveyearly').innerHTML=addCommas(curr(info.cost*240*2*.25));			
+					});			  
+		
 				}					
 			else {
 				document.getElementById('nocommute').style.display="block";				

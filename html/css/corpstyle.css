@@ -100,6 +100,7 @@ body {
 a {
 	color: #8b8b8b;
 	text-decoration: none;
+	cursor: hand; cursor: pointer;
 }
 
 a:hover {
@@ -602,24 +603,11 @@ section #rules:hover {
 }
 
 section #emailbutton {
-	width: 200px;
-	padding: 3px 10px 3px 35px;
-	margin: 5px auto;
-	color: #fff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
 	background: #5BC200;
 	background-image:url('../images/emailbutton.png');
 	background-size:25px 25px;
 	background-repeat:no-repeat;
 	background-position:5px 3px;
-	text-align: center;
-	font-size: 20px;
-	border: 1px solid #2f6a2f;
-	-moz-box-shadow: 0 1px 0 0 #2d4a24;
-	-webkit-box-shadow: 0 1px 0 0 #2d4a24;
-	box-shadow: 0 1px 0 0 #2d4a24;
 }
 
 section #emailbutton:hover {
@@ -631,24 +619,11 @@ section #emailbutton:hover {
 }
 
 section #twitterbutton {
-	width: 200px;
-	padding: 3px 10px 3px 35px;
-	margin: 5px auto;
-	color: #fff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
 	background: #619cb6;
 	background-image:url('../images/tbutton.png');
 	background-size:25px 25px;
 	background-repeat:no-repeat;
 	background-position:5px 3px;
-	text-align: center;
-	font-size: 20px;
-	border: 1px solid #2f6a2f;
-	-moz-box-shadow: 0 1px 0 0 #2d4a24;
-	-webkit-box-shadow: 0 1px 0 0 #2d4a24;
-	box-shadow: 0 1px 0 0 #2d4a24;
 }
 
 section #twitterbutton:hover {
@@ -660,24 +635,11 @@ section #twitterbutton:hover {
 }
 
 section #facebookbutton {
-	width: 200px;
-	padding: 3px 10px 3px 35px;
-	margin: 5px auto;
-	color: #fff;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
 	background: #3e5a85;
 	background-image:url('../images/fbutton.png');
 	background-size:25px 25px;
 	background-repeat:no-repeat;
 	background-position:5px 3px;
-	text-align: center;
-	font-size: 20px;
-	border: 1px solid #2f6a2f;
-	-moz-box-shadow: 0 1px 0 0 #2d4a24;
-	-webkit-box-shadow: 0 1px 0 0 #2d4a24;
-	box-shadow: 0 1px 0 0 #2d4a24;
 }
 
 section #facebookbutton:hover {
@@ -686,6 +648,23 @@ section #facebookbutton:hover {
 	background-size:25px 25px;
 	background-repeat:no-repeat;
 	background-position:5px 3px;
+}
+
+#emailbutton, #twitterbutton, #facebookbutton {
+	width: 200px;
+	padding: 3px 10px 3px 35px;
+	margin: 5px auto;
+	color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 20px;
+	border: 1px solid #2f6a2f;
+	-moz-box-shadow: 0 1px 0 0 #2d4a24;
+	-webkit-box-shadow: 0 1px 0 0 #2d4a24;
+	box-shadow: 0 1px 0 0 #2d4a24;
+	cursor: hand; cursor: pointer;
 }
 
 section #referbuttons {
@@ -957,7 +936,7 @@ section #webappwrapper {
 
 #webapp {
 	position: absolute;
-	top: 460px;
+	top: 440px;
 	left: 460px;
 	background: transparent;
 	min-width: 0;
