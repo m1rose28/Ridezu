@@ -332,7 +332,7 @@ include "header.php";
 	function emailpopup(){
 		message="<h2>Share via email</h2>";
 		message+="<p>Simply copy and paste the link below and send to your friends.  It's as easy as that!";
-		message+="<p>https://www.ridezu/com?r="+myinfo.fbid;
+		message+="<div id='emaillink'>https://www.ridezu.com?r="+myinfo.fbid+"</div>";
 		openconfirm();
 		}
 	</script>

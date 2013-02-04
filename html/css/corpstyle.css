@@ -678,6 +678,15 @@ section #referbuttons li{
 	margin:10px;
 }
 
+#emaillink {
+	color:#52b72c;
+	background:#fff;
+	padding:10px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;	
+	}
+	
 section #maincontent {
 	min-height: 180px;
 	width: 730px;

@@ -1,6 +1,6 @@
 <?php
 
-echo "Peod dev job";
+echo "Prod cron job";
 
 $lines = file('https://www.ridezu.com/ridezu/api/v/1/rides/eventstate/COMPLETE');
 
