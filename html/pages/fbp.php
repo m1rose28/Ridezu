@@ -1,11 +1,4 @@
   <section id="content">
-
-		<style>
-  			body.connected #login { display: none; }
-  			body.connected #logout { display: block; }
-  			body.not_connected #login { display: block; }
-  			body.not_connected #logout { display: none; }
-		</style>
  	
 		<h2 class="last">Please login with Facebook.  
 		<br/><br/>
@@ -19,4 +12,4 @@
 		</h2>
 	</section>
 	
-			<input type="submit" id="login" onclick="loginUser2();" data-role="none" class="primarybutton" value="Login with Facebook"/>
+	<input type="submit" id="login" onclick="loginUser2();" class="primarybutton" value="Login with Facebook"/>

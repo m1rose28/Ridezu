@@ -257,8 +257,8 @@ function addUser()
 	
   $request = Slim::getInstance()->request();
   $user = json_decode($request->getBody());
-    $sql = "INSERT INTO userprofile (fbid, seckey, fname, lname, add1, add2, city,state,zip,company, workadd1, workadd2, workcity, workstate, workzip, preference, phone,email, homelatlong,worklatlong,origindesc, destdesc, originlatlong,destlatlong, miles, gassavings, co2, schedule, leavetime, hometime, timezone, dlverified, terms, insurance, ipaddress, verificationtime, profileblob, cartype, seats,frontphoto, backphoto, leftphoto, rightphoto, ridesoffered, ridestaken, balance, co2balance, milesoffered, milestaken, drivertardyslips, ridertardyslips, notificationmethod, ridereminders, deleted,carmaker,isLuxury,rating,consistency,timeliness,userphoto,paypalemail) 
-	VALUES (:fbid, :hash, :fname, :lname, :add1, :add2, :city, :state, :zip,:company, :workadd1, :workadd2, :workcity, :workstate, :workzip, :preference, :phone, :email, :homelatlong, :worklatlong, :origindesc, :destdesc, :originlatlong, :destlatlong, :miles, :gassavings, :co2, :schedule, :leavetime,:hometime, :timezone, :dlverified, :terms, :insurance, :ipaddress, :verificationtime, :profileblob,:cartype,:seats, :frontphoto,:backphoto,:leftphoto,:rightphoto,:ridesoffered,:ridestaken,:balance,:co2balance,:milesoffered,:milestaken,:drivertardyslips,:ridertardyslips,:notificationmethod,:ridereminders,'N',:carmaker,:isLuxury,:rating,:consistency,:timeliness,:userphoto,:paypalemail)";
+    $sql = "INSERT INTO userprofile (fbid, seckey, fname, lname, add1, add2, city,state,zip,company, workadd1, workadd2, workcity, workstate, workzip, preference, phone,email, homelatlong,worklatlong,origindesc, destdesc, originlatlong,destlatlong, miles, gassavings, co2, schedule, leavetime, hometime, timezone, dlverified, terms, insurance, ipaddress, verificationtime, profileblob, cartype, seats,frontphoto, backphoto, leftphoto, rightphoto, ridesoffered, ridestaken, balance, co2balance, milesoffered, milestaken, drivertardyslips, ridertardyslips, notificationmethod, ridereminders, deleted,carmaker,isLuxury,rating,consistency,timeliness,userphoto,paypalemail,campaign) 
+	VALUES (:fbid, :hash, :fname, :lname, :add1, :add2, :city, :state, :zip,:company, :workadd1, :workadd2, :workcity, :workstate, :workzip, :preference, :phone, :email, :homelatlong, :worklatlong, :origindesc, :destdesc, :originlatlong, :destlatlong, :miles, :gassavings, :co2, :schedule, :leavetime,:hometime, :timezone, :dlverified, :terms, :insurance, :ipaddress, :verificationtime, :profileblob,:cartype,:seats, :frontphoto,:backphoto,:leftphoto,:rightphoto,:ridesoffered,:ridestaken,:balance,:co2balance,:milesoffered,:milestaken,:drivertardyslips,:ridertardyslips,:notificationmethod,:ridereminders,'N',:carmaker,:isLuxury,:rating,:consistency,:timeliness,:userphoto,:paypalemail,:campaign)";
 	
 	$userid=null;
 	try {
@@ -349,6 +349,7 @@ function addUser()
 		$stmt->bindParam("timeliness", $user->timeliness);
 		$stmt->bindParam("userphoto", $user->userphoto);
 		$stmt->bindParam("paypalemail", $user->paypalemail);
+		$stmt->bindParam("campaign", $user->campaign);
 		
 		//print_r ($stmt);
 		$stmt->execute();

@@ -433,7 +433,8 @@ $(document).ready(function(){
 					"hometime": "17:00:00",
 					"notificationmethod": "EMAIL",
 					"ridereminders": "1",
-					"referer":referrer
+					"referer":referrer,
+					"campaign": info.camp
 					}
 					
 			var jsondataset = JSON.stringify(dataset);

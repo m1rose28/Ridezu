@@ -6,13 +6,14 @@ $desc="Ridezu is a community for carpooling to and from the office. It's conveni
 $title="Ridezu Mobile";
 
 // these are init variables
-$t="";$fbid="";$seckey="";$scriptset="";$c="";$client1="";
+$t="";$fbid="";$seckey="";$scriptset="";$c="";$client1="";$camp="";
 
 $p="myridesp";
 $client="mweb";
 
 if(isset($_GET["p"])){$p=$_GET["p"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
+if(isset($_GET["ref"])){$camp=$_GET["ref"];}
 if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["seckey"])){$seckey=$_GET["seckey"];}
 if(isset($_GET["client"])){$client=$_GET["client"];if($client=="android"){$client="iOS";$client1="android";}}
@@ -117,8 +118,10 @@ if($client=="iOS"){
 		var v="<?php echo $rzversion;?>";
 		var env="<?php echo $rzsystem;?>";
 	    var myinfo={};
+	    var info={};
 	    var tm="0";
 	    myinfo.company="<?php echo $c;?>";
+    	info.camp="<?php echo $camp;?>";
 		if(localStorage.seckey!=undefined){
 			//var optimizely = optimizely || [];
 			//optimizely.push("disable");	

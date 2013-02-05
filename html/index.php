@@ -8,12 +8,14 @@ $t="";
 $c="";
 $r="";
 $rname="";
+$camp="";
 
 //checks if the session is set for which type of browser to display
 
 if(isset($_GET["m"])){$_SESSION['m']=$_GET["m"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
 if(isset($_GET["c"])){$c=$_GET["c"];}
+if(isset($_GET["ref"])){$camp=$_GET["ref"];}
 if(isset($_GET["r"])){
 	$r=$_GET["r"];
 	$facebookUrl = "https://graph.facebook.com/".$r; 
@@ -29,6 +31,7 @@ $url="";
 if($t!=""){$url=$url."&t=".$t;}
 if($c!=""){$url=$url."&c=".$c;}
 if($r!=""){$url=$url."&r=".$r;}
+if($camp!=""){$url=$url."&ref=".$camp;}
 
 if($_SESSION['m']==""){ ?>
 	<!DOCTYPE html>

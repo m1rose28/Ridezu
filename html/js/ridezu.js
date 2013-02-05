@@ -1207,6 +1207,7 @@
 				"hometime": "17:00:00",
 				"notificationmethod": "EMAIL",
 				"ridereminders": "1",
+				"campaign": info.camp,
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -2745,7 +2746,6 @@
 	    var mrlist;
 	    var nodelist;
 	    var userinfo={};
-	    var info={};
 	    var etime;
 	    var userfbid="";
 		var message;
