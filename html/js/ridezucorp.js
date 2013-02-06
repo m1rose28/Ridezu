@@ -225,14 +225,14 @@ $(document).ready(function(){
 		function getaddr2(){
 			h=homex.split(",");
 			w=workx.split(",");				
-			if(homex.indexOf("USA")==-1 || h[3]!=" USA"){
-				alert("Please enter a valid home address (in the US)");
-				return false;
-				}
-			if(workx.indexOf("USA")==-1 || w[3]!=" USA"){
-				alert("Please enter a valid work address (in the US)");
-				return false;		
-				}
+			//if(homex.indexOf("USA")==-1 || h[3]!=" USA"){
+			//	alert("Please enter a valid home address (in the US)");
+			//	return false;
+			//	}
+			//if(workx.indexOf("USA")==-1 || w[3]!=" USA"){
+			//	alert("Please enter a valid work address (in the US)");
+			//	return false;		
+			//	}
 
 			//break up the home info
 			str1 = homex.split(',');

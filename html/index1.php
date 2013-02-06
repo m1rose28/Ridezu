@@ -16,7 +16,7 @@ if(isset($_GET["t"])){$t=$_GET["t"];}
 if(isset($_GET["ref"])){$camp=$_GET["ref"];}
 if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["seckey"])){$seckey=$_GET["seckey"];}
-if(isset($_GET["client"])){$client=$_GET["client"];if($client=="android"){$client="iOS";$client1="android";}}
+if(isset($_GET["client"])){$client=$_GET["client"];}
 if(isset($_GET["c"])){$c=$_GET["c"];}
 
 
@@ -67,7 +67,7 @@ if($client=="widget"){
 }
 
 
-if($client=="iOS"){
+if($client=="iOS" or $client=="android"){
 	$clstring="$client fb: $fbid sc: $seckey";
 	$scriptset=$scriptset."
 		<script>
@@ -196,7 +196,7 @@ if($client=="iOS"){
 				<div id="pricingp"></div> 
 				<div id="commutep"></div> 
 
-<?php if($client1=="android"){ ?>
+<?php if($client1=="android or iOS"){ ?>
 			 
 			 <script>
 

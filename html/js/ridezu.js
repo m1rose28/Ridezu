@@ -455,24 +455,13 @@
 			  openconfirm();
 			  return false;			
 			}
-
-			document.getElementById('pTitle').innerHTML=pageTitles[to];
+			
+			updateTitle(to);
 			document.getElementById('temp').innerHTML="";
-
-			if(client=="widget"){
-				parent.updateTitle(pageTitles[to]);
-
-				}
 			document.getElementById(p).style.display="none";		
 			document.getElementById(p).innerHTML="";		
 			document.getElementById(to).style.display="none";
-			if(client=="mweb"){scrollTo(0,0);}						
-			if(client=="iOS"){
-				a="ridezu://window/scrolltotop";
-				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-					window.location.href = a;
-					}
-				}						
+			scrollToTop();					
 			url="pages/"+ to + ".php?v="+v;
 			$.ajax({
   			url: url,
@@ -499,18 +488,7 @@
 			if(tp!==""){
 			   tp="";
 			   document.getElementById("temp").innerHTML="";
-			   document.getElementById('pTitle').innerHTML=pageTitles[p];
-			   if(client=="widget"){
-				   parent.updateTitle(pageTitles[p]);
-				   }
-
-			   if(client=="iOS"){
-				   a="ridezu://window/scrolltotop";
-				   if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-					   window.location.href = a;
-					   }
-				   }				   
-			   
+			   updateTitle(p);
 			   document.getElementById(p).style.display="block";
 			   document.getElementById("menub").src="../images/menu.png";
 			   return false;
@@ -518,21 +496,9 @@
 			}
 
 		function navt(from, to){
-			document.getElementById('pTitle').innerHTML=pageTitles[to];
-			if(client=="widget"){
-				parent.updateTitle(pageTitles[to]);
-				}
+			updateTitle(to);
 			document.getElementById(from).style.display="none";		
-			if(client=="mweb"){
-				scrollTo(0,0);
-				document.getElementById("menub").src="../images/back.png";
-				}						
-			if(client=="iOS"){
-				a="ridezu://backbutton/visible/true";
-				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-					window.location.href = a;
-					}
-				}						
+			showBackButton();
 			url="pages/"+ to + ".php?v="+v;
 			tp=to;
 			$.ajax({
@@ -695,13 +661,54 @@
 				
 			if(updateuserflag==true){updateuser();updateuserflag==false;}
 
+		}		
+
+// this function set is for iOS and android for scrolling to top, showing the backbutton, and updating the title in the title bar
+
+		function updateTitle(title){
+			if(client=="mweb"){
+				document.getElementById('pTitle').innerHTML=pageTitles[title];			
+				}
+			if(client=="widget"){
+				parent.updateTitle(pageTitles[title]);
+				}
 			if(client=="iOS"){
-				a="ridezu://title/update/"+pageTitles[to];
+				a="ridezu://title/update/"+pageTitles[title];
 				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
 					window.location.href = a;
 					}				
 				}
-		}		
+			if(client=="android"){
+					window.android.updatetitle(pageTitles[title]);			
+				}
+			}
+			
+		function showBackButton(){
+			if(client=="mweb"){
+				scrollTo(0,0);
+				document.getElementById("menub").src="../images/back.png";
+				}						
+			if(client=="iOS"){
+				a="ridezu://backbutton/visible/true";
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					window.location.href = a;
+					}
+				}						
+			if(client=="android"){
+					window.android.backbuttonvisible('true');		
+				}
+			}
+			
+		function scrollToTop(){
+			if(client=="mweb"){scrollTo(0,0);}						
+			if(client=="iOS"){
+				a="ridezu://window/scrolltotop";
+				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
+					window.location.href = a;
+					}
+				}						
+			//no need to scroll to top on android
+			}	 
 
 // this function set controls the flow of page views where a flow is needed
 		
@@ -1050,7 +1057,7 @@
 			myinfo.worklatlong=document.getElementById('lat').value+","+document.getElementById('lng').value;
 			document.getElementById("mapselecthome").style.display="block";
 			document.getElementById("mapselectwork").style.display="none";
-			document.getElementById('pTitle').innerHTML="Where do you live?";
+			updateTitle("Where do you live?");
  			_gaq.push(['_trackPageview', "Enroll - Work Selected"]);
 			loadMap("pick",myspot,9,"home");
 			}
@@ -1995,30 +2002,14 @@
 // this function set relates to being late
 
 		function notlate(){
-			if(client=="mweb"){scrollTo(0,0);}						
-
-			if(client=="iOS"){
-				a="ridezu://window/scrolltotop";
-				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-					window.location.href = a;
-					}
-				}	
-
+			   scrollToTop();
 			   document.getElementById('r0').style.display="block";
 			   document.getElementById('r1').style.display="block";			
 			   document.getElementById('rlate').style.display="none";			
 		}
 
 		function runninglate(id){
-			if(client=="mweb"){scrollTo(0,0);}						
-
-			if(client=="iOS"){
-				a="ridezu://window/scrolltotop";
-				if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i))) {
-					window.location.href = a;
-					}
-				}	
-				
+			   scrollToTop();
 			   document.getElementById('r0').style.display="none";
 			   document.getElementById('r1').style.display="none";			
 			   document.getElementById('rlate').style.display="block";			
@@ -2774,7 +2765,7 @@
   			"startp":"Welcome to Ridezu" ,
   			"enrollp":"Where do you work?" ,
   			"fbp":"Login with Facebook" ,
-			"congratp":"Congratulations!",
+			"congratp":"Welcome!",
   			"mainp":"Ridezu" ,
 			"calcp":"Ridezunomics",
 			"accountp":"My Account",
@@ -2843,7 +2834,7 @@ $(document).ready(function() {
 		});
 	  }
 	
-	if(client=="widget" || client=="iOS"){
+	if(client=="widget" || client=="iOS" || client=="android"){
 		document.body.style.display="block";
 		document.getElementById("showbar").style.display="none";
 		}
