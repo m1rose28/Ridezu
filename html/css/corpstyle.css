@@ -946,7 +946,7 @@ section #webappwrapper {
 #webapp {
 	position: absolute;
 	top: 440px;
-	left: 460px;
+	left: 0px;
 	background: transparent;
 	min-width: 0;
 	overflow: visible;
@@ -1025,7 +1025,7 @@ section aside {
 }
 
 section #corpapplinks {
-	height: 180px;
+	height: 225px;
 	background: #d3d3d3;
 	margin: 20px 0 80px 0;
 }
