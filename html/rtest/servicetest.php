@@ -18,10 +18,11 @@ include 'header.php';
 	
 <script>
 
-// this function set 2 creates a new user
 		var retval="";
 		localStorage.fbid="<?php echo $uid;?>";
 		localStorage.seckey="<?php echo $seckey;?>";
+
+// this function set 2 creates a new user
 		
 		function regnewuser(){
 
@@ -42,6 +43,7 @@ include 'header.php';
         wlat=document.getElementById("regwlat").value;
         wlng=document.getElementById("regwlng").value;
         refer=document.getElementById("referfbid").value;
+        camp="test1";
 
 		//		"homelatlong": hlat+","+hlng,
 		//		"worklatlong": wlat+","+wlng,
@@ -59,7 +61,8 @@ include 'header.php';
 				"workstate": wstate,	
 				"workzip": wzip,
 				"email": email,
-				"referer":refer
+				"referer":refer,
+				"campaign":camp
 				}
 				
 			var jsondataset = JSON.stringify(dataset);
@@ -82,6 +85,55 @@ include 'header.php';
   				localStorage.seckey=msg.seckey;
 				});      	
        	}
+
+// this function set creates a new admin user
+		
+		function regnewadminuser(){
+
+			 fbid=document.getElementById("adminfbid").value;
+			 fname=document.getElementById("adminfname").value;
+			 lname=document.getElementById("adminlname").value;
+			 email=document.getElementById("adminemail").value;
+			 company=document.getElementById("admincompany").value;
+			 emailsyntax=document.getElementById("adminemailsyntax").value;
+			 employees=document.getElementById("adminemployees").value;
+			 user_key=document.getElementById("adminuser_key").value;
+			 loginpassword=document.getElementById("adminloginpassword").value;
+	 
+				 var dataset = {
+					 "fbid":	fbid,
+					 "fname": fname,
+					 "lname": lname,
+					 "email": email,
+					 "company": company,
+					 "emailsyntax": emailsyntax,
+					 "employees": employees,
+					 "user_key": user_key,
+					 "loginpassword": loginpassword,
+					 "regtype": "newadmin",
+					 }
+					 
+				 var jsondataset = JSON.stringify(dataset);
+			 
+				 url="/ridezu/api/v/1/users";
+				 type="POST";
+				 instr="URL: "+url+"<br/>type: "+type+"<br/>data:"+jsondataset+"</br>";			
+				 
+				 var request=$.ajax({
+					 url: url,
+					 type: "POST",
+					 dataType: "json",
+					 data: jsondataset,
+					 success: function(data) {show(instr,data);},
+					 error: function(data) { alert("boo!"+JSON.stringify(data)); },
+					 beforeSend: setHeader
+				 });
+				 
+				 request.done(function(msg) {
+					 localStorage.seckey=msg.seckey;
+					 });      	
+		}
+
 
 //get all rides
 		function getusers(){
@@ -479,6 +531,28 @@ include 'header.php';
         }
 
 
+//  this is to see users nearby
+
+		function seenearby(){
+			mylocation=document.getElementById("nearbyloc").value;
+        	fbid=document.getElementById("nearbyfbid").value;
+		    url="/ridezu/api/v/1/users/search/nearby/fbid/"+fbid+"/location/"+mylocation;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    url=url;
+		    var request=$.ajax({
+                url: url,
+                type: type,
+                dataType: "json",
+                success: function(data) {show(instr,data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+        }
+
+
+  
 // this is to try a login
 
 		function loginuser(){
@@ -515,6 +589,49 @@ include 'header.php';
 		    var request=$.ajax({
                 url: url,
                 type: type,
+                dataType: "json",
+                success: function(data) {show(instr,data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+        }
+
+// this is to get corp data
+
+		function getcorpdata(){
+        	fbid=document.getElementById("companyfbid").value;
+        	companyname=document.getElementById("companyname").value;
+		    
+		    url="/ridezu/api/v/1/corp/get/corpdata/"+companyname;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    url=url;
+		    var request=$.ajax({
+                url: url,
+                type: type,
+                dataType: "json",
+                success: function(data) {show(instr,data); },
+                error: function(data) { alert("boo!"+JSON.stringify(data)); },
+                beforeSend: setHeader
+            });
+        }
+
+// this is to get campus data
+
+		function getcampusdata(){
+        	fbid=document.getElementById("campusfbid").value;
+        	companyname=document.getElementById("companyid").value;
+		    
+		    url="/ridezu/api/v/1/corp/get/campuslist/"+companyname;
+			type="GET";
+			instr="URL: "+url+"<br/>type: "+type+"<br/>";			
+
+		    url=url;
+		    var request=$.ajax({
+                url: url,
+                type: type,
+                cache: false,
                 dataType: "json",
                 success: function(data) {show(instr,data); },
                 error: function(data) { alert("boo!"+JSON.stringify(data)); },
@@ -580,10 +697,10 @@ include 'header.php';
 
 
 <div style="padding-left:20px;">
-
+<form class="form-horizontal">
 	<p><div class="input-append"><a class="btn btn-primary" onclick="shownewuser();">Make a new user</a>
 	<div id="makenewuser" style="display:none;background-color:#eee;padding:10px;"/>	 
-		 <p><div class="input-append">fbid: <input id="regfbid" value="<?php echo "test".rand(1000,9000);?>" type="text"/></div></p>
+		 <p><label>fbid</label><div class="input-append">fbid: <input id="regfbid" value="<?php echo "test".rand(1000,9000);?>" type="text"/></div></p>
 		 <p><div class="input-append">first name: <input id="regfname" value="Mark" type="text"/></div></p>
 		 <p><div class="input-append">last name:  <input id="reglname" value="Rose" type="text"/></div></p>
 		 <p><div class="input-append">email:  <input id="regemail" value="m1rose28@gmail.com" type="text"/></div></p>
@@ -600,8 +717,20 @@ include 'header.php';
 		 <p><div class="input-append">work lat:  <input id="regwlat" value="-121.9214275" type="text"/></div></p>
 		 <p><div class="input-append">work lng:  <input id="regwlng" value="-121.9214275" type="text"/></div></p>
 		 <p><div class="input-append">referfbid:  <input id="referfbid" value="504711218" type="text"/></div></p>
-
-		 <p><div class="input-append"><a class="btn btn-primary" onclick="regnewuser();">Create</a>  <a class="btn" onclick="hidenewuser();">hide</a></div></p>
+		 <p><div class="input-append"><a class="btn btn-primary" onclick="regnewuser();">Create New Standard User</a>
+		 
+		 <p><label>fbid</label><div class="input-append">fbid: <input id="adminfbid" value="<?php echo "test".rand(1000,9000);?>" type="text"/></div></p>
+		 <p><div class="input-append">first name: <input id="adminfname" value="Mark" type="text"/></div></p>
+		 <p><div class="input-append">last name:  <input id="adminlname" value="Rose" type="text"/></div></p>
+		 <p><div class="input-append">email:  <input id="adminemail" value="m1rose28@gmail.com" type="text"/></div></p>
+		 <p><div class="input-append">company:  <input id="admincompany" value="Spacely Sprockets" type="text"/></div></p>
+		 <p><div class="input-append">email syntax  <input id="adminemailsyntax" value="ss.com" type="text"/></div></p>
+		 <p><div class="input-append">employees  <input id="adminemployees" value="300" type="text"/></div></p>
+		 <p><div class="input-append">username  <input id="adminuser_key" value="m1rose@gmail.com" type="text"/></div></p>
+		 <p><div class="input-append">password<input id="adminloginpassword" value="ridezu" type="text"/></div></p>
+		 <p><div class="input-append"><a class="btn btn-primary" onclick="regnewadminuser();">Create an Admin user</a>
+		 		 
+		 <br><a class="btn" onclick="hidenewuser();">hide</a></div></p>
 	 </div> 
 	 </div></p>
 	 
@@ -625,6 +754,9 @@ include 'header.php';
 	 <p><div class="input-append"><input id="locfbid" value="<?php echo $uid;?>" type="text"/><a class="btn btn-primary" onclick="seeothers();">See others on my route</a></div></p>
 	 <p><div class="input-append"><input id="login" value="login" type="text"/><input id="password" value="password" type="text"/><a class="btn btn-primary" onclick="loginuser();">Login</a></div></p>
 	 <p><div class="input-append"><input id="clogin" value="login" type="text"/><input id="cpassword" value="old password" type="text"/><input id="cpassword1" value="new password" type="text"/><a class="btn btn-primary" onclick="changepassword();">Change Password</a></div></p>
+	 <p><div class="input-append"><input id="nearbyfbid" value="<?php echo $uid;?>" type="text"/><input id="nearbyloc" value="H" type="text"/><a class="btn btn-primary" onclick="seenearby();">See users nearby</a></div></p>
+	 <p><div class="input-append"><input id="companyfbid" value="<?php echo $uid;?>" type="text"/><input id="companyname" value="companyname" type="text"/><a class="btn btn-primary" onclick="getcorpdata();">Get corp data</a></div></p>
+	 <p><div class="input-append"><input id="campusfbid" value="<?php echo $uid;?>" type="text"/><input id="companyid" value="3" type="text"/><a class="btn btn-primary" onclick="getcampusdata();">Get campus list</a></div></p>
 		 
 		 
 	 <div class="modal" style="display:none;" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -636,7 +768,7 @@ include 'header.php';
 		 <p><div id="jsonresult"></div></p>
 	   </div>
 	 </div>
-
+</form>
 </div>
 
   </body>

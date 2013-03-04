@@ -1,20 +1,14 @@
 <?php
-
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
 $defaultHash=md5('xyxxyx');
 
 require 'model/user.php';
-require 'model/corp.php';
 require 'model/ride.php';
 require 'model/account.php';
 require 'model/node.php';
 require 'model/notification.php';
 require 'model/payment.php';
 require 'model/balance.php';
-require_once 'util.php';
-
+require 'util.php';
 //require_once 'braintree-php-2.17.0/lib/Braintree.php';
 //require_once __DIR__ . '/vendor/autoload.php';
  
@@ -38,10 +32,6 @@ $app->post('/v/1/users', 'addUser');
 $app->put('/v/1/users/:id/fbid/:fbid', 'updateUser'); //authorization enabled
 //$app->delete('/v/1/users/:id',	'deleteUser'); 
 $app->get('/v/1/users/search/fbid/:fbid/location/:location','getNodes');  //authorization enabled
-$app->get('/v/1/users/generatePin/login/:login', 'generatePin');
-$app->get('/v/1/users/checkPin/login/:login/pin/:pin', 'checkPin');
-$app->get('/v/1/users/connectfb/newfbid/:newfbid/user_key/:user_key', 'connectfb');
-
 
 /*** RIDE APIS ***/
 $app->get('/v/1/rides','getRides'); //get all rides - helper method - will be removed later
@@ -83,17 +73,6 @@ $app->get('/v/1/account/detail/fbid/:query/timeperiod/:timeperiod','getAccountDe
 
 /*** NOTIFICATION APIS ***/
 $app->post('/v/1/notification/message/fbid/:fbid/fromfbid/:fromfbid','sendMessage');
-
-/*** Corporate APIS ***/
-$app->get('/v/1/corp/put/companyname/:companyname', 'corpRegister');
-$app->post('/v/1/corp/put/campus','corpCampus');
-$app->post('/v/1/corp/put/adminuser','corpRegAdminUser');
-$app->get('/v/1/corp/get/corpdata/:companyname','corpGetData');
-$app->get('/v/1/corp/put/addcorplogo/:companylogo/company/:companyname/upload','corpAddLogo'); 
-$app->get('/v/1/corp/get/corplogo/:companyname','corpGetLogo');
-$app->get('/v/1/corp/get/campuslist/:companyname','campusGetData');
-$app->delete('/v/1/corp/delete/campus/:companyname/:campusid','deleteCampus');
-
 
 /******** BALANCE APIS********/
 //$app->get('/v/1/balance/add/:fbid','addSignUpBalance'); 

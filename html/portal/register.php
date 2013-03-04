@@ -1,17 +1,13 @@
 <?php 
 
-$title="Sign-up";
+$title="Register";
 	
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
 	
 include 'header.php';
 
-
-
 ?>
-
-
 
 		<section id="homepageintro">
 			<div class="portalwrapper">
@@ -21,7 +17,7 @@ include 'header.php';
 					</div>
 					
 					<div id="corptitle" class="index80">
-						<h2>Sign-up</h2>
+						<h2>Register</h2>
 					</div>
 					
 				</div>
@@ -33,26 +29,25 @@ include 'header.php';
 
 				<div id="portalcontent" class="left contact">
 				
-					 <div class="charttitle">Sign-up for a corporate account</div>
+					 <div class="charttitle">Corporate Account Registration</div>
 					 <div id="loginbox">
-					 <div>First name:</div>
-					 <input type="text" id="fname" value=""/>
-					 <div>Last name:</div>
-					 <input type="text" id="lname" value=""/>
-					 <div>Company:</div>
-					 <input type="text" id="company" value=""/>
-					 <div>Email:</div>
-					 <input type="text" id="email" value=""/>
-					 <div>Password:</div>
-					 <input type="password" id="password" value=""/>
-					 <br><div id="startbutton" href="#" onclick="passwordreset();">Sign-up</div> 
-					 <a href="login.php">I already have an account</a>
+					 <input type="text" id="fname" value="" placeholder="first name"/>
+					 <input type="text" id="lname" value="" placeholder="last name"/>
+					 <input type="text" id="company" value="" placeholder="company"/>
+					 <input type="text" id="email" value="" placeholder="corporate email"/>
+					 <input type="text" id="phone" value="" placeholder="phone"/>
+					 <input type="password" id="password1" value="" placeholder="password"/>
+					 <input type="password" id="password2" value="" placeholder="re-type password"/>
+					 <br>
+					 <div class="greenbutton" onclick="registeradminuser();"/>Register</div> 
+					 <br>Already have an account?<a class="plink" href="login.php">Login ></a>
 					 </div>
 					 					 <br> 
 				</div>
 			</div>
 		</section>
 
+<iframe id="loginiframe" src="" style="width:0px;height:0px;"/> 
 
 
 <?php 

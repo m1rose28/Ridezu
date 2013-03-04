@@ -33,6 +33,7 @@
 // this function loads all user data in a js object, this function is used when looking at another user 
 
 		function loaduser(fbid){
+		    loading();
 		    url="/ridezu/api/v/1/users/searchpublic/fbid/"+fbid;
 		    var request=$.ajax({
                 url: url,
@@ -42,8 +43,11 @@
                 success: function(data) {
 					userinfo=data;
 					paintuserprofile();
+				    doneloading();
 			    	},
-                error: function(data) { alert("Uh oh - does this user exist?"+JSON.stringify(data));reporterror(url); },
+                error: function(data) { 
+                	doneloading();
+                	alert("Uh oh - does this user exist?"+JSON.stringify(data));reporterror(url); },
                 beforeSend: setHeader
             });
 		}
@@ -61,7 +65,8 @@
                 dataType: "json",
                 data: jsondataset,
                 success: function(data) {},
-                error: function() { alert('uh oh, I could not save this data');reporterror(url) },
+                error: function() {
+ 					alert('uh oh, I could not save this data');reporterror(url) },
                 beforeSend: setHeader
                 });                                     
 		}
@@ -419,6 +424,9 @@
 								ts=Math.round(new Date().getTime() / 1000); 
 								}
 							},
+						error: function(data) {
+							doneloading();
+							alert("Oops.  Something is wrong here:"+JSON.stringify(data));reporterror(url); },
 					});			   										  
 				
 				}
@@ -458,9 +466,7 @@
 			
 			updateTitle(to);
 			document.getElementById('temp').innerHTML="";
-			document.getElementById(p).style.display="none";		
 			document.getElementById(p).innerHTML="";		
-			document.getElementById(to).style.display="none";
 			scrollToTop();					
 			url="pages/"+ to + ".php?v="+v;
 			$.ajax({
@@ -469,8 +475,7 @@
   			dataType: "html"
 			}).done(function( html ) {
   				document.getElementById(to).innerHTML=html;
-				xx=document.getElementById(to);
-				$(xx).trigger('create');
+  				document.getElementById(to).style.display="block";	
   				nav2(from,to);
 				});
 		}
@@ -489,7 +494,7 @@
 			   tp="";
 			   document.getElementById("temp").innerHTML="";
 			   updateTitle(p);
-			   document.getElementById(p).style.display="block";
+			   document.getElementById(p).style.display="block";	    
 			   document.getElementById("menub").src="../images/menu.png";
 			   return false;
 			   }			
@@ -629,12 +634,19 @@
 			if(to=="startp" || p=="startp"){
 				//window['optimizely'].push(["activate", 160930926]);
 				document.getElementById("topbar").style.display="none";		
-				document.getElementById(p).style.display="block";
 				facebook();	    
 				}
 
 			if(to=="transactionp"){
 				accountdetail();
+				}
+				
+			if(to=="corploginp" || to=="checkpinp"){
+				showcompanylogo();
+				}
+
+			if(to=="fbconnectp"){
+				facebook();
 				}
 
 			if(to=="userprofilep"){
@@ -653,10 +665,6 @@
 				
 			if(to=="profilep"){
 				profileinit();
-				}
-
-			if(to=="pricingp" || to=="mainp" || to=="howitworksp" || to=="profilep" || to=="termsp" || to=="faqp" || to=="calcp" || to=="fbp" || to=="enrollp" || to=="congratp"){
-				document.getElementById(p).style.display="block";	    
 				}
 				
 			if(updateuserflag==true){updateuser();updateuserflag==false;}
@@ -710,10 +718,22 @@
 			//no need to scroll to top on android
 			}	 
 
-// this function set controls the flow of page views where a flow is needed
-		
-// this function controls the flow of enrollment
+// this function set shows/hides the spinner on ajax calls (or pages that take a while)
 
+		function loading(){
+			if(client!="widget"){
+				$('#loadingindicator').fadeIn({ duration: 500 });
+				}		
+			}
+
+		function doneloading(){
+			if(client!="widget"){
+				$('#loadingindicator').fadeOut({ duration: 500 });		
+				}		
+			}
+
+// this function set controls the flow of page views where a flow is needed, like enrollment or first rides
+		
 		function startflow(f){
 		
 			if(f){flow=f;}
@@ -779,18 +799,6 @@
 		function showgrabber(){
 			document.getElementById("menu-btn").style.display="block";
 			}		
-
-// this function turns on a loading indicator.  only use when making a non-cached server call.
-
-		function pleasehold(){
-			document.getElementById("loading").style.display="block";
-		}
-
-// this function paints a page after it's full loaded and turns off the loading indicator
-
-		function loading(p){
-			document.getElementById(p).style.display="block";
-		}
 	
 // these two functions show the alert dialog (and process functions, if required)
 
@@ -801,6 +809,7 @@
 			if(showcancel==true){document.getElementById('cancel-button').style.display="block";document.getElementById('ok-button').style.float="left"}
 			if(showcancel==false){document.getElementById('ok-button').style.float="center";}
 			$('#confirm-background').fadeIn({ duration: 100 });		
+			scrollToTop();
 			}
 			
 		function closeconfirm(action){
@@ -811,6 +820,7 @@
 			okmessage="OK";
 			cancelmessage="Cancel";
 			$('#confirm-background').fadeOut({ duration: 100 });
+			scrollToTop();
 			}		
 		
 // this function takes a physical address and turns into lat long
@@ -915,6 +925,7 @@
 				 });
 			
 				function getnodes(nodetype){
+  			      	loading();
   			      	fbid=myinfo.fbid;
 				    url="/ridezu/api/v/1/users/search/fbid/"+fbid+"/location/"+nodetype;
 					var request=$.ajax({
@@ -924,8 +935,11 @@
 					    cache: false,
 						success: function(data) {
 							nodelist=data;
+							doneloading();
 							paintnodes(data); },
-						error: function(data) { alert("boo!"+JSON.stringify(data));reporterror(url); },
+						error: function(data) { 
+							doneloading();
+							alert("boo!"+JSON.stringify(data));reporterror(url); },
 						beforeSend: setHeader
 					});
 				}
@@ -1187,7 +1201,49 @@
 			 alert("Logged-out");
 			 document.getElementById('user-info').innerHTML="";
 			 }
-		
+
+		function connectwithfb(){
+			 FB.login(function(response) {
+			   if (response.authResponse) {
+
+				  FB.api('/me', function(response) {
+				  myinfo.profileblob=JSON.stringify(response);
+
+				 if(response.id){
+						alert("ok");		   
+						   url="/ridezu/api/v/1/users/connectfb/newfbid/"+response.id+"/user_key/"+myinfo.fbid;
+						   var request=$.ajax({
+							   url: url,
+							   type: "GET",
+							   cache:false,
+							   dataType: "json",
+							   success: function(data) {
+								   if(data.facebookconnect.text=="success"){
+									   localStorage.fbid=response.id;
+									   localStorage.seckey=data.facebookconnect.seckey;
+									   myinfo.fbid=response.id;
+									   myinfo.seckey=data.facebookconnect.seckey;
+									   seckey=data.facebookconnect.seckey;
+									   fbid=response.id;
+									   updateuser();
+									   message="Congratulations, you are now connected with Facebook.  From now on, if you need to login, login with Facebook".
+									   openconfirm();
+									   back();
+									   }
+								   },
+							   error: function(data) { alert("Uh oh - something went wrong."+JSON.stringify(data));reporterror(url) },
+							   beforeSend: setHeader
+						   });			   										  
+						
+						}		
+
+			 });
+
+
+		   		 }
+		   	   },{scope: 'email'});
+	 		 }
+			
 // this registers a new user
 
 		function regnewuser(){
@@ -1291,10 +1347,10 @@
 			_gaq.push(['_trackPageview', "Reverse Route"]);
 		}
  	
-
 // gets a list of riders/drivers
 		
 		function getlist(role,route,date){
+		  	  loading();
 		  	  info.role=role;
 		  	  fbid=myinfo.fbid;
 		  	  rlist="";		  
@@ -1312,6 +1368,7 @@
 			  dataType: "json",
 			  beforeSend: setHeader
 			  }).done(function(data) {
+		  	  	doneloading();
 				rlist=data;
 				paintlist();						
 				  });
@@ -1383,7 +1440,6 @@
 			   }
 		  });
 			document.getElementById('ridelist1').innerHTML=ridelist;
-			loading(p);	  
 		  }
 		  
 // once you've selected a time slot, this paints the list of available drivers to ride with (used by riders)
@@ -1455,7 +1511,8 @@
 			if(rideid==0){
 
 			   	 fbid=myinfo.fbid;
-				 
+			   	 loading();
+		 
 				 url="/ridezu/api/v/1/rides/rider";
 	 
 				 var dataset = {
@@ -1475,16 +1532,20 @@
 					 success: function(data) {
 					 	 if(data.warn){
 					 	 	message="<h2>Really?</h2><p>I think you might be trying to overbook yourself.</p>";
+					 	 	doneloading();
 					 	 	openconfirm();
 					 	 	return false;
 					 	 	};
+					  	 doneloading();
 						 document.getElementById("r1").style.display="none";
 						 document.getElementById("r2").style.display="none";
 						 document.getElementById("ridetimea").innerHTML=timeslot;
 						 document.getElementById("ridepickupa").innerHTML=rlist.start;
 						 document.getElementById("r3").style.display="block";
 						 },
-					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));reporterror(url); },
+					 error: function(data) {
+					 	doneloading();
+					 	alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));reporterror(url); },
 					 beforeSend: setHeader
 				 });
 
@@ -1495,6 +1556,7 @@
 			if(rideid>0){
 			
 			   fbid=myinfo.fbid;
+			   loading();
 			   
 			   var dataset = {
 				   "fbid":	fbid,
@@ -1515,6 +1577,7 @@
 					 	 	openconfirm();
 					 	 	return false;
 					 	 	};
+						 doneloading();
 						 document.getElementById("ridetimeb").innerHTML=timeslot;
 						 document.getElementById("ridepickupb").innerHTML=rlist.start;
 						 document.getElementById("dnameb").innerHTML=pname;
@@ -1522,7 +1585,9 @@
 						 document.getElementById("dpicb").src="https://graph.facebook.com/"+driverfbid+"/picture";
 						 document.getElementById("r4").style.display="block";
 						 },
-				   error: function(data) {alert("boo!"+JSON.stringify(data));reporterror(url); },
+				   error: function(data) {
+				   		doneloading();
+				   		alert("boo!"+JSON.stringify(data));reporterror(url); },
 				   beforeSend: setHeader
 			   });
 
@@ -1599,7 +1664,7 @@
 			if(ride==0){
 
 			   	 fbid=myinfo.fbid;
-				 
+				 loading();
 				 url="/ridezu/api/v/1/rides/rider";
 	 
 				 var dataset = {
@@ -1622,13 +1687,16 @@
 					 	 	openconfirm();
 					 	 	return false;
 					 	 	};
+						 doneloading();
 						 document.getElementById("posttimea").innerHTML=timeslot;
 						 document.getElementById("ridepickupa").innerHTML=rlist.start;
 						 document.getElementById("r1").style.display="none";
 						 document.getElementById("r2").style.display="none";
 						 document.getElementById("r3").style.display="block";
 					  },
-					 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); reporterror(url);},
+					 error: function(data) {
+					 	 doneloading();
+					 	 alert("Rats, I wasn't able to make this request: "+JSON.stringify(data)); reporterror(url);},
 					 beforeSend: setHeader
 				 });
  
@@ -1638,6 +1706,7 @@
 			//if picking a specific rider (for drivers)
 			if(ride>0){
 			
+				 loading();
 				 var dataset = {
 						 "fbid": fbid,
 						 }				
@@ -1655,6 +1724,7 @@
 								  openconfirm();
 								  return false;
 								  };
+								doneloading();
 								x="l"+fbid1;
 								newrow="<div class='select1'><div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+fbid1+"/picture'/>";
 								newrow=newrow+"<p>View Profile</p></div>";
@@ -1663,7 +1733,9 @@
 								document.getElementById(x).innerHTML=newrow;
 								document.getElementById("nextbutton").style.display="block";
 							 	},
-							 error: function(data) {alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));reporterror(url);},
+							 error: function(data) {
+							 	doneloading();
+							 	alert("Rats, I wasn't able to make this request: "+JSON.stringify(data));reporterror(url);},
 							 beforeSend: setHeader
 						 });			
 						}
@@ -1784,6 +1856,7 @@
 // gets a list of myrides
 		
 		function myrides(){
+		  	  loading();
 		  	  fbid=myinfo.fbid;
 		  	  mrlist="";		  
 			  url="/ridezu/api/v/1/rides/search/fbid/"+fbid;
@@ -1794,6 +1867,7 @@
 			  dataType: "json",
 			  beforeSend: setHeader
 			  }).done(function(data) {
+				doneloading();
 				mrlist=data;
 				paintmyrides();						
 				  });
@@ -1922,7 +1996,6 @@
 			   document.getElementById('noride').style.display="block";
 
 		  	}
-		document.getElementById(p).style.display="block";	    
 	}
 
 // this function shows all rides that a user has
@@ -1985,6 +2058,7 @@
 		function cancelconfirm(rideid){	
 			fbid=myinfo.fbid;
 			rideid=info.rideid;
+		    loading();
 		    url="/ridezu/api/v/1/rides/rideid/"+rideid+"/fbid/"+fbid;
 		    var request=$.ajax({
                 url: url,
@@ -1992,9 +2066,12 @@
 			    cache: false,
                 dataType: "json",
                 success: function(data) {
+                	doneloading();
                 	p="mainp";
                 	nav(p,'myridesp');},
-                error: function(data) { alert("Rats - I could not cancel this. "+JSON.stringify(data));reporterror(url); },
+                error: function(data) {
+                	doneloading();
+                	alert("Rats - I could not cancel this. "+JSON.stringify(data));reporterror(url); },
                 beforeSend: setHeader
             });
 		}	
@@ -2057,11 +2134,7 @@
 			if(myinfo.fbid!=userinfo.fbid){
 				document.getElementById('messageuser').innerHTML="<br/><a class='minibutton' onclick=\"sendmessage('"+myinfo.fbid+"','"+userinfo.fbid+"','"+userinfo.fname+"');\">Send message</a>";
 				}
-			
-			if(userinfo.profileblob.quotes){
-				document.getElementById('quote').innerHTML=userinfo.profileblob.quotes;
-				}
-				
+							
 			document.getElementById('ranking').innerHTML=info.ranking;	
 			document.getElementById('city').innerHTML=userinfo.city;	
 			document.getElementById('cartype').innerHTML=userinfo.carmaker+" "+userinfo.cartype;	
@@ -2076,56 +2149,61 @@
 				document.getElementById('mywheels').style.display="block";			
 				}
 							
+			if(userinfo.profileblob!=null){
 
-			if(userinfo.profileblob.work){
-				worklist="";
-				$.each(userinfo.profileblob.work, function(key, value) {
+				if(userinfo.profileblob.quotes){
+					document.getElementById('quote').innerHTML=userinfo.profileblob.quotes;
+					}
 
-				  if(value.employer){employer=value.employer.name;}
-				  		else{employer="";}
-
-				  if(value.position){position=", "+value.position.name;}
-				  		else{position="";}
-
-				  worklist=worklist+"<div><p><strong>"+employer+"</strong>"+position+"</p></div>";				  
-				});			
-				document.getElementById('wlist').innerHTML=worklist;				
-				document.getElementById('work').style.display="block";
+				if(userinfo.profileblob.work){
+					worklist="";
+					$.each(userinfo.profileblob.work, function(key, value) {
+	
+					  if(value.employer){employer=value.employer.name;}
+							else{employer="";}
+	
+					  if(value.position){position=", "+value.position.name;}
+							else{position="";}
+	
+					  worklist=worklist+"<div><p><strong>"+employer+"</strong>"+position+"</p></div>";				  
+					});			
+					document.getElementById('wlist').innerHTML=worklist;				
+					document.getElementById('work').style.display="block";
+					}
+	
+				if(userinfo.profileblob.education){
+					edulist="";
+					x=userinfo.profileblob.education;
+					y=x.reverse();
+	
+					$.each(y, function(key, value) {
+					  edulist=edulist+"<li>";
+	
+					  if(value.school){
+							edulist=edulist+"<strong class='educationsub'>"+value.school.name+"</strong><br>";
+							}
+	
+					  if(value.year){
+							edulist=edulist+"<p class='educationdescription'>Class of "+value.year.name;
+							}
+	
+					  if(value.degree || value.concentration){edulist=edulist+" &#8226; ";} 
+	
+					  if(value.degree){
+							edulist=edulist+value.degree.name;
+							}				  
+	
+					  if(value.degree){edulist=edulist+" &#8226; ";} 
+	
+					  if(value.concentration){edulist=edulist+value.concentration[0].name;
+							}
+					  edulist=edulist+"</li>";
+									
+					});		
+					document.getElementById('education').style.display="block";
+					document.getElementById('elist').innerHTML=edulist;				
+					}
 				}
-
-			if(userinfo.profileblob.education){
-				edulist="";
-				x=userinfo.profileblob.education;
-				y=x.reverse();
-
-				$.each(y, function(key, value) {
-				  edulist=edulist+"<li>";
-
-				  if(value.school){
-				  		edulist=edulist+"<strong class='educationsub'>"+value.school.name+"</strong><br>";
-				  		}
-
-				  if(value.year){
-				  		edulist=edulist+"<p class='educationdescription'>Class of "+value.year.name;
-				  		}
-
-				  if(value.degree || value.concentration){edulist=edulist+" &#8226; ";} 
-
-				  if(value.degree){
-				  		edulist=edulist+value.degree.name;
-				  		}				  
-
-				  if(value.degree){edulist=edulist+" &#8226; ";} 
-
-				  if(value.concentration){edulist=edulist+value.concentration[0].name;
-				  		}
-				  edulist=edulist+"</li>";
-				  		  		
-				});		
-				document.getElementById('education').style.display="block";
-				document.getElementById('elist').innerHTML=edulist;				
-				}
-			loading("temp");
 			userfbid="";	    
 			}
 
@@ -2148,7 +2226,6 @@
 			setSelectedIndex(document.getElementById('carmaker'),myinfo.carmaker);
 			setSelectedIndex(document.getElementById('seats'),myinfo.seats);
 
-			loading("temp");	    
 			}
 
 		function addphoto(){
@@ -2224,6 +2301,9 @@
 		function profileinit(){
 			if(myinfo.miles>0){
 				document.getElementById('commute').style.display="block";
+				}
+			if(myinfo.profileblob==null){
+				document.getElementById('addfb').style.display="block";				
 				}					
 		}
 
@@ -2245,7 +2325,6 @@
 				else {
 				document.getElementById('pickupname').innerHTML="Select a pickup location";
 				}
-			loading("temp");	    
 			}
 
 		function pickhome(){ 
@@ -2321,7 +2400,6 @@
 				document.getElementById('pickupname').innerHTML="Select a pickup location";
 				}
 
-		loading("temp");	    
 			}
 
 		function pickwork(){ 
@@ -2383,6 +2461,7 @@
 		function commuteinit(){
 			if(myinfo.miles.length>0){
 
+				loading();
 				mapurl="https://maps.googleapis.com/maps/api/staticmap?size=300x200&maptype=roadmap&markers=icon:http://stage.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&markers=icon:http://stage.ridezu.com/images/basecbmarker.png%7C"+myinfo.worklatlong+"&markers=icon:http://stage.ridezu.com/images/basepmarker.png%7C"+myinfo.originlatlong+"&markers=icon:http://stage.ridezu.com/images/basecpmarker.png%7C"+myinfo.destlatlong+"&sensor=false";
 				document.getElementById('commutex').style.display="block";		
 				document.getElementById('miles').innerHTML=myinfo.miles+" miles";			
@@ -2409,6 +2488,7 @@
 				dataType: "json",
 				beforeSend: setHeader
 				}).done(function(data) {
+				  doneloading();
 				  info.cost=data.amount;
 				  document.getElementById('savedaily').innerHTML=addCommas(curr(info.cost));
 				  document.getElementById('saveyearly').innerHTML=addCommas(curr(info.cost*240*2*.25));			
@@ -2429,7 +2509,6 @@
 				document.getElementById('c3').checked=true;
 				document.getElementById('c4').checked=true;
 				}
-			loading("temp");	    
 		}
 
 		function dverify(){
@@ -2460,7 +2539,6 @@
 				document.getElementById('phone').value = parts[0]+"-"+parts[1]+"-"+parts[2];	
 				}
 			document.getElementById('name').value=myinfo.fname+" "+myinfo.lname;			
-			loading("temp");	    
 			}
 
 		function contactinfo(){
@@ -2491,6 +2569,7 @@
 // this function set are the account management functions
 
 		function account(){
+        	loading();
         	fbid=myinfo.fbid;
         	timeperiod="Y";
 		    url="/ridezu/api/v/1/account/summary/fbid/"+fbid+"/timeperiod/"+timeperiod;
@@ -2500,8 +2579,11 @@
  			    cache: false,
                 dataType: "json",
                 success: function(data) {
+                	doneloading();
                 	paintaccount(data); },
-                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+                error: function(data) {
+                	doneloading();
+                	alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
                 beforeSend: setHeader
             });
         }
@@ -2524,10 +2606,10 @@
 			document.getElementById('miles').innerHTML=addCommas(data.account.totalmiles);
 			document.getElementById('savings').innerHTML=curr(data.account.totalgassavingspercent);
 			document.getElementById('passengers').innerHTML=addCommas(data.account.totalpassengers);
-			loading(p);	    		
 		}
 
 		function accountdetail(){
+        	loading();
         	fbid=myinfo.fbid;
         	timeperiod="Y";
 		    url="/ridezu/api/v/1/account/detail/fbid/"+fbid+"/timeperiod/"+timeperiod;
@@ -2537,8 +2619,11 @@
  			    cache: false,
                 dataType: "json",
                 success: function(data) {
+                	doneloading();
                 	paintaccountdetail(data); },
-                error: function(data) { alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+                error: function(data) {
+                	doneloading();
+                	alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
                 beforeSend: setHeader
             });
         }
@@ -2698,6 +2783,94 @@
 				}
 		}	
 
+// this function set is to show the company logo, send pins as well as check pins for registration
+
+		function showcompanylogo(){
+				if(localStorage.companylogo!=undefined){
+					document.getElementById("cobrand").src="https://ridezu.s3.amazonaws.com/"+localStorage.companylogo;
+					}
+				if(localStorage.companylogo==undefined){
+					url="/ridezu/api/v/1/corp/get/corplogo/"+myinfo.company;
+					var request=$.ajax({
+						url: url,
+						type: "GET",
+						cache:false,
+						dataType: "json",
+						success: function(data) {
+							localStorage.companylogo=data.logo;
+							document.getElementById("cobrand").src="https://ridezu.s3.amazonaws.com/"+localStorage.companylogo;
+							},
+						error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data));reporterror(url) },
+						beforeSend: setHeader
+						});	
+					}
+			}
+
+		function sendpin(){
+			corploginemail=document.getElementById("corpemail").value;
+		    if(corploginemail!=""){
+	        	myinfo.email=corploginemail;
+	        	loading();
+				url="/ridezu/api/v/1/users/generatePin/login/"+corploginemail;
+				var request=$.ajax({
+					url: url,
+					type: "GET",
+					cache: false,
+					dataType: "json",
+					success: function(data) {
+						doneloading();
+						x=data.generatePin.text;
+						if(x=="success"){
+							nav("corploginp","checkpinp");
+							return false;
+							}
+						if(x=="fail"){
+							message="<h2>Snap!</h2><p>We didn't find your email with our corporate user list.  Please try again or contact your corp admin</p>";
+							openconfirm();
+							}
+						},
+					error: function(data) {
+						doneloading();
+						alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+					beforeSend: setHeader
+				});	
+			}	
+		}
+		
+		function checkpin(){				
+	        	loading();
+	    		pin=document.getElementById("pin").value;
+				url="/ridezu/api/v/1/users/checkPin/login/"+myinfo.email+"/pin/"+pin;
+				var request=$.ajax({
+					url: url,
+					type: "GET",
+					cache: false,
+					dataType: "json",
+					success: function(data) {
+						doneloading();
+						if(data.user_key){
+							message="Great!  You're registered and ready to go!  Let's see who we can carpool with.";
+							openconfirm();
+							localStorage.seckey=data.seckey;
+							localStorage.fbid=data.user_key;
+							fbid=localStorage.fbid;
+							seckey=localStorage.seckey;
+							loadmyinfo();															
+							}
+						if(data.msg){
+							message="<h2>Snap!</h2><p>That pin is not quite right. Please enter the correct pin.</p>";
+							openconfirm();
+							}
+						},
+					error: function(data) {
+						doneloading();
+						alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+					beforeSend: setHeader
+				});	
+
+		
+		}
+
 // this function is to report errors or anomalies that users see
 
 		function reporterror(url){
@@ -2787,7 +2960,10 @@
   			"notifyp":"Notifications",			
   			"userprofilep":"Profile",			
   			"pricingp":"Pricing",			
-  			"commutep":"My Commute"			
+  			"commutep":"My Commute",			
+  			"corploginp":"Login",			
+  			"checkpinp":"Enter Pin",			
+  			"fbconnectp":"Connect with Facebook"			
 			};
 
 // this watches for orientation change and makes any site changes, if needed
@@ -2809,8 +2985,19 @@
 // this determines if the user is in the system, or not (by looking at local storage).  if not, send them to enroll...  also see the very top of index1.php for first page logic
 
 $(document).ready(function() {
+
+	if(msg=="Welcome"){
+		localStorage.removeItem("fbid");
+		localStorage.removeItem("seckey");
+		nav("firstp","corploginp");
+		document.getElementById("showbar").style.display="block";
+		document.body.style.display="block";
+		return false;
+		}
+
 	fbid=localStorage.fbid;
 	seckey=localStorage.seckey;
+
 
 	if(fbid!=undefined && seckey!=undefined){
 	  loadmyinfo();

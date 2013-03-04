@@ -19,93 +19,101 @@ include "header.php";
 				 
 				 <div id="corpstartcalc" class="index80">
 				 
-				 	<div id="referafriend" style="display:none;">
-				 	  <div id="welcomer">Welcome! As a special referral from<br>
-				 	  		<span id="referror"></span>
-				 	  </div>
-				 	  <img id="referpic" src=""/>
-				 	  <div id="bonus">Sign up today and get $10 in FREE Rides
-					
-					  <input type="submit" id="startbutton" onclick="loginUser();" value="Try Ridezu!" style="bottom:15px;left:130px;"/>
+				 <div id="referafriend" style="display:none;">
+					  <div id="welcomer">Welcome! As a special referral from<br>
+							<span id="referror"></span>
+					  </div>
+					  <img id="referpic" src=""/>
+					  <div id="bonus">Sign up today and get $10 in FREE Rides				
+					  		<input type="submit" id="startbutton" onclick="loginUser();" value="Try Ridezu!" style="bottom:15px;left:130px;"/>
 					  </div>
 				 </div>
 				 			 					 	
-				 	<div id="ridezunomics" style="display:none;">
-				 		<div id="wizard1">
-						<ul id="calclist" style="list-style-type: none;padding-left:20px;margin-top:10px;"> 
-							<li>
-								<div class="question" style="padding-bottom:15px;">
-									<label style="padding-bottom:4px;">Are you a rider or a driver?</label>
-									<input type="radio" name="utype1" id="rider" value="Rider">Rider
-									<input type="radio" name="utype1" id="driver" value="Driver" checked>Driver
-								</div>				
-							</li>
-							
-							<li>
-								<div class="question" style="padding-bottom:15px;">
-									<label>How far is your commute?</label>
-									<div class="slidercontainer">
-										<div id="slider1" class="slider">
-											<div class="circle"></div>
-											<div class="bar"></div>
-										</div>
-									</div>
-									
-									<div class="slidervalue">
-										<span id="slidervaluea">25</span>m
-									</div>
-								</div>
-							</li>
-							
-							<li>
-								<div class="question" style="padding-bottom:15px;">
-									<label>How much do you pay for gas?</label>
-									<div class="slidercontainer">
-										<div id="slider2" class="slider">
-											<div class="circle"></div>
-											<div class="bar"></div>
-										</div>
-									</div>
-							
-									<div class="slidervalue">
-										$<span id="slidervalueb">3.85</span>
-									</div>
-								</div>
-							</li>
-							
-							<li>
-								<div class="question" style="padding-bottom:15px;">
-									<label>What's your car's gas mileage?</label>
-									<div class="slidercontainer">
-										<div id="slider3" class="slider">
-											<div class="circle"></div>
-											<div class="bar"></div>
-										</div>
-									</div>
-						
-									<div class="slidervalue">
-										<span id="slidervaluec">25</span>
-									</div>
-								</div>
-							</li>
-						</ul>
-		
-						<input type="submit" id="startbutton" onclick="calcv();" value="Go" style="margin: -10px 0 0 20px;"/>
-						</div>
-						
-						<div id="wizard2" style="display: none;">
-							<p id="calcmessage"></p>
-						
-							<input type="submit" id="startbutton" onclick="loginUser()" value="Try Ridezu!"/>
-							<input type="submit" id="backbutton" onclick="calcback()" value="Back"/>
-						</div>
-						
-						<div id="wizard3" style="display: none;">
-							<p>Hello</p>
-						</div>
-					</div>
-
+				 <div id="corpwelcome" style="display:none;padding:40px 20px 40px 15px;">
+					 <div style="font-size:20px;">Please enter your <span id="companyname"></span> email address.</div>
+						 <input id="corpemail" type="text" placeholder="email address" value=""/>			
+					 <div class="greenbutton" onclick="sendpin();" style="margin-left:80px;margin-top:30px;"/>Start</div>
 				 </div>
+
+				 <div id="corpwelcome2" style="display:none;padding:40px 20px 40px 15px;">
+					 <div style="font-size:20px;">We've just emailed you a pin.  Please enter the pin here. </div> 
+						 <input id="pin" type="text" placeholder="Pin" value=""/>			
+					 <div class="greenbutton" onclick="checkpin();" style="margin-left:80px;margin-top:30px;"/>Next</div>
+				 </div>
+
+				 <div id="ridezunomics" style="display:none;">
+					 <div id="wizard1">
+					 <ul id="calclist" style="list-style-type: none;padding-left:20px;margin-top:10px;"> 
+						 <li>
+							 <div class="question" style="padding-bottom:15px;">
+								 <label style="padding-bottom:4px;">Are you a rider or a driver?</label>
+								 <input type="radio" name="utype1" id="rider" value="Rider">Rider
+								 <input type="radio" name="utype1" id="driver" value="Driver" checked>Driver
+							 </div>				
+						 </li>
+						 
+						 <li>
+							 <div class="question" style="padding-bottom:15px;">
+								 <label>How far is your commute?</label>
+								 <div class="slidercontainer">
+									 <div id="slider1" class="slider">
+										 <div class="circle"></div>
+										 <div class="bar"></div>
+									 </div>
+								 </div>
+								 
+								 <div class="slidervalue">
+									 <span id="slidervaluea">25</span>m
+								 </div>
+							 </div>
+						 </li>
+						 
+						 <li>
+							 <div class="question" style="padding-bottom:15px;">
+								 <label>How much do you pay for gas?</label>
+								 <div class="slidercontainer">
+									 <div id="slider2" class="slider">
+										 <div class="circle"></div>
+										 <div class="bar"></div>
+									 </div>
+								 </div>
+						 
+								 <div class="slidervalue">
+									 $<span id="slidervalueb">3.85</span>
+								 </div>
+							 </div>
+						 </li>
+						 
+						 <li>
+							 <div class="question" style="padding-bottom:15px;">
+								 <label>What's your car's gas mileage?</label>
+								 <div class="slidercontainer">
+									 <div id="slider3" class="slider">
+										 <div class="circle"></div>
+										 <div class="bar"></div>
+									 </div>
+								 </div>
+					 
+								 <div class="slidervalue">
+									 <span id="slidervaluec">25</span>
+								 </div>
+							 </div>
+						 </li>
+					 </ul>
+	 
+					 <input type="submit" id="startbutton" onclick="calcv();" value="Go" style="margin: -10px 0 0 20px;"/>
+					 </div>
+					 
+					 <div id="wizard2" style="display: none;">
+						 <p id="calcmessage"></p>
+					 
+						 <input type="submit" id="startbutton" onclick="loginUser()" value="Try Ridezu!"/>
+						 <input type="submit" id="backbutton" onclick="calcback()" value="Back"/>
+					 </div>
+					 
+				 </div>
+
+			  </div>
 
 				
 				 
@@ -149,36 +157,22 @@ include "header.php";
 						src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
 				 </a>				 
 				 <a href="#"><img src="images/html5.png" alt="link to the web app" /></a>
-			 </aside>
-			 
-			 <div id="maincontent" class="right">
-
-				 <div id="testimonial">
-					 <div id="border">
-						 <img class="displaypicture" src="images/1.png"/>
-					 </div>
-					 
-					 <blockquote class="right">
-					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I drove today and collected $7.95 to offset my gas.  This year that's about $1,700.<img src="images/quotedown.png" alt="Quote" /></p>
-					 </blockquote>
-					 
-					 <div id="placestravelled">
-						 <p class="place">San Jose</p><img src="images/placesep.png" /><p class="place">Foster City</p>
-					 </div>
-				 </div>
+			 </aside>		 
+			 <div id="maincontent" class="left">
 				 
 				 <div id="testimonial">
 					 <div id="border">
 						 <img class="displaypicture" src="images/2.png" alt="Display Picture" />
 					 </div>
-					 
+					 <div id="quotearea">
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Now I can check my email on the way into the office - total productivity boost!<img src="images/quotedown.png" alt="Quote" /></p>
-					 </blockquote>
-					 
 					 <div id="placestravelled">
 						 <p class="place">Mountain View</p><img src="images/placesep.png"/><p class="place">San Francisco</p>
 					 </div>
+
+					 </blockquote>
+					 </div>					 
 				 </div>
 				 
 				 <div id="testimonial">
@@ -186,6 +180,7 @@ include "header.php";
 						 <img class="displaypicture" src="images/3.png" alt="Display Picture" />
 					 </div>
 					 
+					 <div id="quotearea">
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I've driven way too many miles alone. I should save over $1,000 this year.<img src="images/quotedown.png" alt="Quote" /></p>
 					 </blockquote>
@@ -193,12 +188,15 @@ include "header.php";
 					 <div id="placestravelled">
 						 <p class="place">Los Gatos</p><img src="images/placesep.png" /><p class="place">Santa Clara</p>
 					 </div>
+					 </div>
+
 				</div>
 			
 				 <div id="testimonial">
 					 <div id="border">
 						 <img class="displaypicture" src="images/4.png" alt="Display Picture" />
 					 </div>
+					 <div id="quotearea">
 					 
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />The park and ride is a mile from my home so Ridezu is really convenient for me.<img src="images/quotedown.png" alt="Quote" /></p>
@@ -207,12 +205,14 @@ include "header.php";
 					 <div id="placestravelled">
 						 <p class="place">Los Gatos</p><img src="images/placesep.png" /><p class="place">Santa Clara</p>
 					 </div>
+					 </div>
 				</div>
 	
 				 <div id="testimonial">
 					 <div id="border">
 						 <img class="displaypicture" src="images/5.png" alt="Display Picture" />
 					 </div>
+					 <div id="quotearea">
 					 
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />A group of us at the office use Ridezu now.  It actually brings the office closer together.<img src="images/quotedown.png" alt="Quote" /></p>
@@ -221,12 +221,14 @@ include "header.php";
 					 <div id="placestravelled">
 						 <p class="place">Morgan Hill</p><img src="images/placesep.png" /><p class="place">Palo Alto</p>
 					 </div>			
+					 </div>
 				 </div>
 
 				 <div id="testimonial">
 					 <div id="border">
 						 <img class="displaypicture" src="images/6.png" alt="Display Picture" />
 					 </div>
+					 <div id="quotearea">
 					 
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Ridezunomics (love that name) is awesome! I had no idea how much Co2 my car was contributing.<img src="images/quotedown.png" alt="Quote" /></p>
@@ -235,19 +237,22 @@ include "header.php";
 					 <div id="placestravelled">
 						 <p class="place">San Jose</p><img src="images/placesep.png" /><p class="place">San Mateo</p>
 					 </div>
+					 </div>
 				</div>
 	
 				 <div id="testimonial">
 					 <div id="border">
 						 <img class="displaypicture" src="images/7.png" alt="Display Picture" />
 					 </div>
-					 
+					 <div id="quotearea">
+
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />The app is super easy to use and sign up only took a minute. Highly recommend trying it out.<img src="images/quotedown.png" alt="Quote" /></p>
 					 </blockquote>
 					 
 					 <div id="placestravelled">
 						 <p class="place">Sunnyvale</p><img src="images/placesep.png" /><p class="place">San Francisco</p>
+					 </div>
 					 </div>			
 				 </div>
 
@@ -255,6 +260,7 @@ include "header.php";
 					 <div id="border">
 						 <img class="displaypicture" src="images/8.png" alt="Display Picture" />
 					 </div>
+					 <div id="quotearea">
 					 
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Ridezu really helps offset my gas costs. It is amazing how much I can save!.<img src="images/quotedown.png" alt="Quote" /></p>
@@ -263,12 +269,14 @@ include "header.php";
 					 <div id="placestravelled">
 						 <p class="place">Los Gatos</p><img src="images/placesep.png" /><p class="place">Foster City</p>
 					 </div>
+					 </div>
 				</div>
 	
 				 <div id="testimonial">
 					 <div id="border">
 						 <img class="displaypicture" src="images/9.png" alt="Display Picture" />
 					 </div>
+					 <div id="quotearea">
 					 
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I love how the app shows me reducing my carbon footprint. Such a simple idea.  Such a big impact.<img src="images/quotedown.png" alt="Quote" /></p>
@@ -277,12 +285,14 @@ include "header.php";
 					 <div id="placestravelled">
 						 <p class="place">San Jose</p><img src="images/placesep.png" /><p class="place">Palo Alto</p>
 					 </div>			
+					 </div>
 				 </div>
 
 				 <div id="testimonial">
 					 <div id="border">
 						 <img class="displaypicture" src="images/10.png" alt="Display Picture" />
 					 </div>
+					 <div id="quotearea">
 					 
 					 <blockquote class="right">
 					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />Ridezu is going to bring my stress levels way down. Not driving in traffic is awesome!<img src="images/quotedown.png" alt="Quote" /></p>
@@ -291,9 +301,34 @@ include "header.php";
 					 <div id="placestravelled">
 						 <p class="place">Campbell</p><img src="images/placesep.png" /><p class="place">Menlo Park</p>
 					 </div>			
+					 </div>
 				 </div>
 
+				 <div id="testimonial">
+					 <div id="border">
+						 <img class="displaypicture" src="images/1.png"/>
+					 </div>
+					 
+					 <div id="quotearea">
+					 <blockquote class="right">
+					 <p class="arvo"><img src="images/quoteup.png" alt="Quote" />I drove today and collected $7.95 to offset my gas.  This year that's about $1,700.<img src="images/quotedown.png" alt="Quote" /></p>
+					 </blockquote>
+					 
+					 <div id="placestravelled">
+						 <p class="place">San Jose</p><img src="images/placesep.png" /><p class="place">Foster City</p>
+					 </div>
+					 </div>
+				 </div>
+
+
 			 </div>
+			 <aside id="corpsolutions" class="left">
+				 <h3>Corporate Solutions</h3>
+				 <center><br>See what Ridezu can do for your office.
+				 <img src="/images/corporation.png"/>
+				<a href="portal/corpsolutions.php" class="smallgreenbutton"/>Learn More</a>
+					</center>
+			 </aside>
 		 </div>
 	 </section>
 	

@@ -924,6 +924,75 @@ $(document).ready(function(){
 			  return false;
 		  }
 
+// this function set is to send pins as well as check pins for registration
+
+		function sendpin(){
+			corploginemail=document.getElementById("corpemail").value;
+		    if(corploginemail!=""){
+	        	myinfo.email=corploginemail;
+				url="/ridezu/api/v/1/users/generatePin/login/"+corploginemail;
+				var request=$.ajax({
+					url: url,
+					type: "GET",
+					cache: false,
+					dataType: "json",
+					success: function(data) {
+						x=data.generatePin.text;
+						if(x=="success"){
+							document.getElementById("corpwelcome").style.display="none";
+							document.getElementById("corpwelcome2").style.display="block";
+							return false;
+							}
+						if(x=="fail"){
+							message="<h2>Snap!</h2><p>We didn't find your email with our corporate user list.  Please try again or contact your corp admin</p>";
+							openconfirm();
+							}
+						},
+					error: function(data) {
+						alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+					beforeSend: setHeader
+				});	
+			}	
+		}
+		
+		function checkpin(){				
+	    		pin=document.getElementById("pin").value;
+				url="/ridezu/api/v/1/users/checkPin/login/"+myinfo.email+"/pin/"+pin;
+				var request=$.ajax({
+					url: url,
+					type: "GET",
+					cache: false,
+					dataType: "json",
+					success: function(data) {
+						if(data.user_key){
+							message="Great!  You're registered and ready to go!  Let's see who we can carpool with.";
+							openconfirm();
+							localStorage.seckey=data.seckey;
+							localStorage.fbid=data.user_key;
+							fbid=localStorage.fbid;
+							seckey=localStorage.seckey;
+							loadmyinfo();															
+							}
+						if(data.msg){
+							message="<h2>Snap!</h2><p>That pin is not quite right. Please enter the correct pin.</p>";
+							openconfirm();
+							}
+						},
+					error: function(data) {
+						alert("Yikes, I am not getting any account data."+JSON.stringify(data));reporterror(url); },
+					beforeSend: setHeader
+				});	
+
+		
+		}
+
+// this function shows the company logo
+
+		function showcompanylogo(){
+			document.getElementById("cobrand").src="https://ridezu.s3.amazonaws.com/"+localStorage.companylogo;
+			document.getElementById("cobrand").style.display="inline";
+			}
+
 // this function is to report errors or anomalies that users see
 
 		function reporterror(url){
@@ -968,8 +1037,6 @@ $(document).ready(function(){
 
 	$(document).ready(function()
 	{
-		//this tells you which experiment is running (so you can turn one off)
-		//x=window['optimizely'].data.state.variationMap;
 		
 		myinfo.fbid=localStorage.fbid;
 		myinfo.seckey=localStorage.seckey;
@@ -985,10 +1052,6 @@ $(document).ready(function(){
 		   if($('#quotes').length>0){
 				document.getElementById("corptitle").style.display="block";
 				document.getElementById("quotes").style.display="block";
-				if(myinfo.company!=null && myinfo.company!=""){
-					document.getElementById("cobrand").src="images/cobrand/"+myinfo.company+".png";
-					document.getElementById("cobrand").style.display="inline";
-					}				
 			}
 			facebook();
 		}			
@@ -996,7 +1059,43 @@ $(document).ready(function(){
 		if(page=="How it Works" || page=="Ridezu"){
 			calcinit();
 			}
+		
+		if(localStorage.companylogo!="undefined"){
+			showcompanylogo();
+			}
 
+		if(localStorage.companylogo=="undefined"){
+			url="/ridezu/api/v/1/corp/get/corplogo/"+localStorage.company;
+			var request=$.ajax({
+				url: url,
+				type: "GET",
+				cache:false,
+				dataType: "json",
+				success: function(data) {
+					if(data.logo){
+						localStorage.companylogo=data.logo;
+						showcompanylogo();
+						}
+					},
+				error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data));reporterror(url) },
+				beforeSend: setHeader
+				});	
+			}
+				
+		if(localStorage.msg!=undefined && page=="Ridezu"){
+			document.getElementById("lin").style.display="none";
+			document.getElementById("ridezunomics").style.display="none";
+			document.getElementById("companyname").innerHTML=localStorage.company;
+			document.getElementById("corpwelcome").style.display="block";
+			document.getElementById("corptitle").innerHTML="<h2>Improving the way</h2><h3>we get to work</h3><h4>convenient &#8226; economical &#8226; green</h4>";
+			return false;
+			}
+		else
+			{
+			document.getElementById("ridezunomics").style.display="block";
+			document.getElementById("cobrand").style.display="none";
+			}
+			
 		if(referrer!=""){
 			document.getElementById("referror").innerHTML=rname;
 			x="https://graph.facebook.com/"+referrer+"/picture";

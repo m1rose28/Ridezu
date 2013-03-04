@@ -1,11 +1,12 @@
 <?php require_once 'rzconfig.php';
 
-$c="";$t="";$r="";$camp="";
+$c="";$t="";$r="";$camp="";$ref="";$msg="";
 
 if(isset($_GET["c"])){$c=$_GET["c"];}
 if(isset($_GET["t"])){$t=$_GET["t"];}
 if(isset($_GET["r"])){$r=$_GET["r"];}
 if(isset($_GET["ref"])){$camp=$_GET["ref"];}
+if(isset($_GET["msg"])){$msg=$_GET["msg"];}
 
 ?>
 
@@ -21,7 +22,10 @@ if(isset($_GET["ref"])){$camp=$_GET["ref"];}
       		var info={};
       		var referrer="<?php echo $r;?>";
       		var rname="<?php echo $rname;?>";
+      		var msg="<?php echo $msg;?>";
+	    	if(msg!=""){localStorage.msg=msg;}
 	    	myinfo.company="<?php echo $c;?>";
+	    	if(myinfo.company!=""){localStorage.company=myinfo.company;}
 	    	info.camp="<?php echo $camp;?>";
       	</script>		
       	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>

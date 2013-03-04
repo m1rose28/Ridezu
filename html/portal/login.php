@@ -4,6 +4,13 @@ $title="Login";
 	
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
+
+session_start();
+
+$_SESSION['companyname']="";
+$_SESSION['corpuserid']="";
+$_SESSION['corpseckey']="";
+$_SESSION['email']="";
 	
 include 'header.php';
 
@@ -30,19 +37,18 @@ include 'header.php';
 			<div class="portalwrapper">
 
 				<div id="portalcontent" class="left contact">
-				
-					 <div class="charttitle">Login</div>
+					<form>
+					 <h3 class="charttitle">Login</h3>
 					 <div id="loginbox">
-					 <div>Email:</div>
-					 <input type="text" id="login" value=""/>
-					 <div>Password:</div>
-					 <input type="password" id="password" value=""/>
-					 <br><div id="startbutton" href="#" onclick="loginuser();">Login</div> 
+					 <input type="text" id="login" value="" placeholder="login (email)">
+					 <input type="password" id="password" value="" placeholder="password">
+					 <br>
+					 <div class="greenbutton" onclick="loginuser();">Login</div> 
+					 <br>Don't have a login? <a class="plink" href="register.php">Register for a corporate account ></a>
+
 					 <!--<a href="#" onclick="passwordreset();">Forgot password?</a>-->
 					 </div>
-					 					 <br> 
-					 <!--Don't have a login? <a href="register.php">Sign-up for a corporate account ></a>-->
-
+					</form>
 				</div>
 			</div>
 		</section>

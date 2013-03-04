@@ -6,7 +6,7 @@ $desc="Ridezu is a community for carpooling to and from the office. It's conveni
 $title="Ridezu Mobile";
 
 // these are init variables
-$t="";$fbid="";$seckey="";$scriptset="";$c="";$client1="";$camp="";
+$t="";$fbid="";$seckey="";$scriptset="";$c="";$client1="";$camp="";$msg="";
 
 $p="myridesp";
 $client="mweb";
@@ -18,6 +18,7 @@ if(isset($_GET["fbid"])){$fbid=$_GET["fbid"];}
 if(isset($_GET["seckey"])){$seckey=$_GET["seckey"];}
 if(isset($_GET["client"])){$client=$_GET["client"];}
 if(isset($_GET["c"])){$c=$_GET["c"];}
+if(isset($_GET["msg"])){$msg=$_GET["msg"];}
 
 
 if($t=="1" || $t=="2"){
@@ -118,14 +119,12 @@ if($client=="iOS" or $client=="android"){
 		var v="<?php echo $rzversion;?>";
 		var env="<?php echo $rzsystem;?>";
 	    var myinfo={};
+	    var msg="<?php echo $msg;?>";
 	    var info={};
 	    var tm="0";
 	    myinfo.company="<?php echo $c;?>";
+	    if(myinfo.company!=""){localStorage.company=myinfo.company;}
     	info.camp="<?php echo $camp;?>";
-		if(localStorage.seckey!=undefined){
-			//var optimizely = optimizely || [];
-			//optimizely.push("disable");	
-			}		
 	</script>		
 	<!--<script src="//cdn.optimizely.com/js/157370915.js"></script>-->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4touwfWlpbCpS0SKYvqfUOVddPnd0OBA&sensor=true&libraries=places"></script>
@@ -195,6 +194,9 @@ if($client=="iOS" or $client=="android"){
 				<div id="temp"></div> 
 				<div id="pricingp"></div> 
 				<div id="commutep"></div> 
+				<div id="corploginp"></div> 
+				<div id="checkpinp"></div> 
+				<div id="fbconnectp"></div> 
 
 <?php if($client1=="android or iOS"){ ?>
 			 
@@ -242,6 +244,147 @@ if($client=="iOS" or $client=="android"){
 						</center>
 					</div>
 				</div>
+
+				<div id="loadingindicator">
+					Loading...
+					<!-- code from http://cssload.net/-->
+					<div id="spinner">
+							<style>
+							#circleG{
+							width:37.333333333333336px;
+							}
+							
+							.circleG{
+							background-color:#4B8A4B;
+							float:left;
+							height:8px;
+							margin-left:4px;
+							width:8px;
+							-moz-animation-name:bounce_circleG;
+							-moz-animation-duration:0.8999999999999999s;
+							-moz-animation-iteration-count:infinite;
+							-moz-animation-direction:linear;
+							-moz-border-radius:5px;
+							-webkit-animation-name:bounce_circleG;
+							-webkit-animation-duration:0.8999999999999999s;
+							-webkit-animation-iteration-count:infinite;
+							-webkit-animation-direction:linear;
+							-webkit-border-radius:5px;
+							-ms-animation-name:bounce_circleG;
+							-ms-animation-duration:0.8999999999999999s;
+							-ms-animation-iteration-count:infinite;
+							-ms-animation-direction:linear;
+							-ms-border-radius:5px;
+							-o-animation-name:bounce_circleG;
+							-o-animation-duration:0.8999999999999999s;
+							-o-animation-iteration-count:infinite;
+							-o-animation-direction:linear;
+							-o-border-radius:5px;
+							animation-name:bounce_circleG;
+							animation-duration:0.8999999999999999s;
+							animation-iteration-count:infinite;
+							animation-direction:linear;
+							border-radius:5px;
+							}
+							
+							#circleG_1{
+							-moz-animation-delay:0.18s;
+							-webkit-animation-delay:0.18s;
+							-ms-animation-delay:0.18s;
+							-o-animation-delay:0.18s;
+							animation-delay:0.18s;
+							}
+							
+							#circleG_2{
+							-moz-animation-delay:0.42000000000000004s;
+							-webkit-animation-delay:0.42000000000000004s;
+							-ms-animation-delay:0.42000000000000004s;
+							-o-animation-delay:0.42000000000000004s;
+							animation-delay:0.42000000000000004s;
+							}
+							
+							#circleG_3{
+							-moz-animation-delay:0.5399999999999999s;
+							-webkit-animation-delay:0.5399999999999999s;
+							-ms-animation-delay:0.5399999999999999s;
+							-o-animation-delay:0.5399999999999999s;
+							animation-delay:0.5399999999999999s;
+							}
+							
+							@-moz-keyframes bounce_circleG{
+							0%{
+							}
+							
+							50%{
+							background-color:#FFFFFF}
+							
+							100%{
+							}
+							
+							}
+							
+							@-webkit-keyframes bounce_circleG{
+							0%{
+							}
+							
+							50%{
+							background-color:#FFFFFF}
+							
+							100%{
+							}
+							
+							}
+							
+							@-ms-keyframes bounce_circleG{
+							0%{
+							}
+							
+							50%{
+							background-color:#FFFFFF}
+							
+							100%{
+							}
+							
+							}
+							
+							@-o-keyframes bounce_circleG{
+							0%{
+							}
+							
+							50%{
+							background-color:#FFFFFF}
+							
+							100%{
+							}
+							
+							}
+							
+							@keyframes bounce_circleG{
+							0%{
+							}
+							
+							50%{
+							background-color:#FFFFFF}
+							
+							100%{
+							}
+							
+							}
+							
+							</style>
+							<div id="circleG">
+							<div id="circleG_1" class="circleG">
+							</div>
+							<div id="circleG_2" class="circleG">
+							</div>
+							<div id="circleG_3" class="circleG">
+							</div>
+							</div>
+						</div>	
+				</div>
+
+
+
 		<div id="navmenu">
 				<ul>
 					<li><p class="mainnavlink">Ridezu</p></li>

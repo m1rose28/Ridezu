@@ -7,18 +7,18 @@ $title="Carpool Report";
 	
 include 'header.php';
 
-//$c="Tesla";
-
 $campus="not selected";
 $campusd="<select id=\"campus\" onchange=\"selectcampus();\"><option value=\"Select a campus\">Select a campus</option>";
 if(isset($_GET["campus"])){$campus=addslashes($_GET["campus"]);}
 
 $q=" and campus='$campus'";
 	
-$query = "SELECT campus,count(id) from footprint where worklatlong is not null and company='$c' group by campus order by count(id) DESC ";
+$query = "SELECT campus,count(id) from userprofile where worklatlong is not null and company='$companyname' group by campus order by count(id) DESC ";
 
 $result = mysql_query($query) or die(mysql_error());
 $c1=mysql_num_rows($result);
+
+echo $c1;
 
 if($c1>0){
 
@@ -28,7 +28,7 @@ while($row = mysql_fetch_array($result)){
 
 $campusd=$campusd."</select>";
 	
-$query = "SELECT id,add1,city,state,latlong,worklatlong from footprint where latlong is not null and company='$c'".$q;
+$query = "SELECT id,add1,city,state,homelatlong,worklatlong,email from userprofile where homelatlong is not null and company='$companyname'".$q;
 
 $result = mysql_query($query) or die(mysql_error());
 
@@ -65,9 +65,9 @@ function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longi
 	}
 
 foreach ($data as $value) {
-    $home=explode(",",$value['latlong']);
+    $home=explode(",",$value['homelatlong']);
     $work=explode(",",$value['worklatlong']);
-	$id=$value['id'];
+	$id=$value['email'];
 	$usercarpoolnumber[$id]=0;
 	$c++;
     
@@ -89,9 +89,9 @@ foreach ($data as $value) {
 
 
 	foreach ($data as $user){
-		$home1=explode(",",$user['latlong']);
+		$home1=explode(",",$user['homelatlong']);
 		$y=getDistanceBetweenPointsNew($home[0], $home[1], $home1[0], $home1[1]);
-		if($y<$carpoolmaxdistance and $user['id']!=$id){
+		if($y<$carpoolmaxdistance and $user['email']!=$id){
 			$usercarpoolnumber[$id]++;
 			}
 		}

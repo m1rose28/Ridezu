@@ -47,15 +47,6 @@ function authenticate()
 	if (strpos($reqURL, 'balance/virtual/fixBalance') !== false) {
         return;
     }
-	if (strpos($reqURL, 'users/checkPin') !== false) {
-        return;
-    }
-	if (strpos($reqURL, 'users/generatePin') !== false) {
-        return;
-    }
-	if (strpos($reqURL, 'get/corplogo') !== false) {
-        return;
-    }
     if (strpos($reqURL, 'rides/eventstate/COMPLETE') !== false) {
         return;
     }

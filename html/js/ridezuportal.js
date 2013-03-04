@@ -13,29 +13,6 @@ if (!(window.console && console.log)) {
     }());
 }
 
-// Place any jQuery/helper plugins in here.
-function slideSwitch() {
-    var $active = $('#maincontent #testimonial.active');
-
-    if ( $active.length == 0 ) $active = $('#maincontent #testimonial:last');
-
-    var $next =  $active.next().length ? $active.next()
-        : $('#maincontent #testimonial:first');
-
-    $active.addClass('last-active');
-        
-    $next.css({opacity: 0.0})
-        .addClass('active')
-        .animate({opacity: 1.0}, 1000, function() {
-            $active.removeClass('active last-active');
-        });
-}
-
-$(function() {
-    setInterval( "slideSwitch()", 4000 );
-});
-
-
 //FAQ ACCORDION -----------------------------------------------------------------------------------
 
 $(document).ready(function()
@@ -64,6 +41,45 @@ $(document).ready(function()
 	return false;
 });
 
+// this function set is for uploading the corp logo to aws (same as in ridezu.js)
+
+		function addphoto(){
+			document.getElementById('loadbutton').style.display="block";
+			}		
+
+		function startUpload(){
+			  document.getElementById('loadbutton').style.display = 'none';
+			  document.getElementById('uploadprocess').style.display = 'block';
+			  return true;
+		}
+		
+		function stopUpload(success){
+			  if(success){
+				 obj = JSON.parse(success);
+				 x=obj.type;
+				 if(x=="logo"){
+				 	logoimage=obj.image;
+					document.getElementById("companylogo").src = "https://ridezu.s3.amazonaws.com/"+logoimage;
+					document.getElementById('companylogo').style.display="block";
+					document.getElementById('loadbutton').style.display="none";
+					localStorage.companylogo=logoimage;
+					url="/ridezu/api/v/1/corp/put/addcorplogo/"+logoimage+"/company/"+mycorpinfo.company+"/upload";	       
+	            	var request=$.ajax({
+		               url: url,
+		               type: "GET",
+					   cache: false,
+		               dataType: "json",
+		               success: function(data) {},
+		               error: function() { alert('That does not seem right.  Can you try one more time, with feeling?'); },
+					   beforeSend: setHeader
+	                });                                     
+
+					}
+				 }
+			  document.getElementById('uploadprocess').style.display = 'none';
+			  return true;   
+		}
+
 // this function loads the current user in a js object, this function is used for all the profile functions 
 
 		function loadmycorpinfo(){
@@ -72,6 +88,7 @@ $(document).ready(function()
 		    var request=$.ajax({
                 url: url,
                 type: "GET",
+                cache: false,
                 dataType: "json",
                 success: function(data) {
 					mycorpinfo=data;
@@ -81,6 +98,103 @@ $(document).ready(function()
                 beforeSend: setHeader
             });
 		}
+
+// this function is to register an admin user
+
+		function registeradminuser(){
+			fname=document.getElementById('fname').value;
+			if(fname==""){
+				message="Please enter a first name.";
+				openconfirm();
+				return false;			
+				}	
+			lname=document.getElementById('lname').value;	
+			if(lname==""){
+				message="Please enter a last name.";
+				openconfirm();
+				return false;			
+				}
+			password1=document.getElementById('password1').value;	
+			password2=document.getElementById('password2').value;	
+			company=document.getElementById('company').value;
+			if(company==""){
+				message="Please enter a company name.";
+				openconfirm();
+				return false;			
+				}
+	
+			email=document.getElementById('email').value;	
+			if(email==""){
+				message="Please enter an email address.";
+				openconfirm();
+				return false;			
+				}
+			phone=document.getElementById('phone').value;	
+			phone = document.getElementById('phone').value;
+			phone = phone.replace( /\D/g, '' );
+			if(phone.length!=0 && phone.length!=10){
+				message="Please enter a 10-digit phone number xxx-xxx-xxxx";
+				openconfirm();
+				phone="";
+				return false;
+				}
+			if(password1!=password2){
+				message="Your new passwords need to match. Please try again.";
+				openconfirm();
+				return false;
+				}
+			if(password1.length<6){
+				message="Your password should be at least six digits.";
+				openconfirm();
+				return false;
+				}
+			fbid="a_"+email;	
+			user_key="a_"+email;	
+
+			if(password1==password2){
+		 
+					 var dataset = {
+						 "fbid":	fbid,
+						 "fname": fname,
+						 "lname": lname,
+						 "email": email,
+						 "phone": phone,
+						 "company": company,
+						 "user_key": user_key,
+						 "loginpassword": password1,
+						 "regtype": "newadmin",
+						 }
+						 
+					 var jsondataset = JSON.stringify(dataset);
+				 
+					 url="/ridezu/api/v/1/users";
+					 type="POST";
+					 
+					 var request=$.ajax({
+						 url: url,
+						 type: "POST",
+						 dataType: "json",
+						 data: jsondataset,
+						 error: function(data) { 
+						 	message="Rat's there was an error.  Could you try again?";
+						 	openconfirm();
+						 	return false;
+						 	},
+						 beforeSend: setHeader
+					 });
+					 
+					 request.done(function(data) {
+	  						myinfo=data;
+	  						x="loginiframe.php?corpuserid="+data.fbid+"&corpseckey="+data.seckey+"&company="+data.company+"&email="+data.email+"&reg=1";
+							mycorpinfo.corpseckey=data.seckey;
+							mycorpinfo.corpuserid=data.fbid;	  						
+							localStorage.corpuserid=mycorpinfo.corpuserid;
+							localStorage.corpseckey=mycorpinfo.corpseckey;
+							document.getElementById('loginiframe').src=x;
+						 });      	
+				
+				}
+			}
 
 // this function updates user data with any relevant updates
 
@@ -114,8 +228,8 @@ $(document).ready(function()
 
 		function loginuser(){
 			password=document.getElementById('password').value;	
-			login=document.getElementById('login').value;	
-			localStorage.corplogin=document.getElementById('login').value;	
+			login="a_"+document.getElementById('login').value;	
+			localStorage.corplogin="a_"+document.getElementById('login').value;	
 
 		    	url="/ridezu/api/v/1/users/search/login/"+login+"/pwd/"+password;
             	var request=$.ajax({
@@ -125,7 +239,7 @@ $(document).ready(function()
 	  				 cache: false,
 	                 success: function(data) {
 	  					if(data.seckey){
-	  						x="loginiframe.php?corpuserid="+data.fbid+"&corpseckey="+data.seckey+"&company="+data.company;
+	  						x="loginiframe.php?corpuserid="+data.fbid+"&corpseckey="+data.seckey+"&company="+data.company+"&email="+data.email;
 							mycorpinfo.corpseckey=data.seckey;
 							mycorpinfo.corpuserid=data.fbid;	  						
 							localStorage.corpuserid=mycorpinfo.corpuserid;
@@ -137,7 +251,6 @@ $(document).ready(function()
 					 beforeSend: setHeader
 	                 });                                     
 			}
-
 		
 // this function is to change passwords
 
@@ -176,6 +289,141 @@ $(document).ready(function()
 				}
 			}
 
+// this function is to get campus info
+
+		function getcampus(){
+
+			$.ajax({
+			type: "GET",
+			url: "/ridezu/api/v/1/corp/get/campuslist/"+mycorpinfo.company,
+			cache: false,
+			dataType: "json",
+			beforeSend: setHeader
+
+			}).done(function(campusdata) {
+			  paintcampuslist(campusdata);	
+				});
+		  }
+		
+		function deletecampus(campusid){
+
+			$.ajax({
+			type: "DELETE",
+			url: "/ridezu/api/v/1/corp/delete/campus/"+mycorpinfo.company+"/"+campusid,
+			cache: false,
+			dataType: "json",
+			beforeSend: setHeader
+
+			}).done(function(campusdata) {
+			  getcampus();	
+				});
+		  }
+
+// this function paints all the users
+
+		function paintcampuslist(campusdata){
+		  
+			 var campuslist="";
+					 
+			 $.each(campusdata, function(key, value) {						
+				  campuslist=campuslist+"<div style='width:200px;float:left;'>"+value.campusname+"</div><img src=\"../images/trashcan.png\" style=\"width:16px;\" onclick=\"deletecampus('"+value.id+"');\" title=\"remove campus\"/><br>";  
+				  });
+					   			 
+			   document.getElementById('campus_list').innerHTML=campuslist;
+		  }
+		
+// this function is to add a campus 
+
+		function addcampus(){
+			document.getElementById('addcampus').style.display="block";						
+			campusname=document.getElementById('campusname').value;	
+			campusaddress=document.getElementById('campusaddress').value;	
+			if(campusname!="Enter a campus name" && campusaddress!="Enter a location"){
+				addnewcampus();
+				}
+			}
+
+// this function process a new campus
+
+		function addnewcampus(){
+			
+            var addr1=document.getElementById("campusaddress").value;
+		
+			geocoder.geocode( { 'address': addr1}, function(results, status) {
+				 if (status == google.maps.GeocoderStatus.OK) {
+					 campusx = results[0].formatted_address;
+					 campuslatlong = results[0].geometry.location;
+					 campuslatlongstring=campuslatlong.lat()+","+campuslatlong.lng();
+
+					 str1 = campusx.split(',');
+					 str2 = str1[2].split(" ");
+					 campusadd1=str1[0];
+					 campusstate=str2[1];
+					 campuscity=str1[1];
+					 campuszip=str2[2];
+					 
+					 url="/ridezu/api/v/1/corp/put/campus";				       
+					 
+					 var dataset = {
+						 "campusname":	campusname,
+						 "companyname": mycorpinfo.company,
+						 "addr1": campusadd1,
+						 "city": campuscity,
+						 "state": campusstate,
+						 "zip": campuszip,
+						 "latlong": campuslatlongstring
+						 }
+						 
+					 var jsondataset = JSON.stringify(dataset);
+				 
+					 type="POST";
+					 
+					 var request=$.ajax({
+						 url: url,
+						 type: "POST",
+						 dataType: "json",
+						 data: jsondataset,
+						 error: function(data) { 
+						 	message="Rat's there was an error.  Could you try again?";
+						 	openconfirm();
+						 	return false;
+						 	},
+						 beforeSend: setHeader
+					 });
+					 
+					 request.done(function(data) {
+						 document.getElementById('addcampus').style.display="none";						
+						 document.getElementById('campusname').value="";	
+						 document.getElementById('campusaddress').value="";
+						 getcampus();
+						 });      
+
+				 } 
+			   });	
+			
+			}
+
+// this is the google search for address functionality (only on admin/load users page)
+
+	 function initialize() {
+ 
+		 geocoder = new google.maps.Geocoder();
+ 
+		 var home1 = document.getElementById('campusaddress');
+		 var autocomplete1 = new google.maps.places.Autocomplete(home1);
+		   
+		 google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+		   var place1 = autocomplete1.getPlace();
+ 		   
+		   if (!place1.geometry) {
+			 // Inform the user that the place was not found and return.
+			 return;
+		   }       
+		   });
+  		
+	   }
+	   	
+	   	google.maps.event.addDomListener(window, 'load', initialize);
 
 // this starts page specific javascripts,as if needed
 
@@ -187,11 +435,25 @@ $(document).ready(function()
 					x1=x.replace(/\s+/g, '');
 					x2=x1.toLowerCase();
 				document.getElementById('companyemail').innerHTML="@"+x2+".com";						
-				document.getElementById('companylogo').src="../images/cobrand/"+x+".png";						
+					c1=mycorpinfo.company.replace(" ","_");
+				document.getElementById('fbid').value=c1;
+				if (localStorage.companylogo === undefined || localStorage.companylogo==null ) {
+				   // these statements execute
+					}
+				else {
+				   // these statements do not execute
+					x3="https://ridezu.s3.amazonaws.com/"+localStorage.companylogo;
+					document.getElementById('companylogo').style.height="100px";	
+					document.getElementById('companylogo').src=x3;		
+					}				
 				document.getElementById('name').innerHTML=mycorpinfo.fname+" "+mycorpinfo.lname;				
 				document.getElementById('email').innerHTML=mycorpinfo.email;				
 				parts = [mycorpinfo.phone.slice(0,3),mycorpinfo.phone.slice(3,6),mycorpinfo.phone.slice(6,10)];
 				document.getElementById('phone').innerHTML = "("+parts[0]+") "+parts[1]+"-"+parts[2];	
+				getcampus();
+				}
+			if(page=="Load Users"){
+				getcampus();
 				}		
 		}
 		
@@ -204,7 +466,6 @@ $(document).ready(function()
 			$('#confirm-background').fadeIn({ duration: 100 });		
 			}
 	
-
         function setHeader(xhr) {
             xhr.setRequestHeader("X-Id", localStorage.corpuserid);
             xhr.setRequestHeader("X-Signature", localStorage.corpseckey);
@@ -271,7 +532,6 @@ $(document).ready(function()
                 beforeSend: setHeader
             	}); 
 			}				
-
 		
 // declare initial variables
 
@@ -292,7 +552,24 @@ $(document).ready(function()
 
 	$(document).ready(function()
 	{
-		//this tells you which experiment is running (so you can turn one off)
+
+		if(localStorage.company!=undefined){
+			if(localStorage.companylogo==undefined){
+				url="/ridezu/api/v/1/corp/get/corplogo/"+localStorage.company;
+				var request=$.ajax({
+					url: url,
+					type: "GET",
+					cache: false,
+					dataType: "json",
+					success: function(data) {
+						localStorage.companylogo=data.logo;
+						},
+					error: function(data) { alert("Uh oh - I can't see to get my data"+JSON.stringify(data));reporterror(url) },
+					beforeSend: setHeader
+					});	
+				}
+			}				
+
 				
 		if(mycorpinfo.corpuserid!="" && mycorpinfo.corpseckey!=""){
 		   loadmycorpinfo();

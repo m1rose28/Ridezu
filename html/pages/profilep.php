@@ -2,6 +2,10 @@
 			<section id="content">
 			
 			<ul>
+				<a onclick="navt('profilep','fbconnectp');">
+					<li id="addfb" style="display:none;" class="first">Connect with Facebook</li>
+				</a>
+				
 				<a onclick="navt('profilep','commutep');">
 					<li id="commute" style="display:none;" class="first">Commute</li>
 				</a>

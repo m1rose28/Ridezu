@@ -8,19 +8,20 @@ $script="";
 if(isset($_GET["logoff"])){
 	$_SESSION['corpuserid']="";
 	$_SESSION['corpseckey']="";
-	$_SESSION['company']="";
+	$_SESSION['companyname']="";
 	$script=$script."
 			localStorage.removeItem(\"corplogin\");
 			localStorage.removeItem(\"corpuserid\");
 			localStorage.removeItem(\"corpseckey\");
 			";
 	}
-
-$c=$_SESSION['company'];
+	
+$companyname=$_SESSION['companyname'];
 $corpuserid=$_SESSION['corpuserid'];
 $corpseckey=$_SESSION['corpseckey'];
+$email=$_SESSION['email'];
 
-if($corpseckey=="" and $title!="Login"){header("Location: login.php");echo "what";}
+if($corpseckey=="" and $title!="Login" and $title!="Register" and $title!="Corporate Solutions"){header("Location: login.php");}
 
 $dbh=mysql_connect ("localhost", "ridezu", "ridezu123") or die ('I cannot connect to the database because: ' . mysql_error());
 mysql_select_db ("ridezu");
@@ -38,7 +39,7 @@ mysql_select_db ("ridezu");
       		var page="<?php echo $title;?>";
       		var mycorpinfo={};
       		var info={};
-	    	mycorpinfo.company="<?php echo $c;?>";
+	    	mycorpinfo.company="<?php echo $companyname;?>";
       		mycorpinfo.corpuserid="<?php echo $corpuserid;?>";
       		mycorpinfo.corpseckey="<?php echo $corpseckey;?>";
 
@@ -83,7 +84,12 @@ mysql_select_db ("ridezu");
 								<li><a href="funfacts.php">Fun Facts</a></li>
 							</ul>
 						</li>
-						<li><a href="messaging.php" alt="Messaging">Messaging</a></li>
+						<li class="dropdown"><a href="#" alt="Messaging">Messaging</a>
+							<ul style="left:145px;">
+								<li><a href="welcomemessage.php">Welcome Message</a></li>
+								<li><a href="messaging.php">Ad Hoc Message</a></li>
+							</ul>
+						</li>
 						<li><a href="rides.php" alt="Rides">Rides</a></li>
 						<li><a href="admin.php" alt="Admin">Admin</a></li>
 						<?php 	if($corpseckey!=""){?>
