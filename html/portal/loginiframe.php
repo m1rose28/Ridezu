@@ -19,7 +19,7 @@ if(reg==0){
 	parent.document.location = "usagesummary.php"
 	}
 if(reg==1){
-	parent.document.location = "admin.php"
+	parent.document.location = "profile.php"
 	}
 </script>
 </body>

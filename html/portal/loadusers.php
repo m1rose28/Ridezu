@@ -1,6 +1,6 @@
 <?php
 
-$title="Load Users";
+$title="Manage Locations and People";
 	
 //error_reporting(E_ALL);
 //ini_set('display_errors', '1');
@@ -199,7 +199,7 @@ if (!empty($_FILES))
 			//echo $e->getMessage();
 			}
 	
-		$content="<div class='success'>Terrific, your data looks good! <br><br>We've imported $c employees and we're are getting to work.  Typically this takes about an hour.  As soon as your footprint analysis is done, we'll send you an email.   </div>";
+		$content="<div class='success'>Terrific, your employee file looks good! <br><br>We've imported $c employees and we're are getting to work.  Typically this takes about an hour.  As soon as your footprint analysis is done, we'll send you an email.   </div>";
 		}
     
     //echo "</pre>";
@@ -214,7 +214,7 @@ if (!empty($_FILES))
 					</div>
 					
 					<div id="corptitle" class="index80">
-						<h2>Campus Locations and Users</h2>
+						<h2>Manage Locations and People</h2>
 					</div>
 					
 				</div>
@@ -226,8 +226,8 @@ if (!empty($_FILES))
 
 				<div id="portalcontent" class="left contact">				
 
-						<div class="charttitle">Campus Details</div>
-						<div class="charttext">Add your company locations here (please use exact street addresses).  Each employee will need to be designated to a campus.
+						<div class="charttitle">Locations</div>
+						<div class="charttext">Add your company locations here (please use exact street addresses).  Each location is called a "campus" and each employee will need to be designated to a campus.
 						<br>
 						<div id="highlightbox">
 							<div id="campus_list"></div>
@@ -241,7 +241,7 @@ if (!empty($_FILES))
 
 						<br>
 						<br>
-						<div class="charttitle">Users</div>
+						<div class="charttitle">People</div>
 					<?php echo $content;if($c==0 || $e>0){?>
 						<div class="charttext">Upload your employees via a simple .csv file.  Please use our <a class="plink" href="../images/testfile.csv" target="new">test file template</a>.   View <a class="plink" onclick="showformat();">field descriptions</a>.
 						<br>
@@ -284,7 +284,7 @@ if (!empty($_FILES))
 	});
 
 	function showformat(){
-		message="<h2>Load User File Format</h2>";
+		message="<h2>Load People File Format</h2>";
 		message+="<p>Please send a valid .csv (comma delimited) file.  We find it's easiest to make this in Excel and then save as .csv file format.";
 		message+="<p>id.  This is an id that is unique to the employee.  This can be an email, or a number, or a text string.";
 		message+="<p>First name.  This is the employee's first name.";
@@ -297,6 +297,8 @@ if (!empty($_FILES))
 		message+="<p>Campus.  This is the employee primary work campus, e.g Headquarters.";
 		openconfirm();
 		}
+	
+	getcampus();
 </script>
 
 <?php 

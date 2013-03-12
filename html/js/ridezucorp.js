@@ -989,8 +989,10 @@ $(document).ready(function(){
 // this function shows the company logo
 
 		function showcompanylogo(){
-			document.getElementById("cobrand").src="https://ridezu.s3.amazonaws.com/"+localStorage.companylogo;
-			document.getElementById("cobrand").style.display="inline";
+			if(localStorage.companylogo!="undefined"){
+				document.getElementById("cobrand").src="https://ridezu.s3.amazonaws.com/"+localStorage.companylogo;
+				document.getElementById("cobrand").style.display="inline";
+				}
 			}
 
 // this function is to report errors or anomalies that users see

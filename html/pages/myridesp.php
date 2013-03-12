@@ -110,4 +110,6 @@ textarea {
    				</div>
    				
 			</div>			
-					
+			
+			<input id="mr5" type="submit" onclick="nav('myridesp','nearbyp');" class="primarybutton" value="Find Ridezu's nearby"/>
+			

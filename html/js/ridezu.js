@@ -566,6 +566,10 @@
 				myrides();
 				}
 
+			if(to=="nearbyp"){
+				nearbyrides();
+				}
+
 			if(to=="notifyp"){
 				notifyinit();
 				}
@@ -788,6 +792,21 @@
 					}
 								
 			}			
+		}
+		
+// this function derives the correct photo for the user
+
+		function getphoto(id){
+					
+			if(length.id=="8" || id.indexOf('@') !== -1){
+				photo="/images/nopic.jpg";
+				}
+			
+			else {
+				photo="https://graph.facebook.com/"+id+"/picture";
+				}
+			return photo;
+			
 		}
 
 // this functions set shows/hides the grabber so you can't see it or interact with it
@@ -1454,8 +1473,9 @@
 			var r=0;
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
+					photo=getphoto(value.fbid);
 					personlist=personlist+"<li class='driver'><a onclick=\"profile('riderequestp',"+value.fbid+");\">";
-					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
+					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='"+photo+"'/>";
 					personlist=personlist+"<p>View Profile</p></div></a>";
 					personlist=personlist+"<a onclick=\"authselectride('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+x+"');\">";
 					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
@@ -1582,7 +1602,8 @@
 						 document.getElementById("ridepickupb").innerHTML=rlist.start;
 						 document.getElementById("dnameb").innerHTML=pname;
 						 document.getElementById("dnameb1").innerHTML=pname;
-						 document.getElementById("dpicb").src="https://graph.facebook.com/"+driverfbid+"/picture";
+						 photo=getphoto(driverfbid);
+						 document.getElementById("dpicb").src=photo;
 						 document.getElementById("r4").style.display="block";
 						 },
 				   error: function(data) {
@@ -1607,8 +1628,9 @@
 			ridegroup=rlist.rideList[timeslot];
 			$.each(ridegroup, function(key, value) { 
 
+					photo=getphoto(fbid);
 					personlist=personlist+"<li class=\"driver\" id=\"l"+value.fbid+"\"><a onclick=\"profile('ridepostp',"+value.fbid+");\">";
-					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+value.fbid+"/picture'/>";
+					personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='"+photo+"'/>";
 					personlist=personlist+"<p>View Profile</p></div></a>";
 					personlist=personlist+"<a onclick=\"authselectrider('"+timeslot+"','"+value.rideid+"','"+value.fbid+"','"+value.name+"','"+eventtime+"');\">";
 					personlist=personlist+"<div id='selectdriver'><p>"+value.name+"</p></div></a></li>";
@@ -1726,7 +1748,8 @@
 								  };
 								doneloading();
 								x="l"+fbid1;
-								newrow="<div class='select1'><div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+fbid1+"/picture'/>";
+								photo=getphoto(fbid1);
+								newrow="<div class='select1'><div id='viewprofile'><image class='profilephoto' src='"+photo+"'/>";
 								newrow=newrow+"<p>View Profile</p></div>";
 								newrow=newrow+"<div id='selectdriver'><p>"+pname+"</p></div></div>";
 								document.getElementById(x).style.backgroundColor="#7ddb1d";
@@ -1958,8 +1981,9 @@
 					$.each(n, function(key2, value2) {
 							m=value2.split("|");
 
+							photo=getphoto(m[0]);
 							x=x+"<li class='driver'><a onclick=\"profile('myridesp',"+m[0]+");\">";
-							x=x+"<div id='viewprofile'><image class='profilephoto' src='https://graph.facebook.com/"+m[0]+"/picture'/>";
+							x=x+"<div id='viewprofile'><image class='profilephoto' src='"+photo+"'/>";
 							x=x+"<p>View Profile</p></div></a>";
 							x=x+"<div id='selectdriver'><p>"+m[1]+"<br/><a class='minibutton' onclick=\"sendmessage('"+myinfo.fbid+"','"+m[0]+"','"+m[1]+"');\">Send message</a>";
 							x=x+"</p></div></li>";
@@ -2042,6 +2066,71 @@
 		  document.getElementById('allrides').style.display="block";	 
 		  	 
 		  }	  
+
+// this function shows nearby riders
+
+		function nearbyrides(location){		
+
+			   if(location==null){location="H";}
+				 
+			   if(myinfo.company==null){company="";}
+				 else {company=myinfo.company;}
+	 	 
+	 	 	   if(location=="W"){
+	 	 	   		document.getElementById('homebutton').style.display="block";	 	
+	 	 	   		document.getElementById('workbutton').style.display="none";	 	
+	 	 	   		document.getElementById('location').innerHTML="office";
+	 	 	   		}	 	
+
+	 	 	     else {
+	 	 	   		document.getElementById('workbutton').style.display="block";
+	 	 	   		document.getElementById('homebutton').style.display="none";
+	 	 	   		document.getElementById('location').innerHTML="home";	 	
+					}
+			   loading();
+			   fbid=myinfo.fbid;
+			   mrlist="";		  
+			   url="/ridezu/api/v/1/users/search/nearby/fbid/"+fbid+"/location/"+location+"/company/"+company+"/go";
+			 
+			   $.ajax({
+			   url: url,
+			   cache: false,
+			   dataType: "json",
+			   beforeSend: setHeader
+			   }).done(function(data) {
+				 doneloading();
+				 mrlist=data;
+				 paintnearbyrides(location);						
+			 });
+				   
+			 }
+  
+		function paintnearbyrides(location){		
+		  
+			 fbid=myinfo.fbid;
+			 count=mrlist.length;
+			 document.getElementById('usermatches').innerHTML=count;	 		  		  
+			 xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
+			 document.getElementById('mapa').src=xstartlatlong;
+   
+			 if(count>0){
+				 personlist="<ul>";
+				 $.each(mrlist, function(key, value) { 
+
+						 photo=getphoto(value.fbid);
+						 personlist=personlist+"<li class=\"driver\" id=\"l"+value.fbid+"\"><a onclick=\"profile('nearbyp',"+value.fbid+");\">";
+						 personlist=personlist+"<div id='viewprofile'><image class='profilephoto' src='"+photo+"'/>";
+						 personlist=personlist+"<p>View Profile</p></div></a>";
+						 personlist=personlist+"<div id='selectdriver'><p>"+value.fname+" "+value.lname+"";
+						 personlist=personlist+"<a class='minibutton' onclick=\"sendmessage('"+myinfo.fbid+"','"+value.fbid+"','"+value.fname+"');\">Send message</a></div></li>";
+	 
+				 });
+				 personlist=personlist+"</ul>";
+				 document.getElementById("nearbyuserlist").innerHTML=personlist;
+				}
+
+		  	}	  
+
 		  
 // this function set(2) cancels a ride for a user
 
@@ -2127,8 +2216,8 @@
 			if(userinfo.co2balance==null){userinfo.co2balance="0"};
 			x=parseInt(userinfo.ridesoffered)+parseInt(userinfo.ridestaken);
 			x="0";
-
-			document.getElementById('profilephoto').src="https://graph.facebook.com/"+userinfo.fbid+"/picture";	
+			photo=getphoto(userinfo.fbid);
+			document.getElementById('profilephoto').src=photo;	
 			document.getElementById('workcity').innerHTML=userinfo.workcity;	
 
 			if(myinfo.fbid!=userinfo.fbid){
@@ -2963,7 +3052,8 @@
   			"commutep":"My Commute",			
   			"corploginp":"Login",			
   			"checkpinp":"Enter Pin",			
-  			"fbconnectp":"Connect with Facebook"			
+  			"fbconnectp":"Connect with Facebook",			
+  			"nearbyp":"Ridezu's Nearby"			
 			};
 
 // this watches for orientation change and makes any site changes, if needed

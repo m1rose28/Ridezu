@@ -197,6 +197,7 @@ if($client=="iOS" or $client=="android"){
 				<div id="corploginp"></div> 
 				<div id="checkpinp"></div> 
 				<div id="fbconnectp"></div> 
+				<div id="nearbyp"></div> 
 
 <?php if($client1=="android or iOS"){ ?>
 			 

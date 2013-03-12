@@ -6,6 +6,7 @@
 					<li><a href="safety.php" alt="Safety">safety</a></li>
 					<li><a href="contact.php" alt="Contact Us">contact us</a></li>
 					<li><a href="../portal/corpsolutions.php" alt="Contact Us">corporate solutions</a></li>
+					<li><a href="../portal/login.php" alt="Contact Us">admin login</a></li>
 				</ul>
 				
 				<br><center>

@@ -496,7 +496,7 @@ function addUser()
  
  }
 
-  function findNearbyUsers($fbid,$location){
+  function findNearbyUsers($fbid,$location,$company){
     setHeader();
 	
 	$colname = "homelatlong";
@@ -518,9 +518,11 @@ function addUser()
 			//print_r($user);
 			$nodesql = "SELECT  $colname , ((ACOS(SIN($user->lat * PI() / 180) * SIN(SUBSTRING_INDEX( $colname , ',', 1 ) * PI() / 180)
 			+ COS($user->lat * PI() / 180) * COS(SUBSTRING_INDEX( $colname , ',', 1 ) * PI() / 180) * COS(($user->lon - SUBSTRING_INDEX( $colname , ',', -1 )) * PI() / 180))
-			* 180 / PI()) * 60 * 1.1515) AS `distance` , `fbid`, `fname`, `lname` FROM `userprofile`  WHERE fbid !='$user->fbid' HAVING `distance` <= 2 ORDER BY `distance` ASC";
+			* 180 / PI()) * 60 * 1.1515) AS `distance` , `fbid`, `fname`, `lname` FROM `userprofile`  WHERE fbid !='$user->fbid' and company=:company HAVING `distance` <= 2 ORDER BY `distance` ASC";
 			
 			$ndstmt = $db->prepare($nodesql);
+	        $ndstmt->bindParam("company", $company);
+			
 			//print_r($ndstmt);
 			$ndstmt->execute();
 			$ndcount = $ndstmt->rowCount();
@@ -621,7 +623,5 @@ function addUser()
 	}
 
   }
- 
- //connectfb("504711218","m1rose28@gmail.com");
- 
+  
  ?>

@@ -21,7 +21,7 @@ $corpuserid=$_SESSION['corpuserid'];
 $corpseckey=$_SESSION['corpseckey'];
 $email=$_SESSION['email'];
 
-if($corpseckey=="" and $title!="Login" and $title!="Register" and $title!="Corporate Solutions"){header("Location: login.php");}
+if($corpseckey=="" and $title!="Login" and $title!="Register" and $title!="Corporate Solutions" and $title!="How it works"){header("Location: login.php");}
 
 $dbh=mysql_connect ("localhost", "ridezu", "ridezu123") or die ('I cannot connect to the database because: ' . mysql_error());
 mysql_select_db ("ridezu");
@@ -75,27 +75,29 @@ mysql_select_db ("ridezu");
 				
 				<div id="corpmenu">
 					<ul>
-						<li class="dropdown"><a href="#" alt="Analytics">Analytics</a>
+						<li class="dropdown"><a href="#" alt="Setup">setup</a>
 							<ul>
-								<li><a href="usagesummary.php">Usage Summary</a></li>
-								<li><a href="footprint.php">Footprint Analysis</a></li>
-								<li><a href="carpoolstudy.php">Carpool Report</a></li>
-								<li><a href="co2savings.php">C02 Savings</a></li>
-								<li><a href="funfacts.php">Fun Facts</a></li>
+								<li><a href="profile.php">profile</a></li>
+								<li><a href="loadusers.php">locations and people</a></li>
+								<li><a href="welcomemessage.php">welcome message</a></li>
 							</ul>
 						</li>
-						<li class="dropdown"><a href="#" alt="Messaging">Messaging</a>
-							<ul style="left:145px;">
-								<li><a href="welcomemessage.php">Welcome Message</a></li>
-								<li><a href="messaging.php">Ad Hoc Message</a></li>
-							</ul>
-						</li>
-						<li><a href="rides.php" alt="Rides">Rides</a></li>
-						<li><a href="admin.php" alt="Admin">Admin</a></li>
-						<?php 	if($corpseckey!=""){?>
-							<li><a href="login.php?logoff=true" alt="Logoff">Logoff</a></li>
-							<?php } ?>
 
+						<li class="dropdown"><a href="#" alt="Analytics">analytics</a>
+							<ul style="left:120px;">
+								<li><a href="usagesummary.php">usage summary</a></li>
+								<li><a href="footprint.php">footprint analysis</a></li>
+								<li><a href="carpoolstudy.php">carpool report</a></li>
+								<li><a href="co2savings.php">co2 Savings</a></li>
+								<li><a href="funfacts.php">fun facts</a></li>
+							</ul>
+						</li>
+						<li><a href="howitworks.php" alt="Analytics">how it works</li>
+						<?php 	if($corpseckey!=""){?>
+							<li><a href="login.php?logoff=true" alt="Logoff">logoff</a></li>
+							<?php } else { ?>
+							<li><a href="login.php" alt="Login">login</a></li>
+							<?php } ?>
 					</ul>
 				</div>
 			</div>

@@ -323,13 +323,17 @@ $(document).ready(function()
 
 		function paintcampuslist(campusdata){
 		  
+			 c=0;
 			 var campuslist="";
 					 
 			 $.each(campusdata, function(key, value) {						
 				  campuslist=campuslist+"<div style='width:200px;float:left;'>"+value.campusname+"</div><img src=\"../images/trashcan.png\" style=\"width:16px;\" onclick=\"deletecampus('"+value.id+"');\" title=\"remove campus\"/><br>";  
+				  c++;
 				  });
 					   			 
-			   document.getElementById('campus_list').innerHTML=campuslist;
+			if(c==0){campuslist="No company locations have yet been entered";}
+			
+			document.getElementById('campus_list').innerHTML=campuslist;
 		  }
 		
 // this function is to add a campus 
