@@ -65,6 +65,14 @@ include 'header.php';
 	 
 						 <div class="charttitle">What about security and privacy?</div>
 						 <div class="charttext">Your employee data is 100% secure and private to your employees and will never be shared.  Simple. </div> 
+
+						 <br>
+						 <div class="charttitle">How does it work?</div>
+						 <div class="charttext">Checkout our how it works page and quick videos for getting setup.
+						 	<br><br><a href="howitworks.php" class="greenbutton">How it works ></a>
+						 </div>
+				
+				
 				</div>
 				<div class="right" style="width:360px;background-color:#eee;margin:30px 80px 0px 0px;padding:20px;">
 				   It takes just a few minutes to get started.

@@ -53,12 +53,9 @@ include 'header.php';
 			</div>
 		</section>
 
-<iframe id="loginiframe" src="" style="width:0px;height:0px;"/> 
-<script>
+<iframe id="loginiframe" src="" style="width:0px;height:0px;"></iframe> 
 
-</script>
+
 <?php 
 include 'footer.php';
 ?>
-
-</html>

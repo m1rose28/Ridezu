@@ -1065,8 +1065,9 @@ $(document).ready(function(){
 		if(localStorage.companylogo!="undefined"){
 			showcompanylogo();
 			}
+			
+		if(localStorage.companylogo==undefined){
 
-		if(localStorage.companylogo=="undefined"){
 			url="/ridezu/api/v/1/corp/get/corplogo/"+localStorage.company;
 			var request=$.ajax({
 				url: url,
@@ -1092,9 +1093,12 @@ $(document).ready(function(){
 			document.getElementById("corptitle").innerHTML="<h2>Improving the way</h2><h3>we get to work</h3><h4>convenient &#8226; economical &#8226; green</h4>";
 			return false;
 			}
-		else
-			{
+
+	    if(localStorage.msg==undefined && page=="Ridezu"){
 			document.getElementById("ridezunomics").style.display="block";
+			}
+
+	    if(localStorage.msg==undefined){
 			document.getElementById("cobrand").style.display="none";
 			}
 			

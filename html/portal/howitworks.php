@@ -63,7 +63,7 @@ color:#53b72c;
 						    	<a href="#load" class="plink">Watch the video ></a>
 						    </span>
 							<span style="position:absolute;left:115px;top:500px;width:550px;">
-								Last but not least, you'll want to let your employees know about the program.  We've created a simple tool where we can send an intro email to your employees or a you can do this directly via a special link that we'll give you. 
+								Last but not least, you'll want to let your employees know about the program.  We've created a simple tool where we can send an intro email to your employees.  You can also communicate directly by including a special link that we'll give to you. 
 								<a href="#message" class="plink">Watch the video ></a>   
 							</span>
 							
@@ -87,7 +87,12 @@ color:#53b72c;
 					<div class="video">
 						<iframe width="640" height="480" src="http://www.youtube.com/embed/EwjdOhQPbAs" frameborder="0" allowfullscreen></iframe>	
 					</div>
-				
+
+					<div class="charttitle">Ready, set, go</div>
+					<div class="charttext">Now that you've read the how it works section and watched out videos, why don't get you get started already?
+						 <br><br><a href="register.php" class="greenbutton">Register ></a>
+						 <br><br>
+					</div>			
 				</div>
 			</div>
 		</section>

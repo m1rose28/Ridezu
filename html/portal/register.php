@@ -47,7 +47,7 @@ include 'header.php';
 			</div>
 		</section>
 
-<iframe id="loginiframe" src="" style="width:0px;height:0px;"/> 
+<iframe id="loginiframe" src="" style="width:0px;height:0px;"></iframe>
 
 
 <?php 
