@@ -1,6 +1,6 @@
 			
 	  <section id="content" class="overflowhidden">
-			  <h2>You have <span id="usermatches"></span> people near your <span id="location"></span> that you could potentially commute with.<span id="ridersnearby"></span></h2>
+			  <h2><div id="matches"></div></h2>
 			  <img class="roundedbottom" id="mapa" src=""/>
 			  <div id="nearbyuserlist"></div>
 	  </section>

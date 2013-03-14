@@ -540,6 +540,7 @@
 				}
 
 			if(to=="congratp"){
+				p=congratp;
 				congratinit();
 				}
 
@@ -2013,6 +2014,13 @@
 					}
 			   
 			if(myinfo.destdesc!=undefined && myinfo.origindesc!=undefined){
+					var d = new Date();
+					x=d.getHours();
+					if(x>3 && x<12){x1="Good morning";}
+					if(x>11 && x<18){x1="Good afternoon";}
+					if(x>17 || x<4){x1="Good evening";}
+					x2="Ready to ride?  Let's go!";
+					document.getElementById('noridenote').innerHTML=x1+" "+myinfo.fname+".  "+x2;
 					document.getElementById('mr1').style.display="block";
 					document.getElementById('mr2').style.display="block";
 					}
@@ -2072,24 +2080,26 @@
 		function nearbyrides(location){		
 
 			   if(location==null){location="H";}
-				 
-			   if(myinfo.company==null){company="";}
-				 else {company=myinfo.company;}
-	 	 
+				 	 	 
 	 	 	   if(location=="W"){
 	 	 	   		document.getElementById('homebutton').style.display="block";	 	
 	 	 	   		document.getElementById('workbutton').style.display="none";	 	
-	 	 	   		document.getElementById('location').innerHTML="office";
+					xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.worklatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basecbmarker.png%7C"+myinfo.worklatlong+"&sensor=false";
 	 	 	   		}	 	
 
 	 	 	     else {
 	 	 	   		document.getElementById('workbutton').style.display="block";
 	 	 	   		document.getElementById('homebutton').style.display="none";
-	 	 	   		document.getElementById('location').innerHTML="home";	 	
+					xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
 					}
+			   document.getElementById('mapa').src=xstartlatlong;
 			   loading();
 			   fbid=myinfo.fbid;
-			   mrlist="";		  
+			   mrlist="";
+			   
+			   if(myinfo.company==""){company="na";}
+			   	else {company=myinfo.company;}		  
+			   
 			   url="/ridezu/api/v/1/users/search/nearby/fbid/"+fbid+"/location/"+location+"/company/"+company+"/go";
 			 
 			   $.ajax({
@@ -2109,11 +2119,10 @@
 		  
 			 fbid=myinfo.fbid;
 			 count=mrlist.length;
-			 document.getElementById('usermatches').innerHTML=count;	 		  		  
-			 xstartlatlong="https://maps.googleapis.com/maps/api/staticmap?center="+myinfo.homelatlong+"&zoom=13&size="+mw+"x150&maptype=roadmap&markers=icon:http://www.ridezu.com/images/basehmarker.png%7C"+myinfo.homelatlong+"&sensor=false";
-			 document.getElementById('mapa').src=xstartlatlong;
+			 if(location=="H"){locationtext="home";}
+			 	else {locationtext="office";}
    
-			 if(count>0){
+   			 if(count>0){
 				 personlist="<ul>";
 				 $.each(mrlist, function(key, value) { 
 
@@ -2126,9 +2135,15 @@
 	 
 				 });
 				 personlist=personlist+"</ul>";
+				 x="People near your "+locationtext+" that you could potentially commute with: "+count;
 				 document.getElementById("nearbyuserlist").innerHTML=personlist;
 				}
+			
+			if(count==undefined){
+				x="Rats, it doesn't look like there is anyone near your "+locationtext+" that you could carpool with yet. We're working hard on this and as soon as we do we'll let you know!";
+				}
 
+			document.getElementById('matches').innerHTML=x;	 		  		  
 		  	}	  
 
 		  

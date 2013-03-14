@@ -1,10 +1,10 @@
 		<footer>
 			<div class="corpwrapper">
 				<ul id="corpfootermenu">
-					<li><a href="about.php" alt="About">about</a></li>
-					<li><a href="faq.php" alt="Faq">faq</a></li>
-					<li><a href="safety.php" alt="Safety">safety</a></li>
-					<li><a href="contact.php" alt="Contact Us">contact us</a></li>
+					<li><a href="../about.php" alt="About">about</a></li>
+					<li><a href="../faq.php" alt="Faq">faq</a></li>
+					<li><a href="../safety.php" alt="Safety">safety</a></li>
+					<li><a href="../contact.php" alt="Contact Us">contact us</a></li>
 					<li><a href="../portal/corpsolutions.php" alt="Contact Us">corporate solutions</a></li>
 					<li><a href="../portal/login.php" alt="Contact Us">admin login</a></li>
 				</ul>

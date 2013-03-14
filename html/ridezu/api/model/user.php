@@ -503,6 +503,8 @@ function addUser()
 	if( $location == 'W'){
 	 $colname = "worklatlong";
 	}
+	
+	if($company=="na"){$company="";}
   
     $sql = "SELECT SUBSTRING($colname, 1, LOCATE(',', $colname) - 1) as lat,
        SUBSTRING($colname, LOCATE(',', $colname) + 1) as lon, fbid from userprofile WHERE fbid='".$fbid."'";

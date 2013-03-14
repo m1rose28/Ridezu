@@ -72,7 +72,7 @@ textarea {
    				
 				<div id="noride" style="display:none;">
  					<section id="content">
-						<h2 id="noridenote">Looks like you don't have any upcoming rides.<br><br></h2>
+						<h2 id="noridenote"><br><br></h2>
 					</section>
 
    					<input id="mr1" type="submit" onclick="nav('myridesp','riderequestp');" data-role="none" class="primarybutton" value="Request a ride" style="display:none;"/>

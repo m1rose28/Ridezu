@@ -16,10 +16,6 @@
 						<div class="faq-content"> 
 							<p>Yes.  Ridezu is designed for working professionals who need to get to and from their office on a daily basis.  We show you key details of riders and drivers from their Facebook profiles so you feel like you’re getting to know them before you take a ride.  Riders and Drivers are also ranked and scored by the community on important attributes like timeliness, consistency, and more.</p>
 						</div> 
-						<h2 class="faq-header arvo">Do you have an iPhone app yet?</h2> 
-						<div class="faq-content"> 
-							<p>You can use Ridezu on your iPhone and we're working on the native iOS app.  Stay tuned - it will be out shortly.</p> 
-						</div> 
 						<h2>Basics for Driving</h2>
 						<h2 class="faq-header arvo">Do I pick up people at their homes?</h2> 
 						<div class="faq-content"> 

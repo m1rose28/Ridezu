@@ -1,3 +1,4 @@
+<div style="height:370px;">
 	<section id="content">
 		<h2 class="last">Congratulations, you're now signed up for Ridezu!  Plus as a special bonus we've credited your account with $10.</b>
 		<br/><br/>
@@ -12,3 +13,4 @@
 		<input type="button" onclick="nav('congratp','calcp');" data-role="none" class="primarybutton" value="Ridezunomics"/>
 		<input type="button" id="myr" onclick="nav('congratp','myridesp');" data-role="none" style="display:none;" class="primarybutton" value="My Rides"/>
 	</section>
+</div>

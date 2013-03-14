@@ -989,7 +989,7 @@ $(document).ready(function(){
 // this function shows the company logo
 
 		function showcompanylogo(){
-			if(localStorage.companylogo!="undefined"){
+			if(localStorage.companylogo!=undefined){
 				document.getElementById("cobrand").src="https://ridezu.s3.amazonaws.com/"+localStorage.companylogo;
 				document.getElementById("cobrand").style.display="inline";
 				}
